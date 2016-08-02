@@ -1,16 +1,17 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+import VueRouter from 'vue-router'
 
 import './index.css'
-import RootView from './views/root'
 
 Vue.use(VueResource)
+Vue.use(VueRouter)
 Vue.http.options.crossOrigin = true
 
-new Vue({
-  el: 'body',
-  components: {
-    // entry point
-    'eg-root': RootView,
-  },
+const RootView = Vue.extend(require('./views/root'))
+const router   = new VueRouter({
+	hashbang: true,
 })
+
+router.map(require('./configs/routes'))
+router.start(RootView, '.eg-root')

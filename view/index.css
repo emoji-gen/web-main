@@ -5,35 +5,6 @@ html, body {
   padding: 0;
 }
 
-.root {
-  position: relative;
-  margin: 0;
-  padding: 0;
-}
-
-header {
-  position: relative;
-  box-sizing: border-box;
-  height: 74px;
-  z-index: 1;
-  background-color: rgba(255, 255, 255, 0.7);
-  background-image: url("/static/emoji.png");
-  background-repeat: no-repeat;
-  background-size: 30px auto;
-  background-position: 33px center;
-  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);
-}
-
-h1 {
-  display: inline;
-  position: absolute;
-  left: 88px;
-  bottom: 12px;
-  font-size: 18px;
-  font-weight: bold;
-  letter-spacing: 6px;
-  color: rgb(80, 80, 80);
-}
 
 .content {
   display: flex;
@@ -62,24 +33,6 @@ h2 {
   letter-spacing: 1px;
   text-align: center;
   color: #1EBAA0;
-}
-
-footer {
-  position: absolute;
-  top: 1085px;
-  left: 0;
-  right: 0;
-  height: 50px;
-  background-color: rgba(255, 255, 255, 0.7);
-  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);
-}
-
-footer p {
-  margin: 0;
-  line-height: 50px;
-  color: rgb(140, 140, 140);
-  font-size: 12px;
-  text-align: center;
 }
 
 .lines {

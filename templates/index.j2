@@ -2,13 +2,13 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
     <style> [v-cloak] { display: none } </style>
     <title>Slack 絵文字 ジェネレーター</title>
   </head>
   <body>
-    <eg-root v-cloak></eg-root>
-    <script src="{{ url_for('static', filename='bundle.js') }}"></script>
+    <div class="v-cloak eg-root"></div>
+    <script src="{{ url_for('static', filename='js/bundle.js') }}"></script>
   </body>
 </html>

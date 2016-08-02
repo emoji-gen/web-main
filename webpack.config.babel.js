@@ -6,7 +6,7 @@ module.exports = {
   context: __dirname,
   entry: path.join(__dirname, 'view/index.js'),
   output: {
-    filename: 'static/bundle.js',
+    filename: 'static/js/bundle.js',
   },
   module: {
     loaders: [
@@ -24,7 +24,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new WebpackNotifierPlugin(),
+    new WebpackNotifierPlugin({ alwaysNotify: true }),
   ],
   resolve: {
     extensions: ['', '.js', '.json'],
