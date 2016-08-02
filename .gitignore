@@ -90,3 +90,7 @@ ENV/
 
 # Mac
 .DS_Store
+
+# Node
+node_modules
+npm-debug.log*

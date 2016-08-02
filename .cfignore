@@ -1,9 +1,14 @@
+# git
 .git
 .editorconfig
 .gitignore
 
-LICENSE
-README.md
-
 # venv
 venv
+
+# Node
+node_modules
+
+# project
+LICENSE
+README.md
