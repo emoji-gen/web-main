@@ -94,3 +94,6 @@ ENV/
 # Node
 node_modules
 npm-debug.log*
+
+# project
+!view/parts
