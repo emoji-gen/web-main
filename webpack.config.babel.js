@@ -1,12 +1,13 @@
 import path from 'path'
 import webpack from 'webpack'
 import WebpackNotifierPlugin from 'webpack-notifier'
+import UnminifiedWebpackPlugin from 'unminified-webpack-plugin'
 
 module.exports = {
   context: __dirname,
   entry: path.join(__dirname, 'view/index.js'),
   output: {
-    filename: 'static/js/bundle.js',
+    filename: 'static/js/bundle.min.js',
   },
   module: {
     loaders: [
@@ -24,6 +25,10 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false }
+    }),
+    new UnminifiedWebpackPlugin(),
     new WebpackNotifierPlugin({ alwaysNotify: true }),
   ],
   resolve: {
