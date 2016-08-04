@@ -71,7 +71,7 @@
 		hashbang: true
 	});
 	
-	router.map(__webpack_require__(21));
+	router.map(__webpack_require__(25));
 	router.start(RootView, '.eg-root');
 
 /***/ },
@@ -14358,7 +14358,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body,html{margin:0;padding:0}.content{display:-webkit-box;display:-ms-flexbox;display:flex;height:1000px}.content .content-spacer{width:300px}.content .content-inner{-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto}.generator{margin:30px 30px 30px 0;padding:20px;height:800px;background:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2)}h2{font-size:18px;font-weight:700;letter-spacing:1px;text-align:center;color:#1ebaa0}.lines{position:absolute;top:0;right:0;left:0;box-sizing:border-box;height:1135px;overflow:hidden;z-index:-1}.line-blue{top:100px;left:-30px;width:800px;background-color:#6fcbdd}.line-blue,.line-red{position:absolute;height:10px;opacity:.4;-webkit-transform:rotate(-18deg);transform:rotate(-18deg)}.line-red{top:170px;left:-50px;width:1250px;background-color:#e11665}.line-green{left:200px;background-color:#38ba91}.line-green,.line-yellow{position:absolute;top:-30px;width:10px;height:1200px;opacity:.4;-webkit-transform:rotate(-18deg);transform:rotate(-18deg)}.line-yellow{left:330px;background-color:#eaa822}", ""]);
+	exports.push([module.id, "body,html{margin:0;padding:0}.content{display:-webkit-box;display:-ms-flexbox;display:flex;height:1000px}.content .content-spacer{width:300px}.content .content-inner{-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto}.generator{margin:30px 30px 30px 0;padding:20px;height:800px;background:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2)}h2{font-size:18px;font-weight:700;letter-spacing:1px;text-align:center;color:#1ebaa0}", ""]);
 	
 	// exports
 
@@ -14689,8 +14689,9 @@
 	  name: 'eg-root',
 	  template: __webpack_require__(12),
 	  components: {
-	    'eg-header': __webpack_require__(13),
-	    'eg-footer': __webpack_require__(17)
+	    'eg-background': __webpack_require__(13),
+	    'eg-footer': __webpack_require__(17),
+	    'eg-header': __webpack_require__(21)
 	  }
 	};
 
@@ -14738,7 +14739,7 @@
 /* 12 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-root\"> <eg-header></eg-header> <router-view></router-view> <eg-footer></eg-footer> </div>";
+	module.exports = "<div class=\"v-cloak eg-root\"> <eg-header></eg-header> <router-view></router-view> <eg-background></eg-background> <eg-footer></eg-footer> </div>";
 
 /***/ },
 /* 13 */
@@ -14749,7 +14750,7 @@
 	__webpack_require__(14);
 	
 	module.exports = {
-	  name: 'eg-header',
+	  name: 'eg-background',
 	  template: __webpack_require__(16)
 	};
 
@@ -14788,7 +14789,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".eg-header,.eg-header *{box-sizing:border-box}.eg-header header{position:relative;height:74px;z-index:1;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 3px 1px rgba(0,0,0,.2)}.eg-header header h1{display:inline;position:absolute;left:92px;bottom:12px;font-size:18px;font-weight:700;letter-spacing:6px;color:#505050}.eg-header header:before{display:block;position:absolute;top:0;bottom:0;left:33px;right:0;width:40px;-webkit-transform:rotate(-18deg);transform:rotate(-18deg);background-image:url('/static/img/logo128.png');background-size:40px auto;background-repeat:no-repeat;background-position:0;content:''}", ""]);
+	exports.push([module.id, ".eg-background{position:absolute;top:0;right:0;left:0;box-sizing:border-box;height:1135px;overflow:hidden;z-index:-1}.eg-background .blue{top:100px;left:-30px;width:800px;background-color:#6fcbdd}.eg-background .blue,.eg-background .red{position:absolute;height:10px;opacity:.4;-webkit-transform:rotate(-18deg);transform:rotate(-18deg)}.eg-background .red{top:170px;left:-50px;width:1250px;background-color:#e11665}.eg-background .green{left:200px;background-color:#38ba91}.eg-background .green,.eg-background .yellow{position:absolute;top:-30px;width:10px;height:1200px;opacity:.4;-webkit-transform:rotate(-18deg);transform:rotate(-18deg)}.eg-background .yellow{left:330px;background-color:#eaa822}", ""]);
 	
 	// exports
 
@@ -14797,7 +14798,7 @@
 /* 16 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-header\"> <header> <h1>絵文字 ジェネレーター</h1> </header> </div>";
+	module.exports = "<div class=\"v-cloak eg-background\"> <div class=blue></div> <div class=red></div> <div class=green></div> <div class=yellow></div> </div>";
 
 /***/ },
 /* 17 */
@@ -14864,39 +14865,21 @@
 
 	'use strict';
 	
+	__webpack_require__(22);
+	
 	module.exports = {
-	  '/': {
-	    component: __webpack_require__(22)
-	  }
+	  name: 'eg-header',
+	  template: __webpack_require__(24)
 	};
 
 /***/ },
 /* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	var _vue = __webpack_require__(1);
-	
-	var _vue2 = _interopRequireDefault(_vue);
-	
-	__webpack_require__(23);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	module.exports = {
-	  name: 'eg-home',
-	  template: __webpack_require__(25)
-	};
-
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(24);
+	var content = __webpack_require__(23);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -14916,7 +14899,84 @@
 	}
 
 /***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(7)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".eg-header,.eg-header *{box-sizing:border-box}.eg-header header{position:relative;height:74px;z-index:1;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 3px 1px rgba(0,0,0,.2)}.eg-header header h1{display:inline;position:absolute;left:92px;bottom:12px;font-size:18px;font-weight:700;letter-spacing:6px;color:#505050}.eg-header header:before{display:block;position:absolute;top:0;bottom:0;left:33px;right:0;width:40px;-webkit-transform:rotate(-18deg);transform:rotate(-18deg);background-image:url('/static/img/logo128.png');background-size:40px auto;background-repeat:no-repeat;background-position:0;content:''}", ""]);
+	
+	// exports
+
+
+/***/ },
 /* 24 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"v-cloak eg-header\"> <header> <h1>絵文字 ジェネレーター</h1> </header> </div>";
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	module.exports = {
+	  '/': {
+	    component: __webpack_require__(26)
+	  }
+	};
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _vue = __webpack_require__(1);
+	
+	var _vue2 = _interopRequireDefault(_vue);
+	
+	__webpack_require__(27);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	module.exports = {
+	  name: 'eg-home',
+	  template: __webpack_require__(29)
+	};
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(28);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -14930,10 +14990,10 @@
 
 
 /***/ },
-/* 25 */
+/* 29 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=content> <div class=content-spacer></div> <div class=content-inner> <div class=generator> <h2>絵文字にしたい文字を入力してください！</h2> </div> </div> </div> <div class=lines> <div class=line-blue></div> <div class=line-red></div> <div class=line-green></div> <div class=line-yellow></div> </div>";
+	module.exports = "<div class=content> <div class=content-spacer></div> <div class=content-inner> <div class=generator> <h2>絵文字にしたい文字を入力してください！</h2> </div> </div> </div>";
 
 /***/ }
 /******/ ]);

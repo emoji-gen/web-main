@@ -1,0 +1,59 @@
+@import "../../defs/import";
+
+$eg-background--opacity: 0.4;
+
+.eg-background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  box-sizing: border-box;
+  height: 1135px;
+  overflow: hidden;
+  z-index: -1;
+
+  .blue {
+    position: absolute;
+    top: 100px;
+    left: -30px;
+    width: 800px;
+    height: 10px;
+    background-color: #6FCBDD;
+    opacity: $eg-background--opacity;
+    transform: rotate($slack-rotate-left);
+  }
+
+  .red {
+    position: absolute;
+    top: 170px;
+    left: -50px;
+    width: 1250px;
+    height: 10px;
+    background-color: #E11665;
+    opacity: $eg-background--opacity;
+    transform: rotate($slack-rotate-left);
+  }
+
+
+  .green {
+    position: absolute;
+    top: -30px;
+    left: 200px;
+    width: 10px;
+    height: 1200px;
+    background-color: #38BA91;
+    opacity: $eg-background--opacity;
+    transform: rotate($slack-rotate-left);
+  }
+
+  .yellow {
+    position: absolute;
+    top: -30px;
+    left: 330px;
+    width: 10px;
+    height: 1200px;
+    background-color: #EAA822;
+    opacity: $eg-background--opacity;
+    transform: rotate($slack-rotate-left);
+  }
+}
