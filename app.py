@@ -20,11 +20,11 @@ def index():
 @app.route('/emoji')
 def emoji():
     global cache
-    font = request.args.get("font", default='NotoSansCJKjp-hinted/NotoSansMonoCJKjp-Bold.otf', type=str)
+    font = request.args.get("font", default='NotoSansMonoCJKjp-Bold.otf', type=str)
     text = request.args.get("text", default='test', type=str)
     color = request.args.get("color", default='000000', type=str)
     if font is False:
-        font = 'NotoSansCJKjp-hinted/NotoSansMonoCJKjp-Bold.otf'
+        font = 'NotoSansMonoCJKjp-Bold.otf'
     if text is False:
         text = ' '
     if color is False:
@@ -36,7 +36,7 @@ def emoji():
     cache_id = hashlib.md5(hash_text.encode('utf-8')).hexdigest()
     img_png = cache.get(cache_id)
     if img_png is None:
-        emoji = String2emoji(text.splitlines(), font,(r,g,b))
+        emoji = String2emoji(text.splitlines(),'assets/fonts/' + font,(r,g,b))
         img = emoji.getEmoji()
         output = io.BytesIO()
         img.save(output,format='png')
