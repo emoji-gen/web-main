@@ -1,0 +1,21 @@
+@import "../../defs/import";
+
+.eg-footer {
+  footer {
+    position: absolute;
+    top: 1085px;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background-color: $bar-background-color;
+    box-shadow: 0px 0px 3px 1px $bar-box-shadow-color;
+
+    p {
+      margin: 0;
+      line-height: 50px;
+      color: rgb(140, 140, 140);
+      font-size: $font-size-xsmall;
+      text-align: center;
+    }
+  }
+}

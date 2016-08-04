@@ -1,0 +1,44 @@
+@import "../../defs/import";
+
+$root-header-logo-size: 40px;
+
+.eg-header {
+  &, * {
+    box-sizing: border-box;
+  }
+
+  header {
+    position: relative;
+    height: $root-header-height;
+    z-index: 1;
+    background-color: $bar-background-color;
+    box-shadow: 0px 0px 3px 1px $bar-box-shadow-color;
+
+    &::before {
+      display: block;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 33px;
+      right: 0;
+      width: $root-header-logo-size;
+      transform: rotate($slack-rotate-left);
+      background-image: url('/static/img/logo128.png');
+      background-size: $root-header-logo-size auto;
+      background-repeat: no-repeat;
+      background-position: 0px center;
+      content: '';
+    }
+
+    h1 {
+      display: inline;
+      position: absolute;
+      left: 92px;
+      bottom: 12px;
+      font-size: $font-size-xlarge;
+      font-weight: bold;
+      letter-spacing: 6px;
+      color: $root-header-color;
+    }
+  }
+}
