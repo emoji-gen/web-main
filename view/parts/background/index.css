@@ -8,7 +8,7 @@ $eg-background--opacity: 0.4;
   right: 0;
   left: 0;
   box-sizing: border-box;
-  height: 1135px;
+  height: $root-height;
   overflow: hidden;
   z-index: -1;
 

@@ -1,11 +1,16 @@
+/* fonts */
 $font-size-xlarge: 18px;
 $font-size-xsmall: 12px;
 
+/* colors */
+$bar-box-shadow-color: rgba(0, 0, 0, 0.2);
+$bar-background-color: rgba(255, 255, 255, 0.7);
+
+/* degree */
 $slack-rotate-left: -18deg;
 $slack-rotate-right: 18deg;
 
-$root-header-height: 74px;
-$root-header-color: rgb(80, 80, 80);
+/* components */
+$root-height: 1135px;
 
-$bar-box-shadow-color: rgba(0, 0, 0, 0.2);
-$bar-background-color: rgba(255, 255, 255, 0.7);
+

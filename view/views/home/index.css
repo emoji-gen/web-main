@@ -1,0 +1,28 @@
+.eg-home {
+  display: flex;
+  height: 1000px;
+
+  .content-spacer {
+    width: 300px;
+  }
+
+  .content-inner {
+    flex: 1 1 auto;
+  }
+
+  .generator {
+    margin: 30px 30px 30px 0;
+    padding: 20px;
+    height: 800px;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow:0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+  }
+
+  h2 {
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #1EBAA0;
+  }
+}

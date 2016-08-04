@@ -14358,7 +14358,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body,html{margin:0;padding:0}.content{display:-webkit-box;display:-ms-flexbox;display:flex;height:1000px}.content .content-spacer{width:300px}.content .content-inner{-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto}.generator{margin:30px 30px 30px 0;padding:20px;height:800px;background:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2)}h2{font-size:18px;font-weight:700;letter-spacing:1px;text-align:center;color:#1ebaa0}", ""]);
+	exports.push([module.id, "body,html{margin:0;padding:0}", ""]);
 	
 	// exports
 
@@ -14984,7 +14984,7 @@
 	
 	
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".eg-home{display:-webkit-box;display:-ms-flexbox;display:flex;height:1000px}.eg-home .content-spacer{width:300px}.eg-home .content-inner{-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto}.eg-home .generator{margin:30px 30px 30px 0;padding:20px;height:800px;background:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2)}.eg-home h2{font-size:18px;font-weight:700;letter-spacing:1px;text-align:center;color:#1ebaa0}", ""]);
 	
 	// exports
 
@@ -14993,7 +14993,7 @@
 /* 29 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=content> <div class=content-spacer></div> <div class=content-inner> <div class=generator> <h2>絵文字にしたい文字を入力してください！</h2> </div> </div> </div>";
+	module.exports = "<div class=\"v-cloak eg-home\"> <div class=content-spacer></div> <div class=content-inner> <div class=generator> <h2>絵文字にしたい文字を入力してください！</h2> </div> </div> </div>";
 
 /***/ }
 /******/ ]);
