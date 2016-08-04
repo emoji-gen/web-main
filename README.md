@@ -17,18 +17,7 @@ $ pip install -r requirements.txt
 $ python app.py
 ```
 
-### Frontend
-
-```
-$ node -v
-v4.4.7
-
-$ npm install
-$ npm start     # for development
-$ npm run build # for production
-```
-
-### venv
+#### venv
 
 It is recommended that you use the venv.
 
@@ -41,6 +30,17 @@ $ source venv/bin/activate
 ...
 
 $ deactivate # exit
+```
+
+### Frontend
+
+```
+$ node -v
+v4.4.7
+
+$ npm install
+$ npm start     # for development
+$ npm run build # for production
 ```
 
 ## License
