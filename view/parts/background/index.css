@@ -1,6 +1,6 @@
 @import "../../defs/import";
 
-$eg-background--opacity: 0.4;
+$_opacity: 0.4;
 
 .eg-background {
   position: absolute;
@@ -8,7 +8,7 @@ $eg-background--opacity: 0.4;
   right: 0;
   left: 0;
   box-sizing: border-box;
-  height: $root-height;
+  height: $dimen-root-height;
   overflow: hidden;
   z-index: -1;
 
@@ -18,8 +18,8 @@ $eg-background--opacity: 0.4;
     left: -30px;
     width: 800px;
     height: 10px;
-    background-color: #6FCBDD;
-    opacity: $eg-background--opacity;
+    background-color: $color-blue;
+    opacity: $_opacity;
     transform: rotate($slack-rotate-left);
   }
 
@@ -29,8 +29,8 @@ $eg-background--opacity: 0.4;
     left: -50px;
     width: 1250px;
     height: 10px;
-    background-color: #E11665;
-    opacity: $eg-background--opacity;
+    background-color: $color-red;
+    opacity: $_opacity;
     transform: rotate($slack-rotate-left);
   }
 
@@ -41,8 +41,8 @@ $eg-background--opacity: 0.4;
     left: 200px;
     width: 10px;
     height: 1200px;
-    background-color: #38BA91;
-    opacity: $eg-background--opacity;
+    background-color: $color-green;
+    opacity: $_opacity;
     transform: rotate($slack-rotate-left);
   }
 
@@ -52,8 +52,8 @@ $eg-background--opacity: 0.4;
     left: 330px;
     width: 10px;
     height: 1200px;
-    background-color: #EAA822;
-    opacity: $eg-background--opacity;
+    background-color: $color-yellow;
+    opacity: $_opacity;
     transform: rotate($slack-rotate-left);
   }
 }

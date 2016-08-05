@@ -1,0 +1,35 @@
+@import "../../defs/import";
+
+.eg-recently {
+  margin: 30px auto 30px auto;
+  padding: 20px 20px 40px 20px;
+  width: 900px;
+  background-color: $background-color-white;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+
+  h2 {
+    @mixin box-heading;
+  }
+}
+
+.carousel {
+  background: #EEE;
+}
+
+.carousel-cell {
+  width: 128px;
+  height: 128px;
+  margin-right: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  counter-increment: carousel-cell;
+}
+
+.carousel-cell:before {
+  display: block;
+  text-align: center;
+  content: counter(carousel-cell);
+  line-height: 128px;
+  font-size: 60px;
+  color: white;
+}

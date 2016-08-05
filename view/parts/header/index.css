@@ -1,8 +1,8 @@
 @import "../../defs/import";
 
-$eg-header--height: 74px;
-$eg-header--color: rgb(80, 80, 80);
-$eg-header--logo-size: 40px;
+$_height: $dimen-header-height;
+$_color: rgb(80, 80, 80);
+$_logo-size: 40px;
 
 .eg-header {
   &, * {
@@ -11,9 +11,9 @@ $eg-header--logo-size: 40px;
 
   header {
     position: relative;
-    height: $eg-header--height;
+    height: $_height;
     z-index: 1;
-    background-color: $bar-background-color;
+    background-color: $background-color-white;
     box-shadow: 0px 0px 3px 1px $bar-box-shadow-color;
 
     &::before {
@@ -23,10 +23,10 @@ $eg-header--logo-size: 40px;
       bottom: 0;
       left: 33px;
       right: 0;
-      width: $eg-header--logo-size;
+      width: $_logo-size;
       transform: rotate($slack-rotate-left);
       background-image: url('/static/img/logo128.png');
-      background-size: $eg-header--logo-size auto;
+      background-size: $_logo-size auto;
       background-repeat: no-repeat;
       background-position: 0px center;
       content: '';
@@ -35,12 +35,12 @@ $eg-header--logo-size: 40px;
     h1 {
       display: inline;
       position: absolute;
-      left: 92px;
+      left: 98px;
       bottom: 12px;
       font-size: $font-size-xlarge;
       font-weight: bold;
       letter-spacing: 6px;
-      color: $eg-header--color;
+      color: $_color;
     }
   }
 }

@@ -1,0 +1,110 @@
+@import "../../defs/import";
+
+
+@define-mixin _parameter {
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .15);
+}
+
+.eg-generator {
+  margin: 30px auto 30px auto;
+  padding: 20px;
+  width: 900px;
+  height: 450px;
+  background-color: $background-color-white;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+
+  h2 {
+    margin: 18px 0 24px;
+    font-size: $font-size-large;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
+    color: #1EBAA0;
+  }
+
+  h3 {
+    display: block;
+    margin: 0 0 16px;
+    font-size: $font-size-medium;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
+    color: $color-blue;
+  }
+
+  .parameters {
+    display: flex;
+    justify-content: center;
+
+    .parameter {
+      margin: 20px 20px 0;
+      text-align: center;
+
+      &.text {
+        textarea {
+          @mixin _parameter;
+          margin: 0 0 50px 0;
+          padding: 10px;
+          border: 0;
+          border-radius: 8px;
+          width: 140px;
+          height: 100px;
+        }
+      }
+
+      &.color {
+        > div {
+          @mixin _parameter;
+          border-radius: 2px;
+        }
+      }
+
+      &.font {
+        ul {
+          margin: 0;
+          padding: 0;
+          list-style-type: none;
+          list-style-position: inside;
+        }
+
+        input {
+          display: none;
+
+          &:checked + label {
+            background-color: color($color-blue a(0.7));
+            background-image: url(/static/img/checked.png);
+            background-repeat: no-repeat;
+            background-position: 12px center;
+            color: #fff;
+          }
+        }
+
+        label {
+          display: block;
+          margin: 1px 0;
+          padding: 5px 20px 5px 40px;
+          border-radius: 12px;
+          color: rgba(0, 0, 0, 0.7);
+          font-size: $font-size-medium;
+          user-select: none;
+        }
+      }
+
+      &.preview {
+        button {
+          background-color: color($color-yellow a(0.3));
+        }
+
+        .image {
+          display: block;
+          margin: 20px 0 0 0;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          width: $dimen-emoji-size;
+          height: $dimen-emoji-size;
+          background-color: rgba(0, 0, 0, 0.05);
+        }
+      }
+    }
+  }
+}
+

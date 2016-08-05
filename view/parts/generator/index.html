@@ -1,0 +1,32 @@
+<div class="v-cloak eg-generator">
+  <h2>絵文字にしたい文字を入力してください！</h2>
+
+  <div class="parameters">
+    <div class="parameter text">
+      <h3>テキスト</h3>
+      <textarea rows="2" cols="10"></textarea>
+
+    </div>
+
+    <div class="parameter color">
+      <h3>文字の色</h3>
+      <sketch-picker :colors.sync="colors"></sketch-picker>
+    </div>
+
+    <div class="parameter font">
+      <h3>フォント</h3>
+      <ul>
+        <li v-for="font in fonts">
+          <input type="radio" name="eg_generator__font_key" id="eg_generator__font_{{font.key}}">
+          <label for="eg_generator__font_{{font.key}}">{{font.name}}</label>
+        </li>
+      </ul>
+    </div>
+
+    <div class="parameter preview">
+      <h3>生成画像</h3>
+      <button type="button" class="pure-button">生成する！</button>
+      <div class="image"></div>
+    </div>
+  </div>
+</div>

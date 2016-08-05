@@ -1,0 +1,10 @@
+@import "./variables";
+
+@define-mixin box-heading {
+  margin: 18px 0 24px;
+  font-size: $font-size-large;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #1EBAA0;
+}

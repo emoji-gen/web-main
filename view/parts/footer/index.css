@@ -1,13 +1,19 @@
 @import "../../defs/import";
 
+$_top: calc($dimen-root-height - $dimen-footer-height);
+$_height: $dimen-footer-height;
+
 .eg-footer {
+  position: absolute;
+  top: $_top;
+  left: 0;
+  right: 0;
+  height: $_height;
+
   footer {
-    position: absolute;
-    top: 1085px;
-    left: 0;
-    right: 0;
-    height: 50px;
-    background-color: $bar-background-color;
+    width: 100%;
+    height: $_height;
+    background-color: $background-color-white;
     box-shadow: 0px 0px 3px 1px $bar-box-shadow-color;
 
     p {
