@@ -25,7 +25,7 @@ $_logo-size: 40px;
       right: 0;
       width: $_logo-size;
       transform: rotate($slack-rotate-left);
-      background-image: url('/static/img/logo128.png');
+      background-image: url('/static/img/logo.png');
       background-size: $_logo-size auto;
       background-repeat: no-repeat;
       background-position: 0px center;
