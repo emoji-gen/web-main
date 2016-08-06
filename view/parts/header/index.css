@@ -21,7 +21,7 @@ $_logo-size: 40px;
       position: absolute;
       top: 0;
       bottom: 0;
-      left: 33px;
+      left: 60px;
       right: 0;
       width: $_logo-size;
       transform: rotate($slack-rotate-left);
@@ -35,12 +35,52 @@ $_logo-size: 40px;
     h1 {
       display: inline;
       position: absolute;
-      left: 98px;
+      left: 124px;
       bottom: 12px;
       font-size: $font-size-xlarge;
       font-weight: bold;
       letter-spacing: 6px;
       color: $_color;
+    }
+
+    .icons {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      right: 60px;
+      bottom: 0;
+
+      input, a {
+        display: block;
+        margin: 0 0 0 12px;
+        border: 0;
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        background-size: $_logo-size auto;
+        background-repeat: no-repeat;
+        background-position: 0px center;
+        overflow: hidden;
+        text-indent: 100%;
+        white-space: nowrap;
+
+        &.twitter {
+          background-image: url('/static/img/twitter.png');
+          opacity: .85;
+        }
+
+        &.facebook {
+          background-image: url('/static/img/facebook.png');
+          opacity: .85;
+        }
+
+        &.github {
+          background-image: url('/static/img/github.png');
+          opacity: .70;
+        }
+      }
     }
   }
 }

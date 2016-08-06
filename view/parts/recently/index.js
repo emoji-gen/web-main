@@ -1,5 +1,5 @@
-import Flickity from 'flickity'
 import 'flickity/css/flickity.css'
+import Flickity from 'flickity'
 
 import './index.css'
 

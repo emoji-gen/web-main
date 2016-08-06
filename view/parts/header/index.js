@@ -1,3 +1,4 @@
+import 'sharer.js'
 import './index.css'
 
 module.exports = {

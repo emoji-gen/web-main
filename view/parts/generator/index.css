@@ -1,23 +1,26 @@
 @import "../../defs/import";
 
-
 @define-mixin _parameter {
   box-shadow: 0 0 1px 1px rgba(0, 0, 0, .15);
+  border-radius: 2px;
 }
 
 .eg-generator {
   margin: 30px auto 30px auto;
-  padding: 20px;
+  padding: 20px 0 35px;
   width: 900px;
-  height: 450px;
   background-color: $background-color-white;
-  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, .2);
+
+  &, * {
+    box-sizing: border-box;
+  }
 
   h2 {
     margin: 18px 0 24px;
     font-size: $font-size-large;
     font-weight: bold;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     text-align: center;
     color: #1EBAA0;
   }
@@ -32,12 +35,31 @@
     color: $color-blue;
   }
 
+
+  .buttons {
+    margin-top: 50px;
+    text-align: center;
+
+    button {
+      padding: 12px 60px;
+      border-radius: 12px;
+      background-color: color($color-red a(.50));
+      background-image: none !important;
+      color: white;
+
+      &:hover, &:focus {
+        background-color: color($color-red a(.75));
+      }
+    }
+  }
+
   .parameters {
     display: flex;
     justify-content: center;
+    margin: 42px 0 0;
 
     .parameter {
-      margin: 20px 20px 0;
+      margin: 0 38px 0;
       text-align: center;
 
       &.text {
@@ -46,16 +68,17 @@
           margin: 0 0 50px 0;
           padding: 10px;
           border: 0;
-          border-radius: 8px;
           width: 140px;
           height: 100px;
+          text-align: center;
         }
       }
 
       &.color {
+        margin-right: 32px;
+
         > div {
           @mixin _parameter;
-          border-radius: 2px;
         }
       }
 
@@ -63,45 +86,47 @@
         ul {
           margin: 0;
           padding: 0;
-          list-style-type: none;
-          list-style-position: inside;
+
+          li {
+            list-style-type: none;
+            list-style-position: inside;
+          }
         }
 
         input {
           display: none;
 
           &:checked + label {
-            background-color: color($color-blue a(0.7));
+            border: 1px solid color($color-blue a(.7) blackness(30%));
+            background-color: color($color-blue a(.7));
             background-image: url(/static/img/checked.png);
             background-repeat: no-repeat;
-            background-position: 12px center;
+            background-position: 14px center;
             color: #fff;
           }
         }
 
         label {
           display: block;
-          margin: 1px 0;
-          padding: 5px 20px 5px 40px;
-          border-radius: 12px;
-          color: rgba(0, 0, 0, 0.7);
+          margin: 0 0 5px;
+          padding: 8px 23px 8px 46px;
+          border-radius: 16px;
+          border: 1px solid rgba(0, 0, 0, .2);
+          color: rgba(0, 0, 0, .7);
           font-size: $font-size-medium;
           user-select: none;
+          cursor: pointer;
         }
       }
 
       &.preview {
-        button {
-          background-color: color($color-yellow a(0.3));
-        }
 
         .image {
           display: block;
-          margin: 20px 0 0 0;
-          border: 1px solid rgba(0, 0, 0, 0.1);
+          border: 1px solid rgba(0, 0, 0, .1);
           width: $dimen-emoji-size;
           height: $dimen-emoji-size;
-          background-color: rgba(0, 0, 0, 0.05);
+          background-color: rgba(0, 0, 0, .05);
         }
       }
     }

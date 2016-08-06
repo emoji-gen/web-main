@@ -7,6 +7,10 @@
   background-color: $background-color-white;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
 
+  &, * {
+    box-sizing: border-box;
+  }
+
   h2 {
     @mixin box-heading;
   }

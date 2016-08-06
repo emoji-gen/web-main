@@ -26,6 +26,6 @@ module.exports = {
     ],
   }),
   components: {
-    'sketch-picker': Chrome,
+    'chrome-picker': Chrome,
   },
 }
