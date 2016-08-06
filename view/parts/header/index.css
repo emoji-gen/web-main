@@ -1,56 +1,61 @@
 @import "../../defs/import";
 
 $_height: $dimen-header-height;
+$_width: $dimen-content-width;
 $_color: rgb(80, 80, 80);
 $_logo-size: 40px;
 
 .eg-header {
+  z-index: 1;
+  height: $_height;
+  background-color: $background-color-white;
+  box-shadow: 0px 0px 3px 1px $bar-box-shadow-color;
+
   &, * {
     box-sizing: border-box;
   }
 
   header {
-    position: relative;
+    display: flex;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: $_width;
     height: $_height;
-    z-index: 1;
-    background-color: $background-color-white;
-    box-shadow: 0px 0px 3px 1px $bar-box-shadow-color;
-
-    &::before {
-      display: block;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 60px;
-      right: 0;
-      width: $_logo-size;
-      transform: rotate($slack-rotate-left);
-      background-image: url('/static/img/logo.png');
-      background-size: $_logo-size auto;
-      background-repeat: no-repeat;
-      background-position: 0px center;
-      content: '';
-    }
 
     h1 {
-      display: inline;
-      position: absolute;
-      left: 124px;
-      bottom: 12px;
-      font-size: $font-size-xlarge;
-      font-weight: bold;
+      position: relative;
+      display: block;
+      margin: 0;
+      padding: 0 0 0 60px;
+      line-height: $_height;
       letter-spacing: 6px;
       color: $_color;
+      font-size: $font-size-xlarge;
+      font-weight: bold;
+
+      &::before {
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: $_logo-size;
+        transform: rotate($slack-rotate-left);
+        background-image: url('/static/img/logo.png');
+        background-size: $_logo-size auto;
+        background-repeat: no-repeat;
+        background-position: 0px center;
+        content: '';
+      }
     }
 
     .icons {
       display: flex;
+      flex: 1 1 auto;
       flex-direction: row;
+      justify-content: flex-end;
       align-items: center;
-      position: absolute;
-      top: 0;
-      right: 60px;
-      bottom: 0;
 
       input, a {
         display: block;
