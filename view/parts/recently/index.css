@@ -5,7 +5,7 @@
 
   margin: 30px auto 30px auto;
   padding: $_padding $_padding calc($_padding + 28px) $_padding;
-  width: 900px;
+  width: $dimen-content-width;
   background-color: $background-color-white;
   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
 

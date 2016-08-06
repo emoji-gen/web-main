@@ -14848,7 +14848,7 @@
 
 
 	// module
-	exports.push([module.id, "/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n\n.eg-footer {\n  position: absolute;\n  top: 1085px;\n  left: 0;\n  right: 0;\n  height: 50px;\n}\n\n.eg-footer footer {\n  width: 100%;\n  height: 50px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);\n}\n\n.eg-footer footer p {\n  margin: 0;\n  line-height: 50px;\n  color: rgb(140, 140, 140);\n  font-size: 11px;\n  text-align: center;\n}\n", ""]);
+	exports.push([module.id, "/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n\n.eg-footer {\n  width: 100%;\n  height: 50px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);\n}\n\n.eg-footer, .eg-footer * {\n  box-sizing: border-box;\n}\n\n.eg-footer footer {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  margin: 0 auto;\n  padding: 0 10px;\n  width: 900px;\n  height: 50px;\n}\n\n.eg-footer footer .menus {\n  display: block;\n  margin: 0;\n  padding: 0;\n  font-size: 11px;\n}\n\n.eg-footer footer .menus li {\n  display: inline-block;\n  margin: 0;\n  list-style-position: inside;\n  list-style-type: none;\n  line-height: 50px;\n  color: #8C8C8C\n}\n\n.eg-footer footer .menus li::before {\n  display: inline;\n  margin: 0 6px 0 4px;\n  content: '|';\n}\n\n.eg-footer footer .menus li:first-child {}\n\n.eg-footer footer .menus li:first-child::before {\n  display: none;\n}\n\n.eg-footer footer .copyright {\n  -webkit-box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  margin: 0;\n  line-height: 50px;\n  color: #8C8C8C;\n  font-size: 11px;\n  text-align: right;\n}\n", ""]);
 
 	// exports
 
@@ -14857,7 +14857,7 @@
 /* 20 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-footer\">\n  <footer>\n    <p>Copyright (C) 2016 Slack 絵文字 ジェネレーター.</p>\n  </footer>\n</div>\n";
+	module.exports = "<div class=\"v-cloak eg-footer\">\n  <footer>\n    <ul class=\"menus\">\n      <li><a href=\"\">著作権表記</a></li>\n      <li><a href=\"\">お問い合わせ</a></li>\n    </ul>\n    <p class=\"copyright\">(C) 2016 絵文字 ジェネレーター</p>\n  </footer>\n</div>\n";
 
 /***/ },
 /* 21 */
@@ -15307,7 +15307,7 @@
 
 
 	// module
-	exports.push([module.id, "/* fonts */\n\n/* colors */\n\n/* degree */\n\n/* dimensions */\n\n/* fonts */\n\n/* colors */\n\n/* degree */\n\n/* dimensions */\n\n/* $_height: $dimen-header-height; */\n\n.eg-home {\n  height: 1000px;\n}\n", ""]);
+	exports.push([module.id, "/* fonts */\n\n/* colors */\n\n/* degree */\n\n/* dimensions */\n\n/* fonts */\n\n/* colors */\n\n/* degree */\n\n/* dimensions */\n\n.eg-home {\n}\n", ""]);
 
 	// exports
 

@@ -1,7 +1,4 @@
 @import "../../defs/import";
 
-/* $_height: $dimen-header-height; */
-
 .eg-home {
-  height: 1000px;
 }

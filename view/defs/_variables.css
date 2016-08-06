@@ -10,6 +10,7 @@ $color-blue: #6FCBDD;
 $color-red: #E11665;
 $color-green: #38BA91;
 $color-yellow: #EAA822;
+$color-gray: #8C8C8C;
 
 $background-color-white: rgba(255, 255, 255, 0.7);
 
@@ -23,4 +24,6 @@ $slack-rotate-right: 18deg;
 $dimen-root-height: 1135px;
 $dimen-header-height: 74px;
 $dimen-footer-height: 50px;
+
+$dimen-content-width: 900px;
 $dimen-emoji-size: 128px;

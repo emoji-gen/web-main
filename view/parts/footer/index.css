@@ -1,27 +1,62 @@
 @import "../../defs/import";
 
-$_top: calc($dimen-root-height - $dimen-footer-height);
-$_height: $dimen-footer-height;
+$_height: 50px;
+$_width: $dimen-content-width;
+$_font-size: $font-size-xsmall;
+$_color: $color-gray;
 
 .eg-footer {
-  position: absolute;
-  top: $_top;
-  left: 0;
-  right: 0;
+  width: 100%;
   height: $_height;
+  background-color: $background-color-white;
+  box-shadow: 0px 0px 3px 1px $bar-box-shadow-color;
+
+  &, * {
+    box-sizing: border-box;
+  }
 
   footer {
-    width: 100%;
+    display: flex;
+    margin: 0 auto;
+    padding: 0 10px;
+    width: $_width;
     height: $_height;
-    background-color: $background-color-white;
-    box-shadow: 0px 0px 3px 1px $bar-box-shadow-color;
 
-    p {
+    .menus {
+      display: block;
       margin: 0;
-      line-height: 50px;
-      color: rgb(140, 140, 140);
-      font-size: $font-size-xsmall;
-      text-align: center;
+      padding: 0;
+      font-size: $_font-size;
+
+      li {
+        display: inline-block;
+        margin: 0;
+        list-style-position: inside;
+        list-style-type: none;
+        line-height: $_height;
+        color: $_color;
+
+        &::before {
+          display: inline;
+          margin: 0 6px 0 4px;
+          content: '|';
+        }
+
+        &:first-child {
+          &::before {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .copyright {
+      flex: 1 1 auto;
+      margin: 0;
+      line-height: $_height;
+      color: $_color;
+      font-size: $_font-size;
+      text-align: right;
     }
   }
 }
