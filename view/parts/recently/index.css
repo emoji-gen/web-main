@@ -14,26 +14,17 @@
   h2 {
     @mixin box-heading;
   }
-}
 
-.carousel {
-  background: #EEE;
-}
+  .carousel {
+    height: 128px;
 
-.carousel-cell {
-  width: 128px;
-  height: 128px;
-  margin-right: 10px;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  counter-increment: carousel-cell;
-}
-
-.carousel-cell:before {
-  display: block;
-  text-align: center;
-  content: counter(carousel-cell);
-  line-height: 128px;
-  font-size: 60px;
-  color: white;
+    .carousel-cell {
+      width: 128px;
+      height: 100%;
+      margin-right: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      background-image: url('/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD');
+      border-radius: 5px;
+    }
+  }
 }

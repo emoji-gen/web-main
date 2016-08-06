@@ -9,6 +9,7 @@ module.exports = {
   ready: function () {
     new Flickity(this.$els.carousel, {
       contain: true,
+      setGallerySize: false,
       wrapAround: true,
     })
   },

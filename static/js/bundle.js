@@ -15440,6 +15440,7 @@
 	  ready: function ready() {
 	    new _flickity2.default(this.$els.carousel, {
 	      contain: true,
+	      setGallerySize: false,
 	      wrapAround: true
 	    });
 	  }
@@ -19809,7 +19810,7 @@
 
 
 	// module
-	exports.push([module.id, "/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n\n.eg-recently {\n  margin: 30px auto 30px auto;\n  padding: 20px 20px 40px 20px;\n  width: 900px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);\n}\n\n.eg-recently, .eg-recently * {\n  box-sizing: border-box;\n}\n\n.eg-recently h2 {\n  margin: 18px 0 24px;\n  font-size: 17px;\n  font-weight: bold;\n  letter-spacing: 1px;\n  text-align: center;\n  color: #1EBAA0;\n}\n\n.carousel {\n  background: #EEE;\n}\n\n.carousel-cell {\n  width: 128px;\n  height: 128px;\n  margin-right: 10px;\n  background-color: rgba(0, 0, 0, 0.2);\n  border-radius: 5px;\n  counter-increment: carousel-cell;\n}\n\n.carousel-cell:before {\n  display: block;\n  text-align: center;\n  content: counter(carousel-cell);\n  line-height: 128px;\n  font-size: 60px;\n  color: white;\n}\n", ""]);
+	exports.push([module.id, "/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n\n.eg-recently {\n  margin: 30px auto 30px auto;\n  padding: 20px 20px 40px 20px;\n  width: 900px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);\n}\n\n.eg-recently, .eg-recently * {\n  box-sizing: border-box;\n}\n\n.eg-recently h2 {\n  margin: 18px 0 24px;\n  font-size: 17px;\n  font-weight: bold;\n  letter-spacing: 1px;\n  text-align: center;\n  color: #1EBAA0;\n}\n\n.eg-recently .carousel {\n  height: 128px;\n}\n\n.eg-recently .carousel .carousel-cell {\n  width: 128px;\n  height: 100%;\n  margin-right: 10px;\n  border: 1px solid rgba(0, 0, 0, 0.2);\n  background-image: url('/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD');\n  border-radius: 5px;\n}\n", ""]);
 
 	// exports
 
