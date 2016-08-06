@@ -20,9 +20,11 @@ module.exports = {
   data: () => ({
     colors: defaultColors,
     fonts: [
-      { key: 'noto', name: 'Noto Sans CJK' },
-      { key: 'bar', name: 'AAA Font' },
-      { key: 'baz', name: 'AAA Font' },
+      { key: 'noto-sans-mono-cjk-bold', name: 'Noto Sans Mono CJK Bold' },
+      { key: 'mikachan-pb',             name: 'みかちゃん PB' },
+      { key: 'migu-1m-bold',            name: 'Migu 1m Bold' },
+      { key: 'mplus-1p-black',          name: 'M+ 1p Black' },
+      { key: 'aoyagireishoshimo',       name: '青柳隷書しも' },
     ],
     selectedFontKey: null,
   }),
