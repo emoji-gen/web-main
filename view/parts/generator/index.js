@@ -3,7 +3,7 @@ import {Chrome} from 'vue-color'
 
 import './index.css'
 
-const defaultProps = {
+const defaultColors = {
   hex: '#000000',
   rgba: {
     r: 255,
@@ -18,13 +18,18 @@ module.exports = {
   name: 'eg-generator',
   template: require('./index.html'),
   data: () => ({
-    colors: defaultProps,
+    colors: defaultColors,
     fonts: [
-      { key: 'foo', name: 'AAA Font' },
+      { key: 'noto', name: 'Noto Sans CJK' },
       { key: 'bar', name: 'AAA Font' },
       { key: 'baz', name: 'AAA Font' },
     ],
+    selectedFontKey: null,
   }),
+  created: function () {
+    this.selectedFontKey = this.fonts[0].key
+  },
+
   components: {
     'chrome-picker': Chrome,
   },

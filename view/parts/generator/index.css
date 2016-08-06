@@ -35,7 +35,6 @@
     color: $color-blue;
   }
 
-
   .buttons {
     margin-top: 50px;
     text-align: center;
@@ -46,6 +45,7 @@
       background-color: color($color-red a(.50));
       background-image: none !important;
       color: white;
+      font-weight: bold;
 
       &:hover, &:focus {
         background-color: color($color-red a(.75));
@@ -97,12 +97,12 @@
           display: none;
 
           &:checked + label {
-            border: 1px solid color($color-blue a(.7) blackness(30%));
-            background-color: color($color-blue a(.7));
+            border: 1px solid color($color-blue a(.80) blackness(30%));
             background-image: url(/static/img/checked.png);
             background-repeat: no-repeat;
             background-position: 14px center;
-            color: #fff;
+            background-size: 20px auto;
+            color: color($color-blue blackness(35%));
           }
         }
 
@@ -112,8 +112,9 @@
           padding: 8px 23px 8px 46px;
           border-radius: 16px;
           border: 1px solid rgba(0, 0, 0, .2);
-          color: rgba(0, 0, 0, .7);
+          color: rgba(0, 0, 0, .32);
           font-size: $font-size-medium;
+          text-align: left;
           user-select: none;
           cursor: pointer;
         }
