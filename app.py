@@ -10,6 +10,12 @@ import io
 
 app = Flask(__name__)
 
+# enable debug mode if on development environment
+env = os.getenv('FLASK_ENV', 'development')
+if env == 'development':
+    app.debug = True
+
+
 #cache = MemcachedCache(['127.0.0.1:11211'])
 cache = SimpleCache()
 
@@ -47,7 +53,7 @@ def emoji():
     res.data = img_png
     res.headers['Content-Type'] = 'image/png'
     return res
+
+
 if __name__ == '__main__':
-    port = os.getenv('PORT', '5000')
-    app.debug = True
-    app.run(host='0.0.0.0', port=int(port))
+    app.run(host='0.0.0.0', port=5000)
