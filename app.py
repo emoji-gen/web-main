@@ -1,23 +1,37 @@
+import hashlib
+import io
 import os
+
 from flask import Flask, render_template
 from flask import request, redirect, url_for
 from flask import Response,make_response
-#from werkzeug.contrib.cache import MemcachedCache
-from werkzeug.contrib.cache import SimpleCache
-import hashlib
+from werkzeug.contrib.cache import MemcachedCache, SimpleCache
+
 from String2emoji import String2emoji
-import io
+from app import config
 
 app = Flask(__name__)
 
 # enable debug mode if on development environment
-env = os.getenv('FLASK_ENV', 'development')
-if env == 'development':
+if config.env == 'development':
     app.debug = True
 
+class BinarySupportedMemcachedCache(MemcachedCache):
+    def import_preferred_memcache_lib(self, servers):
+        import pylibmc
+        return pylibmc.Client(servers, binary=True)
 
-#cache = MemcachedCache(['127.0.0.1:11211'])
-cache = SimpleCache()
+# setup image cache
+if config.memcached_enabled:
+    print('Use MemcachedCache')
+    cache = BinarySupportedMemcachedCache(
+            config.memcached_servers,
+            default_timeout=config.cache_timeout
+            )
+else:
+    print('Use SimpleCache')
+    cache = SimpleCache(default_timeout=config.cache_timeout)
+
 
 @app.route('/')
 def index():
@@ -40,7 +54,12 @@ def emoji():
     b = int(color[4] +color[5],16)
     hash_text = text + ':' + color
     cache_id = hashlib.md5(hash_text.encode('utf-8')).hexdigest()
-    img_png = cache.get(cache_id)
+
+    try:
+        img_png = cache.get(cache_id)
+    except:
+        img_png = None
+
     if img_png is None:
         emoji = String2emoji(text.splitlines(),'assets/fonts/' + font,(r,g,b))
         img = emoji.getEmoji()
