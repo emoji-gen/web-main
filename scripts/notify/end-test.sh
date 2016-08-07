@@ -8,6 +8,7 @@ curl -XPOST \
     -d "token=$SLACK_API_TOKEN" \
     -d "channel=emoji" \
     -d "text=start   test   \`Emoji-Web\` *$CIRCLE_BRANCH* by CircleCI" \
+    -d "text=end     test   \`Emoji-Web\` *$CIRCLE_BRANCH* by CircleCI" \
     -d "username=CircleCI" \
     -d "icon_url=$ICON_URL" \
     "https://slack.com/api/chat.postMessage"
