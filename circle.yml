@@ -5,9 +5,15 @@ machine:
     - pyenv global 3.5.0
     - python --version
 
+checkout:
+  post:
+    - scripts/notify/start-test.sh
+
 test:
   override:
     - npm run build
+  post:
+    - scripts/notify/end-test.sh
 
 deployment:
   production:
