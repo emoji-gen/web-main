@@ -1,9 +1,21 @@
 machine:
-  python:
-    version: 3.5.0
   node:
     version: 4.4.7
+  post:
+    - pyenv global 3.5.0
+    - python --version
 
 test:
   override:
     - npm run build
+
+deployment:
+  production:
+    branch: master
+    commands:
+      - deactivate
+      - pyenv global 2.7
+      - python --version
+      - virtualenv venv
+      - . venv/bin/activate
+      - scripts/deploy.sh
