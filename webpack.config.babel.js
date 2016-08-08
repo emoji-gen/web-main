@@ -1,12 +1,28 @@
 import path from 'path'
 import webpack from 'webpack'
 import WebpackNotifierPlugin from 'webpack-notifier'
+import UnminifiedWebpackPlugin from 'unminified-webpack-plugin'
+
+const isWatch = ~process.argv.indexOf('--watch')
+const plugins = [ new WebpackNotifierPlugin({ alwaysNotify: true }) ]
+
+if (!isWatch) {
+  Array.prototype.push.apply(plugins, [
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false },
+      sourceMap: false,
+    }),
+    new UnminifiedWebpackPlugin(),
+  ])
+}
 
 module.exports = {
   context: __dirname,
   entry: path.join(__dirname, 'view/index.js'),
   output: {
-    filename: 'static/js/bundle.js',
+    filename: isWatch ? 'static/js/bundle.js' : 'static/js/bundle.min.js',
   },
   module: {
     loaders: [
@@ -23,12 +39,7 @@ module.exports = {
       { test: /\.json$/, loader: 'json' },
     ]
   },
-  plugins: [
-    // new webpack.optimize.UglifyJsPlugin({
-    //   compress: { warnings: false }
-    // }),
-    new WebpackNotifierPlugin({ alwaysNotify: true }),
-  ],
+  plugins: plugins,
   resolve: {
     extensions: ['', '.js', '.json'],
   },
