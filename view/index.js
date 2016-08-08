@@ -16,5 +16,3 @@ const router   = new VueRouter({
 
 router.map(require('./configs/routes'))
 router.start(RootView, '.eg-root')
-
-console.log(env)

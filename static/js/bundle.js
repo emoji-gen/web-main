@@ -40,30 +40,7 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ((function(modules) {
-	// Check all modules for deduplicated modules
-	for(var i in modules) {
-		if(Object.prototype.hasOwnProperty.call(modules, i)) {
-			switch(typeof modules[i]) {
-			case "function": break;
-			case "object":
-				// Module can be created from a template
-				modules[i] = (function(_m) {
-					var args = _m.slice(1), fn = modules[_m[0]];
-					return function (a,b,c) {
-						fn.apply(this, [a,b,c].concat(args));
-					};
-				}(modules[i]));
-				break;
-			default:
-				// Module is a copy of another module
-				modules[i] = modules[modules[i]];
-				break;
-			}
-		}
-	}
-	return modules;
-}([
+/******/ ([
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -100,8 +77,6 @@
 
 	router.map(__webpack_require__(27));
 	router.start(RootView, '.eg-root');
-
-	console.log(_env2.default);
 
 /***/ },
 /* 1 */
@@ -14387,7 +14362,7 @@
 
 
 	// module
-	exports.push([module.id, "body,html{margin:0;padding:0;font-family:Hiragino Kaku Gothic ProN,Yu Gothic,sans-serif}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\n\nhtml, body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;\n}\n", ""]);
 
 	// exports
 
@@ -14743,7 +14718,31 @@
 
 /***/ },
 /* 11 */
-[62, 12],
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(12);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14752,7 +14751,7 @@
 
 
 	// module
-	exports.push([module.id, ".eg-root{position:relative;margin:0;padding:0}", ""]);
+	exports.push([module.id, "/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n\n.eg-root {\n  position: relative;\n  margin: 0;\n  padding: 0;\n}\n", ""]);
 
 	// exports
 
@@ -14761,7 +14760,7 @@
 /* 13 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-root\"> <eg-header></eg-header> <router-view></router-view> <eg-background></eg-background> <eg-footer></eg-footer> </div>";
+	module.exports = "<div class=\"v-cloak eg-root\">\n  <eg-header></eg-header>\n  <router-view></router-view>\n  <eg-background></eg-background>\n  <eg-footer></eg-footer>\n</div>\n";
 
 /***/ },
 /* 14 */
@@ -14778,7 +14777,31 @@
 
 /***/ },
 /* 15 */
-[62, 16],
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(16);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
 /* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14787,7 +14810,7 @@
 
 
 	// module
-	exports.push([module.id, ".eg-background{position:fixed;top:0;right:0;left:0;box-sizing:border-box;height:1135px;overflow:hidden;z-index:-1}.eg-background .blue{top:100px;left:-30px;width:800px;background-color:#6fcbdd}.eg-background .blue,.eg-background .red{position:absolute;height:10px;opacity:.4;-webkit-transform:rotate(-18deg);transform:rotate(-18deg)}.eg-background .red{top:170px;left:-50px;width:1250px;background-color:#e11665}.eg-background .green{left:200px;background-color:#38ba91}.eg-background .green,.eg-background .yellow{position:absolute;top:-30px;width:10px;height:1200px;opacity:.4;-webkit-transform:rotate(-18deg);transform:rotate(-18deg)}.eg-background .yellow{left:330px;background-color:#eaa822}", ""]);
+	exports.push([module.id, "/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n\n.eg-background {\n  position: fixed;\n  top: 0;\n  right: 0;\n  left: 0;\n  box-sizing: border-box;\n  height: 1135px;\n  overflow: hidden;\n  z-index: -1;\n}\n\n.eg-background .blue {\n  position: absolute;\n  top: 100px;\n  left: -30px;\n  width: 800px;\n  height: 10px;\n  background-color: #6FCBDD;\n  opacity: 0.4;\n  -webkit-transform: rotate(-18deg);\n  transform: rotate(-18deg);\n}\n\n.eg-background .red {\n  position: absolute;\n  top: 170px;\n  left: -50px;\n  width: 1250px;\n  height: 10px;\n  background-color: #E11665;\n  opacity: 0.4;\n  -webkit-transform: rotate(-18deg);\n  transform: rotate(-18deg);\n}\n\n.eg-background .green {\n  position: absolute;\n  top: -30px;\n  left: 200px;\n  width: 10px;\n  height: 1200px;\n  background-color: #38BA91;\n  opacity: 0.4;\n  -webkit-transform: rotate(-18deg);\n  transform: rotate(-18deg);\n}\n\n.eg-background .yellow {\n  position: absolute;\n  top: -30px;\n  left: 330px;\n  width: 10px;\n  height: 1200px;\n  background-color: #EAA822;\n  opacity: 0.4;\n  -webkit-transform: rotate(-18deg);\n  transform: rotate(-18deg);\n}\n", ""]);
 
 	// exports
 
@@ -14796,7 +14819,7 @@
 /* 17 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-background\"> <div class=blue></div> <div class=red></div> <div class=green></div> <div class=yellow></div> </div>";
+	module.exports = "<div class=\"v-cloak eg-background\">\n  <div class=\"blue\"></div>\n  <div class=\"red\"></div>\n  <div class=\"green\"></div>\n  <div class=\"yellow\"></div>\n</div>\n";
 
 /***/ },
 /* 18 */
@@ -14813,7 +14836,31 @@
 
 /***/ },
 /* 19 */
-[62, 20],
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(20);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
 /* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14822,7 +14869,7 @@
 
 
 	// module
-	exports.push([module.id, ".eg-footer{width:100%;height:50px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 3px 1px rgba(0,0,0,.2)}.eg-footer,.eg-footer *{box-sizing:border-box}.eg-footer footer{display:-webkit-box;display:-ms-flexbox;display:flex;margin:0 auto;padding:0 10px;width:900px;height:50px}.eg-footer footer .menus{display:block;margin:0;padding:0;font-size:11px}.eg-footer footer .menus li{display:inline-block;margin:0;list-style-position:inside;list-style-type:none;line-height:50px;color:#8c8c8c}.eg-footer footer .menus li:before{display:inline;margin:0 6px 0 4px;content:'|'}.eg-footer footer .menus li:first-child:before{display:none}.eg-footer footer .copyright{-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;margin:0;line-height:50px;color:#8c8c8c;font-size:11px;text-align:right}", ""]);
+	exports.push([module.id, "/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n\n.eg-footer {\n  width: 100%;\n  height: 50px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);\n}\n\n.eg-footer, .eg-footer * {\n  box-sizing: border-box;\n}\n\n.eg-footer footer {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  margin: 0 auto;\n  padding: 0 10px;\n  width: 900px;\n  height: 50px;\n}\n\n.eg-footer footer .menus {\n  display: block;\n  margin: 0;\n  padding: 0;\n  font-size: 11px;\n}\n\n.eg-footer footer .menus li {\n  display: inline-block;\n  margin: 0;\n  list-style-position: inside;\n  list-style-type: none;\n  line-height: 50px;\n  color: #8C8C8C\n}\n\n.eg-footer footer .menus li::before {\n  display: inline;\n  margin: 0 6px 0 4px;\n  content: '|';\n}\n\n.eg-footer footer .menus li:first-child {}\n\n.eg-footer footer .menus li:first-child::before {\n  display: none;\n}\n\n.eg-footer footer .copyright {\n  -webkit-box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  margin: 0;\n  line-height: 50px;\n  color: #8C8C8C;\n  font-size: 11px;\n  text-align: right;\n}\n", ""]);
 
 	// exports
 
@@ -14831,7 +14878,7 @@
 /* 21 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-footer\"> <footer> <ul class=menus> <li><a href=\"\">著作権表記</a></li> <li><a href=\"\">お問い合わせ</a></li> </ul> <p class=copyright>(C) 2016 絵文字 ジェネレーター</p> </footer> </div>";
+	module.exports = "<div class=\"v-cloak eg-footer\">\n  <footer>\n    <ul class=\"menus\">\n      <li><a href=\"\">著作権表記</a></li>\n      <li><a href=\"\">お問い合わせ</a></li>\n    </ul>\n    <p class=\"copyright\">(C) 2016 絵文字 ジェネレーター</p>\n  </footer>\n</div>\n";
 
 /***/ },
 /* 22 */
@@ -15167,7 +15214,31 @@
 
 /***/ },
 /* 24 */
-[62, 25],
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(25);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
 /* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -15176,7 +15247,7 @@
 
 
 	// module
-	exports.push([module.id, ".eg-header{z-index:1;height:74px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 3px 1px rgba(0,0,0,.2)}.eg-header,.eg-header *{box-sizing:border-box}.eg-header header{display:-webkit-box;display:-ms-flexbox;display:flex;margin:0 auto;padding:0 20px;width:900px;height:74px}.eg-header header h1{position:relative;display:block;margin:0;padding:0 0 0 60px;line-height:74px;letter-spacing:6px;color:#505050;font-size:19px;font-weight:700}.eg-header header h1:before{display:block;position:absolute;top:0;bottom:0;left:0;right:0;width:40px;-webkit-transform:rotate(-18deg);transform:rotate(-18deg);background-image:url('/static/img/logo.png');background-size:40px auto;background-repeat:no-repeat;background-position:0;content:''}.eg-header header .icons{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;-webkit-box-align:center;-ms-flex-align:center;align-items:center}.eg-header header .icons a,.eg-header header .icons input{display:block;margin:0 0 0 12px;border:0;width:40px;height:40px;background-color:transparent;background-size:40px auto;background-repeat:no-repeat;background-position:0;overflow:hidden;text-indent:100%;white-space:nowrap}.eg-header header .icons a.twitter,.eg-header header .icons input.twitter{background-image:url('/static/img/twitter.png');opacity:.88}.eg-header header .icons a.facebook,.eg-header header .icons input.facebook{background-image:url('/static/img/facebook.png');opacity:.8}.eg-header header .icons a.github,.eg-header header .icons input.github{background-image:url('/static/img/github.png');opacity:.7}", ""]);
+	exports.push([module.id, "/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n\n.eg-header {\n  z-index: 1;\n  height: 74px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);\n}\n\n.eg-header, .eg-header * {\n  box-sizing: border-box;\n}\n\n.eg-header header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  margin: 0 auto;\n  padding: 0 20px;\n  width: 900px;\n  height: 74px;\n}\n\n.eg-header header h1 {\n  position: relative;\n  display: block;\n  margin: 0;\n  padding: 0 0 0 60px;\n  line-height: 74px;\n  letter-spacing: 6px;\n  color: rgb(80, 80, 80);\n  font-size: 19px;\n  font-weight: bold\n}\n\n.eg-header header h1::before {\n  display: block;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  width: 40px;\n  -webkit-transform: rotate(-18deg);\n  transform: rotate(-18deg);\n  background-image: url('/static/img/logo.png');\n  background-size: 40px auto;\n  background-repeat: no-repeat;\n  background-position: 0px center;\n  content: '';\n}\n\n.eg-header header .icons {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -ms-flex-direction: row;\n  flex-direction: row;\n  -webkit-box-pack: end;\n  -ms-flex-pack: end;\n  justify-content: flex-end;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n}\n\n.eg-header header .icons input, .eg-header header .icons a {\n  display: block;\n  margin: 0 0 0 12px;\n  border: 0;\n  width: 40px;\n  height: 40px;\n  background-color: transparent;\n  background-size: 40px auto;\n  background-repeat: no-repeat;\n  background-position: 0px center;\n  overflow: hidden;\n  text-indent: 100%;\n  white-space: nowrap\n}\n\n.eg-header header .icons input.twitter, .eg-header header .icons a.twitter {\n  background-image: url('/static/img/twitter.png');\n  opacity: .88;\n}\n\n.eg-header header .icons input.facebook, .eg-header header .icons a.facebook {\n  background-image: url('/static/img/facebook.png');\n  opacity: .80;\n}\n\n.eg-header header .icons input.github, .eg-header header .icons a.github {\n  background-image: url('/static/img/github.png');\n  opacity: .70;\n}\n", ""]);
 
 	// exports
 
@@ -15185,7 +15256,7 @@
 /* 26 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-header\"> <header> <h1>絵文字 ジェネレーター</h1> <div class=icons> <input type=button class=\"twitter sharer button\" data-sharer=twitter data-title=絵文字ジェネレーター使ってます&#9834; data-hashtags=絵文字ジェネレーター data-url=https://emoji.pine.moe/ title=\"Twitter でシェアする\"> <input type=button class=\"facebook sharer button\" data-sharer=facebook data-url=https://emoji.pine.moe/ title=\"Facebook でシェアする\"> <a href=https://github.com/pine/Emoji-Web class=github target=_blank>GitHub</a> </div> </header> </div>";
+	module.exports = "<div class=\"v-cloak eg-header\">\n  <header>\n    <h1>絵文字 ジェネレーター</h1>\n    <div class=\"icons\">\n      <input type=\"button\" class=\"twitter sharer button\" data-sharer=\"twitter\" data-title=\"絵文字ジェネレーター使ってます&#9834;\" data-hashtags=\"絵文字ジェネレーター\" data-url=\"https://emoji.pine.moe/\" title=\"Twitter でシェアする\">\n      <input type=\"button\" class=\"facebook sharer button\" data-sharer=\"facebook\" data-url=\"https://emoji.pine.moe/\" title=\"Facebook でシェアする\">\n      <a href=\"https://github.com/pine/Emoji-Web\" class=\"github\" target=\"_blank\">GitHub</a>\n    </div>\n  </header>\n</div>\n";
 
 /***/ },
 /* 27 */
@@ -15224,7 +15295,31 @@
 
 /***/ },
 /* 29 */
-[62, 30],
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(30);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
 /* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -15233,7 +15328,7 @@
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, "/* fonts */\n\n/* colors */\n\n/* degree */\n\n/* dimensions */\n\n/* fonts */\n\n/* colors */\n\n/* degree */\n\n/* dimensions */\n\n.eg-home {\n}\n", ""]);
 
 	// exports
 
@@ -15242,7 +15337,7 @@
 /* 31 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-home\"> <eg-generator></eg-generator> <eg-recently></eg-recently> </div>";
+	module.exports = "<div class=\"v-cloak eg-home\">\n  <eg-generator></eg-generator>\n  <eg-recently></eg-recently>\n</div>\n";
 
 /***/ },
 /* 32 */
@@ -15300,7 +15395,31 @@
 
 /***/ },
 /* 34 */
-[62, 35],
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(35);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
 /* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -15309,7 +15428,7 @@
 
 
 	// module
-	exports.push([module.id, ".eg-generator{margin:30px auto;padding:20px 0 35px;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2)}.eg-generator,.eg-generator *{box-sizing:border-box}.eg-generator h2{margin:18px 0 24px;font-size:17px;font-weight:700;letter-spacing:1.5px;text-align:center;color:#1ebaa0}.eg-generator h3{display:block;margin:0 0 16px;font-size:15px;font-weight:700;letter-spacing:1px;text-align:center;color:#6fcbdd}.eg-generator .buttons{margin-top:50px;text-align:center}.eg-generator .buttons button{padding:12px 60px;border-radius:12px;background-color:rgba(225,22,101,.5);background-image:none!important;color:#fff;font-weight:700}.eg-generator .buttons button:focus,.eg-generator .buttons button:hover{background-color:rgba(225,22,101,.75)}.eg-generator .parameters{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:38px 0 0}.eg-generator .parameters .parameter{margin:0 30px;text-align:center}.eg-generator .parameters .parameter.text textarea{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px;margin:0 0 50px;padding:10px;border:0;width:140px;height:100px;text-align:center;-webkit-appearance:none}.eg-generator .parameters .parameter.color{margin-right:32px}.eg-generator .parameters .parameter.color>div{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px}.eg-generator .parameters .parameter.font ul{margin:0;padding:0}.eg-generator .parameters .parameter.font ul li{list-style-type:none;list-style-position:inside}.eg-generator .parameters .parameter.font input{display:none}.eg-generator .parameters .parameter.font input:checked+label{border:1px solid rgba(112,167,179,.8);background-image:url(/static/img/checked.png);background-repeat:no-repeat;background-position:14px;background-size:20px auto;color:#709da6}.eg-generator .parameters .parameter.font label{display:block;margin:0 0 5px;padding:8px 23px 8px 46px;border-radius:16px;border:1px solid rgba(0,0,0,.2);color:rgba(0,0,0,.32);font-size:15px;text-align:left;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer}.eg-generator .parameters .parameter.preview .image{display:block;border:1px solid rgba(0,0,0,.1);width:128px;height:128px;background-color:rgba(0,0,0,.05)}", ""]);
+	exports.push([module.id, "/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n\n.eg-generator {\n  margin: 30px auto 30px auto;\n  padding: 20px 0 35px;\n  width: 900px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, .2);\n}\n\n.eg-generator, .eg-generator * {\n  box-sizing: border-box;\n}\n\n.eg-generator h2 {\n  margin: 18px 0 24px;\n  font-size: 17px;\n  font-weight: bold;\n  letter-spacing: 1.5px;\n  text-align: center;\n  color: #1EBAA0;\n}\n\n.eg-generator h3 {\n  display: block;\n  margin: 0 0 16px;\n  font-size: 15px;\n  font-weight: bold;\n  letter-spacing: 1px;\n  text-align: center;\n  color: #6FCBDD;\n}\n\n.eg-generator .buttons {\n  margin-top: 50px;\n  text-align: center;\n}\n\n.eg-generator .buttons button {\n  padding: 12px 60px;\n  border-radius: 12px;\n  background-color: rgba(225, 22, 101, 0.5);\n  background-image: none !important;\n  color: white;\n  font-weight: bold\n}\n\n.eg-generator .buttons button:hover, .eg-generator .buttons button:focus {\n  background-color: rgba(225, 22, 101, 0.75);\n}\n\n.eg-generator .parameters {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  margin: 38px 0 0;\n}\n\n.eg-generator .parameters .parameter {\n  margin: 0 30px 0;\n  text-align: center\n}\n\n.eg-generator .parameters .parameter.text textarea {\n  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .15);\n  border-radius: 2px;\n  margin: 0 0 50px 0;\n  padding: 10px;\n  border: 0;\n  width: 140px;\n  height: 100px;\n  text-align: center;\n  -webkit-appearance: none;\n}\n\n.eg-generator .parameters .parameter.color {\n  margin-right: 32px;\n}\n\n.eg-generator .parameters .parameter.color > div {\n  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .15);\n  border-radius: 2px;\n}\n\n.eg-generator .parameters .parameter.font ul {\n  margin: 0;\n  padding: 0;\n}\n\n.eg-generator .parameters .parameter.font ul li {\n  list-style-type: none;\n  list-style-position: inside;\n}\n\n.eg-generator .parameters .parameter.font input {\n  display: none;\n}\n\n.eg-generator .parameters .parameter.font input:checked + label {\n  border: 1px solid rgba(112, 167, 179, 0.8);\n  background-image: url(/static/img/checked.png);\n  background-repeat: no-repeat;\n  background-position: 14px center;\n  background-size: 20px auto;\n  color: rgb(112, 157, 166);\n}\n\n.eg-generator .parameters .parameter.font label {\n  display: block;\n  margin: 0 0 5px;\n  padding: 8px 23px 8px 46px;\n  border-radius: 16px;\n  border: 1px solid rgba(0, 0, 0, .2);\n  color: rgba(0, 0, 0, .32);\n  font-size: 15px;\n  text-align: left;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  cursor: pointer;\n}\n\n.eg-generator .parameters .parameter.preview .image {\n  display: block;\n  border: 1px solid rgba(0, 0, 0, .1);\n  width: 128px;\n  height: 128px;\n  background-color: rgba(0, 0, 0, .05);\n}\n\n", ""]);
 
 	// exports
 
@@ -15318,7 +15437,7 @@
 /* 36 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-generator\"> <h2>絵文字にしたい文字を入力してください！</h2> <div class=buttons> <button type=button class=pure-button>生成する&#9834;</button> </div> <div class=parameters> <div class=\"parameter text\"> <h3>文字</h3> <textarea rows=2 cols=10></textarea> </div> <div class=\"parameter font\"> <h3>フォント</h3> <ul> <li v-for=\"font in fonts\"> <input type=radio name=eg_generator__font_key :value=font.key id=eg_generator__font_{{font.key}} v-model=selectedFontKey> <label for=eg_generator__font_{{font.key}}>{{font.name}}</label> </li> </ul> </div> <div class=\"parameter color\"> <h3>文字のカラー</h3> <chrome-picker :colors.sync=colors></chrome-picker> </div> </div> </div>";
+	module.exports = "<div class=\"v-cloak eg-generator\">\n  <h2>絵文字にしたい文字を入力してください！</h2>\n\n    <!-- <div class=\"parameter preview\"> -->\n    <!--   <div class=\"image\"></div>     -->\n    <!-- </div>                          -->\n\n  <div class=\"buttons\">\n    <button type=\"button\" class=\"pure-button\">生成する&#9834;</button>\n  </div>\n\n  <div class=\"parameters\">\n    <div class=\"parameter text\">\n      <h3>文字</h3>\n      <textarea rows=\"2\" cols=\"10\"></textarea>\n    </div>\n\n    <div class=\"parameter font\">\n      <h3>フォント</h3>\n      <ul>\n        <li v-for=\"font in fonts\">\n          <input type=\"radio\" name=\"eg_generator__font_key\" :value=\"font.key\"\n            id=\"eg_generator__font_{{font.key}}\" v-model=\"selectedFontKey\">\n          <label for=\"eg_generator__font_{{font.key}}\">{{font.name}}</label>\n        </li>\n      </ul>\n    </div>\n\n    <div class=\"parameter color\">\n      <h3>文字のカラー</h3>\n      <chrome-picker :colors.sync=\"colors\"></chrome-picker>\n    </div>\n  </div>\n</div>\n";
 
 /***/ },
 /* 37 */
@@ -15383,7 +15502,7 @@
 
 
 	// module
-	exports.push([module.id, "/*! Flickity v2.0.2\nhttp://flickity.metafizzy.co\n---------------------------------------------- */.flickity-enabled{position:relative}.flickity-enabled:focus{outline:none}.flickity-viewport{overflow:hidden;position:relative;height:100%}.flickity-slider{position:absolute;width:100%;height:100%}.flickity-enabled.is-draggable{-webkit-tap-highlight-color:transparent;tap-highlight-color:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.flickity-enabled.is-draggable .flickity-viewport{cursor:move;cursor:-webkit-grab;cursor:grab}.flickity-enabled.is-draggable .flickity-viewport.is-pointer-down{cursor:-webkit-grabbing;cursor:grabbing}.flickity-prev-next-button{position:absolute;top:50%;width:44px;height:44px;border:none;border-radius:50%;background:#fff;background:hsla(0,0%,100%,.75);cursor:pointer;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.flickity-prev-next-button:hover{background:#fff}.flickity-prev-next-button:focus{outline:none;box-shadow:0 0 0 5px #09f}.flickity-prev-next-button:active{opacity:.6}.flickity-prev-next-button.previous{left:10px}.flickity-prev-next-button.next{right:10px}.flickity-rtl .flickity-prev-next-button.previous{left:auto;right:10px}.flickity-rtl .flickity-prev-next-button.next{right:auto;left:10px}.flickity-prev-next-button:disabled{opacity:.3;cursor:auto}.flickity-prev-next-button svg{position:absolute;left:20%;top:20%;width:60%;height:60%}.flickity-prev-next-button .arrow{fill:#333}.flickity-page-dots{position:absolute;width:100%;bottom:-25px;padding:0;margin:0;list-style:none;text-align:center;line-height:1}.flickity-rtl .flickity-page-dots{direction:rtl}.flickity-page-dots .dot{display:inline-block;width:10px;height:10px;margin:0 8px;background:#333;border-radius:50%;opacity:.25;cursor:pointer}.flickity-page-dots .dot.is-selected{opacity:1}", ""]);
+	exports.push([module.id, "/*! Flickity v2.0.2\nhttp://flickity.metafizzy.co\n---------------------------------------------- */\n\n.flickity-enabled {\n  position: relative;\n}\n\n.flickity-enabled:focus { outline: none; }\n\n.flickity-viewport {\n  overflow: hidden;\n  position: relative;\n  height: 100%;\n}\n\n.flickity-slider {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n}\n\n/* draggable */\n\n.flickity-enabled.is-draggable {\n  -webkit-tap-highlight-color: transparent;\n          tap-highlight-color: transparent;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.flickity-enabled.is-draggable .flickity-viewport {\n  cursor: move;\n  cursor: -webkit-grab;\n  cursor: grab;\n}\n\n.flickity-enabled.is-draggable .flickity-viewport.is-pointer-down {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n\n/* ---- previous/next buttons ---- */\n\n.flickity-prev-next-button {\n  position: absolute;\n  top: 50%;\n  width: 44px;\n  height: 44px;\n  border: none;\n  border-radius: 50%;\n  background: white;\n  background: hsla(0, 0%, 100%, 0.75);\n  cursor: pointer;\n  /* vertically center */\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\n\n.flickity-prev-next-button:hover { background: white; }\n\n.flickity-prev-next-button:focus {\n  outline: none;\n  box-shadow: 0 0 0 5px #09F;\n}\n\n.flickity-prev-next-button:active {\n  opacity: 0.6;\n}\n\n.flickity-prev-next-button.previous { left: 10px; }\n.flickity-prev-next-button.next { right: 10px; }\n/* right to left */\n.flickity-rtl .flickity-prev-next-button.previous {\n  left: auto;\n  right: 10px;\n}\n.flickity-rtl .flickity-prev-next-button.next {\n  right: auto;\n  left: 10px;\n}\n\n.flickity-prev-next-button:disabled {\n  opacity: 0.3;\n  cursor: auto;\n}\n\n.flickity-prev-next-button svg {\n  position: absolute;\n  left: 20%;\n  top: 20%;\n  width: 60%;\n  height: 60%;\n}\n\n.flickity-prev-next-button .arrow {\n  fill: #333;\n}\n\n/* ---- page dots ---- */\n\n.flickity-page-dots {\n  position: absolute;\n  width: 100%;\n  bottom: -25px;\n  padding: 0;\n  margin: 0;\n  list-style: none;\n  text-align: center;\n  line-height: 1;\n}\n\n.flickity-rtl .flickity-page-dots { direction: rtl; }\n\n.flickity-page-dots .dot {\n  display: inline-block;\n  width: 10px;\n  height: 10px;\n  margin: 0 8px;\n  background: #333;\n  border-radius: 50%;\n  opacity: 0.25;\n  cursor: pointer;\n}\n\n.flickity-page-dots .dot.is-selected {\n  opacity: 1;\n}\n", ""]);
 
 	// exports
 
@@ -18650,7 +18769,314 @@
 
 /***/ },
 /* 54 */
-51,
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	 * Unipointer v2.1.0
+	 * base class for doing one thing with pointer event
+	 * MIT license
+	 */
+
+	/*jshint browser: true, undef: true, unused: true, strict: true */
+
+	( function( window, factory ) {
+	  // universal module definition
+	  /* jshint strict: false */ /*global define, module, require */
+	  if ( true ) {
+	    // AMD
+	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+	      __webpack_require__(42)
+	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( EvEmitter ) {
+	      return factory( window, EvEmitter );
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	  } else if ( typeof module == 'object' && module.exports ) {
+	    // CommonJS
+	    module.exports = factory(
+	      window,
+	      require('ev-emitter')
+	    );
+	  } else {
+	    // browser global
+	    window.Unipointer = factory(
+	      window,
+	      window.EvEmitter
+	    );
+	  }
+
+	}( window, function factory( window, EvEmitter ) {
+
+	'use strict';
+
+	function noop() {}
+
+	function Unipointer() {}
+
+	// inherit EvEmitter
+	var proto = Unipointer.prototype = Object.create( EvEmitter.prototype );
+
+	proto.bindStartEvent = function( elem ) {
+	  this._bindStartEvent( elem, true );
+	};
+
+	proto.unbindStartEvent = function( elem ) {
+	  this._bindStartEvent( elem, false );
+	};
+
+	/**
+	 * works as unbinder, as you can ._bindStart( false ) to unbind
+	 * @param {Boolean} isBind - will unbind if falsey
+	 */
+	proto._bindStartEvent = function( elem, isBind ) {
+	  // munge isBind, default to true
+	  isBind = isBind === undefined ? true : !!isBind;
+	  var bindMethod = isBind ? 'addEventListener' : 'removeEventListener';
+
+	  if ( window.navigator.pointerEnabled ) {
+	    // W3C Pointer Events, IE11. See https://coderwall.com/p/mfreca
+	    elem[ bindMethod ]( 'pointerdown', this );
+	  } else if ( window.navigator.msPointerEnabled ) {
+	    // IE10 Pointer Events
+	    elem[ bindMethod ]( 'MSPointerDown', this );
+	  } else {
+	    // listen for both, for devices like Chrome Pixel
+	    elem[ bindMethod ]( 'mousedown', this );
+	    elem[ bindMethod ]( 'touchstart', this );
+	  }
+	};
+
+	// trigger handler methods for events
+	proto.handleEvent = function( event ) {
+	  var method = 'on' + event.type;
+	  if ( this[ method ] ) {
+	    this[ method ]( event );
+	  }
+	};
+
+	// returns the touch that we're keeping track of
+	proto.getTouch = function( touches ) {
+	  for ( var i=0; i < touches.length; i++ ) {
+	    var touch = touches[i];
+	    if ( touch.identifier == this.pointerIdentifier ) {
+	      return touch;
+	    }
+	  }
+	};
+
+	// ----- start event ----- //
+
+	proto.onmousedown = function( event ) {
+	  // dismiss clicks from right or middle buttons
+	  var button = event.button;
+	  if ( button && ( button !== 0 && button !== 1 ) ) {
+	    return;
+	  }
+	  this._pointerDown( event, event );
+	};
+
+	proto.ontouchstart = function( event ) {
+	  this._pointerDown( event, event.changedTouches[0] );
+	};
+
+	proto.onMSPointerDown =
+	proto.onpointerdown = function( event ) {
+	  this._pointerDown( event, event );
+	};
+
+	/**
+	 * pointer start
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 */
+	proto._pointerDown = function( event, pointer ) {
+	  // dismiss other pointers
+	  if ( this.isPointerDown ) {
+	    return;
+	  }
+
+	  this.isPointerDown = true;
+	  // save pointer identifier to match up touch events
+	  this.pointerIdentifier = pointer.pointerId !== undefined ?
+	    // pointerId for pointer events, touch.indentifier for touch events
+	    pointer.pointerId : pointer.identifier;
+
+	  this.pointerDown( event, pointer );
+	};
+
+	proto.pointerDown = function( event, pointer ) {
+	  this._bindPostStartEvents( event );
+	  this.emitEvent( 'pointerDown', [ event, pointer ] );
+	};
+
+	// hash of events to be bound after start event
+	var postStartEvents = {
+	  mousedown: [ 'mousemove', 'mouseup' ],
+	  touchstart: [ 'touchmove', 'touchend', 'touchcancel' ],
+	  pointerdown: [ 'pointermove', 'pointerup', 'pointercancel' ],
+	  MSPointerDown: [ 'MSPointerMove', 'MSPointerUp', 'MSPointerCancel' ]
+	};
+
+	proto._bindPostStartEvents = function( event ) {
+	  if ( !event ) {
+	    return;
+	  }
+	  // get proper events to match start event
+	  var events = postStartEvents[ event.type ];
+	  // bind events to node
+	  events.forEach( function( eventName ) {
+	    window.addEventListener( eventName, this );
+	  }, this );
+	  // save these arguments
+	  this._boundPointerEvents = events;
+	};
+
+	proto._unbindPostStartEvents = function() {
+	  // check for _boundEvents, in case dragEnd triggered twice (old IE8 bug)
+	  if ( !this._boundPointerEvents ) {
+	    return;
+	  }
+	  this._boundPointerEvents.forEach( function( eventName ) {
+	    window.removeEventListener( eventName, this );
+	  }, this );
+
+	  delete this._boundPointerEvents;
+	};
+
+	// ----- move event ----- //
+
+	proto.onmousemove = function( event ) {
+	  this._pointerMove( event, event );
+	};
+
+	proto.onMSPointerMove =
+	proto.onpointermove = function( event ) {
+	  if ( event.pointerId == this.pointerIdentifier ) {
+	    this._pointerMove( event, event );
+	  }
+	};
+
+	proto.ontouchmove = function( event ) {
+	  var touch = this.getTouch( event.changedTouches );
+	  if ( touch ) {
+	    this._pointerMove( event, touch );
+	  }
+	};
+
+	/**
+	 * pointer move
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 * @private
+	 */
+	proto._pointerMove = function( event, pointer ) {
+	  this.pointerMove( event, pointer );
+	};
+
+	// public
+	proto.pointerMove = function( event, pointer ) {
+	  this.emitEvent( 'pointerMove', [ event, pointer ] );
+	};
+
+	// ----- end event ----- //
+
+
+	proto.onmouseup = function( event ) {
+	  this._pointerUp( event, event );
+	};
+
+	proto.onMSPointerUp =
+	proto.onpointerup = function( event ) {
+	  if ( event.pointerId == this.pointerIdentifier ) {
+	    this._pointerUp( event, event );
+	  }
+	};
+
+	proto.ontouchend = function( event ) {
+	  var touch = this.getTouch( event.changedTouches );
+	  if ( touch ) {
+	    this._pointerUp( event, touch );
+	  }
+	};
+
+	/**
+	 * pointer up
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 * @private
+	 */
+	proto._pointerUp = function( event, pointer ) {
+	  this._pointerDone();
+	  this.pointerUp( event, pointer );
+	};
+
+	// public
+	proto.pointerUp = function( event, pointer ) {
+	  this.emitEvent( 'pointerUp', [ event, pointer ] );
+	};
+
+	// ----- pointer done ----- //
+
+	// triggered on pointer up & pointer cancel
+	proto._pointerDone = function() {
+	  // reset properties
+	  this.isPointerDown = false;
+	  delete this.pointerIdentifier;
+	  // remove events
+	  this._unbindPostStartEvents();
+	  this.pointerDone();
+	};
+
+	proto.pointerDone = noop;
+
+	// ----- pointer cancel ----- //
+
+	proto.onMSPointerCancel =
+	proto.onpointercancel = function( event ) {
+	  if ( event.pointerId == this.pointerIdentifier ) {
+	    this._pointerCancel( event, event );
+	  }
+	};
+
+	proto.ontouchcancel = function( event ) {
+	  var touch = this.getTouch( event.changedTouches );
+	  if ( touch ) {
+	    this._pointerCancel( event, touch );
+	  }
+	};
+
+	/**
+	 * pointer cancel
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 * @private
+	 */
+	proto._pointerCancel = function( event, pointer ) {
+	  this._pointerDone();
+	  this.pointerCancel( event, pointer );
+	};
+
+	// public
+	proto.pointerCancel = function( event, pointer ) {
+	  this.emitEvent( 'pointerCancel', [ event, pointer ] );
+	};
+
+	// -----  ----- //
+
+	// utility function for getting x/y coords from event
+	Unipointer.getPointerPoint = function( pointer ) {
+	  return {
+	    x: pointer.pageX,
+	    y: pointer.pageY
+	  };
+	};
+
+	// -----  ----- //
+
+	return Unipointer;
+
+	}));
+
+
+/***/ },
 /* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -19372,34 +19798,12 @@
 
 /***/ },
 /* 59 */
-[62, 60],
-/* 60 */
 /***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(7)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".eg-recently{margin:30px auto;padding:32px 32px 60px;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2)}.eg-recently,.eg-recently *{box-sizing:border-box}.eg-recently h2{margin:18px 0 24px;font-size:17px;font-weight:700;letter-spacing:1px;text-align:center;color:#1ebaa0}.eg-recently .carousel{height:128px}.eg-recently .carousel .carousel-cell{width:128px;height:100%;margin-right:10px;border:1px solid rgba(0,0,0,.2);background-image:url('/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD');border-radius:5px}", ""]);
-
-	// exports
-
-
-/***/ },
-/* 61 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"v-cloak eg-recently\"> <h2>最近生成された絵文字</h2> <div v-el:carousel class=carousel> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> </div> </div>";
-
-/***/ },
-/* 62 */
-/***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(__webpack_module_template_argument_0__);
+	var content = __webpack_require__(60);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -19418,5 +19822,25 @@
 		module.hot.dispose(function() { update(); });
 	}
 
+/***/ },
+/* 60 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(7)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/* fonts */\n\n/* colors */\n\n/* degree */\n\n/* dimensions */\n\n/* fonts */\n\n/* colors */\n\n/* degree */\n\n/* dimensions */\n\n.eg-recently {\n\n  margin: 30px auto 30px auto;\n  padding: 32px 32px 60px 32px;\n  width: 900px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);\n}\n\n.eg-recently, .eg-recently * {\n\n  box-sizing: border-box;\n}\n\n.eg-recently h2 {\n\n  margin: 18px 0 24px;\n\n  font-size: 17px;\n\n  font-weight: bold;\n\n  letter-spacing: 1px;\n\n  text-align: center;\n\n  color: #1EBAA0;\n}\n\n.eg-recently .carousel {\n\n  height: 128px;\n}\n\n.eg-recently .carousel .carousel-cell {\n\n  width: 128px;\n\n  height: 100%;\n\n  margin-right: 10px;\n\n  border: 1px solid rgba(0, 0, 0, 0.2);\n\n  background-image: url('/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD');\n\n  border-radius: 5px;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 61 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"v-cloak eg-recently\">\n  <h2>最近生成された絵文字</h2>\n\n  <div v-el:carousel class=\"carousel\">\n    <div class=\"carousel-cell\"></div>\n    <div class=\"carousel-cell\"></div>\n    <div class=\"carousel-cell\"></div>\n    <div class=\"carousel-cell\"></div>\n    <div class=\"carousel-cell\"></div>\n    <div class=\"carousel-cell\"></div>\n    <div class=\"carousel-cell\"></div>\n    <div class=\"carousel-cell\"></div>\n  </div>\n</div>\n";
+
 /***/ }
-/******/ ])));
+/******/ ]);
