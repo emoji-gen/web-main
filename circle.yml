@@ -8,6 +8,10 @@ checkout:
   post:
     - scripts/notify/start-test.sh
 
+dependencies:
+  cache_directories:
+    - node_modules
+
 test:
   override:
     - npm run build
