@@ -8,7 +8,7 @@ from flask import Response,make_response
 from werkzeug.contrib.cache import MemcachedCache, SimpleCache
 
 from String2emoji import String2emoji
-from app import config
+from apps import config
 
 app = Flask(__name__)
 
