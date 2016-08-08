@@ -2,8 +2,4 @@
 
 set -eu
 
-git clone --depth 1 -b master --single-branch git@github.com:pine/Emoji-Private.git
-cd Emoji-Private/fabric
-
-pip install -r requirements.txt -q
-fab production
+curl -X POST "https://circleci.com/api/v1.1/project/github/pine/Emoji-Private/tree/master?circle-token=$PRIVATE_CIRCLECI_TOKEN" >/dev/null 2>&1
