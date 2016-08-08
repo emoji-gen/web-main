@@ -2,6 +2,7 @@
 
 $_height: $dimen-header-height;
 $_width: $dimen-content-width;
+$_margin-left-right: 20px;
 $_color: rgb(80, 80, 80);
 $_logo-size: 40px;
 
@@ -18,7 +19,7 @@ $_logo-size: 40px;
   header {
     display: flex;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0;
     width: $_width;
     height: $_height;
 
@@ -26,27 +27,34 @@ $_logo-size: 40px;
       position: relative;
       display: block;
       margin: 0;
-      padding: 0 0 0 60px;
-      line-height: $_height;
-      letter-spacing: 6px;
-      color: $_color;
-      font-size: $font-size-xlarge;
-      font-weight: bold;
+      padding: 0;
 
-      &::before {
+      a {
         display: block;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: $_logo-size;
-        transform: rotate($slack-rotate-left);
-        background-image: url('/static/img/logo.png');
-        background-size: $_logo-size auto;
-        background-repeat: no-repeat;
-        background-position: 0px center;
-        content: '';
+        margin: 0;
+        padding: 0 0 0 calc($_margin-left-right + 60px);
+        line-height: $_height;
+        letter-spacing: 6px;
+        color: $_color;
+        text-decoration: none;
+        font-size: $font-size-xlarge;
+        font-weight: bold;
+
+        &::before {
+          display: block;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: $_margin-left-right;
+          right: 0;
+          width: $_logo-size;
+          transform: rotate($slack-rotate-left);
+          background-image: url('/static/img/logo.png');
+          background-size: $_logo-size auto;
+          background-repeat: no-repeat;
+          background-position: 0px center;
+          content: '';
+        }
       }
     }
 
@@ -56,6 +64,7 @@ $_logo-size: 40px;
       flex-direction: row;
       justify-content: flex-end;
       align-items: center;
+      margin: 0 $_margin-left-right 0 0;
 
       input, a {
         display: block;
