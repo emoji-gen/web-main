@@ -80,20 +80,9 @@ $_logo-size: 40px;
         text-indent: 100%;
         white-space: nowrap;
 
-        &.twitter {
-          background-image: url('/static/img/twitter.png');
-          opacity: .88;
-        }
-
-        &.facebook {
-          background-image: url('/static/img/facebook.png');
-          opacity: .80;
-        }
-
-        &.github {
-          background-image: url('/static/img/github.png');
-          opacity: .70;
-        }
+        &.twitter { @mixin icon-twitter }
+        &.facebook { @mixin icon-facebook }
+        &.github { @mixin icon-github }
       }
     }
   }

@@ -1,10 +1,32 @@
 @import "./variables";
 
+@define-mixin box {
+  margin: 30px auto 30px auto;
+  width: $dimen-content-width;
+  background-color: $background-color-white;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
 @define-mixin box-heading {
-  margin: 18px 0 24px;
+  margin: 18px 0 28px;
   font-size: $font-size-large;
   font-weight: bold;
   letter-spacing: 1px;
   text-align: center;
   color: #1EBAA0;
+}
+
+@define-mixin icon-twitter {
+  background-image: url('/static/img/twitter.png');
+  opacity: .88;
+}
+
+@define-mixin icon-facebook {
+  background-image: url('/static/img/facebook.png');
+  opacity: .80;
+}
+
+@define-mixin icon-github {
+  background-image: url('/static/img/github.png');
+  opacity: .70;
 }
