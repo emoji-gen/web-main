@@ -13,8 +13,14 @@ from apps import config
 app = Flask(__name__)
 
 # enable debug mode if on development environment
-app.debug = config.env == 'development'
-app.jinja_env.globals['debug'] = app.debug
+app.debug = config.debug
+app.jinja_env.globals['debug'] = config.debug
+
+# compute JavaScript checksum
+if not config.debug:
+    app.jinja_env.globals['js_min_checksum'] = \
+            hashlib.md5(open(config.js_min_path, 'rb').read()).hexdigest()
+
 
 class BinarySupportedMemcachedCache(MemcachedCache):
     def import_preferred_memcache_lib(self, servers):

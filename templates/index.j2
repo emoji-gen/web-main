@@ -23,7 +23,7 @@
     {% if debug -%}
     <script src="{{ url_for('static', filename='js/bundle.js') }}"></script>
     {%- else -%}
-    <script src="{{ url_for('static', filename='js/bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bundle.min.js') }}?{{ js_min_checksum }}"></script>
     {%- endif %}
   </body>
 </html>
