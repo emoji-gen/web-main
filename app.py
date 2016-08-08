@@ -4,11 +4,13 @@ import os
 
 from flask import Flask, render_template
 from flask import request, redirect, url_for
-from flask import Response,make_response
-from werkzeug.contrib.cache import MemcachedCache, SimpleCache
+from flask import Response, make_response
 
 from String2emoji import String2emoji
-from apps import config
+
+from apps       import config
+from apps.cache import make as make_cache
+
 
 app = Flask(__name__)
 
@@ -21,22 +23,15 @@ if not config.debug:
     app.jinja_env.globals['js_min_checksum'] = \
             hashlib.md5(open(config.js_min_path, 'rb').read()).hexdigest()
 
-
-class BinarySupportedMemcachedCache(MemcachedCache):
-    def import_preferred_memcache_lib(self, servers):
-        import pylibmc
-        return pylibmc.Client(servers, binary=True)
-
 # setup image cache
 if config.memcached_enabled:
     print('Use MemcachedCache')
-    cache = BinarySupportedMemcachedCache(
-            config.memcached_servers,
-            default_timeout=config.cache_timeout
-            )
-else:
-    print('Use SimpleCache')
-    cache = SimpleCache(default_timeout=config.cache_timeout)
+
+cache = make_cache(
+        config.memcached_enabled,
+        config.cache_timeout,
+        config.memcached_servers
+        )
 
 
 @app.route('/')
