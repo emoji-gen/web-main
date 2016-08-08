@@ -44,7 +44,7 @@ module.exports = {
     extensions: ['', '.js', '.json'],
   },
   watchOptions: {
-    poll: true
+    poll: true,
   },
   postcss: function () {
     return [
@@ -52,6 +52,6 @@ module.exports = {
       require('precss'),
       require('postcss-clearfix'),
       require('postcss-calc'),
-    ];
+    ]
   },
 }
