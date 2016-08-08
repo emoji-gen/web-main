@@ -13,8 +13,8 @@ from apps import config
 app = Flask(__name__)
 
 # enable debug mode if on development environment
-if config.env == 'development':
-    app.debug = True
+app.debug = config.env == 'development'
+app.jinja_env.globals['debug'] = app.debug
 
 class BinarySupportedMemcachedCache(MemcachedCache):
     def import_preferred_memcache_lib(self, servers):

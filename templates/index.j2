@@ -19,6 +19,10 @@
   </head>
   <body>
     <div class="v-cloak eg-root"></div>
+    {% if debug -%}
     <script src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+    {%- else -%}
+    <script src="{{ url_for('static', filename='js/bundle.min.js') }}"></script>
+    {%- endif %}
   </body>
 </html>
