@@ -33,6 +33,7 @@ cache = create_cache(
         config.memcached_servers
         )
 
+# -----------------------------------------------------------------------------
 
 @app.route('/')
 def index():
