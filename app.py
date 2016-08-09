@@ -9,7 +9,7 @@ from flask import Response, make_response
 from String2emoji import String2emoji
 
 from apps       import config
-from apps.cache import make as make_cache
+from apps.cache import create as create_cache
 
 
 app = Flask(__name__)
@@ -27,7 +27,7 @@ if not config.debug:
 if config.memcached_enabled:
     print('Use MemcachedCache')
 
-cache = make_cache(
+cache = create_cache(
         config.memcached_enabled,
         config.cache_timeout,
         config.memcached_servers

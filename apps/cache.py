@@ -9,7 +9,7 @@ class BinarySupportedMemcachedCache(MemcachedCache):
         return pylibmc.Client(servers, binary=True)
 
 
-def make(enabled_memcached, timeout, servers):
+def create(enabled_memcached, timeout, servers):
     if enabled_memcached:
         return BinarySupportedMemcachedCache(
                 servers,
