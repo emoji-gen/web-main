@@ -12,6 +12,7 @@ Vue.http.options.crossOrigin = true
 const RootView = Vue.extend(require('./views/root'))
 const router   = new VueRouter({
 	hashbang: true,
+  saveScrollPosition: false,
 })
 
 router.map(require('./configs/routes'))

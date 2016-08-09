@@ -1,18 +1,27 @@
 <div class="v-cloak eg-generator">
   <h2>絵文字にしたい文字を入力してください！</h2>
 
-    <!-- <div class="parameter preview"> -->
-    <!--   <div class="image"></div>     -->
-    <!-- </div>                          -->
+  <div class="previews">
+    <div class="preview">
+      <div class="image">
+        <img src="/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD" alt="">
+      </div>
+      <div class="detail">
+        <div class="download">テキスト:</div>
+        <div class="download">ダウンロード</div>
+        <div class="download">シェアする♪</div>
+      </div>
+    </div>
+  </div>
 
   <div class="buttons">
-    <button type="button" class="pure-button">生成する&#9834;</button>
+    <button type="button" class="pure-button" v-on:click="generate">生成する&#9834;</button>
   </div>
 
   <div class="parameters">
     <div class="parameter text">
-      <h3>文字</h3>
-      <textarea rows="2" cols="10"></textarea>
+      <h3>テキスト</h3>
+      <textarea rows="2" cols="10" v-model="text"></textarea>
     </div>
 
     <div class="parameter font">
@@ -20,7 +29,7 @@
       <ul>
         <li v-for="font in fonts">
           <input type="radio" name="eg_generator__font_key" :value="font.key"
-            id="eg_generator__font_{{font.key}}" v-model="selectedFontKey">
+            id="eg_generator__font_{{font.key}}" v-model="fontKey">
           <label for="eg_generator__font_{{font.key}}">{{font.name}}</label>
         </li>
       </ul>

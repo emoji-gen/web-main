@@ -40,30 +40,7 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ((function(modules) {
-	// Check all modules for deduplicated modules
-	for(var i in modules) {
-		if(Object.prototype.hasOwnProperty.call(modules, i)) {
-			switch(typeof modules[i]) {
-			case "function": break;
-			case "object":
-				// Module can be created from a template
-				modules[i] = (function(_m) {
-					var args = _m.slice(1), fn = modules[_m[0]];
-					return function (a,b,c) {
-						fn.apply(this, [a,b,c].concat(args));
-					};
-				}(modules[i]));
-				break;
-			default:
-				// Module is a copy of another module
-				modules[i] = modules[modules[i]];
-				break;
-			}
-		}
-	}
-	return modules;
-}([
+/******/ ([
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -95,7 +72,8 @@
 
 	var RootView = _vue2.default.extend(__webpack_require__(10));
 	var router = new _vueRouter2.default({
-		hashbang: true
+	  hashbang: true,
+	  saveScrollPosition: false
 	});
 
 	router.map(__webpack_require__(27));
@@ -14385,7 +14363,7 @@
 
 
 	// module
-	exports.push([module.id, "body,html{margin:0;padding:0;font-family:Hiragino Kaku Gothic ProN,Yu Gothic,sans-serif}", ""]);
+	exports.push([module.id, "@charset \"utf-8\";\n\nhtml, body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;\n}\n", ""]);
 
 	// exports
 
@@ -14741,7 +14719,31 @@
 
 /***/ },
 /* 11 */
-[66, 12],
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(12);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14750,7 +14752,7 @@
 
 
 	// module
-	exports.push([module.id, ".eg-root{position:relative;margin:0;padding:0}", ""]);
+	exports.push([module.id, "/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n\n.eg-root {\n  position: relative;\n  margin: 0;\n  padding: 0;\n}\n", ""]);
 
 	// exports
 
@@ -14759,7 +14761,7 @@
 /* 13 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-root\"> <eg-header></eg-header> <router-view></router-view> <eg-background></eg-background> <eg-footer></eg-footer> </div>";
+	module.exports = "<div class=\"v-cloak eg-root\">\n  <eg-header></eg-header>\n  <router-view></router-view>\n  <eg-background></eg-background>\n  <eg-footer></eg-footer>\n</div>\n";
 
 /***/ },
 /* 14 */
@@ -14776,7 +14778,31 @@
 
 /***/ },
 /* 15 */
-[66, 16],
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(16);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
 /* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14785,7 +14811,7 @@
 
 
 	// module
-	exports.push([module.id, ".eg-background{position:fixed;top:0;right:0;left:0;box-sizing:border-box;height:1135px;overflow:hidden;z-index:-1}.eg-background .blue{top:100px;left:-30px;width:800px;background-color:#6fcbdd}.eg-background .blue,.eg-background .red{position:absolute;height:10px;opacity:.4;-webkit-transform:rotate(-18deg);transform:rotate(-18deg)}.eg-background .red{top:170px;left:-50px;width:1250px;background-color:#e11665}.eg-background .green{left:200px;background-color:#38ba91}.eg-background .green,.eg-background .yellow{position:absolute;top:-30px;width:10px;height:1200px;opacity:.4;-webkit-transform:rotate(-18deg);transform:rotate(-18deg)}.eg-background .yellow{left:330px;background-color:#eaa822}", ""]);
+	exports.push([module.id, "/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n\n.eg-background {\n  position: fixed;\n  top: 0;\n  right: 0;\n  left: 0;\n  box-sizing: border-box;\n  height: 1135px;\n  overflow: hidden;\n  z-index: -1;\n}\n\n.eg-background .blue {\n  position: absolute;\n  top: 100px;\n  left: -30px;\n  width: 800px;\n  height: 10px;\n  background-color: #6FCBDD;\n  opacity: 0.4;\n  -webkit-transform: rotate(-18deg);\n  transform: rotate(-18deg);\n}\n\n.eg-background .red {\n  position: absolute;\n  top: 170px;\n  left: -50px;\n  width: 1250px;\n  height: 10px;\n  background-color: #E11665;\n  opacity: 0.4;\n  -webkit-transform: rotate(-18deg);\n  transform: rotate(-18deg);\n}\n\n.eg-background .green {\n  position: absolute;\n  top: -30px;\n  left: 200px;\n  width: 10px;\n  height: 1200px;\n  background-color: #38BA91;\n  opacity: 0.4;\n  -webkit-transform: rotate(-18deg);\n  transform: rotate(-18deg);\n}\n\n.eg-background .yellow {\n  position: absolute;\n  top: -30px;\n  left: 330px;\n  width: 10px;\n  height: 1200px;\n  background-color: #EAA822;\n  opacity: 0.4;\n  -webkit-transform: rotate(-18deg);\n  transform: rotate(-18deg);\n}\n", ""]);
 
 	// exports
 
@@ -14794,7 +14820,7 @@
 /* 17 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-background\"> <div class=blue></div> <div class=red></div> <div class=green></div> <div class=yellow></div> </div>";
+	module.exports = "<div class=\"v-cloak eg-background\">\n  <div class=\"blue\"></div>\n  <div class=\"red\"></div>\n  <div class=\"green\"></div>\n  <div class=\"yellow\"></div>\n</div>\n";
 
 /***/ },
 /* 18 */
@@ -14806,12 +14832,40 @@
 
 	module.exports = {
 	  name: 'eg-footer',
-	  template: __webpack_require__(21)
+	  template: __webpack_require__(21),
+
+	  directives: {
+	    'eg-scroll': __webpack_require__(72)
+	  }
 	};
 
 /***/ },
 /* 19 */
-[66, 20],
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(20);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
 /* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14820,7 +14874,7 @@
 
 
 	// module
-	exports.push([module.id, ".eg-footer{width:100%;height:50px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 3px 1px rgba(0,0,0,.2)}.eg-footer,.eg-footer *{box-sizing:border-box}.eg-footer footer{display:-webkit-box;display:-ms-flexbox;display:flex;margin:0 auto;padding:0 10px;width:900px;height:50px}.eg-footer footer .menus{display:block;margin:0;padding:0;font-size:11px}.eg-footer footer .menus li{display:inline-block;margin:0;list-style-position:inside;list-style-type:none;line-height:50px;color:#8c8c8c}.eg-footer footer .menus li:before{display:inline;margin:0 6px 0 4px;content:'|'}.eg-footer footer .menus li:first-child:before{display:none}.eg-footer footer .copyright{-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;margin:0;line-height:50px;color:#8c8c8c;font-size:11px;text-align:right}", ""]);
+	exports.push([module.id, "/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n\n.eg-footer {\n  width: 100%;\n  height: 50px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);\n}\n\n.eg-footer, .eg-footer * {\n  box-sizing: border-box;\n}\n\n.eg-footer footer {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  margin: 0 auto;\n  padding: 0 10px;\n  width: 900px;\n  height: 50px;\n}\n\n.eg-footer footer .menus {\n  display: block;\n  margin: 0;\n  padding: 0;\n  font-size: 11px;\n}\n\n.eg-footer footer .menus li {\n  display: inline-block;\n  margin: 0;\n  list-style-position: inside;\n  list-style-type: none;\n  line-height: 50px;\n  color: #8C8C8C\n}\n\n.eg-footer footer .menus li::before {\n  display: inline;\n  margin: 0 6px 0 4px;\n  content: '|';\n}\n\n.eg-footer footer .menus li:first-child {}\n\n.eg-footer footer .menus li:first-child::before {\n  display: none;\n}\n\n.eg-footer footer .copyright {\n  -webkit-box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  margin: 0;\n  line-height: 50px;\n  color: #8C8C8C;\n  font-size: 11px;\n  text-align: right;\n}\n", ""]);
 
 	// exports
 
@@ -14829,7 +14883,7 @@
 /* 21 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-footer\"> <footer> <ul class=menus> <li><a v-link=\"'/contact'\">お問い合わせ</a></li> </ul> <p class=copyright>(C) 2016 絵文字 ジェネレーター</p> </footer> </div>";
+	module.exports = "<div class=\"v-cloak eg-footer\">\n  <footer>\n    <ul class=\"menus\">\n      <li><a v-link=\"'/contact'\" v-eg-scroll>お問い合わせ</a></li>\n    </ul>\n    <p class=\"copyright\">(C) 2016 絵文字 ジェネレーター</p>\n  </footer>\n</div>\n";
 
 /***/ },
 /* 22 */
@@ -15165,7 +15219,31 @@
 
 /***/ },
 /* 24 */
-[66, 25],
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(25);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
 /* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -15174,7 +15252,7 @@
 
 
 	// module
-	exports.push([module.id, ".eg-header{z-index:1;height:74px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 3px 1px rgba(0,0,0,.2)}.eg-header,.eg-header *{box-sizing:border-box}.eg-header header{display:-webkit-box;display:-ms-flexbox;display:flex;margin:0 auto;padding:0;width:900px;height:74px}.eg-header header h1{position:relative;display:block;margin:0;padding:0}.eg-header header h1 a{display:block;margin:0;padding:0 0 0 80px;line-height:74px;letter-spacing:6px;color:#505050;text-decoration:none;font-size:19px;font-weight:700}.eg-header header h1 a:before{display:block;position:absolute;top:0;bottom:0;left:20px;right:0;width:40px;-webkit-transform:rotate(-18deg);transform:rotate(-18deg);background-image:url('/static/img/logo.png');background-size:40px auto;background-repeat:no-repeat;background-position:0;content:''}.eg-header header .icons{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin:0 20px 0 0}.eg-header header .icons a,.eg-header header .icons input{display:block;margin:0 0 0 12px;border:0;width:40px;height:40px;background-color:transparent;background-size:40px auto;background-repeat:no-repeat;background-position:0;overflow:hidden;text-indent:100%;white-space:nowrap}.eg-header header .icons a.twitter,.eg-header header .icons input.twitter{background-image:url('/static/img/twitter.png');opacity:.88}.eg-header header .icons a.facebook,.eg-header header .icons input.facebook{background-image:url('/static/img/facebook.png');opacity:.8}.eg-header header .icons a.github,.eg-header header .icons input.github{background-image:url('/static/img/github.png');opacity:.7}", ""]);
+	exports.push([module.id, "/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n\n.eg-header {\n  z-index: 1;\n  height: 74px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);\n}\n\n.eg-header, .eg-header * {\n  box-sizing: border-box;\n}\n\n.eg-header header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  margin: 0 auto;\n  padding: 0;\n  width: 900px;\n  height: 74px;\n}\n\n.eg-header header h1 {\n  position: relative;\n  display: block;\n  margin: 0;\n  padding: 0;\n}\n\n.eg-header header h1 a {\n  display: block;\n  margin: 0;\n  padding: 0 0 0 80px;\n  line-height: 74px;\n  letter-spacing: 6px;\n  color: rgb(80, 80, 80);\n  text-decoration: none;\n  font-size: 19px;\n  font-weight: bold\n}\n\n.eg-header header h1 a::before {\n  display: block;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 20px;\n  right: 0;\n  width: 40px;\n  -webkit-transform: rotate(-18deg);\n  transform: rotate(-18deg);\n  background-image: url('/static/img/logo.png');\n  background-size: 40px auto;\n  background-repeat: no-repeat;\n  background-position: 0px center;\n  content: '';\n}\n\n.eg-header header .icons {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-flex: 1;\n  -ms-flex: 1 1 auto;\n  flex: 1 1 auto;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -ms-flex-direction: row;\n  flex-direction: row;\n  -webkit-box-pack: end;\n  -ms-flex-pack: end;\n  justify-content: flex-end;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  margin: 0 20px 0 0;\n}\n\n.eg-header header .icons input, .eg-header header .icons a {\n  display: block;\n  margin: 0 0 0 12px;\n  border: 0;\n  width: 40px;\n  height: 40px;\n  background-color: transparent;\n  background-size: 40px auto;\n  background-repeat: no-repeat;\n  background-position: 0px center;\n  overflow: hidden;\n  text-indent: 100%;\n  white-space: nowrap\n}\n\n.eg-header header .icons input.twitter, .eg-header header .icons a.twitter {\n  background-image: url('/static/img/twitter.png');\n  opacity: .88;\n}\n\n.eg-header header .icons input.facebook, .eg-header header .icons a.facebook {\n  background-image: url('/static/img/facebook.png');\n  opacity: .80;\n}\n\n.eg-header header .icons input.github, .eg-header header .icons a.github {\n  background-image: url('/static/img/github.png');\n  opacity: .70;\n}\n", ""]);
 
 	// exports
 
@@ -15183,7 +15261,7 @@
 /* 26 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-header\"> <header> <h1><a v-link=\"'/'\">絵文字 ジェネレーター</a></h1> <div class=icons> <input type=button class=\"twitter sharer button\" data-sharer=twitter data-title=絵文字ジェネレーター使ってます&#9834; data-hashtags=絵文字ジェネレーター data-url=https://emoji.pine.moe/ title=\"Twitter でシェアする\"> <input type=button class=\"facebook sharer button\" data-sharer=facebook data-url=https://emoji.pine.moe/ title=\"Facebook でシェアする\"> <a href=https://github.com/pine/Emoji-Web class=github target=_blank>GitHub</a> </div> </header> </div>";
+	module.exports = "<div class=\"v-cloak eg-header\">\n  <header>\n    <h1><a v-link=\"'/'\">絵文字 ジェネレーター</a></h1>\n    <div class=\"icons\">\n      <input type=\"button\" class=\"twitter sharer button\" data-sharer=\"twitter\" data-title=\"絵文字ジェネレーター使ってます&#9834;\" data-hashtags=\"絵文字ジェネレーター\" data-url=\"https://emoji.pine.moe/\" title=\"Twitter でシェアする\">\n      <input type=\"button\" class=\"facebook sharer button\" data-sharer=\"facebook\" data-url=\"https://emoji.pine.moe/\" title=\"Facebook でシェアする\">\n      <a href=\"https://github.com/pine/Emoji-Web\" class=\"github\" target=\"_blank\">GitHub</a>\n    </div>\n  </header>\n</div>\n";
 
 /***/ },
 /* 27 */
@@ -15196,7 +15274,7 @@
 	    component: __webpack_require__(28)
 	  },
 	  '/contact': {
-	    component: __webpack_require__(62)
+	    component: __webpack_require__(66)
 	  }
 	};
 
@@ -15225,7 +15303,31 @@
 
 /***/ },
 /* 29 */
-[66, 30],
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(30);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
 /* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -15234,7 +15336,7 @@
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, "/* fonts */\n\n/* colors */\n\n/* degree */\n\n/* dimensions */\n\n/* fonts */\n\n/* colors */\n\n/* degree */\n\n/* dimensions */\n\n.eg-home {\n}\n", ""]);
 
 	// exports
 
@@ -15243,7 +15345,7 @@
 /* 31 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-home\"> <eg-generator></eg-generator> <eg-recently></eg-recently> </div>";
+	module.exports = "<div class=\"v-cloak eg-home\">\n  <eg-generator></eg-generator>\n  <eg-recently></eg-recently>\n</div>\n";
 
 /***/ },
 /* 32 */
@@ -15277,13 +15379,22 @@
 	  template: __webpack_require__(36),
 	  data: function data() {
 	    return {
-	      colors: defaultColors,
+	      // TODO: サーバーから取得する
 	      fonts: [{ key: 'noto-sans-mono-cjk-bold', name: 'Noto Sans Mono CJK Bold' }, { key: 'mikachan-pb', name: 'みかちゃん PB' }, { key: 'migu-1m-bold', name: 'Migu 1m Bold' }, { key: 'mplus-1p-black', name: 'M+ 1p Black' }, { key: 'aoyagireishoshimo', name: '青柳隷書しも' }],
-	      selectedFontKey: null
+	      colors: defaultColors,
+	      text: '絵文\n字。',
+	      fontKey: null
 	    };
 	  },
 	  created: function created() {
-	    this.selectedFontKey = this.fonts[0].key;
+	    this.fontKey = this.fonts[0].key;
+	  },
+
+	  methods: {
+	    // Run emoji generator
+	    generate: function generate() {
+	      console.log('generate');
+	    }
 	  },
 
 	  components: {
@@ -15301,7 +15412,31 @@
 
 /***/ },
 /* 34 */
-[66, 35],
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(35);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
 /* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -15310,7 +15445,7 @@
 
 
 	// module
-	exports.push([module.id, ".eg-generator{margin:30px auto;padding:20px 0 35px;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2)}.eg-generator,.eg-generator *{box-sizing:border-box}.eg-generator h2{margin:18px 0 24px;font-size:17px;font-weight:700;letter-spacing:1.5px;text-align:center;color:#1ebaa0}.eg-generator h3{display:block;margin:0 0 16px;font-size:15px;font-weight:700;letter-spacing:1px;text-align:center;color:#6fcbdd}.eg-generator .buttons{margin-top:50px;text-align:center}.eg-generator .buttons button{padding:12px 60px;border-radius:12px;background-color:rgba(225,22,101,.5);background-image:none!important;color:#fff;font-weight:700}.eg-generator .buttons button:focus,.eg-generator .buttons button:hover{background-color:rgba(225,22,101,.75)}.eg-generator .parameters{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:38px 0 0}.eg-generator .parameters .parameter{margin:0 30px;text-align:center}.eg-generator .parameters .parameter.text textarea{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px;margin:0 0 50px;padding:10px;border:0;width:140px;height:100px;text-align:center;-webkit-appearance:none}.eg-generator .parameters .parameter.color{margin-right:32px}.eg-generator .parameters .parameter.color>div{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px}.eg-generator .parameters .parameter.font ul{margin:0;padding:0}.eg-generator .parameters .parameter.font ul li{list-style-type:none;list-style-position:inside}.eg-generator .parameters .parameter.font input{display:none}.eg-generator .parameters .parameter.font input:checked+label{border:1px solid rgba(112,167,179,.8);background-image:url(/static/img/checked.png);background-repeat:no-repeat;background-position:14px;background-size:20px auto;color:#709da6}.eg-generator .parameters .parameter.font label{display:block;margin:0 0 5px;padding:8px 23px 8px 46px;border-radius:16px;border:1px solid rgba(0,0,0,.2);color:rgba(0,0,0,.32);font-size:15px;text-align:left;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer}.eg-generator .parameters .parameter.preview .image{display:block;border:1px solid rgba(0,0,0,.1);width:128px;height:128px;background-color:rgba(0,0,0,.05)}", ""]);
+	exports.push([module.id, "/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n\n.eg-generator {\n  margin: 30px auto 30px auto;\n  width: 900px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);\n  padding: 20px 0 35px;\n}\n\n.eg-generator, .eg-generator * {\n  box-sizing: border-box;\n}\n\n.eg-generator h2 {\n  margin: 18px 0 24px;\n  font-size: 17px;\n  font-weight: bold;\n  letter-spacing: 1.5px;\n  text-align: center;\n  color: #1EBAA0;\n}\n\n.eg-generator h3 {\n  display: block;\n  margin: 0 0 16px;\n  font-size: 15px;\n  font-weight: bold;\n  letter-spacing: 1px;\n  text-align: center;\n  color: #6FCBDD;\n}\n\n.eg-generator .previews {\n  margin: 50px 0;\n}\n\n.eg-generator .previews .preview {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: stretch;\n  -ms-flex-align: stretch;\n  align-items: stretch;\n}\n\n.eg-generator .previews .preview .image {\n  box-sizing: content-box;\n  display: block;\n  border: 1px solid rgba(0, 0, 0, .18);\n  border-radius: 5px;\n  width: 128px;\n  height: 128px;\n  background-color: rgba(255, 255, 255, .38);\n}\n\n.eg-generator .previews .preview .image img {\n  border: 0;\n  width: 100%;\n  height: 100%;\n}\n\n.eg-generator .previews .preview .detail {}\n\n.eg-generator .buttons {\n  margin-top: 50px;\n  text-align: center;\n}\n\n.eg-generator .buttons button {\n  padding: 12px 60px;\n  border-radius: 12px;\n  background-color: rgba(225, 22, 101, 0.5);\n  background-image: none !important;\n  color: white;\n  font-weight: bold\n}\n\n.eg-generator .buttons button:hover, .eg-generator .buttons button:focus {\n  background-color: rgba(225, 22, 101, 0.75);\n}\n\n.eg-generator .parameters {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  margin: 38px 0 0;\n}\n\n.eg-generator .parameters .parameter {\n  margin: 0 30px 0;\n  text-align: center\n}\n\n.eg-generator .parameters .parameter.text textarea {\n  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .15);\n  border-radius: 2px;\n  margin: 0 0 50px 0;\n  padding: 10px;\n  border: 0;\n  width: 140px;\n  height: 100px;\n  text-align: center;\n  -webkit-appearance: none;\n}\n\n.eg-generator .parameters .parameter.color {\n  margin-right: 32px;\n}\n\n.eg-generator .parameters .parameter.color > div {\n  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .15);\n  border-radius: 2px;\n}\n\n.eg-generator .parameters .parameter.font ul {\n  margin: 0;\n  padding: 0;\n}\n\n.eg-generator .parameters .parameter.font ul li {\n  list-style-type: none;\n  list-style-position: inside;\n}\n\n.eg-generator .parameters .parameter.font input {\n  display: none;\n}\n\n.eg-generator .parameters .parameter.font input:checked + label {\n  border: 1px solid rgba(112, 167, 179, 0.8);\n  background-image: url(/static/img/checked.png);\n  background-repeat: no-repeat;\n  background-position: 14px center;\n  background-size: 20px auto;\n  color: rgb(112, 157, 166);\n}\n\n.eg-generator .parameters .parameter.font label {\n  display: block;\n  margin: 0 0 5px;\n  padding: 8px 23px 8px 46px;\n  border-radius: 16px;\n  border: 1px solid rgba(0, 0, 0, .2);\n  color: rgba(0, 0, 0, .32);\n  font-size: 15px;\n  text-align: left;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  cursor: pointer;\n}\n\n", ""]);
 
 	// exports
 
@@ -15319,7 +15454,7 @@
 /* 36 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-generator\"> <h2>絵文字にしたい文字を入力してください！</h2> <div class=buttons> <button type=button class=pure-button>生成する&#9834;</button> </div> <div class=parameters> <div class=\"parameter text\"> <h3>文字</h3> <textarea rows=2 cols=10></textarea> </div> <div class=\"parameter font\"> <h3>フォント</h3> <ul> <li v-for=\"font in fonts\"> <input type=radio name=eg_generator__font_key :value=font.key id=eg_generator__font_{{font.key}} v-model=selectedFontKey> <label for=eg_generator__font_{{font.key}}>{{font.name}}</label> </li> </ul> </div> <div class=\"parameter color\"> <h3>文字のカラー</h3> <chrome-picker :colors.sync=colors></chrome-picker> </div> </div> </div>";
+	module.exports = "<div class=\"v-cloak eg-generator\">\n  <h2>絵文字にしたい文字を入力してください！</h2>\n\n  <div class=\"previews\">\n    <div class=\"preview\">\n      <div class=\"image\">\n        <img src=\"/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD\" alt=\"\">\n      </div>\n      <div class=\"detail\">\n        <div class=\"download\">テキスト:</div>\n        <div class=\"download\">ダウンロード</div>\n        <div class=\"download\">シェアする♪</div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"buttons\">\n    <button type=\"button\" class=\"pure-button\" v-on:click=\"generate\">生成する&#9834;</button>\n  </div>\n\n  <div class=\"parameters\">\n    <div class=\"parameter text\">\n      <h3>テキスト</h3>\n      <textarea rows=\"2\" cols=\"10\" v-model=\"text\"></textarea>\n    </div>\n\n    <div class=\"parameter font\">\n      <h3>フォント</h3>\n      <ul>\n        <li v-for=\"font in fonts\">\n          <input type=\"radio\" name=\"eg_generator__font_key\" :value=\"font.key\"\n            id=\"eg_generator__font_{{font.key}}\" v-model=\"fontKey\">\n          <label for=\"eg_generator__font_{{font.key}}\">{{font.name}}</label>\n        </li>\n      </ul>\n    </div>\n\n    <div class=\"parameter color\">\n      <h3>文字のカラー</h3>\n      <chrome-picker :colors.sync=\"colors\"></chrome-picker>\n    </div>\n  </div>\n</div>\n";
 
 /***/ },
 /* 37 */
@@ -15384,7 +15519,7 @@
 
 
 	// module
-	exports.push([module.id, "/*! Flickity v2.0.2\nhttp://flickity.metafizzy.co\n---------------------------------------------- */.flickity-enabled{position:relative}.flickity-enabled:focus{outline:none}.flickity-viewport{overflow:hidden;position:relative;height:100%}.flickity-slider{position:absolute;width:100%;height:100%}.flickity-enabled.is-draggable{-webkit-tap-highlight-color:transparent;tap-highlight-color:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.flickity-enabled.is-draggable .flickity-viewport{cursor:move;cursor:-webkit-grab;cursor:grab}.flickity-enabled.is-draggable .flickity-viewport.is-pointer-down{cursor:-webkit-grabbing;cursor:grabbing}.flickity-prev-next-button{position:absolute;top:50%;width:44px;height:44px;border:none;border-radius:50%;background:#fff;background:hsla(0,0%,100%,.75);cursor:pointer;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.flickity-prev-next-button:hover{background:#fff}.flickity-prev-next-button:focus{outline:none;box-shadow:0 0 0 5px #09f}.flickity-prev-next-button:active{opacity:.6}.flickity-prev-next-button.previous{left:10px}.flickity-prev-next-button.next{right:10px}.flickity-rtl .flickity-prev-next-button.previous{left:auto;right:10px}.flickity-rtl .flickity-prev-next-button.next{right:auto;left:10px}.flickity-prev-next-button:disabled{opacity:.3;cursor:auto}.flickity-prev-next-button svg{position:absolute;left:20%;top:20%;width:60%;height:60%}.flickity-prev-next-button .arrow{fill:#333}.flickity-page-dots{position:absolute;width:100%;bottom:-25px;padding:0;margin:0;list-style:none;text-align:center;line-height:1}.flickity-rtl .flickity-page-dots{direction:rtl}.flickity-page-dots .dot{display:inline-block;width:10px;height:10px;margin:0 8px;background:#333;border-radius:50%;opacity:.25;cursor:pointer}.flickity-page-dots .dot.is-selected{opacity:1}", ""]);
+	exports.push([module.id, "/*! Flickity v2.0.2\nhttp://flickity.metafizzy.co\n---------------------------------------------- */\n\n.flickity-enabled {\n  position: relative;\n}\n\n.flickity-enabled:focus { outline: none; }\n\n.flickity-viewport {\n  overflow: hidden;\n  position: relative;\n  height: 100%;\n}\n\n.flickity-slider {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n}\n\n/* draggable */\n\n.flickity-enabled.is-draggable {\n  -webkit-tap-highlight-color: transparent;\n          tap-highlight-color: transparent;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.flickity-enabled.is-draggable .flickity-viewport {\n  cursor: move;\n  cursor: -webkit-grab;\n  cursor: grab;\n}\n\n.flickity-enabled.is-draggable .flickity-viewport.is-pointer-down {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n\n/* ---- previous/next buttons ---- */\n\n.flickity-prev-next-button {\n  position: absolute;\n  top: 50%;\n  width: 44px;\n  height: 44px;\n  border: none;\n  border-radius: 50%;\n  background: white;\n  background: hsla(0, 0%, 100%, 0.75);\n  cursor: pointer;\n  /* vertically center */\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\n\n.flickity-prev-next-button:hover { background: white; }\n\n.flickity-prev-next-button:focus {\n  outline: none;\n  box-shadow: 0 0 0 5px #09F;\n}\n\n.flickity-prev-next-button:active {\n  opacity: 0.6;\n}\n\n.flickity-prev-next-button.previous { left: 10px; }\n.flickity-prev-next-button.next { right: 10px; }\n/* right to left */\n.flickity-rtl .flickity-prev-next-button.previous {\n  left: auto;\n  right: 10px;\n}\n.flickity-rtl .flickity-prev-next-button.next {\n  right: auto;\n  left: 10px;\n}\n\n.flickity-prev-next-button:disabled {\n  opacity: 0.3;\n  cursor: auto;\n}\n\n.flickity-prev-next-button svg {\n  position: absolute;\n  left: 20%;\n  top: 20%;\n  width: 60%;\n  height: 60%;\n}\n\n.flickity-prev-next-button .arrow {\n  fill: #333;\n}\n\n/* ---- page dots ---- */\n\n.flickity-page-dots {\n  position: absolute;\n  width: 100%;\n  bottom: -25px;\n  padding: 0;\n  margin: 0;\n  list-style: none;\n  text-align: center;\n  line-height: 1;\n}\n\n.flickity-rtl .flickity-page-dots { direction: rtl; }\n\n.flickity-page-dots .dot {\n  display: inline-block;\n  width: 10px;\n  height: 10px;\n  margin: 0 8px;\n  background: #333;\n  border-radius: 50%;\n  opacity: 0.25;\n  cursor: pointer;\n}\n\n.flickity-page-dots .dot.is-selected {\n  opacity: 1;\n}\n", ""]);
 
 	// exports
 
@@ -18651,7 +18786,314 @@
 
 /***/ },
 /* 54 */
-51,
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	 * Unipointer v2.1.0
+	 * base class for doing one thing with pointer event
+	 * MIT license
+	 */
+
+	/*jshint browser: true, undef: true, unused: true, strict: true */
+
+	( function( window, factory ) {
+	  // universal module definition
+	  /* jshint strict: false */ /*global define, module, require */
+	  if ( true ) {
+	    // AMD
+	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
+	      __webpack_require__(42)
+	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( EvEmitter ) {
+	      return factory( window, EvEmitter );
+	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	  } else if ( typeof module == 'object' && module.exports ) {
+	    // CommonJS
+	    module.exports = factory(
+	      window,
+	      require('ev-emitter')
+	    );
+	  } else {
+	    // browser global
+	    window.Unipointer = factory(
+	      window,
+	      window.EvEmitter
+	    );
+	  }
+
+	}( window, function factory( window, EvEmitter ) {
+
+	'use strict';
+
+	function noop() {}
+
+	function Unipointer() {}
+
+	// inherit EvEmitter
+	var proto = Unipointer.prototype = Object.create( EvEmitter.prototype );
+
+	proto.bindStartEvent = function( elem ) {
+	  this._bindStartEvent( elem, true );
+	};
+
+	proto.unbindStartEvent = function( elem ) {
+	  this._bindStartEvent( elem, false );
+	};
+
+	/**
+	 * works as unbinder, as you can ._bindStart( false ) to unbind
+	 * @param {Boolean} isBind - will unbind if falsey
+	 */
+	proto._bindStartEvent = function( elem, isBind ) {
+	  // munge isBind, default to true
+	  isBind = isBind === undefined ? true : !!isBind;
+	  var bindMethod = isBind ? 'addEventListener' : 'removeEventListener';
+
+	  if ( window.navigator.pointerEnabled ) {
+	    // W3C Pointer Events, IE11. See https://coderwall.com/p/mfreca
+	    elem[ bindMethod ]( 'pointerdown', this );
+	  } else if ( window.navigator.msPointerEnabled ) {
+	    // IE10 Pointer Events
+	    elem[ bindMethod ]( 'MSPointerDown', this );
+	  } else {
+	    // listen for both, for devices like Chrome Pixel
+	    elem[ bindMethod ]( 'mousedown', this );
+	    elem[ bindMethod ]( 'touchstart', this );
+	  }
+	};
+
+	// trigger handler methods for events
+	proto.handleEvent = function( event ) {
+	  var method = 'on' + event.type;
+	  if ( this[ method ] ) {
+	    this[ method ]( event );
+	  }
+	};
+
+	// returns the touch that we're keeping track of
+	proto.getTouch = function( touches ) {
+	  for ( var i=0; i < touches.length; i++ ) {
+	    var touch = touches[i];
+	    if ( touch.identifier == this.pointerIdentifier ) {
+	      return touch;
+	    }
+	  }
+	};
+
+	// ----- start event ----- //
+
+	proto.onmousedown = function( event ) {
+	  // dismiss clicks from right or middle buttons
+	  var button = event.button;
+	  if ( button && ( button !== 0 && button !== 1 ) ) {
+	    return;
+	  }
+	  this._pointerDown( event, event );
+	};
+
+	proto.ontouchstart = function( event ) {
+	  this._pointerDown( event, event.changedTouches[0] );
+	};
+
+	proto.onMSPointerDown =
+	proto.onpointerdown = function( event ) {
+	  this._pointerDown( event, event );
+	};
+
+	/**
+	 * pointer start
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 */
+	proto._pointerDown = function( event, pointer ) {
+	  // dismiss other pointers
+	  if ( this.isPointerDown ) {
+	    return;
+	  }
+
+	  this.isPointerDown = true;
+	  // save pointer identifier to match up touch events
+	  this.pointerIdentifier = pointer.pointerId !== undefined ?
+	    // pointerId for pointer events, touch.indentifier for touch events
+	    pointer.pointerId : pointer.identifier;
+
+	  this.pointerDown( event, pointer );
+	};
+
+	proto.pointerDown = function( event, pointer ) {
+	  this._bindPostStartEvents( event );
+	  this.emitEvent( 'pointerDown', [ event, pointer ] );
+	};
+
+	// hash of events to be bound after start event
+	var postStartEvents = {
+	  mousedown: [ 'mousemove', 'mouseup' ],
+	  touchstart: [ 'touchmove', 'touchend', 'touchcancel' ],
+	  pointerdown: [ 'pointermove', 'pointerup', 'pointercancel' ],
+	  MSPointerDown: [ 'MSPointerMove', 'MSPointerUp', 'MSPointerCancel' ]
+	};
+
+	proto._bindPostStartEvents = function( event ) {
+	  if ( !event ) {
+	    return;
+	  }
+	  // get proper events to match start event
+	  var events = postStartEvents[ event.type ];
+	  // bind events to node
+	  events.forEach( function( eventName ) {
+	    window.addEventListener( eventName, this );
+	  }, this );
+	  // save these arguments
+	  this._boundPointerEvents = events;
+	};
+
+	proto._unbindPostStartEvents = function() {
+	  // check for _boundEvents, in case dragEnd triggered twice (old IE8 bug)
+	  if ( !this._boundPointerEvents ) {
+	    return;
+	  }
+	  this._boundPointerEvents.forEach( function( eventName ) {
+	    window.removeEventListener( eventName, this );
+	  }, this );
+
+	  delete this._boundPointerEvents;
+	};
+
+	// ----- move event ----- //
+
+	proto.onmousemove = function( event ) {
+	  this._pointerMove( event, event );
+	};
+
+	proto.onMSPointerMove =
+	proto.onpointermove = function( event ) {
+	  if ( event.pointerId == this.pointerIdentifier ) {
+	    this._pointerMove( event, event );
+	  }
+	};
+
+	proto.ontouchmove = function( event ) {
+	  var touch = this.getTouch( event.changedTouches );
+	  if ( touch ) {
+	    this._pointerMove( event, touch );
+	  }
+	};
+
+	/**
+	 * pointer move
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 * @private
+	 */
+	proto._pointerMove = function( event, pointer ) {
+	  this.pointerMove( event, pointer );
+	};
+
+	// public
+	proto.pointerMove = function( event, pointer ) {
+	  this.emitEvent( 'pointerMove', [ event, pointer ] );
+	};
+
+	// ----- end event ----- //
+
+
+	proto.onmouseup = function( event ) {
+	  this._pointerUp( event, event );
+	};
+
+	proto.onMSPointerUp =
+	proto.onpointerup = function( event ) {
+	  if ( event.pointerId == this.pointerIdentifier ) {
+	    this._pointerUp( event, event );
+	  }
+	};
+
+	proto.ontouchend = function( event ) {
+	  var touch = this.getTouch( event.changedTouches );
+	  if ( touch ) {
+	    this._pointerUp( event, touch );
+	  }
+	};
+
+	/**
+	 * pointer up
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 * @private
+	 */
+	proto._pointerUp = function( event, pointer ) {
+	  this._pointerDone();
+	  this.pointerUp( event, pointer );
+	};
+
+	// public
+	proto.pointerUp = function( event, pointer ) {
+	  this.emitEvent( 'pointerUp', [ event, pointer ] );
+	};
+
+	// ----- pointer done ----- //
+
+	// triggered on pointer up & pointer cancel
+	proto._pointerDone = function() {
+	  // reset properties
+	  this.isPointerDown = false;
+	  delete this.pointerIdentifier;
+	  // remove events
+	  this._unbindPostStartEvents();
+	  this.pointerDone();
+	};
+
+	proto.pointerDone = noop;
+
+	// ----- pointer cancel ----- //
+
+	proto.onMSPointerCancel =
+	proto.onpointercancel = function( event ) {
+	  if ( event.pointerId == this.pointerIdentifier ) {
+	    this._pointerCancel( event, event );
+	  }
+	};
+
+	proto.ontouchcancel = function( event ) {
+	  var touch = this.getTouch( event.changedTouches );
+	  if ( touch ) {
+	    this._pointerCancel( event, touch );
+	  }
+	};
+
+	/**
+	 * pointer cancel
+	 * @param {Event} event
+	 * @param {Event or Touch} pointer
+	 * @private
+	 */
+	proto._pointerCancel = function( event, pointer ) {
+	  this._pointerDone();
+	  this.pointerCancel( event, pointer );
+	};
+
+	// public
+	proto.pointerCancel = function( event, pointer ) {
+	  this.emitEvent( 'pointerCancel', [ event, pointer ] );
+	};
+
+	// -----  ----- //
+
+	// utility function for getting x/y coords from event
+	Unipointer.getPointerPoint = function( pointer ) {
+	  return {
+	    x: pointer.pageX,
+	    y: pointer.pageY
+	  };
+	};
+
+	// -----  ----- //
+
+	return Unipointer;
+
+	}));
+
+
+/***/ },
 /* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -19373,75 +19815,12 @@
 
 /***/ },
 /* 59 */
-[66, 60],
-/* 60 */
 /***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(7)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".eg-recently{margin:30px auto;padding:32px 32px 60px;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2)}.eg-recently,.eg-recently *{box-sizing:border-box}.eg-recently h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1px;text-align:center;color:#1ebaa0}.eg-recently .carousel{height:128px}.eg-recently .carousel .carousel-cell{width:128px;height:100%;margin-right:10px;border:1px solid rgba(0,0,0,.2);background-image:url('/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD');border-radius:5px}", ""]);
-
-	// exports
-
-
-/***/ },
-/* 61 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"v-cloak eg-recently\"> <h2>最近生成された絵文字</h2> <div v-el:carousel class=carousel> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> </div> </div>";
-
-/***/ },
-/* 62 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _vue = __webpack_require__(1);
-
-	var _vue2 = _interopRequireDefault(_vue);
-
-	__webpack_require__(63);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	module.exports = {
-	  name: 'eg-contact',
-	  template: __webpack_require__(65)
-	};
-
-/***/ },
-/* 63 */
-[66, 64],
-/* 64 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(7)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".eg-contact{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:32px 32px 60px;margin-bottom:180px;min-height:600px}.eg-contact,.eg-contact *{box-sizing:border-box}.eg-contact h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1px;text-align:center;color:#1ebaa0}.eg-contact .eg-contact--body{padding:30px}.eg-contact .eg-contact--body ul{margin:18px 0}.eg-contact .eg-contact--body ul li{margin:10px 0;padding:1px 0 0 42px;height:30px;line-height:30px;list-style-type:none;list-style-position:inside;background-size:26px auto;background-repeat:no-repeat;background-position:0;font-size:15px}.eg-contact .eg-contact--body ul li a{text-decoration:none}.eg-contact .eg-contact--body ul li a .owner{margin-right:2px}.eg-contact .eg-contact--body ul li a .username{margin-left:2.5px}.eg-contact .eg-contact--body ul li.twitter{background-image:url('/static/img/twitter.png');opacity:.88}.eg-contact .eg-contact--body ul li.github{background-image:url('/static/img/github.png');opacity:.7}.eg-contact .eg-contact--body p.break{margin-top:45px}", ""]);
-
-	// exports
-
-
-/***/ },
-/* 65 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"v-cloak eg-contact\"> <h2>お問い合わせ</h2> <div class=eg-contact--body> <p>何かありましたら、GitHub の Issue へお願い致します。</p> <ul> <li class=github> <a href=https://github.com/emoji-gen/Emoji-Web/issues target=_blank> <span class=owner>emoji-gen</span>/<span class=username>Emoji-Web</span> </a> </li> </ul> <p class=break>もしくは、作者の Twitter まで直接お問い合わせ下さい。</p> <ul> <li class=twitter><a href=https://twitter.com/jiuya target=_blank>@jiuya</a></li> <li class=twitter><a href=https://twitter.com/pine613 target=_blank>@pine613</a></li> </ul> </div> </div>";
-
-/***/ },
-/* 66 */
-/***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(__webpack_module_template_argument_0__);
+	var content = __webpack_require__(60);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -19460,5 +19839,1544 @@
 		module.hot.dispose(function() { update(); });
 	}
 
+/***/ },
+/* 60 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(7)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/* fonts */\n\n/* colors */\n\n/* degree */\n\n/* dimensions */\n\n/* fonts */\n\n/* colors */\n\n/* degree */\n\n/* dimensions */\n\n.eg-recently {\n\n  margin: 30px auto 30px auto;\n  padding: 32px 32px 60px 32px;\n  width: 900px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);\n}\n\n.eg-recently, .eg-recently * {\n\n  box-sizing: border-box;\n}\n\n.eg-recently h2 {\n\n  margin: 18px 0 28px;\n\n  font-size: 17px;\n\n  font-weight: bold;\n\n  letter-spacing: 1px;\n\n  text-align: center;\n\n  color: #1EBAA0;\n}\n\n.eg-recently .carousel {\n\n  height: 130px;\n}\n\n.eg-recently .carousel .carousel-cell {\n\n  box-sizing: content-box;\n\n  width: 128px;\n\n  height: 128px;\n\n  margin-right: 10px;\n\n  border: 1px solid rgba(0, 0, 0, 0.18);\n\n  border-radius: 5px;\n\n  background-image: url('/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD');\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 61 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"v-cloak eg-recently\">\n  <h2>最近生成された絵文字</h2>\n\n  <div v-el:carousel class=\"carousel\">\n    <div class=\"carousel-cell\"></div>\n    <div class=\"carousel-cell\"></div>\n    <div class=\"carousel-cell\"></div>\n    <div class=\"carousel-cell\"></div>\n    <div class=\"carousel-cell\"></div>\n    <div class=\"carousel-cell\"></div>\n    <div class=\"carousel-cell\"></div>\n    <div class=\"carousel-cell\"></div>\n  </div>\n</div>\n";
+
+/***/ },
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _vue = __webpack_require__(1);
+
+	var _vue2 = _interopRequireDefault(_vue);
+
+	__webpack_require__(67);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+	  name: 'eg-contact',
+	  template: __webpack_require__(69)
+	};
+
+/***/ },
+/* 67 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(68);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(8)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 68 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(7)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n/* fonts */\n/* colors */\n/* degree */\n/* dimensions */\n\n.eg-contact {\n  margin: 30px auto 30px auto;\n  width: 900px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);\n\n  padding: 32px 32px 60px 32px;\n  margin-bottom: 180px;\n  min-height: 600px;\n}\n\n.eg-contact, .eg-contact * {\n  box-sizing: border-box;\n}\n\n.eg-contact h2 {\n  margin: 18px 0 28px;\n  font-size: 17px;\n  font-weight: bold;\n  letter-spacing: 1px;\n  text-align: center;\n  color: #1EBAA0;\n}\n\n.eg-contact .eg-contact--body {\n  padding: 30px;\n}\n\n.eg-contact .eg-contact--body ul {\n  margin: 18px 0;\n}\n\n.eg-contact .eg-contact--body ul li {\n  margin: 10px 0;\n  padding: 1px 0 0 42px;\n  height: 30px;\n  line-height: 30px;\n  list-style-type: none;\n  list-style-position: inside;\n  background-size: 26px auto;\n  background-repeat: no-repeat;\n  background-position: 0 center;\n  font-size: 15px;\n}\n\n.eg-contact .eg-contact--body ul li a {\n  text-decoration: none;\n}\n\n.eg-contact .eg-contact--body ul li a .owner {\n  margin-right: 2px;\n}\n\n.eg-contact .eg-contact--body ul li a .username {\n  margin-left: 2.5px;\n}\n\n.eg-contact .eg-contact--body ul li.twitter {\n  background-image: url('/static/img/twitter.png');\n  opacity: .88;\n}\n\n.eg-contact .eg-contact--body ul li.github {\n  background-image: url('/static/img/github.png');\n  opacity: .70;\n}\n\n.eg-contact .eg-contact--body p {}\n\n.eg-contact .eg-contact--body p.break {\n  margin-top: 45px;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 69 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"v-cloak eg-contact\">\n  <h2>お問い合わせ</h2>\n\n  <div class=\"eg-contact--body\">\n    <p>何かありましたら、GitHub の Issue へお願い致します。</p>\n\n    <ul>\n      <li class=\"github\">\n        <a href=\"https://github.com/emoji-gen/Emoji-Web/issues\" target=\"_blank\">\n          <span class=\"owner\">emoji-gen</span>/<span class=\"username\">Emoji-Web</span>\n        </a>\n      </li>\n    </ul>\n\n    <p class=\"break\">もしくは、作者の Twitter まで直接お問い合わせ下さい。</p>\n\n    <ul>\n      <li class=\"twitter\"><a href=\"https://twitter.com/jiuya\" target=\"_blank\">@jiuya</a></li>\n      <li class=\"twitter\"><a href=\"https://twitter.com/pine613\" target=\"_blank\">@pine613</a></li>\n    </ul>\n  </div>\n</div>\n";
+
+/***/ },
+/* 70 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*!
+	 * sweet-scroll
+	 * Modern and the sweet smooth scroll library.
+	 * @author tsuyoshiwada
+	 * @license MIT
+	 * @version 1.0.3
+	 */
+
+	(function (global, factory) {
+	   true ? module.exports = factory() :
+	  typeof define === 'function' && define.amd ? define(factory) :
+	  (global.SweetScroll = factory());
+	}(this, function () { 'use strict';
+
+	  var cos = Math.cos;
+	  var sin = Math.sin;
+	  var pow = Math.pow;
+	  var abs = Math.abs;
+	  var sqrt = Math.sqrt;
+	  var asin = Math.asin;
+	  var PI = Math.PI;
+	  var max = Math.max;
+	  var min = Math.min;
+	  var round = Math.round;
+
+	  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+	    return typeof obj;
+	  } : function (obj) {
+	    return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+	  };
+
+	  var classCallCheck = function (instance, Constructor) {
+	    if (!(instance instanceof Constructor)) {
+	      throw new TypeError("Cannot call a class as a function");
+	    }
+	  };
+
+	  var createClass = function () {
+	    function defineProperties(target, props) {
+	      for (var i = 0; i < props.length; i++) {
+	        var descriptor = props[i];
+	        descriptor.enumerable = descriptor.enumerable || false;
+	        descriptor.configurable = true;
+	        if ("value" in descriptor) descriptor.writable = true;
+	        Object.defineProperty(target, descriptor.key, descriptor);
+	      }
+	    }
+
+	    return function (Constructor, protoProps, staticProps) {
+	      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+	      if (staticProps) defineProperties(Constructor, staticProps);
+	      return Constructor;
+	    };
+	  }();
+
+	  var MAX_ARRAY_INDEX = pow(2, 53) - 1;
+	  var classTypeList = ["Boolean", "Number", "String", "Function", "Array", "Object"];
+	  var classTypes = {};
+
+	  classTypeList.forEach(function (name) {
+	    classTypes["[object " + name + "]"] = name.toLowerCase();
+	  });
+
+	  function getType(obj) {
+	    if (obj == null) {
+	      return "";
+	    }
+
+	    return (typeof obj === "undefined" ? "undefined" : _typeof(obj)) === "object" || typeof obj === "function" ? classTypes[Object.prototype.toString.call(obj)] || "object" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
+	  }
+
+	  function isNumber(obj) {
+	    return getType(obj) === "number";
+	  }
+
+	  function isString(obj) {
+	    return getType(obj) === "string";
+	  }
+
+	  function isFunction(obj) {
+	    return getType(obj) === "function";
+	  }
+
+	  function isArray(obj) {
+	    return Array.isArray(obj);
+	  }
+
+	  function isArrayLike(obj) {
+	    var length = obj == null ? null : obj.length;
+
+	    return isNumber(length) && length >= 0 && length <= MAX_ARRAY_INDEX;
+	  }
+
+	  function isNumeric(obj) {
+	    return !isArray(obj) && obj - parseFloat(obj) + 1 >= 0;
+	  }
+
+	  function isObject(obj) {
+	    return !isArray(obj) && getType(obj) === "object";
+	  }
+
+	  function hasProp(obj, key) {
+	    return obj && obj.hasOwnProperty(key);
+	  }
+
+	  function each(obj, iterate, context) {
+	    if (obj == null) return obj;
+
+	    var ctx = context || obj;
+
+	    if (isObject(obj)) {
+	      for (var key in obj) {
+	        if (!hasProp(obj, key)) continue;
+	        if (iterate.call(ctx, obj[key], key) === false) break;
+	      }
+	    } else if (isArrayLike(obj)) {
+	      for (var i = 0; i < obj.length; i++) {
+	        if (iterate.call(ctx, obj[i], i) === false) break;
+	      }
+	    }
+
+	    return obj;
+	  }
+
+	  function merge(obj) {
+	    for (var _len = arguments.length, sources = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	      sources[_key - 1] = arguments[_key];
+	    }
+
+	    each(sources, function (source) {
+	      each(source, function (value, key) {
+	        obj[key] = value;
+	      });
+	    });
+
+	    return obj;
+	  }
+
+	  function removeSpaces(str) {
+	    return str.replace(/\s*/g, "") || "";
+	  }
+
+	  var win = window;
+	  var doc = document;
+
+	  function $(selector) {
+	    var context = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+
+	    if (!selector) return;
+
+	    return (context == null ? doc : context).querySelector(selector);
+	  }
+
+	  function $$(selector) {
+	    var context = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+
+	    if (!selector) return;
+
+	    return (context == null ? doc : context).querySelectorAll(selector);
+	  }
+
+	  function matches(el, selector) {
+	    var results = (el.document || el.ownerDocument).querySelectorAll(selector);
+	    var i = results.length;
+	    while (--i >= 0 && results.item(i) !== el) {}
+
+	    return i > -1;
+	  }
+
+	  var directionMethodMap = {
+	    y: "scrollTop",
+	    x: "scrollLeft"
+	  };
+
+	  var directionPropMap = {
+	    y: "pageYOffset",
+	    x: "pageXOffset"
+	  };
+
+	  function isRootContainer(el) {
+	    return el === doc.documentElement || el === doc.body;
+	  }
+
+	  function getZoomLevel() {
+	    var _window = window;
+	    var outerWidth = _window.outerWidth;
+	    var innerWidth = _window.innerWidth;
+
+
+	    return outerWidth ? outerWidth / innerWidth : 1;
+	  }
+
+	  function getScrollable(selectors) {
+	    var direction = arguments.length <= 1 || arguments[1] === undefined ? "y" : arguments[1];
+	    var all = arguments.length <= 2 || arguments[2] === undefined ? true : arguments[2];
+
+	    var method = directionMethodMap[direction];
+	    var elements = selectors instanceof Element ? [selectors] : $$(selectors);
+	    var scrollables = [];
+	    var $div = doc.createElement("div");
+
+	    for (var i = 0; i < elements.length; i++) {
+	      var el = elements[i];
+
+	      if (el[method] > 0) {
+	        scrollables.push(el);
+	      } else {
+	        $div.style.width = el.clientWidth + 1 + "px";
+	        $div.style.height = el.clientHeight + 1 + "px";
+	        el.appendChild($div);
+
+	        el[method] = 1.5 / getZoomLevel();
+	        if (el[method] > 0) {
+	          scrollables.push(el);
+	        }
+	        el[method] = 0;
+
+	        el.removeChild($div);
+	      }
+
+	      if (!all && scrollables.length > 0) break;
+	    }
+
+	    return scrollables;
+	  }
+
+	  function scrollableFind(selectors, direction) {
+	    var scrollables = getScrollable(selectors, direction, false);
+
+	    return scrollables.length >= 1 ? scrollables[0] : null;
+	  }
+
+	  function getWindow(el) {
+	    return el != null && el === el.window ? el : el.nodeType === 9 && el.defaultView;
+	  }
+
+	  function getHeight(el) {
+	    return max(el.scrollHeight, el.clientHeight, el.offsetHeight);
+	  }
+
+	  function getWidth(el) {
+	    return max(el.scrollWidth, el.clientWidth, el.offsetWidth);
+	  }
+
+	  function getSize(el) {
+	    return {
+	      width: getWidth(el),
+	      height: getHeight(el)
+	    };
+	  }
+
+	  function getDocumentSize() {
+	    return {
+	      width: max(getWidth(doc.body), getWidth(doc.documentElement)),
+	      height: max(getHeight(doc.body), getHeight(doc.documentElement))
+	    };
+	  }
+
+	  function getViewportAndElementSizes(el) {
+	    if (isRootContainer(el)) {
+	      return {
+	        viewport: {
+	          width: min(win.innerWidth, doc.documentElement.clientWidth),
+	          height: win.innerHeight
+	        },
+	        size: getDocumentSize()
+	      };
+	    }
+
+	    return {
+	      viewport: {
+	        width: el.clientWidth,
+	        height: el.clientHeight
+	      },
+	      size: getSize(el)
+	    };
+	  }
+
+	  function getScroll(el) {
+	    var direction = arguments.length <= 1 || arguments[1] === undefined ? "y" : arguments[1];
+
+	    var currentWindow = getWindow(el);
+
+	    return currentWindow ? currentWindow[directionPropMap[direction]] : el[directionMethodMap[direction]];
+	  }
+
+	  function setScroll(el, offset) {
+	    var direction = arguments.length <= 2 || arguments[2] === undefined ? "y" : arguments[2];
+
+	    var currentWindow = getWindow(el);
+	    var top = direction === "y";
+	    if (currentWindow) {
+	      currentWindow.scrollTo(!top ? offset : currentWindow[directionPropMap.x], top ? offset : currentWindow[directionPropMap.y]);
+	    } else {
+	      el[directionMethodMap[direction]] = offset;
+	    }
+	  }
+
+	  function getOffset(el) {
+	    var context = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+
+	    if (!el || el && !el.getClientRects().length) {
+	      return { top: 0, left: 0 };
+	    }
+
+	    var rect = el.getBoundingClientRect();
+
+	    if (rect.width || rect.height) {
+	      var scroll = {};
+	      var ctx = null;
+	      if (context == null || isRootContainer(context)) {
+	        ctx = el.ownerDocument.documentElement;
+	        scroll.top = win.pageYOffset;
+	        scroll.left = win.pageXOffset;
+	      } else {
+	        ctx = context;
+	        var ctxRect = ctx.getBoundingClientRect();
+	        scroll.top = ctxRect.top * -1 + ctx.scrollTop;
+	        scroll.left = ctxRect.left * -1 + ctx.scrollLeft;
+	      }
+
+	      return {
+	        top: rect.top + scroll.top - ctx.clientTop,
+	        left: rect.left + scroll.left - ctx.clientLeft
+	      };
+	    }
+
+	    return rect;
+	  }
+
+	  // @link https://github.com/Modernizr/Modernizr
+	  var history = function () {
+	    var ua = navigator.userAgent;
+	    if ((ua.indexOf("Android 2.") !== -1 || ua.indexOf("Android 4.0") !== -1) && ua.indexOf("Mobile Safari") !== -1 && ua.indexOf("Chrome") === -1 && ua.indexOf("Windows Phone") === -1) {
+	      return false;
+	    }
+
+	    return window.history && "pushState" in window.history && window.location.protocol !== "file:";
+	  }();
+
+	  function addEvent(el, event, listener) {
+	    var events = event.split(",");
+	    events.forEach(function (eventName) {
+	      el.addEventListener(eventName.trim(), listener, false);
+	    });
+	  }
+
+	  function removeEvent(el, event, listener) {
+	    var events = event.split(",");
+	    events.forEach(function (eventName) {
+	      el.removeEventListener(eventName.trim(), listener, false);
+	    });
+	  }
+
+	  function linear(p) {
+	    return p;
+	  }
+
+	  function InQuad(x, t, b, c, d) {
+	    return c * (t /= d) * t + b;
+	  }
+
+	  function OutQuad(x, t, b, c, d) {
+	    return -c * (t /= d) * (t - 2) + b;
+	  }
+
+	  function InOutQuad(x, t, b, c, d) {
+	    if ((t /= d / 2) < 1) {
+	      return c / 2 * t * t + b;
+	    }
+	    return -c / 2 * (--t * (t - 2) - 1) + b;
+	  }
+
+	  function InCubic(x, t, b, c, d) {
+	    return c * (t /= d) * t * t + b;
+	  }
+
+	  function OutCubic(x, t, b, c, d) {
+	    return c * ((t = t / d - 1) * t * t + 1) + b;
+	  }
+
+	  function InOutCubic(x, t, b, c, d) {
+	    if ((t /= d / 2) < 1) {
+	      return c / 2 * t * t * t + b;
+	    }
+	    return c / 2 * ((t -= 2) * t * t + 2) + b;
+	  }
+
+	  function InQuart(x, t, b, c, d) {
+	    return c * (t /= d) * t * t * t + b;
+	  }
+
+	  function OutQuart(x, t, b, c, d) {
+	    return -c * ((t = t / d - 1) * t * t * t - 1) + b;
+	  }
+
+	  function InOutQuart(x, t, b, c, d) {
+	    if ((t /= d / 2) < 1) {
+	      return c / 2 * t * t * t * t + b;
+	    }
+	    return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
+	  }
+
+	  function InQuint(x, t, b, c, d) {
+	    return c * (t /= d) * t * t * t * t + b;
+	  }
+
+	  function OutQuint(x, t, b, c, d) {
+	    return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
+	  }
+
+	  function InOutQuint(x, t, b, c, d) {
+	    if ((t /= d / 2) < 1) {
+	      return c / 2 * t * t * t * t * t + b;
+	    }
+	    return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
+	  }
+
+	  function InSine(x, t, b, c, d) {
+	    return -c * cos(t / d * (PI / 2)) + c + b;
+	  }
+
+	  function OutSine(x, t, b, c, d) {
+	    return c * sin(t / d * (PI / 2)) + b;
+	  }
+
+	  function InOutSine(x, t, b, c, d) {
+	    return -c / 2 * (cos(PI * t / d) - 1) + b;
+	  }
+
+	  function InExpo(x, t, b, c, d) {
+	    return t === 0 ? b : c * pow(2, 10 * (t / d - 1)) + b;
+	  }
+
+	  function OutExpo(x, t, b, c, d) {
+	    return t === d ? b + c : c * (-pow(2, -10 * t / d) + 1) + b;
+	  }
+
+	  function InOutExpo(x, t, b, c, d) {
+	    if (t === 0) return b;
+	    if (t === d) return b + c;
+	    if ((t /= d / 2) < 1) return c / 2 * pow(2, 10 * (t - 1)) + b;
+	    return c / 2 * (-pow(2, -10 * --t) + 2) + b;
+	  }
+
+	  function InCirc(x, t, b, c, d) {
+	    return -c * (sqrt(1 - (t /= d) * t) - 1) + b;
+	  }
+
+	  function OutCirc(x, t, b, c, d) {
+	    return c * sqrt(1 - (t = t / d - 1) * t) + b;
+	  }
+
+	  function InOutCirc(x, t, b, c, d) {
+	    if ((t /= d / 2) < 1) {
+	      return -c / 2 * (sqrt(1 - t * t) - 1) + b;
+	    }
+	    return c / 2 * (sqrt(1 - (t -= 2) * t) + 1) + b;
+	  }
+
+	  function InElastic(x, t, b, c, d) {
+	    var s = 1.70158;
+	    var p = 0;
+	    var a = c;
+	    if (t === 0) return b;
+	    if ((t /= d) === 1) return b + c;
+	    if (!p) p = d * .3;
+	    if (a < abs(c)) {
+	      a = c;
+	      s = p / 4;
+	    } else {
+	      s = p / (2 * PI) * asin(c / a);
+	    }
+	    return -(a * pow(2, 10 * (t -= 1)) * sin((t * d - s) * (2 * PI) / p)) + b;
+	  }
+
+	  function OutElastic(x, t, b, c, d) {
+	    var s = 1.70158;
+	    var p = 0;
+	    var a = c;
+	    if (t === 0) return b;
+	    if ((t /= d) === 1) return b + c;
+	    if (!p) p = d * .3;
+	    if (a < abs(c)) {
+	      a = c;
+	      s = p / 4;
+	    } else {
+	      s = p / (2 * PI) * asin(c / a);
+	    }
+	    return a * pow(2, -10 * t) * sin((t * d - s) * (2 * PI) / p) + c + b;
+	  }
+
+	  function InOutElastic(x, t, b, c, d) {
+	    var s = 1.70158;
+	    var p = 0;
+	    var a = c;
+	    if (t === 0) return b;
+	    if ((t /= d / 2) === 2) return b + c;
+	    if (!p) p = d * (.3 * 1.5);
+	    if (a < abs(c)) {
+	      a = c;
+	      s = p / 4;
+	    } else {
+	      s = p / (2 * PI) * asin(c / a);
+	    }
+	    if (t < 1) {
+	      return -.5 * (a * pow(2, 10 * (t -= 1)) * sin((t * d - s) * (2 * PI) / p)) + b;
+	    }
+	    return a * pow(2, -10 * (t -= 1)) * sin((t * d - s) * (2 * PI) / p) * .5 + c + b;
+	  }
+
+	  function InBack(x, t, b, c, d) {
+	    var s = arguments.length <= 5 || arguments[5] === undefined ? 1.70158 : arguments[5];
+
+	    return c * (t /= d) * t * ((s + 1) * t - s) + b;
+	  }
+
+	  function OutBack(x, t, b, c, d) {
+	    var s = arguments.length <= 5 || arguments[5] === undefined ? 1.70158 : arguments[5];
+
+	    return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
+	  }
+
+	  function InOutBack(x, t, b, c, d) {
+	    var s = arguments.length <= 5 || arguments[5] === undefined ? 1.70158 : arguments[5];
+
+	    if ((t /= d / 2) < 1) {
+	      return c / 2 * (t * t * (((s *= 1.525) + 1) * t - s)) + b;
+	    }
+	    return c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
+	  }
+
+	  function OutBounce(x, t, b, c, d) {
+	    if ((t /= d) < 1 / 2.75) {
+	      return c * (7.5625 * t * t) + b;
+	    } else if (t < 2 / 2.75) {
+	      return c * (7.5625 * (t -= 1.5 / 2.75) * t + .75) + b;
+	    } else if (t < 2.5 / 2.75) {
+	      return c * (7.5625 * (t -= 2.25 / 2.75) * t + .9375) + b;
+	    } else {
+	      return c * (7.5625 * (t -= 2.625 / 2.75) * t + .984375) + b;
+	    }
+	  }
+
+	  function InBounce(x, t, b, c, d) {
+	    return c - OutBounce(x, d - t, 0, c, d) + b;
+	  }
+
+	  function InOutBounce(x, t, b, c, d) {
+	    if (t < d / 2) {
+	      return InBounce(x, t * 2, 0, c, d) * .5 + b;
+	    }
+	    return OutBounce(x, t * 2 - d, 0, c, d) * .5 + c * .5 + b;
+	  }
+
+	var Easing = Object.freeze({
+	    linear: linear,
+	    InQuad: InQuad,
+	    OutQuad: OutQuad,
+	    InOutQuad: InOutQuad,
+	    InCubic: InCubic,
+	    OutCubic: OutCubic,
+	    InOutCubic: InOutCubic,
+	    InQuart: InQuart,
+	    OutQuart: OutQuart,
+	    InOutQuart: InOutQuart,
+	    InQuint: InQuint,
+	    OutQuint: OutQuint,
+	    InOutQuint: InOutQuint,
+	    InSine: InSine,
+	    OutSine: OutSine,
+	    InOutSine: InOutSine,
+	    InExpo: InExpo,
+	    OutExpo: OutExpo,
+	    InOutExpo: InOutExpo,
+	    InCirc: InCirc,
+	    OutCirc: OutCirc,
+	    InOutCirc: InOutCirc,
+	    InElastic: InElastic,
+	    OutElastic: OutElastic,
+	    InOutElastic: InOutElastic,
+	    InBack: InBack,
+	    OutBack: OutBack,
+	    InOutBack: InOutBack,
+	    OutBounce: OutBounce,
+	    InBounce: InBounce,
+	    InOutBounce: InOutBounce
+	  });
+
+	  var vendors = ["ms", "moz", "webkit"];
+	  var lastTime = 0;
+
+	  var raf = win.requestAnimationFrame;
+	  var caf = win.cancelAnimationFrame;
+
+	  for (var x = 0; x < vendors.length && !raf; ++x) {
+	    raf = win[vendors[x] + "RequestAnimationFrame"];
+	    caf = win[vendors[x] + "CancelAnimationFrame"] || win[vendors[x] + "CancelRequestAnimationFrame"];
+	  }
+
+	  if (!raf) {
+	    raf = function raf(callback) {
+	      var currentTime = Date.now();
+	      var timeToCall = max(0, 16 - (currentTime - lastTime));
+	      var id = setTimeout(function () {
+	        callback(currentTime + timeToCall);
+	      }, timeToCall);
+
+	      lastTime = currentTime + timeToCall;
+
+	      return id;
+	    };
+	  }
+
+	  if (!caf) {
+	    caf = function caf(id) {
+	      clearTimeout(id);
+	    };
+	  }
+
+	  var ScrollTween = function () {
+	    function ScrollTween(el) {
+	      classCallCheck(this, ScrollTween);
+
+	      this.el = el;
+	      this.props = {};
+	      this.options = {};
+	      this.progress = false;
+	      this.easing = null;
+	      this.startTime = null;
+	      this.rafId = null;
+	    }
+
+	    createClass(ScrollTween, [{
+	      key: "run",
+	      value: function run(x, y, options) {
+	        var _this = this;
+
+	        if (this.progress) return;
+	        this.props = { x: x, y: y };
+	        this.options = options;
+	        this.easing = isFunction(options.easing) ? options.easing : Easing[options.easing.replace("ease", "")];
+	        this.progress = true;
+
+	        setTimeout(function () {
+	          _this.startProps = {
+	            x: getScroll(_this.el, "x"),
+	            y: getScroll(_this.el, "y")
+	          };
+	          _this.rafId = raf(function (time) {
+	            return _this._loop(time);
+	          });
+	        }, this.options.delay);
+	      }
+	    }, {
+	      key: "stop",
+	      value: function stop() {
+	        var gotoEnd = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
+	        var complete = this.options.complete;
+
+	        this.startTime = null;
+	        this.progress = false;
+	        caf(this.rafId);
+
+	        if (gotoEnd) {
+	          setScroll(this.el, this.props.x, "x");
+	          setScroll(this.el, this.props.y, "y");
+	        }
+
+	        if (isFunction(complete)) {
+	          complete.call(this);
+	          this.options.complete = null;
+	        }
+	      }
+	    }, {
+	      key: "_loop",
+	      value: function _loop(time) {
+	        var _this2 = this;
+
+	        if (!this.startTime) {
+	          this.startTime = time;
+	        }
+
+	        if (!this.progress) {
+	          this.stop(false);
+
+	          return;
+	        }
+
+	        var el = this.el;
+	        var props = this.props;
+	        var options = this.options;
+	        var startTime = this.startTime;
+	        var startProps = this.startProps;
+	        var easing = this.easing;
+	        var duration = options.duration;
+	        var step = options.step;
+
+	        var toProps = {};
+	        var timeElapsed = time - startTime;
+	        var t = min(1, max(timeElapsed / duration, 0));
+
+	        each(props, function (value, key) {
+	          var initialValue = startProps[key];
+	          var delta = value - initialValue;
+	          if (delta === 0) return true;
+
+	          var val = easing(t, duration * t, 0, 1, duration);
+	          toProps[key] = round(initialValue + delta * val);
+	        });
+
+	        each(toProps, function (value, key) {
+	          setScroll(el, value, key);
+	        });
+
+	        if (timeElapsed <= duration) {
+	          step.call(this, t, toProps);
+	          this.rafId = raf(function (currentTime) {
+	            return _this2._loop(currentTime);
+	          });
+	        } else {
+	          this.stop(true);
+	        }
+	      }
+	    }]);
+	    return ScrollTween;
+	  }();
+
+	  var WHEEL_EVENT = function () {
+	    if ("onwheel" in doc) {
+	      return "wheel";
+	    } else if ("onmousewheel" in doc) {
+	      return "mousewheel";
+	    } else {
+	      return "DOMMouseScroll";
+	    }
+	  }();
+
+	  var CONTAINER_STOP_EVENTS = WHEEL_EVENT + ", touchstart, touchmove";
+	  var DOM_CONTENT_LOADED = "DOMContentLoaded";
+	  var isDomContentLoaded = false;
+
+	  addEvent(doc, DOM_CONTENT_LOADED, function () {
+	    isDomContentLoaded = true;
+	  });
+
+	  var SweetScroll = function () {
+
+	    /* eslint-enable max-len */
+
+	    /**
+	     * SweetScroll constructor
+	     * @constructor
+	     * @param {Object} options
+	     * @param {String | Element} container
+	     */
+
+	    function SweetScroll() {
+	      var _this = this;
+
+	      var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	      var container = arguments.length <= 1 || arguments[1] === undefined ? "body, html" : arguments[1];
+	      classCallCheck(this, SweetScroll);
+
+	      var params = merge({}, SweetScroll.defaults, options);
+
+	      this.options = params;
+	      this.getContainer(container, function (target) {
+	        _this.container = target;
+	        _this.header = $(params.header);
+	        _this.tween = new ScrollTween(target);
+	        _this._trigger = null;
+	        _this._shouldCallCancelScroll = false;
+	        _this.bindContainerClick();
+	        _this.hook(params, "initialized");
+	      });
+	    }
+
+	    /**
+	     * Scroll animation to the specified position
+	     * @param {*} distance
+	     * @param {Object} options
+	     * @return {void}
+	     */
+
+
+	    // Default options
+	    /* eslint-disable max-len */
+
+
+	    createClass(SweetScroll, [{
+	      key: "to",
+	      value: function to(distance) {
+	        var _this2 = this;
+
+	        var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	        var container = this.container;
+	        var header = this.header;
+
+	        var params = merge({}, this.options, options);
+
+	        // Temporary options
+	        this._options = params;
+
+	        var offset = this.parseCoodinate(params.offset);
+	        var trigger = this._trigger;
+	        var scroll = this.parseCoodinate(distance);
+	        var hash = null;
+
+	        // Remove the triggering elements which has been temporarily retained
+	        this._trigger = null;
+
+	        // Disable the call flag of `cancelScroll`
+	        this._shouldCallCancelScroll = false;
+
+	        // Stop current animation
+	        this.stop();
+
+	        // Does not move if the container is not found
+	        if (!container) return;
+
+	        // Using the coordinates in the case of CSS Selector
+	        if (!scroll && isString(distance)) {
+	          hash = /^#/.test(distance) ? distance : null;
+
+	          if (distance === "#") {
+	            scroll = {
+	              top: 0,
+	              left: 0
+	            };
+	          } else {
+	            var target = $(distance);
+	            var targetOffset = getOffset(target, container);
+	            if (!targetOffset) return;
+	            scroll = targetOffset;
+	          }
+	        }
+
+	        if (!scroll) return;
+
+	        // Apply `offset` value
+	        if (offset) {
+	          scroll.top += offset.top;
+	          scroll.left += offset.left;
+	        }
+
+	        // If the header is present apply the height
+	        if (header) {
+	          scroll.top = max(0, scroll.top - getSize(header).height);
+	        }
+
+	        // Determine the final scroll coordinates
+
+	        var _Dom$getViewportAndEl = getViewportAndElementSizes(container);
+
+	        var viewport = _Dom$getViewportAndEl.viewport;
+	        var size = _Dom$getViewportAndEl.size;
+
+	        // Call `beforeScroll`
+	        // Stop scrolling when it returns false
+
+	        if (this.hook(params, "beforeScroll", scroll, trigger) === false) {
+	          return;
+	        }
+
+	        // Adjustment of the maximum value
+	        scroll.top = params.verticalScroll ? max(0, min(size.height - viewport.height, scroll.top)) : getScroll(container, "y");
+	        scroll.left = params.horizontalScroll ? max(0, min(size.width - viewport.width, scroll.left)) : getScroll(container, "x");
+
+	        // Run the animation!!
+	        this.tween.run(scroll.left, scroll.top, {
+	          duration: params.duration,
+	          delay: params.delay,
+	          easing: params.easing,
+	          complete: function complete() {
+	            // Update URL
+	            if (hash != null && hash !== window.location.hash) {
+	              _this2.updateURLHash(hash, params.updateURL);
+	            }
+
+	            // Unbind the scroll stop events, And call `afterScroll` or `cancelScroll`
+	            _this2.unbindContainerStop();
+
+	            // Remove the temporary options
+	            _this2._options = null;
+
+	            // Call `cancelScroll` or `afterScroll`
+	            if (_this2._shouldCallCancelScroll) {
+	              _this2.hook(params, "cancelScroll");
+	            } else {
+	              _this2.hook(params, "afterScroll", scroll, trigger);
+	            }
+
+	            // Call `completeScroll`
+	            _this2.hook(params, "completeScroll", _this2._shouldCallCancelScroll);
+	          },
+	          step: function step(currentTime, props) {
+	            _this2.hook(params, "stepScroll", currentTime, props);
+	          }
+	        });
+
+	        // Bind the scroll stop events
+	        this.bindContainerStop();
+	      }
+
+	      /**
+	       * Scroll animation to the specified top position
+	       * @param {*} distance
+	       * @param {Object} options
+	       * @return {void}
+	       */
+
+	    }, {
+	      key: "toTop",
+	      value: function toTop(distance) {
+	        var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+	        this.to(distance, merge({}, options, {
+	          verticalScroll: true,
+	          horizontalScroll: false
+	        }));
+	      }
+
+	      /**
+	       * Scroll animation to the specified left position
+	       * @param {*} distance
+	       * @param {Object} options
+	       * @return {void}
+	       */
+
+	    }, {
+	      key: "toLeft",
+	      value: function toLeft(distance) {
+	        var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+	        this.to(distance, merge({}, options, {
+	          verticalScroll: false,
+	          horizontalScroll: true
+	        }));
+	      }
+
+	      /**
+	       * Scroll animation to the specified element
+	       * @param {Element} el
+	       * @param {Object} options
+	       * @return {void}
+	       */
+
+	    }, {
+	      key: "toElement",
+	      value: function toElement(el) {
+	        var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+	        if (el instanceof Element) {
+	          var offset = getOffset(el, this.container);
+	          this.to(offset, merge({}, options));
+	        }
+	      }
+
+	      /**
+	       * Stop the current animation
+	       * @param {Boolean} gotoEnd
+	       * @return {void}
+	       */
+
+	    }, {
+	      key: "stop",
+	      value: function stop() {
+	        var gotoEnd = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+
+	        if (this._stopScrollListener) {
+	          this._shouldCallCancelScroll = true;
+	        }
+	        this.tween.stop(gotoEnd);
+	      }
+
+	      /**
+	       * Update the instance
+	       * @param {Object} options
+	       * @return {void}
+	       */
+
+	    }, {
+	      key: "update",
+	      value: function update() {
+	        var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+	        this.stop();
+	        this.unbindContainerClick();
+	        this.unbindContainerStop();
+	        this.options = merge({}, this.options, options);
+	        this.header = $(this.options.header);
+	        this.bindContainerClick();
+	      }
+
+	      /**
+	       * Destroy SweetScroll instance
+	       * @return {void}
+	       */
+
+	    }, {
+	      key: "destroy",
+	      value: function destroy() {
+	        this.stop();
+	        this.unbindContainerClick();
+	        this.unbindContainerStop();
+	        this.container = null;
+	        this.header = null;
+	        this.tween = null;
+	      }
+
+	      /**
+	       * Called at after of the initialize.
+	       * @return {void}
+	       */
+
+	    }, {
+	      key: "initialized",
+	      value: function initialized() {}
+
+	      /**
+	       * Called at before of the scroll.
+	       * @param {Object} toScroll
+	       * @param {Element} trigger
+	       * @return {Boolean}
+	       */
+	      /* eslint-disable no-unused-vars */
+
+	    }, {
+	      key: "beforeScroll",
+	      value: function beforeScroll(toScroll, trigger) {
+	        return true;
+	      }
+
+	      /* eslint-enable no-unused-vars */
+
+	      /**
+	       * Called at cancel of the scroll.
+	       * @return {void}
+	       */
+
+	    }, {
+	      key: "cancelScroll",
+	      value: function cancelScroll() {}
+
+	      /**
+	       * Called at after of the scroll.
+	       * @param {Object} toScroll
+	       * @param {Element} trigger
+	       * @return {void}
+	       */
+	      /* eslint-disable no-unused-vars */
+
+	    }, {
+	      key: "afterScroll",
+	      value: function afterScroll(toScroll, trigger) {}
+
+	      /* eslint-enable no-unused-vars */
+
+	      /**
+	       * Called at complete of the scroll.
+	       * @param {Boolean} isCancel
+	       * @return {void}
+	       */
+	      /* eslint-disable no-unused-vars */
+
+	    }, {
+	      key: "completeScroll",
+	      value: function completeScroll(isCancel) {}
+
+	      /* eslint-enable no-unused-vars */
+
+	      /**
+	       * Called at each animation frame of the scroll.
+	       * @param {Float} currentTime
+	       * @param {Object} props
+	       * @return {void}
+	       */
+	      /* eslint-disable no-unused-vars */
+
+	    }, {
+	      key: "stepScroll",
+	      value: function stepScroll(currentTime, props) {}
+
+	      /* eslint-enable no-unused-vars */
+
+	      /**
+	       * Parse the value of coordinate
+	       * @param {*} coodinate
+	       * @return {Object}
+	       */
+
+	    }, {
+	      key: "parseCoodinate",
+	      value: function parseCoodinate(coodinate) {
+	        var enableTop = this._options ? this._options.verticalScroll : this.options.verticalScroll;
+	        var scroll = { top: 0, left: 0 };
+
+	        // Object
+	        if (hasProp(coodinate, "top") || hasProp(coodinate, "left")) {
+	          scroll = merge(scroll, coodinate);
+
+	          // Array
+	        } else if (isArray(coodinate)) {
+	          if (coodinate.length === 2) {
+	            scroll.top = coodinate[0];
+	            scroll.left = coodinate[1];
+	          } else {
+	            scroll.top = enableTop ? coodinate[0] : 0;
+	            scroll.left = !enableTop ? coodinate[0] : 0;
+	          }
+
+	          // Number
+	        } else if (isNumeric(coodinate)) {
+	          scroll.top = enableTop ? coodinate : 0;
+	          scroll.left = !enableTop ? coodinate : 0;
+
+	          // String
+	        } else if (isString(coodinate)) {
+	          var trimedCoodinate = removeSpaces(coodinate);
+
+	          // "{n},{n}" (Array like syntax)
+	          if (/^\d+,\d+$/.test(trimedCoodinate)) {
+	            trimedCoodinate = trimedCoodinate.split(",");
+	            scroll.top = trimedCoodinate[0];
+	            scroll.left = trimedCoodinate[1];
+
+	            // "top:{n}, left:{n}" (Object like syntax)
+	          } else if (/^(top|left):\d+,?(?:(top|left):\d+)?$/.test(trimedCoodinate)) {
+	            var top = trimedCoodinate.match(/top:(\d+)/);
+	            var left = trimedCoodinate.match(/left:(\d+)/);
+	            scroll.top = top ? top[1] : 0;
+	            scroll.left = left ? left[1] : 0;
+
+	            // "+={n}", "-={n}" (Relative position)
+	          } else if (this.container && /^(\+|-)=(\d+)$/.test(trimedCoodinate)) {
+	            var current = getScroll(this.container, enableTop ? "y" : "x");
+	            var results = trimedCoodinate.match(/^(\+|-)=(\d+)$/);
+	            var op = results[1];
+	            var value = parseInt(results[2], 10);
+	            if (op === "+") {
+	              scroll.top = enableTop ? current + value : 0;
+	              scroll.left = !enableTop ? current + value : 0;
+	            } else {
+	              scroll.top = enableTop ? current - value : 0;
+	              scroll.left = !enableTop ? current - value : 0;
+	            }
+	          } else {
+	            return null;
+	          }
+	        } else {
+	          return null;
+	        }
+
+	        scroll.top = parseInt(scroll.top, 10);
+	        scroll.left = parseInt(scroll.left, 10);
+
+	        return scroll;
+	      }
+
+	      /**
+	       * Update the Hash of the URL.
+	       * @param {String} hash
+	       * @param {Boolean | String} historyType
+	       * @return {void}
+	       */
+
+	    }, {
+	      key: "updateURLHash",
+	      value: function updateURLHash(hash, historyType) {
+	        if (!history || !historyType) return;
+	        window.history[historyType === "replace" ? "replaceState" : "pushState"](null, null, hash);
+	      }
+
+	      /**
+	       * Get the container for the scroll, depending on the options.
+	       * @param {String | Element} selector
+	       * @param {Function} callback
+	       * @return {void}
+	       * @private
+	       */
+
+	    }, {
+	      key: "getContainer",
+	      value: function getContainer(selector, callback) {
+	        var _this3 = this;
+
+	        var _options = this.options;
+	        var verticalScroll = _options.verticalScroll;
+	        var horizontalScroll = _options.horizontalScroll;
+
+	        var container = null;
+
+	        if (verticalScroll) {
+	          container = scrollableFind(selector, "y");
+	        }
+
+	        if (!container && horizontalScroll) {
+	          container = scrollableFind(selector, "x");
+	        }
+
+	        if (!container && !isDomContentLoaded) {
+	          (function () {
+	            var isCompleted = false;
+
+	            addEvent(doc, DOM_CONTENT_LOADED, function () {
+	              isCompleted = true;
+	              _this3.getContainer(selector, callback);
+	            });
+
+	            // Fallback for DOMContentLoaded
+	            addEvent(win, "load", function () {
+	              if (!isCompleted) {
+	                _this3.getContainer(selector, callback);
+	              }
+	            });
+	          })();
+	        } else {
+	          callback.call(this, container);
+	        }
+	      }
+
+	      /**
+	       * Bind a click event to the container
+	       * @return {void}
+	       * @private
+	       */
+
+	    }, {
+	      key: "bindContainerClick",
+	      value: function bindContainerClick() {
+	        var container = this.container;
+
+	        if (!container) return;
+	        this._containerClickListener = this.handleContainerClick.bind(this);
+	        addEvent(container, "click", this._containerClickListener);
+	      }
+
+	      /**
+	       * Unbind a click event to the container
+	       * @return {void}
+	       * @private
+	       */
+
+	    }, {
+	      key: "unbindContainerClick",
+	      value: function unbindContainerClick() {
+	        var container = this.container;
+
+	        if (!container || !this._containerClickListener) return;
+	        removeEvent(container, "click", this._containerClickListener);
+	        this._containerClickListener = null;
+	      }
+
+	      /**
+	       * Bind the scroll stop of events
+	       * @return {void}
+	       * @private
+	       */
+
+	    }, {
+	      key: "bindContainerStop",
+	      value: function bindContainerStop() {
+	        var container = this.container;
+
+	        if (!container) return;
+	        this._stopScrollListener = this.handleStopScroll.bind(this);
+	        addEvent(container, CONTAINER_STOP_EVENTS, this._stopScrollListener);
+	      }
+
+	      /**
+	       * Unbind the scroll stop of events
+	       * @return {void}
+	       * @private
+	       */
+
+	    }, {
+	      key: "unbindContainerStop",
+	      value: function unbindContainerStop() {
+	        var container = this.container;
+
+	        if (!container || !this._stopScrollListener) return;
+	        removeEvent(container, CONTAINER_STOP_EVENTS, this._stopScrollListener);
+	        this._stopScrollListener = null;
+	      }
+
+	      /**
+	       * Call the specified callback
+	       * @param {Object} options
+	       * @param {String} type
+	       * @param {...*} args
+	       * @return {void}
+	       * @private
+	       */
+
+	    }, {
+	      key: "hook",
+	      value: function hook(options, type) {
+	        var callback = options[type];
+
+	        // callback
+
+	        for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+	          args[_key - 2] = arguments[_key];
+	        }
+
+	        if (isFunction(callback)) {
+	          var result = callback.apply(this, args);
+	          if (typeof result === "undefined") return result;
+	        }
+
+	        // method
+	        return this[type].apply(this, args);
+	      }
+
+	      /**
+	       * Handling of scroll stop event
+	       * @param {Event} e
+	       * @return {void}
+	       * @private
+	       */
+
+	    }, {
+	      key: "handleStopScroll",
+	      value: function handleStopScroll(e) {
+	        var stopScroll = this._options ? this._options.stopScroll : this.options.stopScroll;
+	        if (stopScroll) {
+	          this.stop();
+	        } else {
+	          e.preventDefault();
+	        }
+	      }
+
+	      /**
+	       * Handling of container click event
+	       * @param {Event} e
+	       * @return {void}
+	       * @private
+	       */
+
+	    }, {
+	      key: "handleContainerClick",
+	      value: function handleContainerClick(e) {
+	        var options = this.options;
+
+	        var el = e.target;
+
+	        // Explore parent element until the trigger selector matches
+	        for (; el && el !== doc; el = el.parentNode) {
+	          if (!matches(el, options.trigger)) continue;
+	          var data = el.getAttribute("data-scroll");
+	          var dataOptions = this.parseDataOptions(el);
+	          var href = data || el.getAttribute("href");
+
+	          options = merge({}, options, dataOptions);
+
+	          if (options.preventDefault) e.preventDefault();
+	          if (options.stopPropagation) e.stopPropagation();
+
+	          // Passes the trigger elements to callback
+	          this._trigger = el;
+
+	          if (options.horizontalScroll && options.verticalScroll) {
+	            this.to(href, options);
+	          } else if (options.verticalScroll) {
+	            this.toTop(href, options);
+	          } else if (options.horizontalScroll) {
+	            this.toLeft(href, options);
+	          }
+	        }
+	      }
+
+	      /**
+	       * Parse the data-scroll-options attribute
+	       * @param {Element} el
+	       * @return {Object}
+	       * @private
+	       */
+
+	    }, {
+	      key: "parseDataOptions",
+	      value: function parseDataOptions(el) {
+	        var options = el.getAttribute("data-scroll-options");
+
+	        return options ? JSON.parse(options) : {};
+	      }
+	    }]);
+	    return SweetScroll;
+	  }();
+
+	  // Export SweetScroll class
+
+
+	  SweetScroll.defaults = {
+	    trigger: "[data-scroll]", // Selector for trigger (must be a valid css selector)
+	    header: "[data-scroll-header]", // Selector for fixed header (must be a valid css selector)
+	    duration: 1000, // Specifies animation duration in integer
+	    delay: 0, // Specifies timer for delaying the execution of the scroll in milliseconds
+	    easing: "easeOutQuint", // Specifies the pattern of easing
+	    offset: 0, // Specifies the value to offset the scroll position in pixels
+	    verticalScroll: true, // Enable the vertical scroll
+	    horizontalScroll: false, // Enable the horizontal scroll
+	    stopScroll: true, // When fired wheel or touchstart events to stop scrolling
+	    updateURL: false, // Update the URL hash on after scroll (true | false | "push" | "replace")
+	    preventDefault: true, // Cancels the container element click event
+	    stopPropagation: true, // Prevents further propagation of the container element click event in the bubbling phase
+
+	    // Callbacks
+	    initialized: null,
+	    beforeScroll: null,
+	    afterScroll: null,
+	    cancelScroll: null,
+	    completeScroll: null,
+	    stepScroll: null
+	  };
+
+	  return SweetScroll;
+
+	}));
+
+/***/ },
+/* 71 */,
+/* 72 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _sweetScroll = __webpack_require__(70);
+
+	var _sweetScroll2 = _interopRequireDefault(_sweetScroll);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var sweetScroll = new _sweetScroll2.default();
+	var toTop = sweetScroll.toTop.bind(sweetScroll, 0);
+
+	module.exports = {
+	  bind: function bind() {
+	    this.el.addEventListener('click', toTop, false);
+	  },
+
+	  unbind: function unbind() {
+	    this.el.removeEventListener('click', toTop, false);
+	  }
+	};
+
 /***/ }
-/******/ ])));
+/******/ ]);
