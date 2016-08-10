@@ -1,5 +1,6 @@
 import path from 'path'
 import webpack from 'webpack'
+import WebpackFailPlugin from 'webpack-fail-plugin'
 import WebpackNotifierPlugin from 'webpack-notifier'
 import UnminifiedWebpackPlugin from 'unminified-webpack-plugin'
 
@@ -15,6 +16,7 @@ if (!isWatch) {
       sourceMap: false,
     }),
     new UnminifiedWebpackPlugin(),
+    WebpackFailPlugin,
   ])
 }
 
