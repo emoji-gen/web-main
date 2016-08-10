@@ -1,0 +1,10 @@
+function getMetaValue(name) {
+  const elem = document.querySelector(`meta[name="${name}"]`)
+  return elem ? elem.getAttribute('content') : null
+}
+
+module.exports = {
+  env: {
+    debug: getMetaValue('app:env:debug') === 'true',
+  },
+}
