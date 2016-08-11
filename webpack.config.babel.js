@@ -41,7 +41,7 @@ module.exports = {
       { test: /\.json$/, loader: 'json' },
     ]
   },
-  plugins: plugins,
+  plugins,
   resolve: {
     extensions: ['', '.js', '.json'],
   },
