@@ -44,4 +44,4 @@ $ npm run build # for production
 ```
 
 ## License
-Copyright (C) 2016 Emoji Generator. All Rights Reserved.
+Copyright (C) 2016 Emoji Generator.
