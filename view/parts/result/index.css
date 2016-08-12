@@ -125,29 +125,36 @@
           display: block;
           text-decoration: none;
         }
-      }
 
-      .download {
-        a {
-          padding: 0 0 0 34px;
-          color: $color-red-dark;
-          height: 100%;
-          background-image: url('/static/img/download.png');
-          background-repeat: no-repeat;
-          background-position: 0 center;
-          background-size: 22px auto;
+        &.download {
+          a {
+            padding: 0 0 0 34px;
+            color: $color-red-dark;
+            height: 100%;
+            background-image: url('/static/img/download.png');
+            background-repeat: no-repeat;
+            background-position: 0 center;
+            background-size: 22px auto;
+          }
+        }
+
+        &.share {
+          margin: 0 0 0 40px;
+
+          a {
+            padding: 0 0 0 34px;
+            color: $color-yellow-dark;
+            background-image: url('/static/img/share.png');
+            background-repeat: no-repeat;
+            background-position: 0 center;
+            background-size: 22px auto;
+          }
         }
       }
-
-      .share {
-        margin: 0 0 0 40px;
-        padding: 0 0 0 34px;
-        color: $color-yellow-dark;
-        background-image: url('/static/img/share.png');
-        background-repeat: no-repeat;
-        background-position: 0 center;
-        background-size: 22px auto;
-      }
     }
+  }
+
+  > .share {
+
   }
 }
