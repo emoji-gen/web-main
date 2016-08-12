@@ -1,0 +1,10 @@
+.eg-hatena {
+  display: inline-block;
+
+  a {
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

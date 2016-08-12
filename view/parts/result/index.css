@@ -155,6 +155,12 @@
   }
 
   > .share {
+    display: flex;
+    margin: 30px auto 20px;
+    justify-content: center;
 
+    .inner {
+
+    }
   }
 }

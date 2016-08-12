@@ -14742,7 +14742,7 @@
 
 /***/ },
 /* 11 */
-[77, 12],
+[84, 12],
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14777,7 +14777,7 @@
 
 /***/ },
 /* 15 */
-[77, 16],
+[84, 16],
 /* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14816,7 +14816,7 @@
 
 /***/ },
 /* 19 */
-[77, 20],
+[84, 20],
 /* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16303,7 +16303,7 @@
 
 /***/ },
 /* 25 */
-[77, 26],
+[84, 26],
 /* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16637,7 +16637,7 @@
 	    component: __webpack_require__(31)
 	  },
 	  '/contact': {
-	    component: __webpack_require__(73)
+	    component: __webpack_require__(80)
 	  }
 	};
 
@@ -16667,7 +16667,7 @@
 
 /***/ },
 /* 32 */
-[77, 33],
+[84, 33],
 /* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16752,7 +16752,7 @@
 
 /***/ },
 /* 37 */
-[77, 38],
+[84, 38],
 /* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -20824,7 +20824,7 @@
 
 /***/ },
 /* 62 */
-[77, 63],
+[84, 63],
 /* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -20862,13 +20862,14 @@
 	  name: 'eg-result',
 	  template: __webpack_require__(68),
 	  components: {
-	    'eg-hatena': __webpack_require__(69)
+	    'eg-facebook': __webpack_require__(69),
+	    'eg-hatena': __webpack_require__(76)
 	  }
 	};
 
 /***/ },
 /* 66 */
-[77, 67],
+[84, 67],
 /* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -20877,7 +20878,7 @@
 
 
 	// module
-	exports.push([module.id, ".eg-result{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:20px}.eg-result,.eg-result *{box-sizing:border-box}.eg-result h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-result .preview{margin:30px auto 0;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.eg-result .preview,.eg-result .preview>.inner{display:-webkit-box;display:-ms-flexbox;display:flex}.eg-result .preview>.inner{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.eg-result .preview>.inner .image{display:block;width:129px;height:129px;border-radius:5px;background-color:hsla(0,0%,100%,.38)}.eg-result .preview>.inner .image img{box-sizing:content-box;width:128px;height:128px;border:1px solid rgba(0,0,0,.18);border-radius:5px}.eg-result .preview>.inner .detail{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:0 0 0 50px}.eg-result .preview>.inner .detail ul{margin:0;padding:0;list-style-type:none;list-style-position:inside}.eg-result .preview>.inner .detail ul li{display:-webkit-box;display:-ms-flexbox;display:flex;line-height:40px}.eg-result .preview>.inner .detail ul li h3{margin:0;width:68px;color:#3ab0c7;font-weight:700;font-size:15px}.eg-result .preview>.inner .detail ul li .user-input{display:block;margin:0 0 0 12px;color:rgba(0,0,0,.75);font-size:13px}.eg-result .preview>.inner .detail ul li .user-input>.color-square{display:inline-block;margin:1px 4px 0 0;border:1px solid rgba(0,0,0,.18);width:10px;height:10px}.eg-result .preview>.inner .detail ul li:before{display:block;float:left;margin-right:10px;width:30px;height:40px;background-repeat:no-repeat;background-position:50%;content:'';opacity:.8}.eg-result .preview>.inner .detail ul li.text:before{background-image:url('/static/img/text.png');background-size:28px auto;opacity:.8}.eg-result .preview>.inner .detail ul li.color:before{background-image:url('/static/img/color.png');background-size:19px auto;opacity:.8}.eg-result .preview>.inner .detail ul li.font:before{background-image:url('/static/img/font.png');background-size:25px auto;opacity:.8}.eg-result .links{margin:30px auto 15px;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.eg-result .links,.eg-result .links .inner{display:-webkit-box;display:-ms-flexbox;display:flex}.eg-result .links .inner>div{padding:0;height:40px;line-height:40px;font-size:15px}.eg-result .links .inner>div a{display:block;text-decoration:none}.eg-result .links .inner>div.download a{padding:0 0 0 34px;color:#be1c60;height:100%;background-image:url('/static/img/download.png');background-repeat:no-repeat;background-position:0;background-size:22px auto}.eg-result .links .inner>div.share{margin:0 0 0 40px}.eg-result .links .inner>div.share a{padding:0 0 0 34px;color:#ad780c;background-image:url('/static/img/share.png');background-repeat:no-repeat;background-position:0;background-size:22px auto}", ""]);
+	exports.push([module.id, ".eg-result{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:20px}.eg-result,.eg-result *{box-sizing:border-box}.eg-result h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-result .preview{margin:30px auto 0;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.eg-result .preview,.eg-result .preview>.inner{display:-webkit-box;display:-ms-flexbox;display:flex}.eg-result .preview>.inner{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.eg-result .preview>.inner .image{display:block;width:129px;height:129px;border-radius:5px;background-color:hsla(0,0%,100%,.38)}.eg-result .preview>.inner .image img{box-sizing:content-box;width:128px;height:128px;border:1px solid rgba(0,0,0,.18);border-radius:5px}.eg-result .preview>.inner .detail{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:0 0 0 50px}.eg-result .preview>.inner .detail ul{margin:0;padding:0;list-style-type:none;list-style-position:inside}.eg-result .preview>.inner .detail ul li{display:-webkit-box;display:-ms-flexbox;display:flex;line-height:40px}.eg-result .preview>.inner .detail ul li h3{margin:0;width:68px;color:#3ab0c7;font-weight:700;font-size:15px}.eg-result .preview>.inner .detail ul li .user-input{display:block;margin:0 0 0 12px;color:rgba(0,0,0,.75);font-size:13px}.eg-result .preview>.inner .detail ul li .user-input>.color-square{display:inline-block;margin:1px 4px 0 0;border:1px solid rgba(0,0,0,.18);width:10px;height:10px}.eg-result .preview>.inner .detail ul li:before{display:block;float:left;margin-right:10px;width:30px;height:40px;background-repeat:no-repeat;background-position:50%;content:'';opacity:.8}.eg-result .preview>.inner .detail ul li.text:before{background-image:url('/static/img/text.png');background-size:28px auto;opacity:.8}.eg-result .preview>.inner .detail ul li.color:before{background-image:url('/static/img/color.png');background-size:19px auto;opacity:.8}.eg-result .preview>.inner .detail ul li.font:before{background-image:url('/static/img/font.png');background-size:25px auto;opacity:.8}.eg-result .links{margin:30px auto 15px;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.eg-result .links,.eg-result .links .inner{display:-webkit-box;display:-ms-flexbox;display:flex}.eg-result .links .inner>div{padding:0;height:40px;line-height:40px;font-size:15px}.eg-result .links .inner>div a{display:block;text-decoration:none}.eg-result .links .inner>div.download a{padding:0 0 0 34px;color:#be1c60;height:100%;background-image:url('/static/img/download.png');background-repeat:no-repeat;background-position:0;background-size:22px auto}.eg-result .links .inner>div.share{margin:0 0 0 40px}.eg-result .links .inner>div.share a{padding:0 0 0 34px;color:#ad780c;background-image:url('/static/img/share.png');background-repeat:no-repeat;background-position:0;background-size:22px auto}.eg-result>.share{display:-webkit-box;display:-ms-flexbox;display:flex;margin:30px auto 20px;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}", ""]);
 
 	// exports
 
@@ -20886,7 +20887,7 @@
 /* 68 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-result\"> <h2>生成された絵文字</h2> <div class=preview> <div class=inner> <div class=image> <img src=\"/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD\" alt=\"\"> </div> <div class=detail> <ul> <li class=text> <h3>テキスト</h3> <span class=user-input>天才現る</span> </li> <li class=font> <h3>フォント</h3> <span class=user-input>Noto Sans Mono CJK Bold</span> </li> <li class=color> <h3>カラー</h3> <span class=user-input> <span class=color-square style=background-color:#fff></span> #000000 </span> </li> </ul> </div> </div> </div> <div class=links> <div class=inner> <div class=download> <a href=#>ダウンロード</a> </div> <div class=share> <a href=#>シェアする</a> </div> </div> </div> <div class=share> <eg-hatena></eg-hatena> </div> </div>";
+	module.exports = "<div class=\"v-cloak eg-result\"> <h2>生成された絵文字</h2> <div class=preview> <div class=inner> <div class=image> <img src=\"/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD\" alt=\"\"> </div> <div class=detail> <ul> <li class=text> <h3>テキスト</h3> <span class=user-input>天才現る</span> </li> <li class=font> <h3>フォント</h3> <span class=user-input>Noto Sans Mono CJK Bold</span> </li> <li class=color> <h3>カラー</h3> <span class=user-input> <span class=color-square style=background-color:#fff></span> #000000 </span> </li> </ul> </div> </div> </div> <div class=links> <div class=inner> <div class=download> <a href=#>ダウンロード</a> </div> <div class=share> <a href=#>シェアする</a> </div> </div> </div> <div class=share> <div class=inner> <eg-hatena></eg-hatena> <eg-facebook url=http://www.google.co.jp></eg-facebook> </div> </div> </div>";
 
 /***/ },
 /* 69 */
@@ -20894,25 +20895,309 @@
 
 	'use strict';
 
-	__webpack_require__(70);
+	var _queryString = __webpack_require__(70);
+
+	var _queryString2 = _interopRequireDefault(_queryString);
+
+	__webpack_require__(73);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var baseUrl = 'https://www.facebook.com/plugins/share_button.php';
+	var defaultParameters = {
+	  layout: 'box_count',
+	  size: 'large',
+	  mobile_iframe: 'true',
+	  appId: '1668136526839121',
+	  width: '75',
+	  height: '58'
+	};
 
 	module.exports = {
-	  name: 'eg-hatena',
-	  template: __webpack_require__(72)
+	  name: 'eg-facebook',
+	  template: __webpack_require__(75),
+
+	  props: ['url'],
+	  computed: {
+	    iframeUrl: function iframeUrl() {
+	      var params = Object.assign({ href: this.url }, defaultParameters);
+	      var paramsString = _queryString2.default.stringify(params);
+	      return baseUrl + '?' + paramsString;
+	    }
+	  }
 	};
 
 /***/ },
 /* 70 */
-[77, 71],
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var strictUriEncode = __webpack_require__(71);
+	var objectAssign = __webpack_require__(72);
+
+	function encode(value, opts) {
+		if (opts.encode) {
+			return opts.strict ? strictUriEncode(value) : encodeURIComponent(value);
+		}
+
+		return value;
+	}
+
+	exports.extract = function (str) {
+		return str.split('?')[1] || '';
+	};
+
+	exports.parse = function (str) {
+		// Create an object with no prototype
+		// https://github.com/sindresorhus/query-string/issues/47
+		var ret = Object.create(null);
+
+		if (typeof str !== 'string') {
+			return ret;
+		}
+
+		str = str.trim().replace(/^(\?|#|&)/, '');
+
+		if (!str) {
+			return ret;
+		}
+
+		str.split('&').forEach(function (param) {
+			var parts = param.replace(/\+/g, ' ').split('=');
+			// Firefox (pre 40) decodes `%3D` to `=`
+			// https://github.com/sindresorhus/query-string/pull/37
+			var key = parts.shift();
+			var val = parts.length > 0 ? parts.join('=') : undefined;
+
+			key = decodeURIComponent(key);
+
+			// missing `=` should be `null`:
+			// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
+			val = val === undefined ? null : decodeURIComponent(val);
+
+			if (ret[key] === undefined) {
+				ret[key] = val;
+			} else if (Array.isArray(ret[key])) {
+				ret[key].push(val);
+			} else {
+				ret[key] = [ret[key], val];
+			}
+		});
+
+		return ret;
+	};
+
+	exports.stringify = function (obj, opts) {
+		var defaults = {
+			encode: true,
+			strict: true
+		};
+
+		opts = objectAssign(defaults, opts);
+
+		return obj ? Object.keys(obj).sort().map(function (key) {
+			var val = obj[key];
+
+			if (val === undefined) {
+				return '';
+			}
+
+			if (val === null) {
+				return encode(key, opts);
+			}
+
+			if (Array.isArray(val)) {
+				var result = [];
+
+				val.slice().forEach(function (val2) {
+					if (val2 === undefined) {
+						return;
+					}
+
+					if (val2 === null) {
+						result.push(encode(key, opts));
+					} else {
+						result.push(encode(key, opts) + '=' + encode(val2, opts));
+					}
+				});
+
+				return result.join('&');
+			}
+
+			return encode(key, opts) + '=' + encode(val, opts);
+		}).filter(function (x) {
+			return x.length > 0;
+		}).join('&') : '';
+	};
+
+
+/***/ },
 /* 71 */
-33,
+/***/ function(module, exports) {
+
+	'use strict';
+	module.exports = function (str) {
+		return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
+			return '%' + c.charCodeAt(0).toString(16).toUpperCase();
+		});
+	};
+
+
+/***/ },
 /* 72 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-hatena\"> <a href=http://b.hatena.ne.jp/entry/http://emoji.pine.moe/%23!/ class=hatena-bookmark-button data-hatena-bookmark-title=絵文字ジェネレーター data-hatena-bookmark-layout=vertical-balloon data-hatena-bookmark-lang=ja title=このエントリーをはてなブックマークに追加> <img src=https://b.st-hatena.com/images/entry-button/button-only@2x.png alt=このエントリーをはてなブックマークに追加 width=20 height=20 style=border:none /> </a> <script src=https://b.st-hatena.com/js/bookmark_button.js charset=utf-8 async></script> </div>";
+	'use strict';
+	/* eslint-disable no-unused-vars */
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+	function toObject(val) {
+		if (val === null || val === undefined) {
+			throw new TypeError('Object.assign cannot be called with null or undefined');
+		}
+
+		return Object(val);
+	}
+
+	function shouldUseNative() {
+		try {
+			if (!Object.assign) {
+				return false;
+			}
+
+			// Detect buggy property enumeration order in older V8 versions.
+
+			// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+			var test1 = new String('abc');  // eslint-disable-line
+			test1[5] = 'de';
+			if (Object.getOwnPropertyNames(test1)[0] === '5') {
+				return false;
+			}
+
+			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+			var test2 = {};
+			for (var i = 0; i < 10; i++) {
+				test2['_' + String.fromCharCode(i)] = i;
+			}
+			var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+				return test2[n];
+			});
+			if (order2.join('') !== '0123456789') {
+				return false;
+			}
+
+			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+			var test3 = {};
+			'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+				test3[letter] = letter;
+			});
+			if (Object.keys(Object.assign({}, test3)).join('') !==
+					'abcdefghijklmnopqrst') {
+				return false;
+			}
+
+			return true;
+		} catch (e) {
+			// We don't expect any of the above to throw, but better to be safe.
+			return false;
+		}
+	}
+
+	module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+		var from;
+		var to = toObject(target);
+		var symbols;
+
+		for (var s = 1; s < arguments.length; s++) {
+			from = Object(arguments[s]);
+
+			for (var key in from) {
+				if (hasOwnProperty.call(from, key)) {
+					to[key] = from[key];
+				}
+			}
+
+			if (Object.getOwnPropertySymbols) {
+				symbols = Object.getOwnPropertySymbols(from);
+				for (var i = 0; i < symbols.length; i++) {
+					if (propIsEnumerable.call(from, symbols[i])) {
+						to[symbols[i]] = from[symbols[i]];
+					}
+				}
+			}
+		}
+
+		return to;
+	};
+
 
 /***/ },
 /* 73 */
+[84, 74],
+/* 74 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(7)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".eg-facebook{display:inline-block}.eg-facebook iframe{border:none;width:75px;height:58px;overflow:hidden}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 75 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"v-cloak eg-facebook\"> <iframe :src=iframeUrl scrolling=no frameborder=0 allowtransparency=true> </iframe> </div>";
+
+/***/ },
+/* 76 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	__webpack_require__(77);
+
+	module.exports = {
+	  name: 'eg-hatena',
+	  template: __webpack_require__(79),
+	  attached: function attached() {
+	    var elem = document.createElement('script');
+	    elem.type = 'text/javascript';
+	    elem.src = 'https://b.st-hatena.com/js/bookmark_button.js';
+	    elem.async = true;
+	    this.$el.appendChild(elem);
+	  }
+	};
+
+/***/ },
+/* 77 */
+[84, 78],
+/* 78 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(7)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".eg-hatena{display:inline-block}.eg-hatena a img{width:20px;height:20px}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 79 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"v-cloak eg-hatena\"> <a href=http://b.hatena.ne.jp/entry/http://emoji.pine.moe/ class=hatena-bookmark-button data-hatena-bookmark-title=絵文字ジェネレーター data-hatena-bookmark-layout=vertical-balloon data-hatena-bookmark-lang=ja title=このエントリーをはてなブックマークに追加> <img src=https://b.st-hatena.com/images/entry-button/button-only@2x.png alt=このエントリーをはてなブックマークに追加> </a> </div>";
+
+/***/ },
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20921,19 +21206,19 @@
 
 	var _vue2 = _interopRequireDefault(_vue);
 
-	__webpack_require__(74);
+	__webpack_require__(81);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-contact',
-	  template: __webpack_require__(76)
+	  template: __webpack_require__(83)
 	};
 
 /***/ },
-/* 74 */
-[77, 75],
-/* 75 */
+/* 81 */
+[84, 82],
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -20947,13 +21232,13 @@
 
 
 /***/ },
-/* 76 */
+/* 83 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"v-cloak eg-contact\"> <h2>お問い合わせ</h2> <div class=eg-contact--body> <p>何かありましたら、GitHub の Issue へお願い致します。</p> <ul> <li class=github> <a href=https://github.com/emoji-gen/Emoji-Web/issues target=_blank> <span class=owner>emoji-gen</span>/<span class=username>Emoji-Web</span> </a> </li> </ul> <p class=break>もしくは、作者の Twitter まで直接お問い合わせ下さい。</p> <ul> <li class=twitter><a href=https://twitter.com/jiuya target=_blank>@jiuya</a></li> <li class=twitter><a href=https://twitter.com/pine613 target=_blank>@pine613</a></li> </ul> </div> </div>";
 
 /***/ },
-/* 77 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag

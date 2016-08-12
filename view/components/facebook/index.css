@@ -1,0 +1,10 @@
+.eg-facebook {
+  display: inline-block;
+
+  iframe {
+    border: none;
+    width: 75px;
+    height: 58px;
+    overflow: hidden;
+  }
+}
