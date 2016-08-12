@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "flickity": "^2.0.2",
-    "sharer.js": "^0.2.16",
+    "sharer.npm.js": "0.0.10",
     "sweet-scroll": "^1.0.3",
     "vue": "^1.0.26",
     "vue-color": "0.0.7",
