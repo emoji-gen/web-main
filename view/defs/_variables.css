@@ -9,9 +9,11 @@ $font-size-xsmall: 11px;
 $color-blue: #6FCBDD;
 $color-blue-dark: #3AB0C7;
 $color-red: #E11665;
+$color-red-dark: #BE1C60;
 $color-green: #38BA91;
 $color-green-dark: #1EBAA0;
 $color-yellow: #EAA822;
+$color-yellow-dark: #AD780C;
 $color-gray: #8C8C8C;
 
 $background-color-white: rgba(255, 255, 255, 0.7);
