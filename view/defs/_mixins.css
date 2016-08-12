@@ -31,6 +31,24 @@
   opacity: .70;
 }
 
+@define-mixin icon-text {
+  background-image: url('/static/img/text.png');
+  background-size: 28px auto;
+  opacity: .80;
+}
+
+@define-mixin icon-color {
+  background-image: url('/static/img/color.png');
+  background-size: 19px auto;
+  opacity: .80;
+}
+
+@define-mixin icon-font {
+  background-image: url('/static/img/font.png');
+  background-size: 25px auto;
+  opacity: .80;
+}
+
 @define-mixin plain-list {
   margin: 0;
   padding: 0;

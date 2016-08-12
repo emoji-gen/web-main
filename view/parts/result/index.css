@@ -67,24 +67,15 @@
             }
 
             &.text {
-              &::before {
-                background-image: url('/static/img/text.png');
-                background-size: 28px auto;
-              }
+              &::before { @mixin icon-text }
             }
 
             &.color {
-              &::before {
-                background-image: url('/static/img/color.png');
-                background-size: 19px auto;
-              }
+              &::before { @mixin icon-color }
             }
 
             &.font {
-              &::before {
-                background-image: url('/static/img/font.png');
-                background-size: 25px auto;
-              }
+              &::before { @mixin icon-font }
             }
 
             h3 {
@@ -98,8 +89,17 @@
             .user-input {
               display: block;
               margin: 0 0 0 12px;
-              color: rgba(0, 0, 0, 0.75);
+              color: rgba(0, 0, 0, .75);
               font-size: $font-size-small;
+            }
+
+            .color-square {
+              display: inline-block;
+              box-sizing: content-box;
+              margin: 1px 4px 0 0;
+              border: 1px solid rgba(0, 0, 0, .4);
+              width: 10px;
+              height: 10px;
             }
           }
         }
