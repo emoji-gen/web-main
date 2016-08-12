@@ -14,12 +14,7 @@
   }
 
   h2 {
-    margin: 18px 0 24px;
-    font-size: $font-size-large;
-    font-weight: bold;
-    letter-spacing: 1.5px;
-    text-align: center;
-    color: $color-green-dark;
+    @mixin box-heading;
   }
 
   h3 {
@@ -29,36 +24,9 @@
     font-weight: bold;
     letter-spacing: 1px;
     text-align: center;
-    color: $color-blue;
+    color: $color-blue-dark;
   }
 
-  .previews {
-    margin: 50px 0;
-
-    .preview {
-      display: flex;
-      align-items: stretch;
-
-      .image {
-        box-sizing: content-box;
-        display: block;
-        border: 1px solid rgba(0, 0, 0, .18);
-        border-radius: 5px;
-        width: $dimen-emoji-size;
-        height: $dimen-emoji-size;
-        background-color: rgba(255, 255, 255, .38);
-
-        img {
-          border: 0;
-          width: 100%;
-          height: 100%;
-        }
-      }
-
-      .detail {
-      }
-    }
-  }
 
   .buttons {
     margin-top: 50px;
@@ -109,15 +77,7 @@
       }
 
       &.font {
-        ul {
-          margin: 0;
-          padding: 0;
-
-          li {
-            list-style-type: none;
-            list-style-position: inside;
-          }
-        }
+        ul { @mixin plain-list }
 
         input {
           display: none;

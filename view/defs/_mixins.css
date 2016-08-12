@@ -11,9 +11,9 @@
   margin: 18px 0 28px;
   font-size: $font-size-large;
   font-weight: bold;
-  letter-spacing: 1px;
+  letter-spacing: 1.8px;
   text-align: center;
-  color: #1EBAA0;
+  color: $color-green-dark;
 }
 
 @define-mixin icon-twitter {
@@ -29,4 +29,11 @@
 @define-mixin icon-github {
   background-image: url('/static/img/github.png');
   opacity: .70;
+}
+
+@define-mixin plain-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  list-style-position: inside;
 }

@@ -1,0 +1,109 @@
+@import '../../defs/import';
+
+.eg-result {
+  $_padding: 20px;
+  @mixin box;
+
+  padding: $_padding;
+
+  &, * {
+    box-sizing: border-box;
+  }
+
+  h2 {
+    @mixin box-heading;
+  }
+
+  .preview {
+    display: flex;
+    margin: 40px auto 40px;
+    justify-content: center;
+
+    > .inner {
+      display: flex;
+      align-items: stretch;
+
+      .image {
+        $_border-width: 1px;
+        display: block;
+        width: calc($dimen-emoji-size + $_border-width);
+        height: calc($dimen-emoji-size + $_border-width);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, .38);
+
+        img {
+          box-sizing: content-box;
+          width: $dimen-emoji-size;
+          height: $dimen-emoji-size;
+          border: 1px solid rgba(0, 0, 0, .18);
+          border-radius: 5px;
+        }
+      }
+
+      .detail {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 0 0 50px;
+
+        ul {
+          $_height: 40px;
+          @mixin plain-list;
+
+          li {
+            display: flex;
+            line-height: $_height;
+
+            &::before {
+              display: block;
+              float: left;
+              margin-right: 10px;
+              width: 30px;
+              height: $_height;
+              background-repeat: no-repeat;
+              background-position: center center;
+              content: '';
+              opacity: .8;
+            }
+
+            &.text {
+              &::before {
+                background-image: url('/static/img/text.png');
+                background-size: 28px auto;
+              }
+            }
+
+            &.color {
+              &::before {
+                background-image: url('/static/img/color.png');
+                background-size: 19px auto;
+              }
+            }
+
+            &.font {
+              &::before {
+                background-image: url('/static/img/font.png');
+                background-size: 25px auto;
+              }
+            }
+
+            h3 {
+              margin: 0;
+              width: 68px;
+              color: $color-blue-dark;
+              font-weight: bold;
+              font-size: $font-size-medium;
+            }
+
+            .user-input {
+              display: block;
+              margin: 0 0 0 12px;
+              color: rgba(0, 0, 0, 0.75);
+              font-size: $font-size-small;
+            }
+          }
+        }
+      }
+    }
+  }
+}

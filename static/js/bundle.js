@@ -14742,7 +14742,7 @@
 
 /***/ },
 /* 11 */
-[68, 12],
+[72, 12],
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14777,7 +14777,7 @@
 
 /***/ },
 /* 15 */
-[68, 16],
+[72, 16],
 /* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14816,7 +14816,7 @@
 
 /***/ },
 /* 19 */
-[68, 20],
+[72, 20],
 /* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16619,7 +16619,7 @@
 
 /***/ },
 /* 26 */
-[68, 27],
+[72, 27],
 /* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16650,7 +16650,7 @@
 	    component: __webpack_require__(30)
 	  },
 	  '/contact': {
-	    component: __webpack_require__(64)
+	    component: __webpack_require__(68)
 	  }
 	};
 
@@ -16673,13 +16673,14 @@
 	  template: __webpack_require__(33),
 	  components: {
 	    'eg-generator': __webpack_require__(34),
-	    'eg-recently': __webpack_require__(39)
+	    'eg-recently': __webpack_require__(39),
+	    'eg-result': __webpack_require__(64)
 	  }
 	};
 
 /***/ },
 /* 31 */
-[68, 32],
+[72, 32],
 /* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16697,7 +16698,7 @@
 /* 33 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-home\"> <eg-generator></eg-generator> <eg-recently></eg-recently> </div>";
+	module.exports = "<div class=\"v-cloak eg-home\"> <eg-result></eg-result> <eg-generator></eg-generator> <eg-recently></eg-recently> </div>";
 
 /***/ },
 /* 34 */
@@ -16764,7 +16765,7 @@
 
 /***/ },
 /* 36 */
-[68, 37],
+[72, 37],
 /* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16773,7 +16774,7 @@
 
 
 	// module
-	exports.push([module.id, ".eg-generator{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:20px 0 35px}.eg-generator,.eg-generator *{box-sizing:border-box}.eg-generator h2{margin:18px 0 24px;font-size:17px;font-weight:700;letter-spacing:1.5px;text-align:center;color:#1ebaa0}.eg-generator h3{display:block;margin:0 0 16px;font-size:15px;font-weight:700;letter-spacing:1px;text-align:center;color:#6fcbdd}.eg-generator .previews{margin:50px 0}.eg-generator .previews .preview{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.eg-generator .previews .preview .image{box-sizing:content-box;display:block;border:1px solid rgba(0,0,0,.18);border-radius:5px;width:128px;height:128px;background-color:hsla(0,0%,100%,.38)}.eg-generator .previews .preview .image img{border:0;width:100%;height:100%}.eg-generator .buttons{margin-top:50px;text-align:center}.eg-generator .buttons button{padding:12px 60px;border-radius:12px;background-color:rgba(225,22,101,.5);background-image:none!important;color:#fff;font-weight:700}.eg-generator .buttons button:focus,.eg-generator .buttons button:hover{background-color:rgba(225,22,101,.75)}.eg-generator .parameters{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:38px 0 0}.eg-generator .parameters .parameter{margin:0 30px;text-align:center}.eg-generator .parameters .parameter.text textarea{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px;margin:0 0 50px;padding:10px;border:0;width:140px;height:100px;text-align:center;-webkit-appearance:none}.eg-generator .parameters .parameter.color{margin-right:32px}.eg-generator .parameters .parameter.color>div{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px}.eg-generator .parameters .parameter.font ul{margin:0;padding:0}.eg-generator .parameters .parameter.font ul li{list-style-type:none;list-style-position:inside}.eg-generator .parameters .parameter.font input{display:none}.eg-generator .parameters .parameter.font input:checked+label{border:1px solid rgba(112,167,179,.8);background-image:url(/static/img/checked.png);background-repeat:no-repeat;background-position:14px;background-size:20px auto;color:#709da6}.eg-generator .parameters .parameter.font label{display:block;margin:0 0 5px;padding:8px 23px 8px 46px;border-radius:16px;border:1px solid rgba(0,0,0,.2);color:rgba(0,0,0,.32);font-size:15px;text-align:left;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer}", ""]);
+	exports.push([module.id, ".eg-generator{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:20px 0 35px}.eg-generator,.eg-generator *{box-sizing:border-box}.eg-generator h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-generator h3{display:block;margin:0 0 16px;font-size:15px;font-weight:700;letter-spacing:1px;text-align:center;color:#3ab0c7}.eg-generator .buttons{margin-top:50px;text-align:center}.eg-generator .buttons button{padding:12px 60px;border-radius:12px;background-color:rgba(225,22,101,.5);background-image:none!important;color:#fff;font-weight:700}.eg-generator .buttons button:focus,.eg-generator .buttons button:hover{background-color:rgba(225,22,101,.75)}.eg-generator .parameters{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:38px 0 0}.eg-generator .parameters .parameter{margin:0 30px;text-align:center}.eg-generator .parameters .parameter.text textarea{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px;margin:0 0 50px;padding:10px;border:0;width:140px;height:100px;text-align:center;-webkit-appearance:none}.eg-generator .parameters .parameter.color{margin-right:32px}.eg-generator .parameters .parameter.color>div{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px}.eg-generator .parameters .parameter.font ul{margin:0;padding:0;list-style-type:none;list-style-position:inside}.eg-generator .parameters .parameter.font input{display:none}.eg-generator .parameters .parameter.font input:checked+label{border:1px solid rgba(112,167,179,.8);background-image:url(/static/img/checked.png);background-repeat:no-repeat;background-position:14px;background-size:20px auto;color:#709da6}.eg-generator .parameters .parameter.font label{display:block;margin:0 0 5px;padding:8px 23px 8px 46px;border-radius:16px;border:1px solid rgba(0,0,0,.2);color:rgba(0,0,0,.32);font-size:15px;text-align:left;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer}", ""]);
 
 	// exports
 
@@ -16782,7 +16783,7 @@
 /* 38 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-generator\"> <h2>絵文字にしたい文字を入力してください！</h2> <div class=previews> <div class=preview> <div class=image> <img src=\"/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD\" alt=\"\"> </div> <div class=detail> <div class=download>テキスト:</div> <div class=download>ダウンロード</div> <div class=download>シェアする♪</div> </div> </div> </div> <div class=buttons> <button type=button class=pure-button v-on:click=generate>生成する&#9834;</button> </div> <div class=parameters> <div class=\"parameter text\"> <h3>テキスト</h3> <textarea rows=2 cols=10 v-model=text></textarea> </div> <div class=\"parameter font\"> <h3>フォント</h3> <ul> <li v-for=\"font in fonts\"> <input type=radio name=eg_generator__font_key :value=font.key id=eg_generator__font_{{font.key}} v-model=fontKey> <label for=eg_generator__font_{{font.key}}>{{font.name}}</label> </li> </ul> </div> <div class=\"parameter color\"> <h3>文字のカラー</h3> <chrome-picker :colors.sync=colors></chrome-picker> </div> </div> </div>";
+	module.exports = "<div class=\"v-cloak eg-generator\"> <h2>絵文字にしたい文字を入力してください！</h2> <div class=buttons> <button type=button class=pure-button v-on:click=generate>生成する&#9834;</button> </div> <div class=parameters> <div class=\"parameter text\"> <h3>テキスト</h3> <textarea rows=2 cols=10 v-model=text></textarea> </div> <div class=\"parameter font\"> <h3>フォント</h3> <ul> <li v-for=\"font in fonts\"> <input type=radio name=eg_generator__font_key :value=font.key id=eg_generator__font_{{font.key}} v-model=fontKey> <label for=eg_generator__font_{{font.key}}>{{font.name}}</label> </li> </ul> </div> <div class=\"parameter color\"> <h3>カラー</h3> <chrome-picker :colors.sync=colors></chrome-picker> </div> </div> </div>";
 
 /***/ },
 /* 39 */
@@ -20836,7 +20837,7 @@
 
 /***/ },
 /* 61 */
-[68, 62],
+[72, 62],
 /* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -20845,7 +20846,7 @@
 
 
 	// module
-	exports.push([module.id, ".eg-recently{margin:30px auto;padding:32px 32px 60px;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2)}.eg-recently,.eg-recently *{box-sizing:border-box}.eg-recently h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1px;text-align:center;color:#1ebaa0}.eg-recently .carousel{height:130px}.eg-recently .carousel .carousel-cell{box-sizing:content-box;width:128px;height:128px;margin-right:10px;border:1px solid rgba(0,0,0,.18);border-radius:5px;background-image:url('/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD')}", ""]);
+	exports.push([module.id, ".eg-recently{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:32px 32px 60px}.eg-recently,.eg-recently *{box-sizing:border-box}.eg-recently h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-recently .carousel{height:130px}.eg-recently .carousel .carousel-cell{box-sizing:content-box;width:128px;height:128px;margin-right:10px;border:1px solid rgba(0,0,0,.18);border-radius:5px;background-image:url('/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD')}", ""]);
 
 	// exports
 
@@ -20871,13 +20872,13 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
-	  name: 'eg-contact',
+	  name: 'eg-result',
 	  template: __webpack_require__(67)
 	};
 
 /***/ },
 /* 65 */
-[68, 66],
+[72, 66],
 /* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -20886,7 +20887,7 @@
 
 
 	// module
-	exports.push([module.id, ".eg-contact{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:32px 32px 60px;margin-bottom:180px;min-height:600px}.eg-contact,.eg-contact *{box-sizing:border-box}.eg-contact h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1px;text-align:center;color:#1ebaa0}.eg-contact .eg-contact--body{padding:30px}.eg-contact .eg-contact--body ul{margin:18px 0}.eg-contact .eg-contact--body ul li{margin:10px 0;padding:1px 0 0 42px;height:30px;line-height:30px;list-style-type:none;list-style-position:inside;background-size:26px auto;background-repeat:no-repeat;background-position:0;font-size:15px}.eg-contact .eg-contact--body ul li a{text-decoration:none}.eg-contact .eg-contact--body ul li a .owner{margin-right:2px}.eg-contact .eg-contact--body ul li a .username{margin-left:2.5px}.eg-contact .eg-contact--body ul li.twitter{background-image:url('/static/img/twitter.png');opacity:.88}.eg-contact .eg-contact--body ul li.github{background-image:url('/static/img/github.png');opacity:.7}.eg-contact .eg-contact--body p.break{margin-top:45px}", ""]);
+	exports.push([module.id, ".eg-result{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:20px}.eg-result,.eg-result *{box-sizing:border-box}.eg-result h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-result .preview{margin:40px auto;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.eg-result .preview,.eg-result .preview>.inner{display:-webkit-box;display:-ms-flexbox;display:flex}.eg-result .preview>.inner{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.eg-result .preview>.inner .image{display:block;width:129px;height:129px;border-radius:5px;background-color:hsla(0,0%,100%,.38)}.eg-result .preview>.inner .image img{box-sizing:content-box;width:128px;height:128px;border:1px solid rgba(0,0,0,.18);border-radius:5px}.eg-result .preview>.inner .detail{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:0 0 0 50px}.eg-result .preview>.inner .detail ul{margin:0;padding:0;list-style-type:none;list-style-position:inside}.eg-result .preview>.inner .detail ul li{display:-webkit-box;display:-ms-flexbox;display:flex;line-height:40px}.eg-result .preview>.inner .detail ul li h3{margin:0;width:68px;color:#3ab0c7;font-weight:700;font-size:15px}.eg-result .preview>.inner .detail ul li .user-input{display:block;margin:0 0 0 12px;color:rgba(0,0,0,.75);font-size:13px}.eg-result .preview>.inner .detail ul li:before{display:block;float:left;margin-right:10px;width:30px;height:40px;background-repeat:no-repeat;background-position:50%;content:'';opacity:.8}.eg-result .preview>.inner .detail ul li.text:before{background-image:url('/static/img/text.png');background-size:28px auto}.eg-result .preview>.inner .detail ul li.color:before{background-image:url('/static/img/color.png');background-size:19px auto}.eg-result .preview>.inner .detail ul li.font:before{background-image:url('/static/img/font.png');background-size:25px auto}", ""]);
 
 	// exports
 
@@ -20895,10 +20896,51 @@
 /* 67 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-contact\"> <h2>お問い合わせ</h2> <div class=eg-contact--body> <p>何かありましたら、GitHub の Issue へお願い致します。</p> <ul> <li class=github> <a href=https://github.com/emoji-gen/Emoji-Web/issues target=_blank> <span class=owner>emoji-gen</span>/<span class=username>Emoji-Web</span> </a> </li> </ul> <p class=break>もしくは、作者の Twitter まで直接お問い合わせ下さい。</p> <ul> <li class=twitter><a href=https://twitter.com/jiuya target=_blank>@jiuya</a></li> <li class=twitter><a href=https://twitter.com/pine613 target=_blank>@pine613</a></li> </ul> </div> </div>";
+	module.exports = "<div class=\"v-cloak eg-result\"> <h2>生成された絵文字</h2> <div class=preview> <div class=inner> <div class=image> <img src=\"/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD\" alt=\"\"> </div> <div class=detail> <ul> <li class=text> <h3>テキスト</h3> <span class=user-input>天才現る</span> </li> <li class=font> <h3>フォント</h3> <span class=user-input>Noto Sans Mono CJK Bold</span> </li> <li class=color> <h3>カラー</h3> <span class=user-input>#FFFFFF</span> </li> </ul> </div> </div> </div> </div>";
 
 /***/ },
 /* 68 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _vue = __webpack_require__(1);
+
+	var _vue2 = _interopRequireDefault(_vue);
+
+	__webpack_require__(69);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+	  name: 'eg-contact',
+	  template: __webpack_require__(71)
+	};
+
+/***/ },
+/* 69 */
+[72, 70],
+/* 70 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(7)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".eg-contact{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:32px 32px 60px;margin-bottom:180px;min-height:600px}.eg-contact,.eg-contact *{box-sizing:border-box}.eg-contact h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-contact .eg-contact--body{padding:30px}.eg-contact .eg-contact--body ul{margin:18px 0}.eg-contact .eg-contact--body ul li{margin:10px 0;padding:1px 0 0 42px;height:30px;line-height:30px;list-style-type:none;list-style-position:inside;background-size:26px auto;background-repeat:no-repeat;background-position:0;font-size:15px}.eg-contact .eg-contact--body ul li a{text-decoration:none}.eg-contact .eg-contact--body ul li a .owner{margin-right:2px}.eg-contact .eg-contact--body ul li a .username{margin-left:2.5px}.eg-contact .eg-contact--body ul li.twitter{background-image:url('/static/img/twitter.png');opacity:.88}.eg-contact .eg-contact--body ul li.github{background-image:url('/static/img/github.png');opacity:.7}.eg-contact .eg-contact--body p.break{margin-top:45px}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 71 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"v-cloak eg-contact\"> <h2>お問い合わせ</h2> <div class=eg-contact--body> <p>何かありましたら、GitHub の Issue へお願い致します。</p> <ul> <li class=github> <a href=https://github.com/emoji-gen/Emoji-Web/issues target=_blank> <span class=owner>emoji-gen</span>/<span class=username>Emoji-Web</span> </a> </li> </ul> <p class=break>もしくは、作者の Twitter まで直接お問い合わせ下さい。</p> <ul> <li class=twitter><a href=https://twitter.com/jiuya target=_blank>@jiuya</a></li> <li class=twitter><a href=https://twitter.com/pine613 target=_blank>@pine613</a></li> </ul> </div> </div>";
+
+/***/ },
+/* 72 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag

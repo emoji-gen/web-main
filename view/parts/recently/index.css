@@ -2,12 +2,9 @@
 
 .eg-recently {
   $_padding: 32px;
+  @mixin box;
 
-  margin: 30px auto 30px auto;
   padding: $_padding $_padding calc($_padding + 28px) $_padding;
-  width: $dimen-content-width;
-  background-color: $background-color-white;
-  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
 
   &, * {
     box-sizing: border-box;
