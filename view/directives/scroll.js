@@ -1,7 +1,9 @@
 import SweetScroll from 'sweet-scroll'
 
-const sweetScroll = new SweetScroll({ easing: 'easeOutQuad' })
-const toTop       = sweetScroll.toTop.bind(sweetScroll, 0)
+function toTop() {
+  const sweetScroll = new SweetScroll({ easing: 'easeOutQuad' })
+  sweetScroll.toTop(0)
+}
 
 module.exports = {
   bind: function () {

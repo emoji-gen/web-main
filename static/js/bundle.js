@@ -14852,8 +14852,10 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var sweetScroll = new _sweetScroll2.default({ easing: 'easeOutQuad' });
-	var toTop = sweetScroll.toTop.bind(sweetScroll, 0);
+	function toTop() {
+	  var sweetScroll = new _sweetScroll2.default({ easing: 'easeOutQuad' });
+	  sweetScroll.toTop(0);
+	}
 
 	module.exports = {
 	  bind: function bind() {
