@@ -28,10 +28,6 @@ fonts_list = {
         'name':'Noto Sans Mono CJK Bold',
         'file':'NotoSansMonoCJKjp-Bold.otf'
     },
-    'mikachan': {
-        'name':'みかちゃん PB',
-        'file':'mikachanPB.otf'
-    },
     'migu-1m-bold': {
         'name':'Migu 1m bold',
         'file':'migu-1m-bold.ttf'
