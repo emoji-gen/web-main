@@ -1,6 +1,7 @@
-import hashlib
 import io
 import os
+import hashlib
+import json
 
 from flask import Flask, render_template
 from flask import request, redirect, url_for
@@ -32,7 +33,7 @@ cache = create_cache(
         config.cache_timeout,
         config.memcached_servers
         )
-
+fonts_list = config.fonts_list
 # -----------------------------------------------------------------------------
 
 @app.route('/')
@@ -41,27 +42,43 @@ def index():
 
 @app.route('/emoji')
 def emoji():
-    global cache
-    font = request.args.get("font", default='NotoSansMonoCJKjp-Bold.otf', type=str)
+    font_default = 'mplus-1p-black'
+    font_key = request.args.get("font", default=font_default, type=str)
     text = request.args.get("text", default='test', type=str)
-    color = request.args.get("color", default='000000', type=str)
-    if font is False:
-        font = 'NotoSansMonoCJKjp-Bold.otf'
+    color = request.args.get("color", default='000000', type=str).upper()
+    font = fonts_list.get(font_key,font_default).get('file')
     if text is False:
         text = ' '
     if color is False:
         color = '000000'
+    img_png = generate_emoji(text,font,color)
+    res = make_response()
+    res.data = img_png
+    res.headers['Content-Type'] = 'image/png'
+    return res
+
+@app.route('/fonts')
+def return_fonts_list():
+    font_list_req = []
+    for font in fonts_list:
+        font_list_req.append({
+            'key':font,
+            'name':fonts_list.get(font).get('name')
+        })
+    jsonstring = json.dumps(font_list_req)
+    res = make_response()
+    res.data = jsonstring
+    res.headers['Content-Type'] = 'application/json'
+    return res
+
+def generate_emoji(text,font,color):
+    global cache
+    hash_text = text + ':' + color + ':' + font
     r = int(color[0] +color[1],16)
     g = int(color[2] +color[3],16)
     b = int(color[4] +color[5],16)
-    hash_text = text + ':' + color
     cache_id = hashlib.md5(hash_text.encode('utf-8')).hexdigest()
-
-    try:
-        img_png = cache.get(cache_id)
-    except:
-        img_png = None
-
+    img_png = cache.get(cache_id)
     if img_png is None:
         emoji = String2emoji(text.splitlines(),'assets/fonts/' + font,(r,g,b))
         img = emoji.getEmoji()
@@ -69,12 +86,7 @@ def emoji():
         img.save(output,format='png')
         img_png = output.getvalue()
         cache.set(cache_id,img_png)
-        print('generate emoji!')
-    res = make_response()
-    res.data = img_png
-    res.headers['Content-Type'] = 'image/png'
-    return res
-
+    return img_png
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
