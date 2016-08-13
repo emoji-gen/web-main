@@ -1,5 +1,6 @@
 import io
 import os
+import re
 import hashlib
 import json
 
@@ -55,6 +56,26 @@ def emoji():
     res = make_response()
     res.data = img_png
     res.headers['Content-Type'] = 'image/png'
+    return res
+
+@app.route('/emoji_download')
+def emoji_download():
+    font_default = 'mplus-1p-black'
+    font_key = request.args.get("font", default=font_default, type=str)
+    text = request.args.get("text", default='test', type=str)
+    color = request.args.get("color", default='000000', type=str).upper()
+    font = fonts_list.get(font_key,font_default).get('file')
+    if text is False:
+        text = ' '
+    if color is False:
+        color = '000000'
+    img_png = generate_emoji(text,font,color)
+    disp = 'attachment;' + \
+           'filename=\"' + re.sub(r'\s','_',text) + '.png\"'
+    res = make_response()
+    res.data = img_png
+    res.headers['Content-Type'] = 'image/png'
+    res.headers['Content-Disposition'] = disp.encode('utf-8')
     return res
 
 @app.route('/fonts')
