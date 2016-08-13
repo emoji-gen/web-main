@@ -6,6 +6,7 @@ module.exports = {
   name: 'eg-result',
   template: require('./index.html'),
   data: () => ({
+    visibleResult: false,
     visibleShare: false,
     rawText: null,
     rawColor: null,
@@ -24,7 +25,8 @@ module.exports = {
         color: params.color,
         font: params.font.key,
       }
-      this.queryString = queryString.stringify(query)
+      this.queryString   = queryString.stringify(query)
+      this.visibleResult = true
     },
   },
 

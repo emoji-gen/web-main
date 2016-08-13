@@ -39,8 +39,6 @@ module.exports = {
         if (this.fonts.length > 0) {
           this.fontKey = this.fonts[0].key
         }
-
-        this.generate()
       })
   },
 
