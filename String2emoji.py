@@ -80,8 +80,8 @@ class String2emoji(object):
                 img_str = img_str.transform(img_str.size,Image.AFFINE,(x1/128.0,0,0,0,1,0),Image.BICUBIC)
                 image_paste_x = 0
             else:
-                #image_paste_x = int((128-x1)/2)
-                image_paste_x = 0
+                image_paste_x = int((128-x1)/2)
+                #image_paste_x = 0
             if l != 1:
                 img.paste(img_str,(image_paste_x,int((128/l)*i)))
             else:
