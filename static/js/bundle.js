@@ -16689,7 +16689,7 @@
 /* 34 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-home\"> <eg-result></eg-result> <eg-generator></eg-generator> <eg-recently></eg-recently> </div>";
+	module.exports = "<div class=\"v-cloak eg-home\"> <eg-result></eg-result> <eg-generator></eg-generator> </div>";
 
 /***/ },
 /* 35 */
