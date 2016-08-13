@@ -82,6 +82,7 @@ $_logo-size: 40px;
 
         &.twitter { @mixin icon-twitter }
         &.facebook { @mixin icon-facebook }
+        &.google { @mixin icon-google }
         &.github { @mixin icon-github }
       }
     }

@@ -26,6 +26,11 @@
   opacity: .80;
 }
 
+@define-mixin icon-google {
+  background-image: url('/static/img/google.png');
+  opacity: .80;
+}
+
 @define-mixin icon-github {
   background-image: url('/static/img/github.png');
   opacity: .70;
