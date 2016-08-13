@@ -33,14 +33,17 @@
       <div class="download">
         <a href="#">ダウンロード</a>
       </div>
-      <div class="share">
-        <a href="#">シェアする</a>
+      <div class="share" v-on:click="toggleShare">
+        シェアする
       </div>
     </div>
   </div>
 
-  <div class="share">
+  <div class="share" v-show="visibleShare" transition="expand">
     <div class="inner">
+      <input type="button" class="twitter sharer button" data-sharer="twitter" data-title="絵文字ジェネレーター使ってます&#9834;" data-hashtags="絵文字ジェネレーター" data-url="https://emoji.pine.moe/" title="Twitter でシェアする" v-eg-sharer>
+      <input type="button" class="facebook sharer button" data-sharer="facebook" data-url="https://emoji.pine.moe/" title="Facebook でシェアする" v-eg-sharer>
+      <input type="button" class="google sharer button" data-sharer="googleplus" data-url="https://emoji.pine.moe/" title="Google+ でシェアする" v-eg-sharer>
     </div>
   </div>
 </div>

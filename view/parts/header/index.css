@@ -67,18 +67,8 @@ $_logo-size: 40px;
       margin: 0 $_margin-left-right 0 0;
 
       input, a {
-        display: block;
+        @mixin icon-40px;
         margin: 0 0 0 12px;
-        border: 0;
-        width: $_logo-size;
-        height: $_logo-size;
-        background-color: transparent;
-        background-size: $_logo-size auto;
-        background-repeat: no-repeat;
-        background-position: 0px center;
-        overflow: hidden;
-        text-indent: 100%;
-        white-space: nowrap;
 
         &.twitter { @mixin icon-twitter }
         &.facebook { @mixin icon-facebook }

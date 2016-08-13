@@ -16,6 +16,22 @@
   color: $color-green-dark;
 }
 
+@define-mixin icon-40px {
+  $_logo-size: 40px;
+  display: block;
+  margin: 0;
+  border: 0;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+}
+
 @define-mixin icon-twitter {
   background-image: url('/static/img/twitter.png');
   opacity: .88;
