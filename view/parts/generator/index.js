@@ -56,6 +56,9 @@ module.exports = {
     },
   },
 
+  directives: {
+    'eg-scroll': require('../../directives/scroll'),
+  },
   components: {
     'chrome-picker': Chrome,
   },
