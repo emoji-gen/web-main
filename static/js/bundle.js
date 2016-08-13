@@ -14732,6 +14732,11 @@
 	module.exports = {
 	  name: 'eg-root',
 	  template: __webpack_require__(13),
+	  events: {
+	    EG_EMOJI_GENERATE: function EG_EMOJI_GENERATE(params) {
+	      this.$broadcast('EG_EMOJI_GENERATE', params);
+	    }
+	  },
 	  components: {
 	    'eg-background': __webpack_require__(14),
 	    'eg-footer': __webpack_require__(18),
@@ -14741,7 +14746,7 @@
 
 /***/ },
 /* 11 */
-[73, 12],
+[76, 12],
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14776,7 +14781,7 @@
 
 /***/ },
 /* 15 */
-[73, 16],
+[76, 16],
 /* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14815,7 +14820,7 @@
 
 /***/ },
 /* 19 */
-[73, 20],
+[76, 20],
 /* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16302,7 +16307,7 @@
 
 /***/ },
 /* 25 */
-[73, 26],
+[76, 26],
 /* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16636,7 +16641,7 @@
 	    component: __webpack_require__(31)
 	  },
 	  '/contact': {
-	    component: __webpack_require__(69)
+	    component: __webpack_require__(72)
 	  }
 	};
 
@@ -16666,7 +16671,7 @@
 
 /***/ },
 /* 32 */
-[73, 33],
+[76, 33],
 /* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16703,11 +16708,11 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var defaultColors = {
-	  hex: '#000000',
+	  hex: '#EC71A1',
 	  rgba: {
-	    r: 255,
-	    g: 255,
-	    b: 255,
+	    r: 236,
+	    g: 113,
+	    b: 161,
 	    a: 1
 	  },
 	  a: 1
@@ -16725,22 +16730,40 @@
 	      fontKey: null
 	    };
 	  },
+
+	  computed: {
+	    font: function font() {
+	      var _this = this;
+
+	      return this.fonts.find(function (font) {
+	        return font.key === _this.fontKey;
+	      });
+	    }
+	  },
+
 	  created: function created() {
-	    var _this = this;
+	    var _this2 = this;
 
 	    this.$http.get('/api/fonts').then(function (res) {
-	      _this.fonts = res.data;
+	      _this2.fonts = res.data;
 
-	      if (_this.fonts.length > 0) {
-	        _this.fontKey = _this.fonts[0].key;
+	      if (_this2.fonts.length > 0) {
+	        _this2.fontKey = _this2.fonts[0].key;
 	      }
+
+	      _this2.generate();
 	    });
 	  },
 
 	  methods: {
 	    // Run emoji generator
 	    generate: function generate() {
-	      console.log('generate');
+	      var params = {
+	        text: this.text,
+	        color: this.colors.hex.replace(/^#/, ''),
+	        font: this.font
+	      };
+	      this.$dispatch('EG_EMOJI_GENERATE', params);
 	    }
 	  },
 
@@ -16759,7 +16782,7 @@
 
 /***/ },
 /* 37 */
-[73, 38],
+[76, 38],
 /* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -20831,7 +20854,7 @@
 
 /***/ },
 /* 62 */
-[73, 63],
+[76, 63],
 /* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -20857,15 +20880,74 @@
 
 	'use strict';
 
-	__webpack_require__(66);
+	var _queryString = __webpack_require__(66);
+
+	var _queryString2 = _interopRequireDefault(_queryString);
+
+	__webpack_require__(69);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-result',
-	  template: __webpack_require__(68),
+	  template: __webpack_require__(71),
 	  data: function data() {
 	    return {
-	      visibleShare: false
+	      visibleShare: false,
+	      rawText: null,
+	      rawColor: null,
+	      rawFont: null,
+	      queryString: null
 	    };
+	  },
+
+	  events: {
+	    EG_EMOJI_GENERATE: function EG_EMOJI_GENERATE(params) {
+	      this.rawText = params.text;
+	      this.rawColor = params.color;
+	      this.rawFont = params.font;
+
+	      var query = {
+	        text: params.text,
+	        color: params.color,
+	        font: params.font.key
+	      };
+	      this.queryString = _queryString2.default.stringify(query);
+	    }
+	  },
+
+	  computed: {
+	    text: function text() {
+	      if (this.rawText) {
+	        return this.rawText.replace(/\n/, ' ');
+	      }
+	      return '';
+	    },
+	    color: function color() {
+	      if (this.rawColor) {
+	        return '#' + this.rawColor;
+	      }
+	      return '';
+	    },
+	    fontName: function fontName() {
+	      if (this.rawFont) {
+	        return this.rawFont.name;
+	      }
+	      return '';
+	    },
+
+	    emojiUrl: function emojiUrl() {
+	      if (this.queryString) {
+	        return '/emoji?' + this.queryString;
+	      }
+	      return null;
+	    },
+	    emojiDownloadUrl: function emojiDownloadUrl() {
+	      if (this.queryString) {
+	        return '/emoji_download?' + this.queryString;
+	      }
+	      return null;
+	    }
 	  },
 
 	  methods: {
@@ -20881,8 +20963,213 @@
 
 /***/ },
 /* 66 */
-[73, 67],
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	var strictUriEncode = __webpack_require__(67);
+	var objectAssign = __webpack_require__(68);
+
+	function encode(value, opts) {
+		if (opts.encode) {
+			return opts.strict ? strictUriEncode(value) : encodeURIComponent(value);
+		}
+
+		return value;
+	}
+
+	exports.extract = function (str) {
+		return str.split('?')[1] || '';
+	};
+
+	exports.parse = function (str) {
+		// Create an object with no prototype
+		// https://github.com/sindresorhus/query-string/issues/47
+		var ret = Object.create(null);
+
+		if (typeof str !== 'string') {
+			return ret;
+		}
+
+		str = str.trim().replace(/^(\?|#|&)/, '');
+
+		if (!str) {
+			return ret;
+		}
+
+		str.split('&').forEach(function (param) {
+			var parts = param.replace(/\+/g, ' ').split('=');
+			// Firefox (pre 40) decodes `%3D` to `=`
+			// https://github.com/sindresorhus/query-string/pull/37
+			var key = parts.shift();
+			var val = parts.length > 0 ? parts.join('=') : undefined;
+
+			key = decodeURIComponent(key);
+
+			// missing `=` should be `null`:
+			// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
+			val = val === undefined ? null : decodeURIComponent(val);
+
+			if (ret[key] === undefined) {
+				ret[key] = val;
+			} else if (Array.isArray(ret[key])) {
+				ret[key].push(val);
+			} else {
+				ret[key] = [ret[key], val];
+			}
+		});
+
+		return ret;
+	};
+
+	exports.stringify = function (obj, opts) {
+		var defaults = {
+			encode: true,
+			strict: true
+		};
+
+		opts = objectAssign(defaults, opts);
+
+		return obj ? Object.keys(obj).sort().map(function (key) {
+			var val = obj[key];
+
+			if (val === undefined) {
+				return '';
+			}
+
+			if (val === null) {
+				return encode(key, opts);
+			}
+
+			if (Array.isArray(val)) {
+				var result = [];
+
+				val.slice().forEach(function (val2) {
+					if (val2 === undefined) {
+						return;
+					}
+
+					if (val2 === null) {
+						result.push(encode(key, opts));
+					} else {
+						result.push(encode(key, opts) + '=' + encode(val2, opts));
+					}
+				});
+
+				return result.join('&');
+			}
+
+			return encode(key, opts) + '=' + encode(val, opts);
+		}).filter(function (x) {
+			return x.length > 0;
+		}).join('&') : '';
+	};
+
+
+/***/ },
 /* 67 */
+/***/ function(module, exports) {
+
+	'use strict';
+	module.exports = function (str) {
+		return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
+			return '%' + c.charCodeAt(0).toString(16).toUpperCase();
+		});
+	};
+
+
+/***/ },
+/* 68 */
+/***/ function(module, exports) {
+
+	'use strict';
+	/* eslint-disable no-unused-vars */
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+	var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+	function toObject(val) {
+		if (val === null || val === undefined) {
+			throw new TypeError('Object.assign cannot be called with null or undefined');
+		}
+
+		return Object(val);
+	}
+
+	function shouldUseNative() {
+		try {
+			if (!Object.assign) {
+				return false;
+			}
+
+			// Detect buggy property enumeration order in older V8 versions.
+
+			// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+			var test1 = new String('abc');  // eslint-disable-line
+			test1[5] = 'de';
+			if (Object.getOwnPropertyNames(test1)[0] === '5') {
+				return false;
+			}
+
+			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+			var test2 = {};
+			for (var i = 0; i < 10; i++) {
+				test2['_' + String.fromCharCode(i)] = i;
+			}
+			var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+				return test2[n];
+			});
+			if (order2.join('') !== '0123456789') {
+				return false;
+			}
+
+			// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+			var test3 = {};
+			'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+				test3[letter] = letter;
+			});
+			if (Object.keys(Object.assign({}, test3)).join('') !==
+					'abcdefghijklmnopqrst') {
+				return false;
+			}
+
+			return true;
+		} catch (e) {
+			// We don't expect any of the above to throw, but better to be safe.
+			return false;
+		}
+	}
+
+	module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+		var from;
+		var to = toObject(target);
+		var symbols;
+
+		for (var s = 1; s < arguments.length; s++) {
+			from = Object(arguments[s]);
+
+			for (var key in from) {
+				if (hasOwnProperty.call(from, key)) {
+					to[key] = from[key];
+				}
+			}
+
+			if (Object.getOwnPropertySymbols) {
+				symbols = Object.getOwnPropertySymbols(from);
+				for (var i = 0; i < symbols.length; i++) {
+					if (propIsEnumerable.call(from, symbols[i])) {
+						to[symbols[i]] = from[symbols[i]];
+					}
+				}
+			}
+		}
+
+		return to;
+	};
+
+
+/***/ },
+/* 69 */
+[76, 70],
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -20890,19 +21177,19 @@
 
 
 	// module
-	exports.push([module.id, ".eg-result{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:20px}.eg-result,.eg-result *{box-sizing:border-box}.eg-result h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-result .preview{margin:30px auto 0;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.eg-result .preview,.eg-result .preview>.inner{display:-webkit-box;display:-ms-flexbox;display:flex}.eg-result .preview>.inner{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.eg-result .preview>.inner .image{display:block;width:129px;height:129px;border-radius:5px;background-color:hsla(0,0%,100%,.38)}.eg-result .preview>.inner .image img{box-sizing:content-box;width:128px;height:128px;border:1px solid rgba(0,0,0,.18);border-radius:5px}.eg-result .preview>.inner .detail{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:0 0 0 50px}.eg-result .preview>.inner .detail ul{margin:0;padding:0;list-style-type:none;list-style-position:inside}.eg-result .preview>.inner .detail ul li{display:-webkit-box;display:-ms-flexbox;display:flex;line-height:40px}.eg-result .preview>.inner .detail ul li h3{margin:0;width:68px;color:#3ab0c7;font-weight:700;font-size:15px}.eg-result .preview>.inner .detail ul li .user-input{display:block;margin:0 0 0 12px;color:rgba(0,0,0,.75);font-size:13px}.eg-result .preview>.inner .detail ul li .user-input>.color-square{display:inline-block;margin:1px 4px 0 0;border:1px solid rgba(0,0,0,.18);width:10px;height:10px}.eg-result .preview>.inner .detail ul li:before{display:block;float:left;margin-right:10px;width:30px;height:40px;background-repeat:no-repeat;background-position:50%;content:'';opacity:.8}.eg-result .preview>.inner .detail ul li.text:before{background-image:url('/static/img/text.png');background-size:28px auto;opacity:.8}.eg-result .preview>.inner .detail ul li.color:before{background-image:url('/static/img/color.png');background-size:19px auto;opacity:.8}.eg-result .preview>.inner .detail ul li.font:before{background-image:url('/static/img/font.png');background-size:25px auto;opacity:.8}.eg-result .links{margin:30px auto 15px;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.eg-result .links,.eg-result .links .inner{display:-webkit-box;display:-ms-flexbox;display:flex}.eg-result .links .inner>div{padding:0;height:40px;line-height:40px;font-size:15px}.eg-result .links .inner>div a{display:block;text-decoration:none}.eg-result .links .inner>div.download a{color:#be1c60;height:100%;background-image:url('/static/img/download.png')}.eg-result .links .inner>div.download a,.eg-result .links .inner>div.share{padding:0 0 0 34px;background-repeat:no-repeat;background-position:0;background-size:22px auto}.eg-result .links .inner>div.share{margin:0 0 0 40px;color:#ad780c;background-image:url('/static/img/share.png');cursor:pointer}.eg-result>.share{display:block}.eg-result>.share .inner{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center}.eg-result>.share .inner a,.eg-result>.share .inner input{display:block;margin:0;border:0;width:40px;height:40px;background-color:transparent;background-size:40px;background-repeat:no-repeat;background-position:0;overflow:hidden;text-indent:100%;white-space:nowrap;margin:0 0 0 14px}.eg-result>.share .inner a.twitter,.eg-result>.share .inner input.twitter{background-image:url('/static/img/twitter.png');opacity:.88;margin-left:0}.eg-result>.share .inner a.facebook,.eg-result>.share .inner input.facebook{background-image:url('/static/img/facebook.png');opacity:.8}.eg-result>.share .inner a.google,.eg-result>.share .inner input.google{background-image:url('/static/img/google.png');opacity:.8}.eg-result>.share.expand-transition{padding:20px 0 15px;overflow:hidden;height:auto;-webkit-transition:opacity .8s ease-in-out;transition:opacity .8s ease-in-out;opacity:1}.eg-result>.share.expand-enter,.eg-result>.share.expand-leave{padding:0;height:0;opacity:0}", ""]);
+	exports.push([module.id, ".eg-result{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:20px}.eg-result,.eg-result *{box-sizing:border-box}.eg-result h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-result .preview{margin:30px auto 0;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.eg-result .preview,.eg-result .preview>.inner{display:-webkit-box;display:-ms-flexbox;display:flex}.eg-result .preview>.inner{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.eg-result .preview>.inner .image{display:block;width:129px;height:129px;border-radius:5px;background-color:hsla(0,0%,100%,.38)}.eg-result .preview>.inner .image img{box-sizing:content-box;width:128px;height:128px;border:1px solid rgba(0,0,0,.18);border-radius:5px}.eg-result .preview>.inner .detail{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:0 0 0 50px}.eg-result .preview>.inner .detail ul{margin:0;padding:0;list-style-type:none;list-style-position:inside}.eg-result .preview>.inner .detail ul li{display:-webkit-box;display:-ms-flexbox;display:flex;line-height:40px}.eg-result .preview>.inner .detail ul li h3{margin:0;width:68px;color:#3ab0c7;font-weight:700;font-size:15px}.eg-result .preview>.inner .detail ul li .user-input{display:block;margin:0 0 0 12px;color:rgba(0,0,0,.75);font-size:13px}.eg-result .preview>.inner .detail ul li .user-input>.color-square{display:inline-block;margin:1px 4px 0 0;border:1px solid rgba(0,0,0,.18);width:10px;height:10px}.eg-result .preview>.inner .detail ul li:before{display:block;float:left;margin-right:10px;width:30px;height:40px;background-repeat:no-repeat;background-position:50%;content:'';opacity:.8}.eg-result .preview>.inner .detail ul li.text:before{background-image:url('/static/img/text.png');background-size:28px auto;opacity:.8}.eg-result .preview>.inner .detail ul li.color:before{background-image:url('/static/img/color.png');background-size:19px auto;opacity:.8}.eg-result .preview>.inner .detail ul li.font:before{background-image:url('/static/img/font.png');background-size:25px auto;opacity:.8}.eg-result .links{margin:30px auto 15px;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.eg-result .links,.eg-result .links .inner{display:-webkit-box;display:-ms-flexbox;display:flex}.eg-result .links .inner>div{padding:0;height:40px;line-height:40px;font-size:15px}.eg-result .links .inner>div a{display:block;text-decoration:none}.eg-result .links .inner>div.download a{color:#be1c60;height:100%;background-image:url('/static/img/download.png')}.eg-result .links .inner>div.download a,.eg-result .links .inner>div.share{padding:0 0 0 34px;background-repeat:no-repeat;background-position:0;background-size:22px auto;cursor:pointer}.eg-result .links .inner>div.share{margin:0 0 0 40px;color:#ad780c;background-image:url('/static/img/share.png')}.eg-result>.share{display:block}.eg-result>.share .inner{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center}.eg-result>.share .inner a,.eg-result>.share .inner input{display:block;margin:0;border:0;width:40px;height:40px;background-color:transparent;background-size:40px;background-repeat:no-repeat;background-position:0;overflow:hidden;text-indent:100%;white-space:nowrap;margin:0 0 0 14px}.eg-result>.share .inner a.twitter,.eg-result>.share .inner input.twitter{background-image:url('/static/img/twitter.png');opacity:.88;margin-left:0}.eg-result>.share .inner a.facebook,.eg-result>.share .inner input.facebook{background-image:url('/static/img/facebook.png');opacity:.8}.eg-result>.share .inner a.google,.eg-result>.share .inner input.google{background-image:url('/static/img/google.png');opacity:.8}.eg-result>.share.expand-transition{padding:20px 0 15px;overflow:hidden;height:auto;-webkit-transition:opacity .8s ease-in-out;transition:opacity .8s ease-in-out;opacity:1}.eg-result>.share.expand-enter,.eg-result>.share.expand-leave{padding:0;height:0;opacity:0}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 68 */
+/* 71 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-result\"> <h2>生成された絵文字</h2> <div class=preview> <div class=inner> <div class=image> <img src=\"/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD\" alt=\"\"> </div> <div class=detail> <ul> <li class=text> <h3>テキスト</h3> <span class=user-input>天才現る</span> </li> <li class=font> <h3>フォント</h3> <span class=user-input>Noto Sans Mono CJK Bold</span> </li> <li class=color> <h3>カラー</h3> <span class=user-input> <span class=color-square style=background-color:#fff></span> #000000 </span> </li> </ul> </div> </div> </div> <div class=links> <div class=inner> <div class=download> <a href=#>ダウンロード</a> </div> <div class=share v-on:click=toggleShare> シェアする </div> </div> </div> <div class=share v-show=visibleShare transition=expand> <div class=inner> <input type=button class=\"twitter sharer button\" data-sharer=twitter data-title=絵文字ジェネレーター使ってます&#9834; data-hashtags=絵文字ジェネレーター data-url=https://emoji.pine.moe/ title=\"Twitter でシェアする\" v-eg-sharer> <input type=button class=\"facebook sharer button\" data-sharer=facebook data-url=https://emoji.pine.moe/ title=\"Facebook でシェアする\" v-eg-sharer> <input type=button class=\"google sharer button\" data-sharer=googleplus data-url=https://emoji.pine.moe/ title=\"Google+ でシェアする\" v-eg-sharer> </div> </div> </div>";
+	module.exports = "<div class=\"v-cloak eg-result\"> <h2>生成された絵文字</h2> <div class=preview> <div class=inner> <div class=image> <img :src=emojiUrl alt=\"\" v-if=emojiUrl> </div> <div class=detail> <ul> <li class=text> <h3>テキスト</h3> <span class=user-input>{{ text }}</span> </li> <li class=font> <h3>フォント</h3> <span class=user-input>{{ fontName }}</span> </li> <li class=color> <h3>カラー</h3> <span class=user-input> <span class=color-square v-bind:style=\"{ backgroundColor: color }\"></span> {{ color }} </span> </li> </ul> </div> </div> </div> <div class=links> <div class=inner> <div class=download> <a :href=emojiDownloadUrl>ダウンロード</a> </div> <div class=share v-on:click=toggleShare> シェアする </div> </div> </div> <div class=share v-show=visibleShare transition=expand> <div class=inner> <input type=button class=\"twitter sharer button\" data-sharer=twitter data-title=絵文字ジェネレーター使ってます&#9834; data-hashtags=絵文字ジェネレーター data-url=https://emoji.pine.moe/ title=\"Twitter でシェアする\" v-eg-sharer> <input type=button class=\"facebook sharer button\" data-sharer=facebook data-url=https://emoji.pine.moe/ title=\"Facebook でシェアする\" v-eg-sharer> <input type=button class=\"google sharer button\" data-sharer=googleplus data-url=https://emoji.pine.moe/ title=\"Google+ でシェアする\" v-eg-sharer> </div> </div> </div>";
 
 /***/ },
-/* 69 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20911,19 +21198,19 @@
 
 	var _vue2 = _interopRequireDefault(_vue);
 
-	__webpack_require__(70);
+	__webpack_require__(73);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-contact',
-	  template: __webpack_require__(72)
+	  template: __webpack_require__(75)
 	};
 
 /***/ },
-/* 70 */
-[73, 71],
-/* 71 */
+/* 73 */
+[76, 74],
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -20937,13 +21224,13 @@
 
 
 /***/ },
-/* 72 */
+/* 75 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"v-cloak eg-contact\"> <h2>お問い合わせ</h2> <div class=eg-contact--body> <p>何かありましたら、GitHub の Issue へお願い致します。</p> <ul> <li class=github> <a href=https://github.com/emoji-gen/Emoji-Web/issues target=_blank> <span class=owner>emoji-gen</span>/<span class=username>Emoji-Web</span> </a> </li> </ul> <p class=break>もしくは、作者の Twitter まで直接お問い合わせ下さい。</p> <ul> <li class=twitter><a href=https://twitter.com/jiuya target=_blank>@jiuya</a></li> <li class=twitter><a href=https://twitter.com/pine613 target=_blank>@pine613</a></li> </ul> </div> </div>";
 
 /***/ },
-/* 73 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag

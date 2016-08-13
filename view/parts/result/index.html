@@ -4,23 +4,23 @@
   <div class="preview">
     <div class="inner">
       <div class="image">
-        <img src="/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD" alt="">
+        <img :src="emojiUrl" alt="" v-if="emojiUrl">
       </div>
       <div class="detail">
         <ul>
           <li class="text">
             <h3>テキスト</h3>
-            <span class="user-input">天才現る</span>
+            <span class="user-input">{{ text }}</span>
           </li>
           <li class="font">
             <h3>フォント</h3>
-            <span class="user-input">Noto Sans Mono CJK Bold</span>
+            <span class="user-input">{{ fontName }}</span>
           </li>
           <li class="color">
             <h3>カラー</h3>
             <span class="user-input">
-              <span class="color-square" style="background-color: #ffffff"></span>
-              #000000
+              <span class="color-square" v-bind:style="{ backgroundColor: color }"></span>
+              {{ color }}
             </span>
           </li>
         </ul>
@@ -31,7 +31,7 @@
   <div class="links">
     <div class="inner">
       <div class="download">
-        <a href="#">ダウンロード</a>
+        <a :href="emojiDownloadUrl">ダウンロード</a>
       </div>
       <div class="share" v-on:click="toggleShare">
         シェアする

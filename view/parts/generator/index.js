@@ -4,11 +4,11 @@ import {Chrome} from 'vue-color'
 import './index.css'
 
 const defaultColors = {
-  hex: '#000000',
+  hex: '#EC71A1',
   rgba: {
-    r: 255,
-    g: 255,
-    b: 255,
+    r: 236,
+    g: 113,
+    b: 161,
     a: 1
   },
   a: 1
@@ -24,6 +24,13 @@ module.exports = {
     text: '絵文\n字。',
     fontKey: null,
   }),
+
+  computed: {
+    font: function () {
+      return this.fonts.find(font => font.key === this.fontKey)
+    },
+  },
+
   created: function () {
     this.$http.get('/api/fonts')
       .then(res => {
@@ -32,13 +39,20 @@ module.exports = {
         if (this.fonts.length > 0) {
           this.fontKey = this.fonts[0].key
         }
+
+        this.generate()
       })
   },
 
   methods: {
     // Run emoji generator
     generate: function () {
-      console.log('generate')
+      const params = {
+        text: this.text,
+        color: this.colors.hex.replace(/^#/, ''),
+        font: this.font,
+      }
+      this.$dispatch('EG_EMOJI_GENERATE', params)
     },
   },
 
