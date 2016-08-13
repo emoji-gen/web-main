@@ -7,6 +7,7 @@ import json
 from flask import Flask, render_template
 from flask import request, redirect, url_for
 from flask import Response, make_response
+from flask import abort
 
 from String2emoji import String2emoji
 
@@ -53,6 +54,10 @@ def emoji():
     if color is False:
         color = '000000'
     img_png = generate_emoji(text,font,color)
+
+    if not img_png:
+        return abort(400)
+
     res = make_response()
     res.data = img_png
     res.headers['Content-Type'] = 'image/png'
@@ -101,7 +106,18 @@ def generate_emoji(text,font,color):
     cache_id = hashlib.md5(hash_text.encode('utf-8')).hexdigest()
     img_png = cache.get(cache_id)
     if img_png is None:
-        emoji = String2emoji(text.splitlines(),'assets/fonts/' + font,(r,g,b))
+        lines = text.splitlines()
+
+        if len(text) > 100: # XXX: 100 文字以上
+            return None
+
+        if len(lines) == 1 and len(lines[0]) > 10: # XXX: 1 列 10 文字以上
+            return None
+
+        if len(lines) > 10: # XXX: 10 行以上
+            return None
+
+        emoji = String2emoji(lines, 'assets/fonts/' + font,(r,g,b))
         img = emoji.getEmoji()
         output = io.BytesIO()
         img.save(output,format='png')
