@@ -39,5 +39,9 @@ fonts_list = {
     'aoyagireisyoshimo': {
         'name':'青柳隷書しも',
         'file':'aoyagireisyosimo_otf_2_01.otf'
+    },
+    'rounded-x-mplus-1p-black':{
+        'name':'Rounded M+ 1p black',
+        'file':'rounded-x-mplus-1p-black.ttf'
     }
 }
