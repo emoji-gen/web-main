@@ -24,23 +24,23 @@ memcached_enabled = _config['cache']['memcached']['enabled']
 memcached_servers = _config['cache']['memcached']['servers']
 
 fonts_list = {
-    'notosans-mono-bold':{
+    'notosans-mono-bold': {
         'name':'Noto Sans Mono CJK Bold',
         'file':'NotoSansMonoCJKjp-Bold.otf'
     },
-    'mikachan':{
+    'mikachan': {
         'name':'みかちゃん PB',
         'file':'mikachanPB.otf'
     },
-    'migu-1m-bold':{
+    'migu-1m-bold': {
         'name':'Migu 1m bold',
-        'file':'Migu 1m bold'
+        'file':'migu-1m-bold.ttf'
     },
-    'mplus-1p-black':{
+    'mplus-1p-black': {
         'name':'M+ 1p black',
         'file':'mplus-1p-black.ttf'
     },
-    'aoyagireisyoshimo':{
+    'aoyagireisyoshimo': {
         'name':'青柳隷書しも',
         'file':'aoyagireisyosimo_otf_2_01.otf'
     }
