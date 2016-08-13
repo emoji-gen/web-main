@@ -32,6 +32,9 @@ $ source venv/bin/activate
 $ deactivate # exit
 ```
 
+### fonts
+You should download used fonts for `assets/fonts` directory.
+
 ### Frontend
 
 ```
