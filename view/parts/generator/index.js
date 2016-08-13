@@ -19,19 +19,20 @@ module.exports = {
   template: require('./index.html'),
   data: () => ({
     // TODO: サーバーから取得する
-    fonts: [
-      { key: 'noto-sans-mono-cjk-bold', name: 'Noto Sans Mono CJK Bold' },
-      { key: 'mikachan-pb',             name: 'みかちゃん PB' },
-      { key: 'migu-1m-bold',            name: 'Migu 1m Bold' },
-      { key: 'mplus-1p-black',          name: 'M+ 1p Black' },
-      { key: 'aoyagireishoshimo',       name: '青柳隷書しも' },
-    ],
+    fonts: [],
     colors: defaultColors,
     text: '絵文\n字。',
     fontKey: null,
   }),
   created: function () {
-    this.fontKey = this.fonts[0].key
+    this.$http.get('/api/fonts')
+      .then(res => {
+        this.fonts = res.data
+
+        if (this.fonts.length > 0) {
+          this.fontKey = this.fonts[0].key
+        }
+      })
   },
 
   methods: {

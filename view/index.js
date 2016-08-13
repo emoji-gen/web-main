@@ -7,7 +7,6 @@ import env from './lib/env'
 
 Vue.use(VueResource)
 Vue.use(VueRouter)
-Vue.http.options.crossOrigin = true
 
 const RootView = Vue.extend(require('./views/root'))
 const router   = new VueRouter({

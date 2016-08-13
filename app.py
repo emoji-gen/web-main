@@ -78,7 +78,7 @@ def emoji_download():
     res.headers['Content-Disposition'] = disp.encode('utf-8')
     return res
 
-@app.route('/fonts')
+@app.route('/api/fonts')
 def return_fonts_list():
     font_list_req = []
     for font in fonts_list:
