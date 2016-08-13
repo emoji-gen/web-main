@@ -11,6 +11,6 @@ module.exports = {
   },
 
   unbind: function () {
-    this.el.removeEventListener('click', sharer, false)
+    this.el.removeEventListener('click', share, false)
   },
 }
