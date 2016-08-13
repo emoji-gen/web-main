@@ -1,4 +1,6 @@
 @import "../../defs/import";
 
 .eg-home {
+  margin-bottom: 180px;
+  min-height: 600px;
 }

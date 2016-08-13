@@ -16683,7 +16683,7 @@
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, ".eg-home{margin-bottom:180px;min-height:600px}", ""]);
 
 	// exports
 
