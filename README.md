@@ -1,5 +1,6 @@
 Emoji-Web
 ---------
+:tada: Ultimate Emoji Generator
 
 ## Requirements
 
