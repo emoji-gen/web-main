@@ -20,8 +20,8 @@ env_config_path = os.getenv(
 js_min_path = os.path.join(os.path.dirname(__file__), '../static/js/bundle.min.js')
 
 # configs from YAML file
-_config     = yaml.load(open(config_path, 'r'))
-_env_config = yaml.load(open(env_config_path, 'r'))
+_config     = yaml.load(open(config_path, 'r', encoding='utf-8'))
+_env_config = yaml.load(open(env_config_path, 'r', encoding='utf-8'))
 
 cache_timeout     = _env_config['cache']['timeout']
 memcached_enabled = _env_config['cache']['memcached']['enabled']
