@@ -33,23 +33,17 @@
       <div class="download">
         <a :href="emojiDownloadUrl">ダウンロード</a>
       </div>
-      <!--
-      TODO
       <div class="share" v-on:click="toggleShare">
         シェアする
       </div>
-      -->
     </div>
   </div>
 
-  <!--
-  TODO
   <div class="share" v-show="visibleShare" transition="expand">
     <div class="inner">
-      <input type="button" class="twitter sharer button" data-sharer="twitter" data-title="絵文字ジェネレーター使ってます&#9834;" data-hashtags="絵文字ジェネレーター" data-url="https://emoji.pine.moe/" title="Twitter でシェアする" v-eg-sharer>
-      <input type="button" class="facebook sharer button" data-sharer="facebook" data-url="https://emoji.pine.moe/" title="Facebook でシェアする" v-eg-sharer>
-      <input type="button" class="google sharer button" data-sharer="googleplus" data-url="https://emoji.pine.moe/" title="Google+ でシェアする" v-eg-sharer>
+      <input type="button" class="twitter sharer button" data-sharer="twitter" data-title="絵文字ジェネレーター使って絵文字を生成しました&#9834;" data-hashtags="絵文字ジェネレーター" :data-url="currentUrl" title="Twitter でシェアする" v-eg-sharer>
+      <input type="button" class="facebook sharer button" data-sharer="facebook" :data-url="currentUrl" title="Facebook でシェアする" v-eg-sharer>
+      <input type="button" class="google sharer button" data-sharer="googleplus" :data-url="currentUrl" title="Google+ でシェアする" v-eg-sharer>
     </div>
   </div>
-  -->
 </div>

@@ -25,13 +25,7 @@ module.exports = {
     fontKey: null,
   }),
 
-  computed: {
-    font: function () {
-      return this.fonts.find(font => font.key === this.fontKey)
-    },
-  },
-
-  created: function () {
+  attached: function () {
     this.$http.get('/api/fonts')
       .then(res => {
         this.fonts = res.data
@@ -45,12 +39,17 @@ module.exports = {
   methods: {
     // Run emoji generator
     generate: function () {
-      const params = {
+      const query = {
         text: this.text,
         color: this.colors.hex.replace(/^#/, ''),
-        font: this.font,
+        font: this.fontKey,
       }
-      this.$dispatch('EG_EMOJI_GENERATE', params)
+      this.$dispatch('EG_EMOJI_GENERATE', query)
+      this.$router.go({
+        path: '/emoji',
+        query,
+        replace: true,
+      })
     },
   },
 

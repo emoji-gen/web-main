@@ -1,4 +1,5 @@
 import Sharer from 'sharer.npm.js'
+import bitly from '../lib/bitly'
 
 function share(e) {
   const sharer = new Sharer(e.target)

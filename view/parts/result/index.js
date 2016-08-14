@@ -12,23 +12,8 @@ module.exports = {
     rawColor: null,
     rawFont: null,
     queryString: null,
+    fonts: [],
   }),
-
-  events: {
-    EG_EMOJI_GENERATE: function (params) {
-      this.rawText  = params.text
-      this.rawColor = params.color
-      this.rawFont  = params.font
-
-      const query = {
-        text: params.text,
-        color: params.color,
-        font: params.font.key,
-      }
-      this.queryString   = queryString.stringify(query)
-      this.visibleResult = true
-    },
-  },
 
   computed: {
     text: function () {
@@ -43,9 +28,13 @@ module.exports = {
       }
       return ''
     },
+
+    font: function () {
+      return this.fonts.find(font => font.key === this.rawFont)
+    },
     fontName: function () {
-      if (this.rawFont) {
-        return this.rawFont.name
+      if (this.font) {
+        return this.font.name
       }
       return ''
     },
@@ -61,6 +50,28 @@ module.exports = {
         return `/emoji_download?${this.queryString}`
       }
       return null
+    },
+
+    currentUrl: function () {
+      return location.href
+    },
+  },
+
+  attached: function () {
+    this.$http.get('/api/fonts')
+      .then(res => {
+        this.fonts = res.data
+      })
+  },
+
+  events: {
+    EG_EMOJI_GENERATE: function (query) {
+      this.rawText  = query.text
+      this.rawColor = query.color
+      this.rawFont  = query.font
+
+      this.queryString   = queryString.stringify(query)
+      this.visibleResult = true
     },
   },
 
