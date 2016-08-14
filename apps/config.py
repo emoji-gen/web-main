@@ -7,8 +7,11 @@ import yaml
 env   = os.getenv('FLASK_ENV', 'development')
 debug = env == 'development'
 
+config_path = \
+    os.path.join(os.path.dirname(__file__), '../config/common.yml')
+
 # 'config/development.py' or $FLASK_CONFIG_PATH
-config_path = os.getenv(
+env_config_path = os.getenv(
     'FLASK_CONFIG_PATH',
     os.path.join(os.path.dirname(__file__), '../config/development.yml')
     )
@@ -17,31 +20,11 @@ config_path = os.getenv(
 js_min_path = os.path.join(os.path.dirname(__file__), '../static/js/bundle.min.js')
 
 # configs from YAML file
-_config = yaml.load(open(config_path, 'r'))
+_config     = yaml.load(open(config_path, 'r'))
+_env_config = yaml.load(open(env_config_path, 'r'))
 
-cache_timeout     = _config['cache']['timeout']
-memcached_enabled = _config['cache']['memcached']['enabled']
-memcached_servers = _config['cache']['memcached']['servers']
+cache_timeout     = _env_config['cache']['timeout']
+memcached_enabled = _env_config['cache']['memcached']['enabled']
+memcached_servers = _env_config['cache']['memcached']['servers']
 
-fonts_list = {
-    'notosans-mono-bold': {
-        'name':'Noto Sans Mono CJK Bold',
-        'file':'NotoSansMonoCJKjp-Bold.otf'
-    },
-    'migu-1m-bold': {
-        'name':'Migu 1m bold',
-        'file':'migu-1m-bold.ttf'
-    },
-    'mplus-1p-black': {
-        'name':'M+ 1p black',
-        'file':'mplus-1p-black.ttf'
-    },
-    'aoyagireisyoshimo': {
-        'name':'青柳隷書しも',
-        'file':'aoyagireisyosimo_otf_2_01.otf'
-    },
-    'rounded-x-mplus-1p-black':{
-        'name':'Rounded M+ 1p black',
-        'file':'rounded-x-mplus-1p-black.ttf'
-    }
-}
+fonts = _config['fonts']

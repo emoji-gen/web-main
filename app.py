@@ -35,7 +35,9 @@ cache = create_cache(
         config.cache_timeout,
         config.memcached_servers
         )
-fonts_list = config.fonts_list
+
+fonts_list = config.fonts
+
 # -----------------------------------------------------------------------------
 
 @app.route('/')
@@ -84,16 +86,16 @@ def emoji_download():
     return res
 
 @app.route('/api/fonts')
-def return_fonts_list():
-    font_list_req = []
-    for font in fonts_list:
-        font_list_req.append({
-            'key':font,
-            'name':fonts_list.get(font).get('name')
-        })
-    jsonstring = json.dumps(font_list_req)
+def api_fonts():
+    font_items        = list(fonts_list.items())
+    sorted_font_items = sorted(font_items, key=lambda item: item[1]['order'])
+    fonts             = [
+        { 'key': item[0], 'name': item[1]['name'] }
+        for item in sorted_font_items
+    ]
+
     res = make_response()
-    res.data = jsonstring
+    res.data = json.dumps(fonts)
     res.headers['Content-Type'] = 'application/json'
     return res
 

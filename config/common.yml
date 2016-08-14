@@ -1,0 +1,21 @@
+fonts:
+  'notosans-mono-bold':
+    name: 'Noto Sans Mono CJK Bold'
+    file: 'NotoSansMonoCJKjp-Bold.otf'
+    order: 1
+  'mplus-1p-black':
+    name: 'M+ 1p black'
+    file: 'mplus-1p-black.ttf'
+    order: 2
+  'migu-1m-bold':
+    name: 'Migu 1m bold'
+    file: 'migu-1m-bold.ttf'
+    order: 3
+  'rounded-x-mplus-1p-black':
+    name: 'Rounded M+ 1p black'
+    file: 'rounded-x-mplus-1p-black.ttf'
+    order: 4
+  'aoyagireisyoshimo':
+    name: '青柳隷書しも'
+    file: 'aoyagireisyosimo_otf_2_01.otf'
+    order: 5
