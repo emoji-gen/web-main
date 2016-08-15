@@ -71,6 +71,8 @@ class String2emoji(object):
         l = len(self.textList)
 
         for i in range(0,l):
+            if not self.textList[i]:
+                continue
             img_str = Image.new("RGBA",(len(self.textList[i])*128,128),self.backColor)
             draw = ImageDraw.Draw(img_str)
             (size,x0,y0,x1,y1) = self.cutEffectiveRange(self.textList[i],len(self.textList[i])*64,int(128/l))
