@@ -20,6 +20,8 @@ class String2emoji(object):
     def setFontColor(self,color):
         self.fontColor = color
     def cutEffectiveRange(self,text,wMax,hMax):
+        if self.getFont(hMax).getsize(text)[0] > wMax :
+            wMax = self.getFont(hMax).getsize(text)[0]
         for i in range(hMax,hMax*2):
             font = self.getFont(i)
             w, h = font.getsize(text)
