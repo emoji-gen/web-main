@@ -1,6 +1,6 @@
 cache:
   timeout: 86400 # 24 hours
   memcached:
-    enabled: true
+    enabled: false
     servers:
       - '127.0.0.1:11211'
