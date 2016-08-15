@@ -40,7 +40,30 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
+/******/ ((function(modules) {
+	// Check all modules for deduplicated modules
+	for(var i in modules) {
+		if(Object.prototype.hasOwnProperty.call(modules, i)) {
+			switch(typeof modules[i]) {
+			case "function": break;
+			case "object":
+				// Module can be created from a template
+				modules[i] = (function(_m) {
+					var args = _m.slice(1), fn = modules[_m[0]];
+					return function (a,b,c) {
+						fn.apply(this, [a,b,c].concat(args));
+					};
+				}(modules[i]));
+				break;
+			default:
+				// Module is a copy of another module
+				modules[i] = modules[modules[i]];
+				break;
+			}
+		}
+	}
+	return modules;
+}([
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -60,22 +83,22 @@
 
 	__webpack_require__(5);
 
-	var _env = __webpack_require__(9);
+	var _ga = __webpack_require__(9);
 
-	var _env2 = _interopRequireDefault(_env);
+	var _ga2 = _interopRequireDefault(_ga);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	_vue2.default.use(_vueResource2.default);
 	_vue2.default.use(_vueRouter2.default);
 
-	var RootView = _vue2.default.extend(__webpack_require__(10));
+	var RootView = _vue2.default.extend(__webpack_require__(12));
 	var router = new _vueRouter2.default({
 	  hashbang: true,
 	  saveScrollPosition: false
 	});
 
-	router.map(__webpack_require__(30));
+	router.map(__webpack_require__(32));
 	router.start(RootView, '.eg-root');
 
 /***/ },
@@ -14362,7 +14385,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset \"utf-8\";\r\n\r\nhtml, body {\r\n  margin: 0;\r\n  padding: 0;\r\n  font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;\r\n}\r\n", ""]);
+	exports.push([module.id, "body,html{margin:0;padding:0;font-family:Hiragino Kaku Gothic ProN,Yu Gothic,sans-serif}", ""]);
 
 	// exports
 
@@ -14677,6 +14700,26 @@
 
 /***/ },
 /* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _meta = __webpack_require__(10);
+
+	var _meta2 = _interopRequireDefault(_meta);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	if (!_meta2.default.env.debug) {
+	  __webpack_require__(11);
+	} else {
+	  window.ga = {};
+	}
+
+	module.exports = window.ga;
+
+/***/ },
+/* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -14693,7 +14736,22 @@
 	};
 
 /***/ },
-/* 10 */
+/* 11 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	(function (i, s, o, g, r, a, m) {
+	  i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+	    (i[r].q = i[r].q || []).push(arguments);
+	  }, i[r].l = 1 * new Date();a = s.createElement(o), m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m);
+	})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+	ga('create', 'UA-82501423-1', 'auto');
+	ga('send', 'pageview');
+
+/***/ },
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14702,53 +14760,29 @@
 
 	var _vue2 = _interopRequireDefault(_vue);
 
-	__webpack_require__(11);
+	__webpack_require__(13);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-root',
-	  template: __webpack_require__(13),
+	  template: __webpack_require__(15),
 	  events: {
 	    EG_EMOJI_GENERATE: function EG_EMOJI_GENERATE(params) {
 	      this.$broadcast('EG_EMOJI_GENERATE', params);
 	    }
 	  },
 	  components: {
-	    'eg-background': __webpack_require__(14),
-	    'eg-footer': __webpack_require__(18),
-	    'eg-header': __webpack_require__(24)
+	    'eg-background': __webpack_require__(16),
+	    'eg-footer': __webpack_require__(20),
+	    'eg-header': __webpack_require__(26)
 	  }
 	};
 
 /***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(12);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(8)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 12 */
+/* 13 */
+[78, 14],
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -14756,146 +14790,98 @@
 
 
 	// module
-	exports.push([module.id, "/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n\r\n.eg-root {\r\n  position: relative;\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\n", ""]);
+	exports.push([module.id, ".eg-root{position:relative;margin:0;padding:0}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-root\">\r\n  <eg-header></eg-header>\r\n  <router-view></router-view>\r\n  <eg-background></eg-background>\r\n  <eg-footer></eg-footer>\r\n</div>\r\n";
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	__webpack_require__(15);
-
-	module.exports = {
-	  name: 'eg-background',
-	  template: __webpack_require__(17)
-	};
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(16);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(8)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
+	module.exports = "<div class=\"v-cloak eg-root\"> <eg-header></eg-header> <router-view></router-view> <eg-background></eg-background> <eg-footer></eg-footer> </div>";
 
 /***/ },
 /* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	__webpack_require__(17);
+
+	module.exports = {
+	  name: 'eg-background',
+	  template: __webpack_require__(19)
+	};
+
+/***/ },
+/* 17 */
+[78, 18],
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
 	exports = module.exports = __webpack_require__(7)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n\r\n.eg-background {\r\n  position: fixed;\r\n  top: 0;\r\n  right: 0;\r\n  left: 0;\r\n  box-sizing: border-box;\r\n  height: 1135px;\r\n  overflow: hidden;\r\n  z-index: -1;\r\n}\r\n\r\n.eg-background .blue {\r\n  position: absolute;\r\n  top: 100px;\r\n  left: -30px;\r\n  width: 800px;\r\n  height: 10px;\r\n  background-color: #6FCBDD;\r\n  opacity: 0.4;\r\n  -webkit-transform: rotate(-18deg);\r\n  transform: rotate(-18deg);\r\n}\r\n\r\n.eg-background .red {\r\n  position: absolute;\r\n  top: 170px;\r\n  left: -50px;\r\n  width: 1250px;\r\n  height: 10px;\r\n  background-color: #E11665;\r\n  opacity: 0.4;\r\n  -webkit-transform: rotate(-18deg);\r\n  transform: rotate(-18deg);\r\n}\r\n\r\n.eg-background .green {\r\n  position: absolute;\r\n  top: -30px;\r\n  left: 200px;\r\n  width: 10px;\r\n  height: 1200px;\r\n  background-color: #38BA91;\r\n  opacity: 0.4;\r\n  -webkit-transform: rotate(-18deg);\r\n  transform: rotate(-18deg);\r\n}\r\n\r\n.eg-background .yellow {\r\n  position: absolute;\r\n  top: -30px;\r\n  left: 330px;\r\n  width: 10px;\r\n  height: 1200px;\r\n  background-color: #EAA822;\r\n  opacity: 0.4;\r\n  -webkit-transform: rotate(-18deg);\r\n  transform: rotate(-18deg);\r\n}\r\n", ""]);
+	exports.push([module.id, ".eg-background{position:fixed;top:0;right:0;left:0;box-sizing:border-box;height:1135px;overflow:hidden;z-index:-1}.eg-background .blue{top:100px;left:-30px;width:800px;background-color:#6fcbdd}.eg-background .blue,.eg-background .red{position:absolute;height:10px;opacity:.4;-webkit-transform:rotate(-18deg);transform:rotate(-18deg)}.eg-background .red{top:170px;left:-50px;width:1250px;background-color:#e11665}.eg-background .green{left:200px;background-color:#38ba91}.eg-background .green,.eg-background .yellow{position:absolute;top:-30px;width:10px;height:1200px;opacity:.4;-webkit-transform:rotate(-18deg);transform:rotate(-18deg)}.eg-background .yellow{left:330px;background-color:#eaa822}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-background\">\r\n  <div class=\"blue\"></div>\r\n  <div class=\"red\"></div>\r\n  <div class=\"green\"></div>\r\n  <div class=\"yellow\"></div>\r\n</div>\r\n";
-
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	__webpack_require__(19);
-
-	module.exports = {
-	  name: 'eg-footer',
-	  template: __webpack_require__(21),
-
-	  directives: {
-	    'eg-scroll': __webpack_require__(22)
-	  }
-	};
-
-/***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(20);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(8)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
+	module.exports = "<div class=\"v-cloak eg-background\"> <div class=blue></div> <div class=red></div> <div class=green></div> <div class=yellow></div> </div>";
 
 /***/ },
 /* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	__webpack_require__(21);
+
+	module.exports = {
+	  name: 'eg-footer',
+	  template: __webpack_require__(23),
+
+	  directives: {
+	    'eg-scroll': __webpack_require__(24)
+	  }
+	};
+
+/***/ },
+/* 21 */
+[78, 22],
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
 	exports = module.exports = __webpack_require__(7)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n\r\n.eg-footer {\r\n  width: 100%;\r\n  height: 50px;\r\n  background-color: rgba(255, 255, 255, 0.7);\r\n  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);\r\n}\r\n\r\n.eg-footer, .eg-footer * {\r\n  box-sizing: border-box;\r\n}\r\n\r\n.eg-footer footer {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  margin: 0 auto;\r\n  padding: 0 10px;\r\n  width: 900px;\r\n  height: 50px;\r\n}\r\n\r\n.eg-footer footer .menus {\r\n  display: block;\r\n  margin: 0;\r\n  padding: 0;\r\n  font-size: 11px;\r\n}\r\n\r\n.eg-footer footer .menus li {\r\n  display: inline-block;\r\n  margin: 0;\r\n  list-style-position: inside;\r\n  list-style-type: none;\r\n  line-height: 50px;\r\n  color: #8C8C8C\r\n}\r\n\r\n.eg-footer footer .menus li::before {\r\n  display: inline;\r\n  margin: 0 6px 0 4px;\r\n  content: '|';\r\n}\r\n\r\n.eg-footer footer .menus li:first-child {}\r\n\r\n.eg-footer footer .menus li:first-child::before {\r\n  display: none;\r\n}\r\n\r\n.eg-footer footer .copyright {\r\n  -webkit-box-flex: 1;\r\n  -ms-flex: 1 1 auto;\r\n  flex: 1 1 auto;\r\n  margin: 0;\r\n  line-height: 50px;\r\n  color: #8C8C8C;\r\n  font-size: 11px;\r\n  text-align: right;\r\n}\r\n", ""]);
+	exports.push([module.id, ".eg-footer{width:100%;height:50px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 3px 1px rgba(0,0,0,.2)}.eg-footer,.eg-footer *{box-sizing:border-box}.eg-footer footer{display:-webkit-box;display:-ms-flexbox;display:flex;margin:0 auto;padding:0 10px;width:900px;height:50px}.eg-footer footer .menus{display:block;margin:0;padding:0;font-size:11px}.eg-footer footer .menus li{display:inline-block;margin:0;list-style-position:inside;list-style-type:none;line-height:50px;color:#8c8c8c}.eg-footer footer .menus li:before{display:inline;margin:0 6px 0 4px;content:'|'}.eg-footer footer .menus li:first-child:before{display:none}.eg-footer footer .copyright{-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;margin:0;line-height:50px;color:#8c8c8c;font-size:11px;text-align:right}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 21 */
+/* 23 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-footer\">\r\n  <footer>\r\n    <ul class=\"menus\">\r\n      <li><a v-link=\"'/contact'\" v-eg-scroll>お問い合わせ</a></li>\r\n    </ul>\r\n    <p class=\"copyright\">(C) 2016 絵文字 ジェネレーター</p>\r\n  </footer>\r\n</div>\r\n";
+	module.exports = "<div class=\"v-cloak eg-footer\"> <footer> <ul class=menus> <li><a v-link=\"'/contact'\" v-eg-scroll>お問い合わせ</a></li> </ul> <p class=copyright>(C) 2016 絵文字 ジェネレーター</p> </footer> </div>";
 
 /***/ },
-/* 22 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _sweetScroll = __webpack_require__(23);
+	var _sweetScroll = __webpack_require__(25);
 
 	var _sweetScroll2 = _interopRequireDefault(_sweetScroll);
 
@@ -14917,7 +14903,7 @@
 	};
 
 /***/ },
-/* 23 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -16341,49 +16327,25 @@
 	}));
 
 /***/ },
-/* 24 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(25);
+	__webpack_require__(27);
 
 	module.exports = {
 	  name: 'eg-header',
-	  template: __webpack_require__(27),
+	  template: __webpack_require__(29),
 	  directives: {
-	    'eg-sharer': __webpack_require__(28)
+	    'eg-sharer': __webpack_require__(30)
 	  }
 	};
 
 /***/ },
-/* 25 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(26);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(8)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 26 */
+/* 27 */
+[78, 28],
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -16391,24 +16353,24 @@
 
 
 	// module
-	exports.push([module.id, "/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n\r\n.eg-header {\r\n  z-index: 1;\r\n  height: 74px;\r\n  background-color: rgba(255, 255, 255, 0.7);\r\n  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);\r\n}\r\n\r\n.eg-header, .eg-header * {\r\n  box-sizing: border-box;\r\n}\r\n\r\n.eg-header header {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  margin: 0 auto;\r\n  padding: 0;\r\n  width: 900px;\r\n  height: 74px;\r\n}\r\n\r\n.eg-header header h1 {\r\n  position: relative;\r\n  display: block;\r\n  margin: 0;\r\n  padding: 0;\r\n}\r\n\r\n.eg-header header h1 a {\r\n  display: block;\r\n  margin: 0;\r\n  padding: 0 0 0 80px;\r\n  line-height: 74px;\r\n  letter-spacing: 6px;\r\n  color: rgb(80, 80, 80);\r\n  text-decoration: none;\r\n  font-size: 19px;\r\n  font-weight: bold\r\n}\r\n\r\n.eg-header header h1 a::before {\r\n  display: block;\r\n  position: absolute;\r\n  top: 0;\r\n  bottom: 0;\r\n  left: 20px;\r\n  right: 0;\r\n  width: 40px;\r\n  -webkit-transform: rotate(-18deg);\r\n  transform: rotate(-18deg);\r\n  background-image: url('/static/img/logo.png');\r\n  background-size: 40px auto;\r\n  background-repeat: no-repeat;\r\n  background-position: 0px center;\r\n  content: '';\r\n}\r\n\r\n.eg-header header .icons {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-flex: 1;\r\n  -ms-flex: 1 1 auto;\r\n  flex: 1 1 auto;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n  -ms-flex-direction: row;\r\n  flex-direction: row;\r\n  -webkit-box-pack: end;\r\n  -ms-flex-pack: end;\r\n  justify-content: flex-end;\r\n  -webkit-box-align: center;\r\n  -ms-flex-align: center;\r\n  align-items: center;\r\n  margin: 0 20px 0 0;\r\n}\r\n\r\n.eg-header header .icons input, .eg-header header .icons a {\r\n  display: block;\r\n  margin: 0;\r\n  border: 0;\r\n  width: 40px;\r\n  height: 40px;\r\n  background-color: transparent;\r\n  background-size: 40px;\r\n  background-repeat: no-repeat;\r\n  background-position: 0px center;\r\n  overflow: hidden;\r\n  text-indent: 100%;\r\n  white-space: nowrap;\r\n  margin: 0 0 0 12px\r\n}\r\n\r\n.eg-header header .icons input.twitter, .eg-header header .icons a.twitter {\r\n  background-image: url('/static/img/twitter.png');\r\n  opacity: .88;\r\n}\r\n\r\n.eg-header header .icons input.facebook, .eg-header header .icons a.facebook {\r\n  background-image: url('/static/img/facebook.png');\r\n  opacity: .80;\r\n}\r\n\r\n.eg-header header .icons input.google, .eg-header header .icons a.google {\r\n  background-image: url('/static/img/google.png');\r\n  opacity: .80;\r\n}\r\n\r\n.eg-header header .icons input.github, .eg-header header .icons a.github {\r\n  background-image: url('/static/img/github.png');\r\n  opacity: .70;\r\n}\r\n", ""]);
+	exports.push([module.id, ".eg-header{z-index:1;height:74px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 3px 1px rgba(0,0,0,.2)}.eg-header,.eg-header *{box-sizing:border-box}.eg-header header{display:-webkit-box;display:-ms-flexbox;display:flex;margin:0 auto;padding:0;width:900px;height:74px}.eg-header header h1{position:relative;display:block;margin:0;padding:0}.eg-header header h1 a{display:block;margin:0;padding:0 0 0 80px;line-height:74px;letter-spacing:6px;color:#505050;text-decoration:none;font-size:19px;font-weight:700}.eg-header header h1 a:before{display:block;position:absolute;top:0;bottom:0;left:20px;right:0;width:40px;-webkit-transform:rotate(-18deg);transform:rotate(-18deg);background-image:url('/static/img/logo.png');background-size:40px auto;background-repeat:no-repeat;background-position:0;content:''}.eg-header header .icons{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin:0 20px 0 0}.eg-header header .icons a,.eg-header header .icons input{display:block;margin:0;border:0;width:40px;height:40px;background-color:transparent;background-size:40px;background-repeat:no-repeat;background-position:0;overflow:hidden;text-indent:100%;white-space:nowrap;margin:0 0 0 12px}.eg-header header .icons a.twitter,.eg-header header .icons input.twitter{background-image:url('/static/img/twitter.png');opacity:.88}.eg-header header .icons a.facebook,.eg-header header .icons input.facebook{background-image:url('/static/img/facebook.png');opacity:.8}.eg-header header .icons a.google,.eg-header header .icons input.google{background-image:url('/static/img/google.png');opacity:.8}.eg-header header .icons a.github,.eg-header header .icons input.github{background-image:url('/static/img/github.png');opacity:.7}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-header\">\r\n  <header>\r\n    <h1><a href=\"/\">絵文字 ジェネレーター</a></h1>\r\n    <div class=\"icons\">\r\n      <input type=\"button\" class=\"twitter sharer button\" data-sharer=\"twitter\" data-title=\"絵文字ジェネレーター使ってます&#9834;\" data-hashtags=\"絵文字ジェネレーター\" data-url=\"https://emoji.pine.moe/\" title=\"Twitter でシェアする\" v-eg-sharer>\r\n      <input type=\"button\" class=\"facebook sharer button\" data-sharer=\"facebook\" data-url=\"https://emoji.pine.moe/\" title=\"Facebook でシェアする\" v-eg-sharer>\r\n      <input type=\"button\" class=\"google sharer button\" data-sharer=\"googleplus\" data-url=\"https://emoji.pine.moe/\" title=\"Google+ でシェアする\" v-eg-sharer>\r\n      <a href=\"https://github.com/emoji-gen/Emoji-Web\" class=\"github\" target=\"_blank\">GitHub</a>\r\n    </div>\r\n  </header>\r\n</div>\r\n";
+	module.exports = "<div class=\"v-cloak eg-header\"> <header> <h1><a href=/ >絵文字 ジェネレーター</a></h1> <div class=icons> <input type=button class=\"twitter sharer button\" data-sharer=twitter data-title=絵文字ジェネレーター使ってます&#9834; data-hashtags=絵文字ジェネレーター data-url=https://emoji.pine.moe/ title=\"Twitter でシェアする\" v-eg-sharer> <input type=button class=\"facebook sharer button\" data-sharer=facebook data-url=https://emoji.pine.moe/ title=\"Facebook でシェアする\" v-eg-sharer> <input type=button class=\"google sharer button\" data-sharer=googleplus data-url=https://emoji.pine.moe/ title=\"Google+ でシェアする\" v-eg-sharer> <a href=https://github.com/emoji-gen/Emoji-Web class=github target=_blank>GitHub</a> </div> </header> </div>";
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _sharerNpm = __webpack_require__(29);
+	var _sharerNpm = __webpack_require__(31);
 
 	var _sharerNpm2 = _interopRequireDefault(_sharerNpm);
 
@@ -16430,7 +16392,7 @@
 	};
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports) {
 
 	/**
@@ -16706,25 +16668,25 @@
 
 
 /***/ },
-/* 30 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = {
 	  '/': {
-	    component: __webpack_require__(31)
+	    component: __webpack_require__(33)
 	  },
 	  '/emoji': {
-	    component: __webpack_require__(31)
+	    component: __webpack_require__(33)
 	  },
 	  '/contact': {
-	    component: __webpack_require__(72)
+	    component: __webpack_require__(74)
 	  }
 	};
 
 /***/ },
-/* 31 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16733,48 +16695,24 @@
 
 	var _vue2 = _interopRequireDefault(_vue);
 
-	__webpack_require__(32);
+	__webpack_require__(34);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-home',
-	  template: __webpack_require__(34),
+	  template: __webpack_require__(36),
 	  components: {
-	    'eg-generator': __webpack_require__(35),
-	    'eg-recently': __webpack_require__(40),
-	    'eg-result': __webpack_require__(65)
+	    'eg-generator': __webpack_require__(37),
+	    'eg-recently': __webpack_require__(42),
+	    'eg-result': __webpack_require__(67)
 	  }
 	};
 
 /***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(33);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(8)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 33 */
+/* 34 */
+[78, 35],
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -16782,19 +16720,19 @@
 
 
 	// module
-	exports.push([module.id, "/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n\r\n.eg-home {\r\n  margin-bottom: 180px;\r\n  min-height: 600px;\r\n}\r\n", ""]);
+	exports.push([module.id, ".eg-home{margin-bottom:180px;min-height:600px}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 34 */
+/* 36 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-home\">\r\n  <eg-result></eg-result>\r\n  <eg-generator></eg-generator>\r\n  <!--\r\n  TODO\r\n  <eg-recently></eg-recently>\r\n  -->\r\n</div>\r\n";
+	module.exports = "<div class=\"v-cloak eg-home\"> <eg-result></eg-result> <eg-generator></eg-generator> </div>";
 
 /***/ },
-/* 35 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16803,9 +16741,9 @@
 
 	var _vue2 = _interopRequireDefault(_vue);
 
-	var _vueColor = __webpack_require__(36);
+	var _vueColor = __webpack_require__(38);
 
-	__webpack_require__(37);
+	__webpack_require__(39);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16822,7 +16760,7 @@
 
 	module.exports = {
 	  name: 'eg-generator',
-	  template: __webpack_require__(39),
+	  template: __webpack_require__(41),
 	  data: function data() {
 	    return {
 	      // TODO: サーバーから取得する
@@ -16868,7 +16806,7 @@
 	  },
 
 	  directives: {
-	    'eg-scroll': __webpack_require__(22)
+	    'eg-scroll': __webpack_require__(24)
 	  },
 	  components: {
 	    'chrome-picker': _vueColor.Chrome
@@ -16876,7 +16814,7 @@
 	};
 
 /***/ },
-/* 36 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	!function(e,o){ true?module.exports=o():"function"==typeof define&&define.amd?define([],o):"object"==typeof exports?exports.VueColor=o():e.VueColor=o()}(this,function(){return function(e){function o(r){if(t[r])return t[r].exports;var i=t[r]={exports:{},id:r,loaded:!1};return e[r].call(i.exports,i,i.exports,o),i.loaded=!0,i.exports}var t={};return o.m=e,o.c=t,o.p="",o(0)}([function(e,o,t){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}var i=t(61),a=r(i),n=t(62),s=r(n),l=t(65),c=r(l),d=t(66),u=r(d),h=t(63),f=r(h),p=t(64),_=r(p),v=t(60),g=r(v),b={Compact:a["default"],Material:s["default"],Slider:c["default"],Swatches:u["default"],Photoshop:f["default"],Sketch:_["default"],Chrome:g["default"]};e.exports=b},function(e,o){e.exports=function(){var e=[];return e.toString=function(){for(var e=[],o=0;o<this.length;o++){var t=this[o];t[2]?e.push("@media "+t[2]+"{"+t[1]+"}"):e.push(t[1])}return e.join("")},e.i=function(o,t){"string"==typeof o&&(o=[[null,o,""]]);for(var r={},i=0;i<this.length;i++){var a=this[i][0];"number"==typeof a&&(r[a]=!0)}for(i=0;i<o.length;i++){var n=o[i];"number"==typeof n[0]&&r[n[0]]||(t&&!n[2]?n[2]=t:t&&(n[2]="("+n[2]+") and ("+t+")"),e.push(n))}},e}},function(e,o,t){function r(e,o){for(var t=0;t<e.length;t++){var r=e[t],i=f[r.id];if(i){i.refs++;for(var a=0;a<i.parts.length;a++)i.parts[a](r.parts[a]);for(;a<r.parts.length;a++)i.parts.push(c(r.parts[a],o))}else{for(var n=[],a=0;a<r.parts.length;a++)n.push(c(r.parts[a],o));f[r.id]={id:r.id,refs:1,parts:n}}}}function i(e){for(var o=[],t={},r=0;r<e.length;r++){var i=e[r],a=i[0],n=i[1],s=i[2],l=i[3],c={css:n,media:s,sourceMap:l};t[a]?t[a].parts.push(c):o.push(t[a]={id:a,parts:[c]})}return o}function a(e,o){var t=v(),r=x[x.length-1];if("top"===e.insertAt)r?r.nextSibling?t.insertBefore(o,r.nextSibling):t.appendChild(o):t.insertBefore(o,t.firstChild),x.push(o);else{if("bottom"!==e.insertAt)throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");t.appendChild(o)}}function n(e){e.parentNode.removeChild(e);var o=x.indexOf(e);o>=0&&x.splice(o,1)}function s(e){var o=document.createElement("style");return o.type="text/css",a(e,o),o}function l(e){var o=document.createElement("link");return o.rel="stylesheet",a(e,o),o}function c(e,o){var t,r,i;if(o.singleton){var a=b++;t=g||(g=s(o)),r=d.bind(null,t,a,!1),i=d.bind(null,t,a,!0)}else e.sourceMap&&"function"==typeof URL&&"function"==typeof URL.createObjectURL&&"function"==typeof URL.revokeObjectURL&&"function"==typeof Blob&&"function"==typeof btoa?(t=l(o),r=h.bind(null,t),i=function(){n(t),t.href&&URL.revokeObjectURL(t.href)}):(t=s(o),r=u.bind(null,t),i=function(){n(t)});return r(e),function(o){if(o){if(o.css===e.css&&o.media===e.media&&o.sourceMap===e.sourceMap)return;r(e=o)}else i()}}function d(e,o,t,r){var i=t?"":r.css;if(e.styleSheet)e.styleSheet.cssText=m(o,i);else{var a=document.createTextNode(i),n=e.childNodes;n[o]&&e.removeChild(n[o]),n.length?e.insertBefore(a,n[o]):e.appendChild(a)}}function u(e,o){var t=o.css,r=o.media;if(r&&e.setAttribute("media",r),e.styleSheet)e.styleSheet.cssText=t;else{for(;e.firstChild;)e.removeChild(e.firstChild);e.appendChild(document.createTextNode(t))}}function h(e,o){var t=o.css,r=o.sourceMap;r&&(t+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(r))))+" */");var i=new Blob([t],{type:"text/css"}),a=e.href;e.href=URL.createObjectURL(i),a&&URL.revokeObjectURL(a)}var f={},p=function(e){var o;return function(){return"undefined"==typeof o&&(o=e.apply(this,arguments)),o}},_=p(function(){return/msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase())}),v=p(function(){return document.head||document.getElementsByTagName("head")[0]}),g=null,b=0,x=[];e.exports=function(e,o){o=o||{},"undefined"==typeof o.singleton&&(o.singleton=_()),"undefined"==typeof o.insertAt&&(o.insertAt="bottom");var t=i(e);return r(t,o),function(e){for(var a=[],n=0;n<t.length;n++){var s=t[n],l=f[s.id];l.refs--,a.push(l)}if(e){var c=i(e);r(c,o)}for(var n=0;n<a.length;n++){var l=a[n];if(0===l.refs){for(var d=0;d<l.parts.length;d++)l.parts[d]();delete f[l.id]}}}};var m=function(){var e=[];return function(o,t){return e[o]=t,e.filter(Boolean).join("\n")}}()},function(e,o,t){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}function i(e,o){e.a&&e.a>1&&(e.a=1);var t=e.hex?(0,n["default"])(e.hex):(0,n["default"])(e),r=t.toHsl(),i=t.toHsv();return 0===r.s&&(r.h=o||0,i.h=o||0),{hsl:r,hex:t.toHexString().toUpperCase(),rgba:t.toRgb(),hsv:i,oldHue:e.h||o||r.h,source:e.source,a:e.a}}Object.defineProperty(o,"__esModule",{value:!0});var a=t(47),n=r(a);o["default"]={props:{colors:Object},created:function(){this.colors=i(this.colors)},methods:{colorChange:function(e,o){this.colors=i(e,o)},isValidHex:function(e){return(0,n["default"])(e).isValid()},simpleCheckForValidColor:function(e){for(var o=["r","g","b","a","h","s","a","v"],t=0,r=0,i=0;i<o.length;i++){var a=o[i];e[a]&&(t++,isNaN(e[a])||r++)}return t===r?e:void 0}}}},function(e,o,t){var r,i;t(40),r=t(17),i=t(57),e.exports=r||{},e.exports.__esModule&&(e.exports=e.exports["default"]),i&&(("function"==typeof e.exports?e.exports.options:e.exports).template=i)},function(e,o,t){var r,i;t(42),r=t(18),i=t(58),e.exports=r||{},e.exports.__esModule&&(e.exports=e.exports["default"]),i&&(("function"==typeof e.exports?e.exports.options:e.exports).template=i)},function(e,o,t){var r,i;t(38),r=t(15),i=t(55),e.exports=r||{},e.exports.__esModule&&(e.exports=e.exports["default"]),i&&(("function"==typeof e.exports?e.exports.options:e.exports).template=i)},function(e,o,t){var r,i;t(37),r=t(19),i=t(59),e.exports=r||{},e.exports.__esModule&&(e.exports=e.exports["default"]),i&&(("function"==typeof e.exports?e.exports.options:e.exports).template=i)},function(e,o,t){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(o,"__esModule",{value:!0});var i=t(3),a=r(i),n=t(4),s=r(n),l=t(7),c=r(l),d=t(5),u=r(d),h=t(6),f=r(h);o["default"]={name:"Chrome",mixins:[a["default"]],props:{},components:{saturation:c["default"],hue:u["default"],alpha:f["default"],"ed-in":s["default"]},data:function(){return{fields:["hex","rgba","hsla"],fieldsIndex:0,highlight:!1}},computed:{activeColor:function(){var e=this.colors.rgba;return"rgba("+[e.r,e.g,e.b,e.a].join(",")+")"}},methods:{handlePreset:function(e){this.colorChange({hex:e,source:"hex"})},childChange:function(e){this.colorChange(e)},inputChange:function(e){e&&(e.hex?this.isValidHex(e.hex)&&this.colorChange({hex:e.hex,source:"hex"}):(e.r||e.g||e.b||e.a)&&this.colorChange({r:e.r||this.colors.rgba.r,g:e.g||this.colors.rgba.g,b:e.b||this.colors.rgba.b,a:e.a||this.colors.rgba.a,source:"rgba"}))},toggleViews:function(){return this.fieldsIndex>=2?void(this.fieldsIndex=0):void this.fieldsIndex++},showHighlight:function(){this.highlight=!0},hideHighlight:function(){this.highlight=!1}}}},function(e,o,t){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(o,"__esModule",{value:!0});var i=t(3),a=r(i),n=t(4),s=r(n),l=["#4D4D4D","#999999","#FFFFFF","#F44E3B","#FE9200","#FCDC00","#DBDF00","#A4DD00","#68CCCA","#73D8FF","#AEA1FF","#FDA1FF","#333333","#808080","#CCCCCC","#D33115","#E27300","#FCC400","#B0BC00","#68BC00","#16A5A5","#009CE0","#7B64FF","#FA28FF","#000000","#666666","#B3B3B3","#9F0500","#C45100","#FB9E00","#808900","#194D33","#0C797D","#0062B1","#653294","#AB149E"];o["default"]={name:"Compact",mixins:[a["default"]],props:{},components:{"ed-in":s["default"]},computed:{pick:function(){return this.colors.hex}},data:function(){return{defaultColors:l}},methods:{handlerClick:function(e){this.colorChange({hex:e,source:"hex"})},onChange:function(e){e&&(e.hex?this.isValidHex(e.hex)&&this.colorChange({hex:e.hex,source:"hex"}):(e.r||e.g||e.b)&&this.colorChange({r:e.r||this.colors.rgba.r,g:e.g||this.colors.rgba.g,b:e.b||this.colors.rgba.b,a:e.a||this.colors.rgba.a,source:"rgba"}))}}}},function(e,o,t){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(o,"__esModule",{value:!0});var i=t(4),a=r(i),n=t(3),s=r(n);o["default"]={name:"Material",mixins:[s["default"]],props:{},data:function(){return{}},components:{"ed-in":a["default"]},methods:{onChange:function(e){e&&(e.hex?this.isValidHex(e.hex)&&this.colorChange({hex:e.hex,source:"hex"}):(e.r||e.g||e.b)&&this.colorChange({r:e.r||this.colors.rgba.r,g:e.g||this.colors.rgba.g,b:e.b||this.colors.rgba.b,a:e.a||this.colors.rgba.a,source:"rgba"}))}}}},function(e,o,t){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(o,"__esModule",{value:!0});var i=t(3),a=r(i),n=t(4),s=r(n),l=t(7),c=r(l),d=t(5),u=r(d),h=t(6),f=r(h);o["default"]={name:"Photoshop",mixins:[a["default"]],props:{head:{type:String,"default":"Color Picker"}},components:{saturation:c["default"],hue:u["default"],alpha:f["default"],"ed-in":s["default"]},data:function(){return{currentColor:"#FFF"}},created:function(){this.currentColor=this.colors.hex},methods:{childChange:function(e){this.colorChange(e)},inputChange:function(e){e&&(e["#"]?this.isValidHex(e["#"])&&this.colorChange({hex:e["#"],source:"hex"}):(e.r||e.g||e.b||e.a)&&this.colorChange({r:e.r||this.colors.rgba.r,g:e.g||this.colors.rgba.g,b:e.b||this.colors.rgba.b,a:e.a||this.colors.rgba.a,source:"rgba"}))},handleAccept:function(){console.log("accept")},handleCancel:function(){console.log("cancel")}}}},function(e,o,t){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(o,"__esModule",{value:!0});var i=t(3),a=r(i),n=t(4),s=r(n),l=t(7),c=r(l),d=t(5),u=r(d),h=t(6),f=r(h),p=["#D0021B","#F5A623","#F8E71C","#8B572A","#7ED321","#417505","#BD10E0","#9013FE","#4A90E2","#50E3C2","#B8E986","#000000","#4A4A4A","#9B9B9B","#FFFFFF"];o["default"]={name:"Sketch",mixins:[a["default"]],components:{saturation:c["default"],hue:u["default"],alpha:f["default"],"ed-in":s["default"]},data:function(){return{presetColors:p}},computed:{activeColor:function(){var e=this.colors.rgba;return"rgba("+[e.r,e.g,e.b,e.a].join(",")+")"}},methods:{handlePreset:function(e){this.colorChange({hex:e,source:"hex"})},childChange:function(e){this.colorChange(e)},inputChange:function(e){e&&(e.hex?this.isValidHex(e.hex)&&this.colorChange({hex:e.hex,source:"hex"}):(e.r||e.g||e.b||e.a)&&this.colorChange({r:e.r||this.colors.rgba.r,g:e.g||this.colors.rgba.g,b:e.b||this.colors.rgba.b,a:e.a||this.colors.rgba.a,source:"rgba"}))}}}},function(e,o,t){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(o,"__esModule",{value:!0});var i=t(3),a=r(i),n=t(5),s=r(n);o["default"]={name:"Slider",mixins:[a["default"]],props:{direction:String},components:{hue:s["default"]},computed:{activeOffset:function(){return Math.round(100*this.colors.hsl.s)/100===.5?Math.round(100*this.colors.hsl.l)/100:0}},data:function(){return{swatches:[".80",".65",".50",".35",".20"]}},methods:{hueChange:function(e){this.colorChange(e)},handleSwClick:function(e,o){this.colorChange({h:this.colors.hsl.h,s:.5,l:o,source:"hsl"})}}}},function(e,o,t){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(o,"__esModule",{value:!0});var i=t(34),a=r(i),n=t(3),s=r(n),l=["red","pink","purple","deepPurple","indigo","blue","lightBlue","cyan","teal","green","lightGreen","lime","yellow","amber","orange","deepOrange","brown","blueGrey"],c=["900","700","500","300","100"],d=function(){var e=[];return l.forEach(function(o){var t=[];c.forEach(function(e){t.push(a["default"][o][e].toUpperCase())}),e.push(t)}),e}();o["default"]={name:"Swatches",mixins:[s["default"]],computed:{pick:function(){return this.colors.hex}},data:function(){return{defaultColors:d}},methods:{handlerClick:function(e){this.colorChange({hex:e,source:"hex"})}}}},function(e,o,t){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(o,"__esModule",{value:!0});var i=t(67),a=r(i);o["default"]={name:"Alpha",props:{colors:Object,onChange:Function},components:{checkboard:a["default"]},computed:{gradientColor:function(){var e=this.colors.rgba,o=[e.r,e.g,e.b].join(",");return"linear-gradient(to right, rgba("+o+", 0) 0%, rgba("+o+", 1) 100%)"}},methods:{handleChange:function(e,o){!o&&e.preventDefault();var t,r=this.$els.container,i=r.clientWidth,a=(e.pageX||e.touches[0].pageX)-(r.getBoundingClientRect().left+window.pageXOffset);t=0>a?0:a>i?1:Math.round(100*a/i)/100,this.colors.a!==t&&this.onChange({h:this.colors.hsl.h,s:this.colors.hsl.s,l:this.colors.hsl.l,a:t,source:"rgba"})},handleMouseDown:function(e){this.handleChange(e,!0),window.addEventListener("mousemove",this.handleChange),window.addEventListener("mouseup",this.handleMouseUp)},handleMouseUp:function(){this.unbindEventListeners()},unbindEventListeners:function(){window.removeEventListener("mousemove",this.handleChange),window.removeEventListener("mouseup",this.handleMouseUp)}}}},function(e,o){"use strict";function t(e,o,t){if("undefined"==typeof document)return null;var r=document.createElement("canvas");r.width=r.height=2*t;var i=r.getContext("2d");return i?(i.fillStyle=e,i.fillRect(0,0,r.width,r.height),i.fillStyle=o,i.fillRect(0,0,t,t),i.translate(t,t),i.fillRect(0,0,t,t),r.toDataURL()):null}function r(e,o,r){var a=e+","+o+","+r;if(i[a])return i[a];var n=t(e,o,r);return i[a]=n,n}Object.defineProperty(o,"__esModule",{value:!0});var i={};o["default"]={name:"Checkboard",props:{size:{type:[Number|String],"default":8},white:{type:String,"default":"#fff"},grey:{type:String,"default":"#e6e6e6"}},computed:{bgStyle:function(){return"url("+r(this.white,this.grey,this.size)+") center left"}}}},function(e,o){"use strict";Object.defineProperty(o,"__esModule",{value:!0}),o["default"]={name:"editableInput",props:{label:String,val:[String|Number],onChange:Function,max:Number,arrowOffset:{type:Number,"default":1}},filters:{maxFilter:{read:function(e){return this.max&&e>this.max?this.max:e},write:function(e,o){return e}}},methods:{handleChange:function(e){var o={};o[this.label]=this.val,this.onChange(o)},handleBlur:function(e){console.log(e)},handleKeyDown:function(e){var o=this.val,t=Number(o);if(t){var r=this.arrowOffset||1;38===e.keyCode&&(this.val=t+r,e.preventDefault()),40===e.keyCode&&(this.val=t-r,e.preventDefault()),this.handleChange()}},handleDrag:function(e){console.log(e)},handleMouseDown:function(e){console.log(e)}}}},function(e,o){"use strict";Object.defineProperty(o,"__esModule",{value:!0}),o["default"]={name:"Hue",props:{colors:Object,onChange:Function,direction:{type:String,"default":"horizontal"}},computed:{directionClass:function(){return{"vue-color__c-hue--horizontal":"horizontal"===this.direction,"vue-color__c-hue--vertical":"vertical"===this.direction}},pointerTop:function(){return"vertical"===this.direction?-(100*this.colors.hsl.h/360)+100+"%":0},pointerLeft:function(){return"vertical"===this.direction?0:100*this.colors.hsl.h/360+"%"}},methods:{handleChange:function(e,o){!o&&e.preventDefault();var t,r,i=this.$els.container,a=i.clientWidth,n=i.clientHeight,s=(e.pageX||e.touches[0].pageX)-(i.getBoundingClientRect().left+window.pageXOffset),l=(e.pageY||e.touches[0].pageY)-(i.getBoundingClientRect().top+window.pageYOffset);"vertical"===this.direction?(0>l?t=359:l>n?t=0:(r=-(100*l/n)+100,t=360*r/100),this.colors.hsl.h!==t&&this.onChange({h:t,s:this.colors.hsl.s,l:this.colors.hsl.l,a:this.colors.hsl.a,source:"hsl"})):(0>s?t=0:s>a?t=359:(r=100*s/a,t=360*r/100),this.colors.hsl.h!==t&&this.onChange({h:t,s:this.colors.hsl.s,l:this.colors.hsl.l,a:this.colors.hsl.a,source:"hsl"}))},handleMouseDown:function(e){this.handleChange(e,!0),window.addEventListener("mousemove",this.handleChange),window.addEventListener("mouseup",this.handleMouseUp)},handleMouseUp:function(e){this.unbindEventListeners()},unbindEventListeners:function(){window.removeEventListener("mousemove",this.handleChange),window.removeEventListener("mouseup",this.handleMouseUp)}}}},function(e,o,t){"use strict";function r(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(o,"__esModule",{value:!0});var i=t(32),a=r(i);o["default"]={name:"Saturation",props:{colors:Object,onChange:Function},computed:{bgColor:function(){return"hsl("+this.colors.hsl.h+",100%, 50%)"},pointerTop:function(){return-(100*this.colors.hsv.v)+100+"%"},pointerLeft:function(){return 100*this.colors.hsv.s+"%"}},methods:{throttle:(0,a["default"])(function(e,o){e(o)},50),handleChange:function(e,o){!o&&e.preventDefault();var t=this.$els.container,r=t.clientWidth,i=t.clientHeight,a=(e.pageX||e.touches[0].pageX)-(t.getBoundingClientRect().left+window.pageXOffset),n=(e.pageY||e.touches[0].pageY)-(t.getBoundingClientRect().top+window.pageYOffset);0>a?a=0:a>r?a=r:0>n?n=0:n>i&&(n=i);var s=100*a/r,l=-(100*n/i)+100;this.throttle(this.onChange,{h:this.colors.hsl.h,s:s,v:l,a:this.colors.hsl.a,source:"rgb"})},handleMouseDown:function(e){this.handleChange(e,!0),window.addEventListener("mousemove",this.handleChange),window.addEventListener("mouseup",this.handleMouseUp)},handleMouseUp:function(e){this.unbindEventListeners()},unbindEventListeners:function(){window.removeEventListener("mousemove",this.handleChange),window.removeEventListener("mouseup",this.handleMouseUp)}}}},function(e,o,t){o=e.exports=t(1)(),o.push([e.id,".vue-color__slider{position:relative;width:410px}.vue-color__slider__hue-warp{height:12px;position:relative}.vue-color__slider__hue-warp .vue-color__c-hue__picker{width:14px;height:14px;border-radius:6px;-webkit-transform:translate(-7px,-2px);transform:translate(-7px,-2px);background-color:#f8f8f8;box-shadow:0 1px 4px 0 rgba(0,0,0,.37)}.vue-color__slider__swatches{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin-top:20px}.vue-color__slider__swatch{margin-right:1px;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;width:20%}.vue-color__slider__swatch:first-child{margin-right:1px}.vue-color__slider__swatch:first-child .vue-color__slider__swatch-picker{border-radius:2px 0 0 2px}.vue-color__slider__swatch:last-child{margin-right:0}.vue-color__slider__swatch:last-child .vue-color__slider__swatch-picker{border-radius:0 2px 2px 0}.vue-color__slider__swatch-picker{cursor:pointer;height:12px}.vue-color__slider__swatch-picker--active{-webkit-transform:scaleY(1.8);transform:scaleY(1.8);border-radius:3.6px/2px}",""])},function(e,o,t){o=e.exports=t(1)(),o.push([e.id,".vue-color__sketch{position:relative;width:200px;padding:10px 10px 0;box-sizing:initial;background:#fff;border-radius:4px;box-shadow:0 0 0 1px rgba(0,0,0,.15),0 8px 16px rgba(0,0,0,.15)}.vue-color__sketch__saturation-wrap{width:100%;padding-bottom:75%;position:relative;overflow:hidden}.vue-color__sketch__controls{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.vue-color__sketch__sliders{padding:4px 0;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}.vue-color__sketch__sliders .vue-color__c-alpha__gradient,.vue-color__sketch__sliders .vue-color__c-hue{border-radius:2px}.vue-color__sketch__hue-wrap{position:relative;height:10px}.vue-color__sketch__alpha-wrap{position:relative;height:10px;margin-top:4px;overflow:hidden}.vue-color__sketch__color-wrap{width:24px;height:24px;position:relative;margin-top:4px;margin-left:4px;border-radius:3px}.vue-color__sketch__active-color{position:absolute;top:0;left:0;right:0;bottom:0;border-radius:2px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15),inset 0 0 4px rgba(0,0,0,.25);z-index:2}.vue-color__sketch__field{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;padding-top:4px}.vue-color__sketch__field .vue-color__editable-input__input{width:80%;padding:4px 10% 3px;border:none;box-shadow:inset 0 0 0 1px #ccc;font-size:11px}.vue-color__sketch__field .vue-color__editable-input__label{display:block;text-align:center;font-size:11px;color:#222;padding-top:3px;padding-bottom:4px;text-transform:capitalize}.vue-color__sketch__field--single{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;padding-left:6px}.vue-color__sketch__field--double{-webkit-box-flex:2;-webkit-flex:2;-ms-flex:2;flex:2}.vue-color__sketch__presets{margin-right:-10px;margin-left:-10px;padding-left:10px;padding-top:10px;border-top:1px solid #eee}.vue-color__sketch__presets-color{border-radius:3px;overflow:hidden;position:relative;display:inline-block;margin:0 10px 10px 0;vertical-align:top;cursor:pointer;width:16px;height:16px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}",""])},function(e,o,t){o=e.exports=t(1)(),o.push([e.id,".vue-color__saturation,.vue-color__saturation--black,.vue-color__saturation--white{cursor:pointer;position:absolute;top:0;left:0;right:0;bottom:0}.vue-color__saturation--white{background:-webkit-linear-gradient(left,#fff,hsla(0,0%,100%,0));background:linear-gradient(90deg,#fff,hsla(0,0%,100%,0))}.vue-color__saturation--black{background:-webkit-linear-gradient(bottom,#000,transparent);background:linear-gradient(0deg,#000,transparent)}.vue-color__saturation--pointer{cursor:pointer;position:absolute}.vue-color__saturation--circle{cursor:head;width:4px;height:4px;box-shadow:0 0 0 1.5px #fff,inset 0 0 1px 1px rgba(0,0,0,.3),0 0 1px 2px rgba(0,0,0,.4);border-radius:50%;-webkit-transform:translate(-2px,-2px);transform:translate(-2px,-2px)}",""])},function(e,o,t){o=e.exports=t(1)(),o.push([e.id,".vue-color__c-alpha,.vue-color__c-alpha__checkboard-wrap{position:absolute;top:0;right:0;bottom:0;left:0}.vue-color__c-alpha__checkboard-wrap{overflow:hidden}.vue-color__c-alpha__gradient{position:absolute;top:0;right:0;bottom:0;left:0}.vue-color__c-alpha__container{cursor:pointer;position:relative;z-index:2;height:100%;margin:0 3px}.vue-color__c-alpha__pointer{z-index:2;position:absolute}.vue-color__c-alpha__picker{cursor:pointer;width:4px;border-radius:1px;height:8px;box-shadow:0 0 2px rgba(0,0,0,.6);background:#fff;margin-top:1px;-webkit-transform:translateX(-2px);transform:translateX(-2px)}",""])},function(e,o,t){o=e.exports=t(1)(),o.push([e.id,".vue-color__material{width:98px;height:98px;padding:16px;font-family:Roboto;position:relative;border-radius:2px;box-shadow:0 2px 10px rgba(0,0,0,.12),0 2px 5px rgba(0,0,0,.16)}.vue-color__material .vue-color__editable-input__input{width:100%;margin-top:12px;font-size:15px;color:#333;height:30px}.vue-color__material .vue-color__editable-input__label{position:absolute;top:0;left:0;font-size:11px;color:#999;text-transform:capitalize}.vue-color__material__hex{border-bottom-width:2px;border-bottom-style:solid}.vue-color__material__split{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin-right:-10px;padding-top:11px}.vue-color__material__third{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;padding-right:10px}",""])},function(e,o,t){o=e.exports=t(1)(),o.push([e.id,".vue-color__editable-input{position:relative}.vue-color__editable-input__input{padding:0;border:0;outline:none}.vue-color__editable-input__label{text-transform:capitalize}",""])},function(e,o,t){o=e.exports=t(1)(),o.push([e.id,".vue-color__compact{padding-top:5px;padding-left:5px;width:240px;border-radius:2px;box-shadow:0 2px 10px rgba(0,0,0,.12),0 2px 5px rgba(0,0,0,.16)}.vue-color__compact__colors{overflow:hidden;padding:0;margin:0}.vue-color__compact__color-item{list-style:none;width:15px;height:15px;float:left;margin-right:5px;margin-bottom:5px;position:relative;cursor:pointer}.vue-color__compact__color-item--white{box-shadow:inset 0 0 0 1px #ddd}.vue-color__compact__color-item--white .vue-color__compact__dot{background:#000}.vue-color__compact__dot{position:absolute;top:5px;right:5px;bottom:5px;left:5px;border-radius:50%;opacity:1;background:#fff}.vue-color__compact__fields{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;padding-bottom:6px;padding-right:5px;position:relative}.vue-color__compact__fields .vue-color__editable-input__input{width:70%;padding-left:30%;background:none;font-size:12px;color:#333;height:16px}.vue-color__compact__fields .vue-color__editable-input__label{position:absolute;top:3px;left:0;line-height:16px;text-transform:uppercase;font-size:12px;color:#999}.vue-color__compact__pick-color{position:absolute;top:6px;left:5px;height:9px;width:9px}.vue-color__compact__col-3{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}.vue_color__compact__col-hex{-webkit-box-flex:2;-webkit-flex:2;-ms-flex:2;flex:2}.vue_color__compact__col-hex .vue-color__editable-input__input{width:80%;padding-left:20%}.vue_color__compact__col-hex .vue-color__editable-input__label{display:none}",""])},function(e,o,t){o=e.exports=t(1)(),o.push([e.id,".vue-color__c-hue{position:absolute;top:0;right:0;bottom:0;left:0;border-radius:2px}.vue-color__c-hue--horizontal{background:-webkit-linear-gradient(left,red,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red);background:linear-gradient(90deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red)}.vue-color__c-hue--vertical{background:-webkit-linear-gradient(bottom,red,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red);background:linear-gradient(0deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red)}.vue-color__c-hue__container{cursor:pointer;margin:0 2px;position:relative;height:100%}.vue-color__c-hue__pointer{z-index:2;position:absolute}.vue-color__c-hue__picker{cursor:pointer;margin-top:1px;width:4px;border-radius:1px;height:8px;box-shadow:0 0 2px rgba(0,0,0,.6);background:#fff;-webkit-transform:translateX(-2px);transform:translateX(-2px)}",""])},function(e,o,t){o=e.exports=t(1)(),o.push([e.id,".vue-color__chrome{background:#fff;border-radius:2px;box-shadow:0 0 2px rgba(0,0,0,.3),0 4px 8px rgba(0,0,0,.3);box-sizing:initial;width:225px;font-family:Menlo}.vue-color__chrome__controls{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.vue-color__chrome__color-wrap{width:32px}.vue-color__chrome__active-color{margin-top:6px;width:16px;height:16px;border-radius:8px;position:relative;overflow:hidden}.vue-color__chrome__sliders{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}.vue-color__chrome__sliders .vue-color__c-alpha__gradient,.vue-color__chrome__sliders .vue-color__c-hue{border-radius:2px}.vue-color__chrome__sliders .vue-color__c-alpha__picker,.vue-color__chrome__sliders .vue-color__c-hue__picker{width:12px;height:12px;border-radius:6px;-webkit-transform:translate(-6px,-2px);transform:translate(-6px,-2px);background-color:#f8f8f8;box-shadow:0 1px 4px 0 rgba(0,0,0,.37)}.vue-color__chrome__fields-wrap{padding-top:16px}.vue-color__chrome__fields,.vue-color__chrome__fields-wrap{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.vue-color__chrome__fields{margin-left:-6px;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}.vue-color__chrome__field{padding-left:6px;width:100%}.vue-color__chrome__toggle-btn{width:32px;text-align:right;position:relative}.vue-color__chrome__icon{margin-right:-4px;margin-top:12px;cursor:pointer;position:relative;z-index:2}.vue-color__chrome__icon-highlight{position:absolute;width:24px;height:28px;background:#eee;border-radius:4px;top:10px;left:12px}.vue-color__chrome__hue-wrap{margin-bottom:8px}.vue-color__chrome__alpha-wrap,.vue-color__chrome__hue-wrap{position:relative;height:10px}.vue-color__chrome__chrome-body{padding:16px 16px 12px}.vue-color__chrome__saturation-wrap{width:100%;padding-bottom:55%;position:relative;border-radius:2px 2px 0 0;overflow:hidden}.vue-color__chrome__saturation-wrap .vue-color__saturation--circle{width:12px;height:12px}.vue-color__chrome__fields .vue-color__editable-input__input{font-size:11px;color:#333;width:100%;border-rradius:2px;border:none;box-shadow:inset 0 0 0 1px #dadada;height:21px;text-align:center}.vue-color__chrome__fields .vue-color__editable-input__label{text-transform:uppercase;font-size:11px;line-height:11px;color:#969696;text-align:center;display:block;margin-top:12px}",""])},function(e,o,t){o=e.exports=t(1)(),o.push([e.id,".vue-color__swatches{width:320px;height:240px;overflow-y:scroll;background-color:#fff;box-shadow:0 2px 10px rgba(0,0,0,.12),0 2px 5px rgba(0,0,0,.16)}.vue-color__swatches__box{padding:16px 0 6px 16px;overflow:hidden}.vue-color__swatches__color-group{padding-bottom:10px;width:40px;float:left;margin-right:10px}.vue-color__swatches__color-it{width:40px;height:24px;cursor:pointer;background:#880e4f;margin-bottom:1px;overflow:hidden;border-radius:2px 2px 0 0}.vue-color__swatches__pick{fill:#fff;margin-left:8px;display:block}",""])},function(e,o,t){o=e.exports=t(1)(),o.push([e.id,'.vue-colors__photoshop{background:#dcdcdc;border-radius:4px;box-shadow:0 0 0 1px rgba(0,0,0,.25),0 8px 16px rgba(0,0,0,.15);box-sizing:initial;width:513px;font-family:Roboto}.vue-colors__photoshop__head{background-image:-webkit-linear-gradient(top,#f0f0f0,#d4d4d4);background-image:linear-gradient(-180deg,#f0f0f0,#d4d4d4);border-bottom:1px solid #b1b1b1;box-shadow:inset 0 1px 0 0 hsla(0,0%,100%,.2),inset 0 -1px 0 0 rgba(0,0,0,.02);height:23px;line-height:24px;border-radius:4px 4px 0 0;font-size:13px;color:#4d4d4d;text-align:center}.vue-colors__photoshop__body{padding:15px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.vue-colors__photoshop__saturation-wrap{width:256px;height:256px;position:relative;border:2px solid #b3b3b3;border-bottom:2px solid #f0f0f0;overflow:hidden}.vue-colors__photoshop__saturation-wrap .vue-color__saturation--circle{width:12px;height:12px}.vue-colors__photoshop__hue-wrap{position:relative;height:256px;width:19px;margin-left:10px;border:2px solid #b3b3b3;border-bottom:2px solid #f0f0f0}.vue-colors__photoshop__hue-pointer{position:relative}.vue-colors__photoshop__hue-pointer--left,.vue-colors__photoshop__hue-pointer--right{position:absolute;width:0;height:0;border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent #555}.vue-colors__photoshop__hue-pointer--left:after,.vue-colors__photoshop__hue-pointer--right:after{content:"";width:0;height:0;border-style:solid;border-width:4px 0 4px 6px;border-color:transparent transparent transparent #fff;position:absolute;top:1px;left:1px;-webkit-transform:translate(-8px,-5px);transform:translate(-8px,-5px)}.vue-colors__photoshop__hue-pointer--left{-webkit-transform:translate(-13px,-4px);transform:translate(-13px,-4px)}.vue-colors__photoshop__hue-pointer--right{-webkit-transform:translate(20px,-4px) rotate(180deg);transform:translate(20px,-4px) rotate(180deg)}.vue-colors__photoshop__controls{width:180px;margin-left:10px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.vue-colors__photoshop__actions{margin-left:20px;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1}.vue-colors__photoshop__ac-btn{cursor:pointer;background-image:-webkit-linear-gradient(top,#fff,#e6e6e6);background-image:linear-gradient(-180deg,#fff,#e6e6e6);border:1px solid #878787;border-radius:2px;height:20px;box-shadow:0 1px 0 0 #eaeaea;font-size:14px;color:#000;line-height:20px;text-align:center;margin-bottom:10px}.vue-colors__photoshop__previews{width:60px}.vue-colors__photoshop__previews__swatches{border:1px solid #b3b3b3;border-bottom:1px solid #f0f0f0;margin-bottom:2px;margin-top:1px}.vue-colors__photoshop__previews__pr-color{height:34px;box-shadow:inset 1px 0 0 #000,inset -1px 0 0 #000,inset 0 1px 0 #000}.vue-colors__photoshop__previews__label{font-size:14px;color:#000;text-align:center}.vue-colors__photoshop__fields{padding-top:5px;padding-bottom:9px;width:80px;position:relative}.vue-colors__photoshop__fields .vue-color__editable-input__input{margin-left:40%;width:40%;height:18px;border:1px solid #888;box-shadow:inset 0 1px 1px rgba(0,0,0,.1),0 1px 0 0 #ececec;margin-bottom:5px;font-size:13px;padding-left:3px;margin-right:10px}.vue-colors__photoshop__fields .vue-color__editable-input__label{top:0;left:0;width:34px;text-transform:uppercase;font-size:13px;height:18px;line-height:22px;position:absolute}.vue-colors__photoshop__fields__divider{height:5px}.vue-colors__photoshop__fields__hex .vue-color__editable-input__input{margin-left:20%;width:80%;height:18px;border:1px solid #888;box-shadow:inset 0 1px 1px rgba(0,0,0,.1),0 1px 0 0 #ececec;margin-bottom:6px;font-size:13px;padding-left:3px}.vue-colors__photoshop__fields__hex .vue-color__editable-input__label{position:absolute;top:0;left:0;width:14px;text-transform:uppercase;font-size:13px;height:18px;line-height:22px}',""]);
@@ -16884,33 +16822,9 @@
 	},function(e,o,t){var r,i;t(41),r=t(9),i=t(49),e.exports=r||{},e.exports.__esModule&&(e.exports=e.exports["default"]),i&&(("function"==typeof e.exports?e.exports.options:e.exports).template=i)},function(e,o,t){var r,i;t(39),r=t(10),i=t(50),e.exports=r||{},e.exports.__esModule&&(e.exports=e.exports["default"]),i&&(("function"==typeof e.exports?e.exports.options:e.exports).template=i)},function(e,o,t){var r,i;t(45),r=t(11),i=t(51),e.exports=r||{},e.exports.__esModule&&(e.exports=e.exports["default"]),i&&(("function"==typeof e.exports?e.exports.options:e.exports).template=i)},function(e,o,t){var r,i;t(36),r=t(12),i=t(52),e.exports=r||{},e.exports.__esModule&&(e.exports=e.exports["default"]),i&&(("function"==typeof e.exports?e.exports.options:e.exports).template=i)},function(e,o,t){var r,i;t(35),r=t(13),i=t(53),e.exports=r||{},e.exports.__esModule&&(e.exports=e.exports["default"]),i&&(("function"==typeof e.exports?e.exports.options:e.exports).template=i)},function(e,o,t){var r,i;t(44),r=t(14),i=t(54),e.exports=r||{},e.exports.__esModule&&(e.exports=e.exports["default"]),i&&(("function"==typeof e.exports?e.exports.options:e.exports).template=i)},function(e,o,t){var r,i;t(46),r=t(16),i=t(56),e.exports=r||{},e.exports.__esModule&&(e.exports=e.exports["default"]),i&&(("function"==typeof e.exports?e.exports.options:e.exports).template=i)}])});
 
 /***/ },
-/* 37 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(38);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(8)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 38 */
+/* 39 */
+[78, 40],
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -16918,36 +16832,36 @@
 
 
 	// module
-	exports.push([module.id, "/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n\r\n.eg-generator {\r\n  margin: 30px auto 30px auto;\r\n  width: 900px;\r\n  background-color: rgba(255, 255, 255, 0.7);\r\n  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);\r\n  padding: 20px 0 35px;\r\n}\r\n\r\n.eg-generator, .eg-generator * {\r\n  box-sizing: border-box;\r\n}\r\n\r\n.eg-generator h2 {\r\n  margin: 18px 0 28px;\r\n  font-size: 17px;\r\n  font-weight: bold;\r\n  letter-spacing: 1.8px;\r\n  text-align: center;\r\n  color: #1EBAA0;\r\n}\r\n\r\n.eg-generator h3 {\r\n  display: block;\r\n  margin: 0 0 16px;\r\n  font-size: 15px;\r\n  font-weight: bold;\r\n  letter-spacing: 1px;\r\n  text-align: center;\r\n  color: #3AB0C7;\r\n}\r\n\r\n.eg-generator .buttons {\r\n  margin: 40px 0 0 0;\r\n  text-align: center;\r\n}\r\n\r\n.eg-generator .buttons button {\r\n  padding: 12px 60px;\r\n  border-radius: 12px;\r\n  background-color: rgba(225, 22, 101, 0.5);\r\n  background-image: none !important;\r\n  color: white;\r\n  font-weight: bold\r\n}\r\n\r\n.eg-generator .buttons button:hover, .eg-generator .buttons button:focus {\r\n  background-color: rgba(225, 22, 101, 0.75);\r\n}\r\n\r\n.eg-generator .parameters {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n  -ms-flex-pack: center;\r\n  justify-content: center;\r\n  margin: 38px 0 0;\r\n}\r\n\r\n.eg-generator .parameters .parameter {\r\n  margin: 0 30px 0;\r\n  text-align: center\r\n}\r\n\r\n.eg-generator .parameters .parameter.text textarea {\r\n  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .15);\r\n  border-radius: 2px;\r\n  margin: 0 0 50px 0;\r\n  padding: 10px;\r\n  border: 0;\r\n  width: 140px;\r\n  height: 100px;\r\n  text-align: center;\r\n  -webkit-appearance: none;\r\n}\r\n\r\n.eg-generator .parameters .parameter.color {\r\n  margin-right: 32px;\r\n}\r\n\r\n.eg-generator .parameters .parameter.color > div {\r\n  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .15);\r\n  border-radius: 2px;\r\n}\r\n\r\n.eg-generator .parameters .parameter.font ul {\r\n  margin: 0;\r\n  padding: 0;\r\n  list-style-type: none;\r\n  list-style-position: inside;\r\n}\r\n\r\n.eg-generator .parameters .parameter.font input {\r\n  display: none;\r\n}\r\n\r\n.eg-generator .parameters .parameter.font input:checked + label {\r\n  border: 1px solid rgba(112, 167, 179, 0.8);\r\n  background-image: url(/static/img/checked.png);\r\n  background-repeat: no-repeat;\r\n  background-position: 14px center;\r\n  background-size: 20px auto;\r\n  color: rgb(112, 157, 166);\r\n}\r\n\r\n.eg-generator .parameters .parameter.font label {\r\n  display: block;\r\n  margin: 0 0 5px;\r\n  padding: 8px 23px 8px 46px;\r\n  border-radius: 16px;\r\n  border: 1px solid rgba(0, 0, 0, .2);\r\n  color: rgba(0, 0, 0, .32);\r\n  font-size: 15px;\r\n  text-align: left;\r\n  -webkit-user-select: none;\r\n  -moz-user-select: none;\r\n  -ms-user-select: none;\r\n  user-select: none;\r\n  cursor: pointer;\r\n}\r\n\r\n", ""]);
+	exports.push([module.id, ".eg-generator{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:20px 0 35px}.eg-generator,.eg-generator *{box-sizing:border-box}.eg-generator h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-generator h3{display:block;margin:0 0 16px;font-size:15px;font-weight:700;letter-spacing:1px;text-align:center;color:#3ab0c7}.eg-generator .buttons{margin:40px 0 0;text-align:center}.eg-generator .buttons button{padding:12px 60px;border-radius:12px;background-color:rgba(225,22,101,.5);background-image:none!important;color:#fff;font-weight:700}.eg-generator .buttons button:focus,.eg-generator .buttons button:hover{background-color:rgba(225,22,101,.75)}.eg-generator .parameters{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:38px 0 0}.eg-generator .parameters .parameter{margin:0 30px;text-align:center}.eg-generator .parameters .parameter.text textarea{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px;margin:0 0 50px;padding:10px;border:0;width:140px;height:100px;text-align:center;-webkit-appearance:none}.eg-generator .parameters .parameter.color{margin-right:32px}.eg-generator .parameters .parameter.color>div{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px}.eg-generator .parameters .parameter.font ul{margin:0;padding:0;list-style-type:none;list-style-position:inside}.eg-generator .parameters .parameter.font input{display:none}.eg-generator .parameters .parameter.font input:checked+label{border:1px solid rgba(112,167,179,.8);background-image:url(/static/img/checked.png);background-repeat:no-repeat;background-position:14px;background-size:20px auto;color:#709da6}.eg-generator .parameters .parameter.font label{display:block;margin:0 0 5px;padding:8px 23px 8px 46px;border-radius:16px;border:1px solid rgba(0,0,0,.2);color:rgba(0,0,0,.32);font-size:15px;text-align:left;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 39 */
+/* 41 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-generator\">\r\n  <h2>絵文字にしたい文字を入力してください！</h2>\r\n\r\n  <div class=\"buttons\">\r\n    <button type=\"button\" class=\"pure-button\" v-on:click=\"generate\" v-eg-scroll>生成する&#9834;</button>\r\n  </div>\r\n\r\n  <div class=\"parameters\">\r\n    <div class=\"parameter text\">\r\n      <h3>テキスト</h3>\r\n      <textarea rows=\"2\" cols=\"10\" v-model=\"text\"></textarea>\r\n    </div>\r\n\r\n    <div class=\"parameter font\">\r\n      <h3>フォント</h3>\r\n      <ul>\r\n        <li v-for=\"font in fonts\">\r\n          <input type=\"radio\" name=\"eg_generator__font_key\" :value=\"font.key\"\r\n            id=\"eg_generator__font_{{font.key}}\" v-model=\"fontKey\">\r\n          <label for=\"eg_generator__font_{{font.key}}\">{{font.name}}</label>\r\n        </li>\r\n      </ul>\r\n    </div>\r\n\r\n    <div class=\"parameter color\">\r\n      <h3>カラー</h3>\r\n      <chrome-picker :colors.sync=\"colors\"></chrome-picker>\r\n    </div>\r\n  </div>\r\n</div>\r\n";
+	module.exports = "<div class=\"v-cloak eg-generator\"> <h2>絵文字にしたい文字を入力してください！</h2> <div class=buttons> <button type=button class=pure-button v-on:click=generate v-eg-scroll>生成する&#9834;</button> </div> <div class=parameters> <div class=\"parameter text\"> <h3>テキスト</h3> <textarea rows=2 cols=10 v-model=text></textarea> </div> <div class=\"parameter font\"> <h3>フォント</h3> <ul> <li v-for=\"font in fonts\"> <input type=radio name=eg_generator__font_key :value=font.key id=eg_generator__font_{{font.key}} v-model=fontKey> <label for=eg_generator__font_{{font.key}}>{{font.name}}</label> </li> </ul> </div> <div class=\"parameter color\"> <h3>カラー</h3> <chrome-picker :colors.sync=colors></chrome-picker> </div> </div> </div>";
 
 /***/ },
-/* 40 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(41);
+	__webpack_require__(43);
 
-	var _flickity = __webpack_require__(43);
+	var _flickity = __webpack_require__(45);
 
 	var _flickity2 = _interopRequireDefault(_flickity);
 
-	__webpack_require__(62);
+	__webpack_require__(64);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-recently',
-	  template: __webpack_require__(64),
+	  template: __webpack_require__(66),
 	  ready: function ready() {
 	    new _flickity2.default(this.$els.carousel, {
 	      contain: true,
@@ -16958,13 +16872,13 @@
 	};
 
 /***/ },
-/* 41 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(42);
+	var content = __webpack_require__(44);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -16984,7 +16898,7 @@
 	}
 
 /***/ },
-/* 42 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -16992,13 +16906,13 @@
 
 
 	// module
-	exports.push([module.id, "/*! Flickity v2.0.2\nhttp://flickity.metafizzy.co\n---------------------------------------------- */\n\n.flickity-enabled {\n  position: relative;\n}\n\n.flickity-enabled:focus { outline: none; }\n\n.flickity-viewport {\n  overflow: hidden;\n  position: relative;\n  height: 100%;\n}\n\n.flickity-slider {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n}\n\n/* draggable */\n\n.flickity-enabled.is-draggable {\n  -webkit-tap-highlight-color: transparent;\n          tap-highlight-color: transparent;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.flickity-enabled.is-draggable .flickity-viewport {\n  cursor: move;\n  cursor: -webkit-grab;\n  cursor: grab;\n}\n\n.flickity-enabled.is-draggable .flickity-viewport.is-pointer-down {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n\n/* ---- previous/next buttons ---- */\n\n.flickity-prev-next-button {\n  position: absolute;\n  top: 50%;\n  width: 44px;\n  height: 44px;\n  border: none;\n  border-radius: 50%;\n  background: white;\n  background: hsla(0, 0%, 100%, 0.75);\n  cursor: pointer;\n  /* vertically center */\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\n\n.flickity-prev-next-button:hover { background: white; }\n\n.flickity-prev-next-button:focus {\n  outline: none;\n  box-shadow: 0 0 0 5px #09F;\n}\n\n.flickity-prev-next-button:active {\n  opacity: 0.6;\n}\n\n.flickity-prev-next-button.previous { left: 10px; }\n.flickity-prev-next-button.next { right: 10px; }\n/* right to left */\n.flickity-rtl .flickity-prev-next-button.previous {\n  left: auto;\n  right: 10px;\n}\n.flickity-rtl .flickity-prev-next-button.next {\n  right: auto;\n  left: 10px;\n}\n\n.flickity-prev-next-button:disabled {\n  opacity: 0.3;\n  cursor: auto;\n}\n\n.flickity-prev-next-button svg {\n  position: absolute;\n  left: 20%;\n  top: 20%;\n  width: 60%;\n  height: 60%;\n}\n\n.flickity-prev-next-button .arrow {\n  fill: #333;\n}\n\n/* ---- page dots ---- */\n\n.flickity-page-dots {\n  position: absolute;\n  width: 100%;\n  bottom: -25px;\n  padding: 0;\n  margin: 0;\n  list-style: none;\n  text-align: center;\n  line-height: 1;\n}\n\n.flickity-rtl .flickity-page-dots { direction: rtl; }\n\n.flickity-page-dots .dot {\n  display: inline-block;\n  width: 10px;\n  height: 10px;\n  margin: 0 8px;\n  background: #333;\n  border-radius: 50%;\n  opacity: 0.25;\n  cursor: pointer;\n}\n\n.flickity-page-dots .dot.is-selected {\n  opacity: 1;\n}\n", ""]);
+	exports.push([module.id, "/*! Flickity v2.0.2\nhttp://flickity.metafizzy.co\n---------------------------------------------- */.flickity-enabled{position:relative}.flickity-enabled:focus{outline:none}.flickity-viewport{overflow:hidden;position:relative;height:100%}.flickity-slider{position:absolute;width:100%;height:100%}.flickity-enabled.is-draggable{-webkit-tap-highlight-color:transparent;tap-highlight-color:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.flickity-enabled.is-draggable .flickity-viewport{cursor:move;cursor:-webkit-grab;cursor:grab}.flickity-enabled.is-draggable .flickity-viewport.is-pointer-down{cursor:-webkit-grabbing;cursor:grabbing}.flickity-prev-next-button{position:absolute;top:50%;width:44px;height:44px;border:none;border-radius:50%;background:#fff;background:hsla(0,0%,100%,.75);cursor:pointer;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.flickity-prev-next-button:hover{background:#fff}.flickity-prev-next-button:focus{outline:none;box-shadow:0 0 0 5px #09f}.flickity-prev-next-button:active{opacity:.6}.flickity-prev-next-button.previous{left:10px}.flickity-prev-next-button.next{right:10px}.flickity-rtl .flickity-prev-next-button.previous{left:auto;right:10px}.flickity-rtl .flickity-prev-next-button.next{right:auto;left:10px}.flickity-prev-next-button:disabled{opacity:.3;cursor:auto}.flickity-prev-next-button svg{position:absolute;left:20%;top:20%;width:60%;height:60%}.flickity-prev-next-button .arrow{fill:#333}.flickity-page-dots{position:absolute;width:100%;bottom:-25px;padding:0;margin:0;list-style:none;text-align:center;line-height:1}.flickity-rtl .flickity-page-dots{direction:rtl}.flickity-page-dots .dot{display:inline-block;width:10px;height:10px;margin:0 8px;background:#333;border-radius:50%;opacity:.25;cursor:pointer}.flickity-page-dots .dot.is-selected{opacity:1}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 43 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -17018,13 +16932,13 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(44),
-	      __webpack_require__(52),
-	      __webpack_require__(55),
-	      __webpack_require__(58),
-	      __webpack_require__(59),
+	      __webpack_require__(46),
+	      __webpack_require__(54),
+	      __webpack_require__(57),
 	      __webpack_require__(60),
-	      __webpack_require__(61)
+	      __webpack_require__(61),
+	      __webpack_require__(62),
+	      __webpack_require__(63)
 	    ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	  } else if ( typeof module == 'object' && module.exports ) {
 	    // CommonJS
@@ -17046,7 +16960,7 @@
 
 
 /***/ },
-/* 44 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Flickity main
@@ -17056,12 +16970,12 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(45),
-	      __webpack_require__(46),
 	      __webpack_require__(47),
+	      __webpack_require__(48),
 	      __webpack_require__(49),
-	      __webpack_require__(50),
-	      __webpack_require__(51)
+	      __webpack_require__(51),
+	      __webpack_require__(52),
+	      __webpack_require__(53)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( EvEmitter, getSize, utils, Cell, Slide, animatePrototype ) {
 	      return factory( window, EvEmitter, getSize, utils, Cell, Slide, animatePrototype );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -17895,7 +17809,7 @@
 
 
 /***/ },
-/* 45 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -18010,7 +17924,7 @@
 
 
 /***/ },
-/* 46 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -18225,7 +18139,7 @@
 
 
 /***/ },
-/* 47 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -18242,7 +18156,7 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(48)
+	      __webpack_require__(50)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( matchesSelector ) {
 	      return factory( window, matchesSelector );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -18467,7 +18381,7 @@
 
 
 /***/ },
-/* 48 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -18526,7 +18440,7 @@
 
 
 /***/ },
-/* 49 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Flickity.Cell
@@ -18536,7 +18450,7 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(46)
+	      __webpack_require__(48)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( getSize ) {
 	      return factory( window, getSize );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -18622,7 +18536,7 @@
 
 
 /***/ },
-/* 50 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;// slide
@@ -18704,7 +18618,7 @@
 
 
 /***/ },
-/* 51 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// animate
@@ -18714,7 +18628,7 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(47)
+	      __webpack_require__(49)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( utils ) {
 	      return factory( window, utils );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -18929,7 +18843,7 @@
 
 
 /***/ },
-/* 52 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// drag
@@ -18939,9 +18853,9 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(44),
-	      __webpack_require__(53),
-	      __webpack_require__(47)
+	      __webpack_require__(46),
+	      __webpack_require__(55),
+	      __webpack_require__(49)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Flickity, Unidragger, utils ) {
 	      return factory( window, Flickity, Unidragger, utils );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -19308,7 +19222,7 @@
 
 
 /***/ },
-/* 53 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -19326,7 +19240,7 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(54)
+	      __webpack_require__(56)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Unipointer ) {
 	      return factory( window, Unipointer );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -19598,7 +19512,7 @@
 
 
 /***/ },
-/* 54 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -19615,7 +19529,7 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(45)
+	      __webpack_require__(47)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( EvEmitter ) {
 	      return factory( window, EvEmitter );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -19907,7 +19821,7 @@
 
 
 /***/ },
-/* 55 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// prev/next buttons
@@ -19917,9 +19831,9 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(44),
-	      __webpack_require__(56),
-	      __webpack_require__(47)
+	      __webpack_require__(46),
+	      __webpack_require__(58),
+	      __webpack_require__(49)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Flickity, TapListener, utils ) {
 	      return factory( window, Flickity, TapListener, utils );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -20139,7 +20053,7 @@
 
 
 /***/ },
-/* 56 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -20157,7 +20071,7 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(57)
+	      __webpack_require__(59)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Unipointer ) {
 	      return factory( window, Unipointer );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -20258,316 +20172,9 @@
 
 
 /***/ },
-/* 57 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	 * Unipointer v2.1.0
-	 * base class for doing one thing with pointer event
-	 * MIT license
-	 */
-
-	/*jshint browser: true, undef: true, unused: true, strict: true */
-
-	( function( window, factory ) {
-	  // universal module definition
-	  /* jshint strict: false */ /*global define, module, require */
-	  if ( true ) {
-	    // AMD
-	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(45)
-	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( EvEmitter ) {
-	      return factory( window, EvEmitter );
-	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	  } else if ( typeof module == 'object' && module.exports ) {
-	    // CommonJS
-	    module.exports = factory(
-	      window,
-	      require('ev-emitter')
-	    );
-	  } else {
-	    // browser global
-	    window.Unipointer = factory(
-	      window,
-	      window.EvEmitter
-	    );
-	  }
-
-	}( window, function factory( window, EvEmitter ) {
-
-	'use strict';
-
-	function noop() {}
-
-	function Unipointer() {}
-
-	// inherit EvEmitter
-	var proto = Unipointer.prototype = Object.create( EvEmitter.prototype );
-
-	proto.bindStartEvent = function( elem ) {
-	  this._bindStartEvent( elem, true );
-	};
-
-	proto.unbindStartEvent = function( elem ) {
-	  this._bindStartEvent( elem, false );
-	};
-
-	/**
-	 * works as unbinder, as you can ._bindStart( false ) to unbind
-	 * @param {Boolean} isBind - will unbind if falsey
-	 */
-	proto._bindStartEvent = function( elem, isBind ) {
-	  // munge isBind, default to true
-	  isBind = isBind === undefined ? true : !!isBind;
-	  var bindMethod = isBind ? 'addEventListener' : 'removeEventListener';
-
-	  if ( window.navigator.pointerEnabled ) {
-	    // W3C Pointer Events, IE11. See https://coderwall.com/p/mfreca
-	    elem[ bindMethod ]( 'pointerdown', this );
-	  } else if ( window.navigator.msPointerEnabled ) {
-	    // IE10 Pointer Events
-	    elem[ bindMethod ]( 'MSPointerDown', this );
-	  } else {
-	    // listen for both, for devices like Chrome Pixel
-	    elem[ bindMethod ]( 'mousedown', this );
-	    elem[ bindMethod ]( 'touchstart', this );
-	  }
-	};
-
-	// trigger handler methods for events
-	proto.handleEvent = function( event ) {
-	  var method = 'on' + event.type;
-	  if ( this[ method ] ) {
-	    this[ method ]( event );
-	  }
-	};
-
-	// returns the touch that we're keeping track of
-	proto.getTouch = function( touches ) {
-	  for ( var i=0; i < touches.length; i++ ) {
-	    var touch = touches[i];
-	    if ( touch.identifier == this.pointerIdentifier ) {
-	      return touch;
-	    }
-	  }
-	};
-
-	// ----- start event ----- //
-
-	proto.onmousedown = function( event ) {
-	  // dismiss clicks from right or middle buttons
-	  var button = event.button;
-	  if ( button && ( button !== 0 && button !== 1 ) ) {
-	    return;
-	  }
-	  this._pointerDown( event, event );
-	};
-
-	proto.ontouchstart = function( event ) {
-	  this._pointerDown( event, event.changedTouches[0] );
-	};
-
-	proto.onMSPointerDown =
-	proto.onpointerdown = function( event ) {
-	  this._pointerDown( event, event );
-	};
-
-	/**
-	 * pointer start
-	 * @param {Event} event
-	 * @param {Event or Touch} pointer
-	 */
-	proto._pointerDown = function( event, pointer ) {
-	  // dismiss other pointers
-	  if ( this.isPointerDown ) {
-	    return;
-	  }
-
-	  this.isPointerDown = true;
-	  // save pointer identifier to match up touch events
-	  this.pointerIdentifier = pointer.pointerId !== undefined ?
-	    // pointerId for pointer events, touch.indentifier for touch events
-	    pointer.pointerId : pointer.identifier;
-
-	  this.pointerDown( event, pointer );
-	};
-
-	proto.pointerDown = function( event, pointer ) {
-	  this._bindPostStartEvents( event );
-	  this.emitEvent( 'pointerDown', [ event, pointer ] );
-	};
-
-	// hash of events to be bound after start event
-	var postStartEvents = {
-	  mousedown: [ 'mousemove', 'mouseup' ],
-	  touchstart: [ 'touchmove', 'touchend', 'touchcancel' ],
-	  pointerdown: [ 'pointermove', 'pointerup', 'pointercancel' ],
-	  MSPointerDown: [ 'MSPointerMove', 'MSPointerUp', 'MSPointerCancel' ]
-	};
-
-	proto._bindPostStartEvents = function( event ) {
-	  if ( !event ) {
-	    return;
-	  }
-	  // get proper events to match start event
-	  var events = postStartEvents[ event.type ];
-	  // bind events to node
-	  events.forEach( function( eventName ) {
-	    window.addEventListener( eventName, this );
-	  }, this );
-	  // save these arguments
-	  this._boundPointerEvents = events;
-	};
-
-	proto._unbindPostStartEvents = function() {
-	  // check for _boundEvents, in case dragEnd triggered twice (old IE8 bug)
-	  if ( !this._boundPointerEvents ) {
-	    return;
-	  }
-	  this._boundPointerEvents.forEach( function( eventName ) {
-	    window.removeEventListener( eventName, this );
-	  }, this );
-
-	  delete this._boundPointerEvents;
-	};
-
-	// ----- move event ----- //
-
-	proto.onmousemove = function( event ) {
-	  this._pointerMove( event, event );
-	};
-
-	proto.onMSPointerMove =
-	proto.onpointermove = function( event ) {
-	  if ( event.pointerId == this.pointerIdentifier ) {
-	    this._pointerMove( event, event );
-	  }
-	};
-
-	proto.ontouchmove = function( event ) {
-	  var touch = this.getTouch( event.changedTouches );
-	  if ( touch ) {
-	    this._pointerMove( event, touch );
-	  }
-	};
-
-	/**
-	 * pointer move
-	 * @param {Event} event
-	 * @param {Event or Touch} pointer
-	 * @private
-	 */
-	proto._pointerMove = function( event, pointer ) {
-	  this.pointerMove( event, pointer );
-	};
-
-	// public
-	proto.pointerMove = function( event, pointer ) {
-	  this.emitEvent( 'pointerMove', [ event, pointer ] );
-	};
-
-	// ----- end event ----- //
-
-
-	proto.onmouseup = function( event ) {
-	  this._pointerUp( event, event );
-	};
-
-	proto.onMSPointerUp =
-	proto.onpointerup = function( event ) {
-	  if ( event.pointerId == this.pointerIdentifier ) {
-	    this._pointerUp( event, event );
-	  }
-	};
-
-	proto.ontouchend = function( event ) {
-	  var touch = this.getTouch( event.changedTouches );
-	  if ( touch ) {
-	    this._pointerUp( event, touch );
-	  }
-	};
-
-	/**
-	 * pointer up
-	 * @param {Event} event
-	 * @param {Event or Touch} pointer
-	 * @private
-	 */
-	proto._pointerUp = function( event, pointer ) {
-	  this._pointerDone();
-	  this.pointerUp( event, pointer );
-	};
-
-	// public
-	proto.pointerUp = function( event, pointer ) {
-	  this.emitEvent( 'pointerUp', [ event, pointer ] );
-	};
-
-	// ----- pointer done ----- //
-
-	// triggered on pointer up & pointer cancel
-	proto._pointerDone = function() {
-	  // reset properties
-	  this.isPointerDown = false;
-	  delete this.pointerIdentifier;
-	  // remove events
-	  this._unbindPostStartEvents();
-	  this.pointerDone();
-	};
-
-	proto.pointerDone = noop;
-
-	// ----- pointer cancel ----- //
-
-	proto.onMSPointerCancel =
-	proto.onpointercancel = function( event ) {
-	  if ( event.pointerId == this.pointerIdentifier ) {
-	    this._pointerCancel( event, event );
-	  }
-	};
-
-	proto.ontouchcancel = function( event ) {
-	  var touch = this.getTouch( event.changedTouches );
-	  if ( touch ) {
-	    this._pointerCancel( event, touch );
-	  }
-	};
-
-	/**
-	 * pointer cancel
-	 * @param {Event} event
-	 * @param {Event or Touch} pointer
-	 * @private
-	 */
-	proto._pointerCancel = function( event, pointer ) {
-	  this._pointerDone();
-	  this.pointerCancel( event, pointer );
-	};
-
-	// public
-	proto.pointerCancel = function( event, pointer ) {
-	  this.emitEvent( 'pointerCancel', [ event, pointer ] );
-	};
-
-	// -----  ----- //
-
-	// utility function for getting x/y coords from event
-	Unipointer.getPointerPoint = function( pointer ) {
-	  return {
-	    x: pointer.pageX,
-	    y: pointer.pageY
-	  };
-	};
-
-	// -----  ----- //
-
-	return Unipointer;
-
-	}));
-
-
-/***/ },
-/* 58 */
+/* 59 */
+56,
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// page dots
@@ -20577,9 +20184,9 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(44),
-	      __webpack_require__(56),
-	      __webpack_require__(47)
+	      __webpack_require__(46),
+	      __webpack_require__(58),
+	      __webpack_require__(49)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Flickity, TapListener, utils ) {
 	      return factory( window, Flickity, TapListener, utils );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -20755,7 +20362,7 @@
 
 
 /***/ },
-/* 59 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// player & autoPlay
@@ -20765,9 +20372,9 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(45),
 	      __webpack_require__(47),
-	      __webpack_require__(44)
+	      __webpack_require__(49),
+	      __webpack_require__(46)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( EvEmitter, utils, Flickity ) {
 	      return factory( EvEmitter, utils, Flickity );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -20974,7 +20581,7 @@
 
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// add, remove cell
@@ -20984,8 +20591,8 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(44),
-	      __webpack_require__(47)
+	      __webpack_require__(46),
+	      __webpack_require__(49)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Flickity, utils ) {
 	      return factory( window, Flickity, utils );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -21162,7 +20769,7 @@
 
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// lazyload
@@ -21172,8 +20779,8 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(44),
-	      __webpack_require__(47)
+	      __webpack_require__(46),
+	      __webpack_require__(49)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Flickity, utils ) {
 	      return factory( window, Flickity, utils );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -21287,33 +20894,9 @@
 
 
 /***/ },
-/* 62 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(63);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(8)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 63 */
+/* 64 */
+[78, 65],
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -21321,34 +20904,34 @@
 
 
 	// module
-	exports.push([module.id, "/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n\r\n.eg-recently {\r\n  margin: 30px auto 30px auto;\r\n  width: 900px;\r\n  background-color: rgba(255, 255, 255, 0.7);\r\n  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);\r\n\r\n  padding: 32px 32px 60px 32px;\r\n}\r\n\r\n.eg-recently, .eg-recently * {\r\n  box-sizing: border-box;\r\n}\r\n\r\n.eg-recently h2 {\r\n  margin: 18px 0 28px;\r\n  font-size: 17px;\r\n  font-weight: bold;\r\n  letter-spacing: 1.8px;\r\n  text-align: center;\r\n  color: #1EBAA0;\r\n}\r\n\r\n.eg-recently .carousel {\r\n  height: 130px;\r\n}\r\n\r\n.eg-recently .carousel .carousel-cell {\r\n  box-sizing: content-box;\r\n  width: 128px;\r\n  height: 128px;\r\n  margin-right: 10px;\r\n  border: 1px solid rgba(0, 0, 0, 0.18);\r\n  border-radius: 5px;\r\n  background-image: url('/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD');\r\n}\r\n", ""]);
+	exports.push([module.id, ".eg-recently{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:32px 32px 60px}.eg-recently,.eg-recently *{box-sizing:border-box}.eg-recently h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-recently .carousel{height:130px}.eg-recently .carousel .carousel-cell{box-sizing:content-box;width:128px;height:128px;margin-right:10px;border:1px solid rgba(0,0,0,.18);border-radius:5px;background-image:url('/emoji?text=%E5%A4%A9%E6%89%8D%0d%E7%8F%BE%E3%82%8B&color=6FCBDD')}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-recently\">\r\n  <h2>最近生成された絵文字</h2>\r\n\r\n  <div v-el:carousel class=\"carousel\">\r\n    <div class=\"carousel-cell\"></div>\r\n    <div class=\"carousel-cell\"></div>\r\n    <div class=\"carousel-cell\"></div>\r\n    <div class=\"carousel-cell\"></div>\r\n    <div class=\"carousel-cell\"></div>\r\n    <div class=\"carousel-cell\"></div>\r\n    <div class=\"carousel-cell\"></div>\r\n    <div class=\"carousel-cell\"></div>\r\n  </div>\r\n</div>\r\n";
+	module.exports = "<div class=\"v-cloak eg-recently\"> <h2>最近生成された絵文字</h2> <div v-el:carousel class=carousel> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> </div> </div>";
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _queryString = __webpack_require__(66);
+	var _queryString = __webpack_require__(68);
 
 	var _queryString2 = _interopRequireDefault(_queryString);
 
-	__webpack_require__(69);
+	__webpack_require__(71);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-result',
-	  template: __webpack_require__(71),
+	  template: __webpack_require__(73),
 	  data: function data() {
 	    return {
 	      visibleResult: false,
@@ -21417,17 +21000,17 @@
 	  },
 
 	  directives: {
-	    'eg-sharer': __webpack_require__(28)
+	    'eg-sharer': __webpack_require__(30)
 	  }
 	};
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var strictUriEncode = __webpack_require__(67);
-	var objectAssign = __webpack_require__(68);
+	var strictUriEncode = __webpack_require__(69);
+	var objectAssign = __webpack_require__(70);
 
 	function encode(value, opts) {
 		if (opts.encode) {
@@ -21526,7 +21109,7 @@
 
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21538,7 +21121,7 @@
 
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21627,33 +21210,9 @@
 
 
 /***/ },
-/* 69 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(70);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(8)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 70 */
+/* 71 */
+[78, 72],
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -21661,19 +21220,19 @@
 
 
 	// module
-	exports.push([module.id, "/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n\r\n.eg-result {\r\n  margin: 30px auto 30px auto;\r\n  width: 900px;\r\n  background-color: rgba(255, 255, 255, 0.7);\r\n  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);\r\n\r\n  padding: 20px;\r\n}\r\n\r\n.eg-result, .eg-result * {\r\n  box-sizing: border-box;\r\n}\r\n\r\n.eg-result h2 {\r\n  margin: 18px 0 28px;\r\n  font-size: 17px;\r\n  font-weight: bold;\r\n  letter-spacing: 1.8px;\r\n  text-align: center;\r\n  color: #1EBAA0;\r\n}\r\n\r\n.eg-result .preview {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  margin: 30px auto 0;\r\n  -webkit-box-pack: center;\r\n  -ms-flex-pack: center;\r\n  justify-content: center;\r\n}\r\n\r\n.eg-result .preview > .inner {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-align: stretch;\r\n  -ms-flex-align: stretch;\r\n  align-items: stretch;\r\n}\r\n\r\n.eg-result .preview > .inner .image {\r\n  display: block;\r\n  width: 129px;\r\n  height: 129px;\r\n  border-radius: 5px;\r\n  background-color: rgba(255, 255, 255, .38);\r\n}\r\n\r\n.eg-result .preview > .inner .image img {\r\n  box-sizing: content-box;\r\n  width: 128px;\r\n  height: 128px;\r\n  border: 1px solid rgba(0, 0, 0, .18);\r\n  border-radius: 5px;\r\n}\r\n\r\n.eg-result .preview > .inner .detail {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n  -ms-flex-direction: column;\r\n  flex-direction: column;\r\n  -webkit-box-pack: center;\r\n  -ms-flex-pack: center;\r\n  justify-content: center;\r\n  margin: 0 0 0 50px;\r\n}\r\n\r\n.eg-result .preview > .inner .detail ul {\r\n  margin: 0;\r\n  padding: 0;\r\n  list-style-type: none;\r\n  list-style-position: inside;\r\n}\r\n\r\n.eg-result .preview > .inner .detail ul li {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  line-height: 40px;\r\n}\r\n\r\n.eg-result .preview > .inner .detail ul li h3 {\r\n  margin: 0;\r\n  width: 68px;\r\n  color: #3AB0C7;\r\n  font-weight: bold;\r\n  font-size: 15px;\r\n}\r\n\r\n.eg-result .preview > .inner .detail ul li .user-input {\r\n  display: block;\r\n  margin: 0 0 0 12px;\r\n  color: rgba(0, 0, 0, .75);\r\n  font-size: 13px;\r\n}\r\n\r\n.eg-result .preview > .inner .detail ul li .user-input > .color-square {\r\n  display: inline-block;\r\n  margin: 1px 4px 0 0;\r\n  border: 1px solid rgba(0, 0, 0, .18);\r\n  width: 10px;\r\n  height: 10px;\r\n}\r\n\r\n.eg-result .preview > .inner .detail ul li::before {\r\n  display: block;\r\n  float: left;\r\n  margin-right: 10px;\r\n  width: 30px;\r\n  height: 40px;\r\n  background-repeat: no-repeat;\r\n  background-position: center center;\r\n  content: '';\r\n  opacity: .8;\r\n}\r\n\r\n.eg-result .preview > .inner .detail ul li.text {}\r\n\r\n.eg-result .preview > .inner .detail ul li.text::before {\r\n  background-image: url('/static/img/text.png');\r\n  background-size: 28px auto;\r\n  opacity: .80;\r\n}\r\n\r\n.eg-result .preview > .inner .detail ul li.color {}\r\n\r\n.eg-result .preview > .inner .detail ul li.color::before {\r\n  background-image: url('/static/img/color.png');\r\n  background-size: 19px auto;\r\n  opacity: .80;\r\n}\r\n\r\n.eg-result .preview > .inner .detail ul li.font {}\r\n\r\n.eg-result .preview > .inner .detail ul li.font::before {\r\n  background-image: url('/static/img/font.png');\r\n  background-size: 25px auto;\r\n  opacity: .80;\r\n}\r\n\r\n.eg-result .links {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  margin: 30px auto 15px;\r\n  -webkit-box-pack: center;\r\n  -ms-flex-pack: center;\r\n  justify-content: center;\r\n}\r\n\r\n.eg-result .links .inner {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n}\r\n\r\n.eg-result .links .inner > div {\r\n  padding: 0;\r\n  height: 40px;\r\n  line-height: 40px;\r\n  font-size: 15px;\r\n}\r\n\r\n.eg-result .links .inner > div a {\r\n  display: block;\r\n  text-decoration: none;\r\n}\r\n\r\n.eg-result .links .inner > div.download a {\r\n  padding: 0 0 0 34px;\r\n  color: #BE1C60;\r\n  height: 100%;\r\n  background-image: url('/static/img/download.png');\r\n  background-repeat: no-repeat;\r\n  background-position: 0 center;\r\n  background-size: 22px auto;\r\n  cursor: pointer;\r\n}\r\n\r\n.eg-result .links .inner > div.share {\r\n  margin: 0 0 0 40px;\r\n  padding: 0 0 0 34px;\r\n  color: #AD780C;\r\n  background-image: url('/static/img/share.png');\r\n  background-repeat: no-repeat;\r\n  background-position: 0 center;\r\n  background-size: 22px auto;\r\n  cursor: pointer;\r\n}\r\n\r\n.eg-result > .share {\r\n  display: block;\r\n}\r\n\r\n.eg-result > .share .inner {\r\n  display: -webkit-box;\r\n  display: -ms-flexbox;\r\n  display: flex;\r\n  -webkit-box-flex: 1;\r\n  -ms-flex: 1 1 auto;\r\n  flex: 1 1 auto;\r\n  -webkit-box-orient: horizontal;\r\n  -webkit-box-direction: normal;\r\n  -ms-flex-direction: row;\r\n  flex-direction: row;\r\n  -webkit-box-pack: center;\r\n  -ms-flex-pack: center;\r\n  justify-content: center;\r\n  -webkit-box-align: center;\r\n  -ms-flex-align: center;\r\n  align-items: center;\r\n}\r\n\r\n.eg-result > .share .inner input, .eg-result > .share .inner a {\r\n  display: block;\r\n  margin: 0;\r\n  border: 0;\r\n  width: 40px;\r\n  height: 40px;\r\n  background-color: transparent;\r\n  background-size: 40px;\r\n  background-repeat: no-repeat;\r\n  background-position: 0px center;\r\n  overflow: hidden;\r\n  text-indent: 100%;\r\n  white-space: nowrap;\r\n  margin: 0 0 0 14px\r\n}\r\n\r\n.eg-result > .share .inner input.twitter, .eg-result > .share .inner a.twitter {\r\n  background-image: url('/static/img/twitter.png');\r\n  opacity: .88;\r\n  margin-left: 0;\r\n}\r\n\r\n.eg-result > .share .inner input.facebook, .eg-result > .share .inner a.facebook {\r\n  background-image: url('/static/img/facebook.png');\r\n  opacity: .80;\r\n}\r\n\r\n.eg-result > .share .inner input.google, .eg-result > .share .inner a.google {\r\n  background-image: url('/static/img/google.png');\r\n  opacity: .80;\r\n}\r\n\r\n.eg-result > .share.expand-transition {\r\n  padding: 20px 0 15px;\r\n  overflow: hidden;\r\n  height: auto;\r\n  -webkit-transition: opacity .8s ease-in-out;\r\n  transition: opacity .8s ease-in-out;\r\n  opacity: 1;\r\n}\r\n\r\n.eg-result > .share.expand-enter, .eg-result > .share.expand-leave {\r\n  padding: 0;\r\n  height: 0;\r\n  opacity: 0;\r\n}\r\n\r\n.eg-result.expand-transition {\r\n  overflow: hidden;\r\n  height: auto;\r\n  -webkit-transition: opacity .8s ease-in-out;\r\n  transition: opacity .8s ease-in-out;\r\n  opacity: 1;\r\n}\r\n\r\n.eg-result.expand-enter, .eg-result.expand-leave {\r\n  padding: 0;\r\n  height: 0;\r\n  opacity: 0;\r\n}\r\n", ""]);
+	exports.push([module.id, ".eg-result{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:20px}.eg-result,.eg-result *{box-sizing:border-box}.eg-result h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-result .preview{margin:30px auto 0;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.eg-result .preview,.eg-result .preview>.inner{display:-webkit-box;display:-ms-flexbox;display:flex}.eg-result .preview>.inner{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.eg-result .preview>.inner .image{display:block;width:129px;height:129px;border-radius:5px;background-color:hsla(0,0%,100%,.38)}.eg-result .preview>.inner .image img{box-sizing:content-box;width:128px;height:128px;border:1px solid rgba(0,0,0,.18);border-radius:5px}.eg-result .preview>.inner .detail{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:0 0 0 50px}.eg-result .preview>.inner .detail ul{margin:0;padding:0;list-style-type:none;list-style-position:inside}.eg-result .preview>.inner .detail ul li{display:-webkit-box;display:-ms-flexbox;display:flex;line-height:40px}.eg-result .preview>.inner .detail ul li h3{margin:0;width:68px;color:#3ab0c7;font-weight:700;font-size:15px}.eg-result .preview>.inner .detail ul li .user-input{display:block;margin:0 0 0 12px;color:rgba(0,0,0,.75);font-size:13px}.eg-result .preview>.inner .detail ul li .user-input>.color-square{display:inline-block;margin:1px 4px 0 0;border:1px solid rgba(0,0,0,.18);width:10px;height:10px}.eg-result .preview>.inner .detail ul li:before{display:block;float:left;margin-right:10px;width:30px;height:40px;background-repeat:no-repeat;background-position:50%;content:'';opacity:.8}.eg-result .preview>.inner .detail ul li.text:before{background-image:url('/static/img/text.png');background-size:28px auto;opacity:.8}.eg-result .preview>.inner .detail ul li.color:before{background-image:url('/static/img/color.png');background-size:19px auto;opacity:.8}.eg-result .preview>.inner .detail ul li.font:before{background-image:url('/static/img/font.png');background-size:25px auto;opacity:.8}.eg-result .links{margin:30px auto 15px;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.eg-result .links,.eg-result .links .inner{display:-webkit-box;display:-ms-flexbox;display:flex}.eg-result .links .inner>div{padding:0;height:40px;line-height:40px;font-size:15px}.eg-result .links .inner>div a{display:block;text-decoration:none}.eg-result .links .inner>div.download a{color:#be1c60;height:100%;background-image:url('/static/img/download.png')}.eg-result .links .inner>div.download a,.eg-result .links .inner>div.share{padding:0 0 0 34px;background-repeat:no-repeat;background-position:0;background-size:22px auto;cursor:pointer}.eg-result .links .inner>div.share{margin:0 0 0 40px;color:#ad780c;background-image:url('/static/img/share.png')}.eg-result>.share{display:block}.eg-result>.share .inner{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center}.eg-result>.share .inner a,.eg-result>.share .inner input{display:block;margin:0;border:0;width:40px;height:40px;background-color:transparent;background-size:40px;background-repeat:no-repeat;background-position:0;overflow:hidden;text-indent:100%;white-space:nowrap;margin:0 0 0 14px}.eg-result>.share .inner a.twitter,.eg-result>.share .inner input.twitter{background-image:url('/static/img/twitter.png');opacity:.88;margin-left:0}.eg-result>.share .inner a.facebook,.eg-result>.share .inner input.facebook{background-image:url('/static/img/facebook.png');opacity:.8}.eg-result>.share .inner a.google,.eg-result>.share .inner input.google{background-image:url('/static/img/google.png');opacity:.8}.eg-result>.share.expand-transition{padding:20px 0 15px;overflow:hidden;height:auto;-webkit-transition:opacity .8s ease-in-out;transition:opacity .8s ease-in-out;opacity:1}.eg-result>.share.expand-enter,.eg-result>.share.expand-leave{padding:0;height:0;opacity:0}.eg-result.expand-transition{overflow:hidden;height:auto;-webkit-transition:opacity .8s ease-in-out;transition:opacity .8s ease-in-out;opacity:1}.eg-result.expand-enter,.eg-result.expand-leave{padding:0;height:0;opacity:0}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 71 */
+/* 73 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-result\" v-show=\"visibleResult\" transition=\"expand\">\r\n  <h2>生成された絵文字</h2>\r\n\r\n  <div class=\"preview\">\r\n    <div class=\"inner\">\r\n      <div class=\"image\">\r\n        <img :src=\"emojiUrl\" alt=\"\" v-if=\"emojiUrl\">\r\n      </div>\r\n      <div class=\"detail\">\r\n        <ul>\r\n          <li class=\"text\">\r\n            <h3>テキスト</h3>\r\n            <span class=\"user-input\">{{ text }}</span>\r\n          </li>\r\n          <li class=\"font\">\r\n            <h3>フォント</h3>\r\n            <span class=\"user-input\">{{ fontName }}</span>\r\n          </li>\r\n          <li class=\"color\">\r\n            <h3>カラー</h3>\r\n            <span class=\"user-input\">\r\n              <span class=\"color-square\" v-bind:style=\"{ backgroundColor: color }\"></span>\r\n              {{ color }}\r\n            </span>\r\n          </li>\r\n        </ul>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"links\">\r\n    <div class=\"inner\">\r\n      <div class=\"download\">\r\n        <a :href=\"emojiDownloadUrl\">ダウンロード</a>\r\n      </div>\r\n      <!--\r\n      TODO\r\n      <div class=\"share\" v-on:click=\"toggleShare\">\r\n        シェアする\r\n      </div>\r\n      -->\r\n    </div>\r\n  </div>\r\n\r\n  <!--\r\n  TODO\r\n  <div class=\"share\" v-show=\"visibleShare\" transition=\"expand\">\r\n    <div class=\"inner\">\r\n      <input type=\"button\" class=\"twitter sharer button\" data-sharer=\"twitter\" data-title=\"絵文字ジェネレーター使ってます&#9834;\" data-hashtags=\"絵文字ジェネレーター\" data-url=\"https://emoji.pine.moe/\" title=\"Twitter でシェアする\" v-eg-sharer>\r\n      <input type=\"button\" class=\"facebook sharer button\" data-sharer=\"facebook\" data-url=\"https://emoji.pine.moe/\" title=\"Facebook でシェアする\" v-eg-sharer>\r\n      <input type=\"button\" class=\"google sharer button\" data-sharer=\"googleplus\" data-url=\"https://emoji.pine.moe/\" title=\"Google+ でシェアする\" v-eg-sharer>\r\n    </div>\r\n  </div>\r\n  -->\r\n</div>\r\n";
+	module.exports = "<div class=\"v-cloak eg-result\" v-show=visibleResult transition=expand> <h2>生成された絵文字</h2> <div class=preview> <div class=inner> <div class=image> <img :src=emojiUrl alt=\"\" v-if=emojiUrl> </div> <div class=detail> <ul> <li class=text> <h3>テキスト</h3> <span class=user-input>{{ text }}</span> </li> <li class=font> <h3>フォント</h3> <span class=user-input>{{ fontName }}</span> </li> <li class=color> <h3>カラー</h3> <span class=user-input> <span class=color-square v-bind:style=\"{ backgroundColor: color }\"></span> {{ color }} </span> </li> </ul> </div> </div> </div> <div class=links> <div class=inner> <div class=download> <a :href=emojiDownloadUrl>ダウンロード</a> </div> </div> </div> </div>";
 
 /***/ },
-/* 72 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21682,23 +21241,45 @@
 
 	var _vue2 = _interopRequireDefault(_vue);
 
-	__webpack_require__(73);
+	__webpack_require__(75);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-contact',
-	  template: __webpack_require__(75)
+	  template: __webpack_require__(77)
 	};
 
 /***/ },
-/* 73 */
+/* 75 */
+[78, 76],
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(7)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".eg-contact{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:32px 32px 60px;margin-bottom:180px;min-height:600px}.eg-contact,.eg-contact *{box-sizing:border-box}.eg-contact h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-contact .eg-contact--body{padding:30px}.eg-contact .eg-contact--body ul{margin:18px 0}.eg-contact .eg-contact--body ul li{margin:10px 0;padding:1px 0 0 42px;height:30px;line-height:30px;list-style-type:none;list-style-position:inside;background-size:26px auto;background-repeat:no-repeat;background-position:0;font-size:15px}.eg-contact .eg-contact--body ul li a{text-decoration:none}.eg-contact .eg-contact--body ul li a .owner{margin-right:2px}.eg-contact .eg-contact--body ul li a .username{margin-left:2.5px}.eg-contact .eg-contact--body ul li.twitter{background-image:url('/static/img/twitter.png');opacity:.88}.eg-contact .eg-contact--body ul li.github{background-image:url('/static/img/github.png');opacity:.7}.eg-contact .eg-contact--body p.break{margin-top:45px}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 77 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"v-cloak eg-contact\"> <h2>お問い合わせ</h2> <div class=eg-contact--body> <p>何かありましたら、GitHub の Issue へお願い致します。</p> <ul> <li class=github> <a href=https://github.com/emoji-gen/Emoji-Web/issues target=_blank> <span class=owner>emoji-gen</span>/<span class=username>Emoji-Web</span> </a> </li> </ul> <p class=break>もしくは、作者の Twitter まで直接お問い合わせ下さい。</p> <ul> <li class=twitter><a href=https://twitter.com/jiuya target=_blank>@jiuya</a></li> <li class=twitter><a href=https://twitter.com/pine613 target=_blank>@pine613</a></li> </ul> </div> </div>";
+
+/***/ },
+/* 78 */
+/***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(74);
+	var content = __webpack_require__(__webpack_module_template_argument_0__);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -21717,25 +21298,5 @@
 		module.hot.dispose(function() { update(); });
 	}
 
-/***/ },
-/* 74 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(7)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n/* fonts */\r\n/* colors */\r\n/* degree */\r\n/* dimensions */\r\n\r\n.eg-contact {\r\n  margin: 30px auto 30px auto;\r\n  width: 900px;\r\n  background-color: rgba(255, 255, 255, 0.7);\r\n  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);\r\n\r\n  padding: 32px 32px 60px 32px;\r\n  margin-bottom: 180px;\r\n  min-height: 600px;\r\n}\r\n\r\n.eg-contact, .eg-contact * {\r\n  box-sizing: border-box;\r\n}\r\n\r\n.eg-contact h2 {\r\n  margin: 18px 0 28px;\r\n  font-size: 17px;\r\n  font-weight: bold;\r\n  letter-spacing: 1.8px;\r\n  text-align: center;\r\n  color: #1EBAA0;\r\n}\r\n\r\n.eg-contact .eg-contact--body {\r\n  padding: 30px;\r\n}\r\n\r\n.eg-contact .eg-contact--body ul {\r\n  margin: 18px 0;\r\n}\r\n\r\n.eg-contact .eg-contact--body ul li {\r\n  margin: 10px 0;\r\n  padding: 1px 0 0 42px;\r\n  height: 30px;\r\n  line-height: 30px;\r\n  list-style-type: none;\r\n  list-style-position: inside;\r\n  background-size: 26px auto;\r\n  background-repeat: no-repeat;\r\n  background-position: 0 center;\r\n  font-size: 15px;\r\n}\r\n\r\n.eg-contact .eg-contact--body ul li a {\r\n  text-decoration: none;\r\n}\r\n\r\n.eg-contact .eg-contact--body ul li a .owner {\r\n  margin-right: 2px;\r\n}\r\n\r\n.eg-contact .eg-contact--body ul li a .username {\r\n  margin-left: 2.5px;\r\n}\r\n\r\n.eg-contact .eg-contact--body ul li.twitter {\r\n  background-image: url('/static/img/twitter.png');\r\n  opacity: .88;\r\n}\r\n\r\n.eg-contact .eg-contact--body ul li.github {\r\n  background-image: url('/static/img/github.png');\r\n  opacity: .70;\r\n}\r\n\r\n.eg-contact .eg-contact--body p {}\r\n\r\n.eg-contact .eg-contact--body p.break {\r\n  margin-top: 45px;\r\n}\r\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 75 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"v-cloak eg-contact\">\r\n  <h2>お問い合わせ</h2>\r\n\r\n  <div class=\"eg-contact--body\">\r\n    <p>何かありましたら、GitHub の Issue へお願い致します。</p>\r\n\r\n    <ul>\r\n      <li class=\"github\">\r\n        <a href=\"https://github.com/emoji-gen/Emoji-Web/issues\" target=\"_blank\">\r\n          <span class=\"owner\">emoji-gen</span>/<span class=\"username\">Emoji-Web</span>\r\n        </a>\r\n      </li>\r\n    </ul>\r\n\r\n    <p class=\"break\">もしくは、作者の Twitter まで直接お問い合わせ下さい。</p>\r\n\r\n    <ul>\r\n      <li class=\"twitter\"><a href=\"https://twitter.com/jiuya\" target=\"_blank\">@jiuya</a></li>\r\n      <li class=\"twitter\"><a href=\"https://twitter.com/pine613\" target=\"_blank\">@pine613</a></li>\r\n    </ul>\r\n  </div>\r\n</div>\r\n";
-
 /***/ }
-/******/ ]);
+/******/ ])));
