@@ -3,7 +3,7 @@ import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 
 import './index.css'
-import env from './lib/env'
+import ga from './lib/ga'
 
 Vue.use(VueResource)
 Vue.use(VueRouter)
