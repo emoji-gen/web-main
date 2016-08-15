@@ -20,9 +20,14 @@ class String2emoji(object):
     def setFontColor(self,color):
         self.fontColor = color
     def cutEffectiveRange(self,text,wMax,hMax):
-        if self.getFont(hMax).getsize(text)[0] > wMax :
-            wMax = self.getFont(hMax).getsize(text)[0]
-        for i in range(hMax,hMax*2):
+        wt, ht = self.getFont(hMax).getsize(text)
+        if wt > wMax :
+            wMax = wt
+        hMax0 = hMax
+        while self.getFont(hMax0).getsize(text)[1] > hMax :
+            hMax0 = hMax0 - 1
+
+        for i in range(hMax0,hMax0*2):
             font = self.getFont(i)
             w, h = font.getsize(text)
             img = Image.new("RGBA",(w,h),self.backColor)
