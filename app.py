@@ -101,7 +101,7 @@ def api_fonts():
 
 def generate_emoji(text,font,color):
     global cache
-    hash_text = text + ':' + color + ':' + font
+    hash_text = text + ':' + color + ':' + font + ':' + str(config.cache_version)
     r = int(color[0] +color[1],16)
     g = int(color[2] +color[3],16)
     b = int(color[4] +color[5],16)

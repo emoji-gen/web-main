@@ -1,3 +1,6 @@
+cache:
+  version: 1 # integer
+
 fonts:
   'notosans-mono-bold':
     name: 'Noto Sans Mono CJK Bold'
