@@ -6,5 +6,6 @@ function getMetaValue(name) {
 module.exports = {
   env: {
     debug: getMetaValue('app:env:debug') === 'true',
+    domain: getMetaValue('app:env:domain'),
   },
 }

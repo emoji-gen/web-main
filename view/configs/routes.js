@@ -2,10 +2,10 @@
 
 module.exports = {
   '/': {
-    component: require('../views/home'),
+    component: require('../views/emoji'),
   },
   '/emoji': {
-    component: require('../views/home'),
+    component: require('../views/emoji'),
   },
   '/contact': {
     component: require('../views/contact'),
