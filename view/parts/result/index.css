@@ -175,6 +175,8 @@
       flex-direction: row;
       justify-content: center;
       align-items: center;
+      transition: opacity .8s ease-in-out;
+      opacity: 1;
 
       input, a {
         @mixin icon-40px;
@@ -201,6 +203,17 @@
       padding: 0;
       height: 0;
       opacity: 0;
+    }
+
+    &.progress {
+      background-image: url('/static/img/loading.gif');
+      background-position: center 10px;
+      background-size: 40px auto;
+      background-repeat: no-repeat;
+
+      .inner {
+        opacity: 0;
+      }
     }
   }
 }

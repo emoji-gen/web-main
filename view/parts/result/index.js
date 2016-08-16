@@ -1,4 +1,5 @@
 import queryString from 'query-string'
+import bitly from '../../lib/bitly'
 
 import './index.css'
 
@@ -13,6 +14,7 @@ module.exports = {
     rawFont: null,
     queryString: null,
     fonts: [],
+    shortenUrl: null,
   }),
 
   computed: {
@@ -55,6 +57,10 @@ module.exports = {
     currentUrl: function () {
       return location.href
     },
+
+    progress: function () {
+      return !this.shortenUrl
+    },
   },
 
   attached: function () {
@@ -72,12 +78,26 @@ module.exports = {
 
       this.queryString   = queryString.stringify(query)
       this.visibleResult = true
+      this.shortenUrl    = null
     },
   },
 
   methods: {
     toggleShare: function () {
       this.visibleShare = !this.visibleShare;
+
+      if (this.visibleShare) {
+        this.onShareShown()
+      }
+    },
+
+    onShareShown: function () {
+      if (!this.shortenUrl) {
+        bitly.shorten(this.currentUrl)
+          .then(url => {
+            this.shortenUrl = url
+          })
+      }
     },
   },
 
