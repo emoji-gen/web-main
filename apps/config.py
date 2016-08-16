@@ -23,6 +23,9 @@ js_min_path = os.path.join(os.path.dirname(__file__), '../static/js/bundle.min.j
 _config     = yaml.load(open(config_path, 'r', encoding='utf-8'))
 _env_config = yaml.load(open(env_config_path, 'r', encoding='utf-8'))
 
+site_domain       = _config['site']['domain']
+site_description  = _config['site']['description']
+
 cache_version     = _config['cache']['version']
 cache_timeout     = _env_config['cache']['timeout']
 memcached_enabled = _env_config['cache']['memcached']['enabled']

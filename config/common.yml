@@ -1,3 +1,7 @@
+site:
+  domain: emoji.pine.moe
+  description: 絵文字ジェネレーターで、綺麗な絵文字を生成しよう! 好みのテキストと色を指定するだけで、綺麗な絵文字が簡単に生成できます。
+
 cache:
   version: 1 # integer
 

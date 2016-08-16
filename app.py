@@ -19,7 +19,9 @@ app = Flask(__name__)
 
 # enable debug mode if on development environment
 app.debug = config.debug
-app.jinja_env.globals['debug'] = config.debug
+app.jinja_env.globals['debug']       = config.debug
+app.jinja_env.globals['domain']      = config.site_domain
+app.jinja_env.globals['description'] = config.site_description
 
 # compute JavaScript checksum
 if not config.debug:
@@ -126,6 +128,12 @@ def generate_emoji(text,font,color):
         img_png = output.getvalue()
         cache.set(cache_id,img_png)
     return img_png
+
+
+@app.route('/sitemap.xml')
+def sitemap_xml():
+    return redirect(url_for('static', filename='sitemap.xml'))
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
