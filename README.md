@@ -7,6 +7,11 @@ Emoji-Web
   - Python 3.5
   - Node 4.4.7
 
+## Frameworks
+
+- [Flask](http://flask.pocoo.org/)
+- [Vue](https://vuejs.org/)
+
 ## Getting Started
 ### Server Side
 
