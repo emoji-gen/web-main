@@ -9,7 +9,7 @@ from flask import request, redirect, url_for
 from flask import Response, make_response
 from flask import abort
 
-from String2emoji import String2emoji
+from apps.String2emoji import String2emoji
 
 from apps       import config
 from apps.cache import create as create_cache
