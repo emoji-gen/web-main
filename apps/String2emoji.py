@@ -3,10 +3,10 @@ from PIL import Image, ImageDraw, ImageFont
 
 class String2emoji(object):
     """docstring for String2emoji"""
-    def __init__(self, argText,argFontName,argFontColor = (0,0,0,0)):
+    def __init__(self, argText,argFontName,argFontColor = (0,0,0,255),argBackColor = (255,255,255,0)):
         self.textList = argText
         self.fontName = argFontName
-        self.backColor = (255,255,255,0)
+        self.backColor = argBackColor
         self.imageSize = (128,128)
         self.fontColor = argFontColor
 
@@ -74,6 +74,10 @@ class String2emoji(object):
         img = Image.new("RGBA",self.imageSize,self.backColor)
         draw = ImageDraw.Draw(img)
         l = len(self.textList)
+
+        if self.fontColor == self.backColor:
+            draw.rectangle([(0,0),self.imageSize],fill=self.backColor)
+            return img
 
         for i in range(0,l):
             if not self.textList[i]:

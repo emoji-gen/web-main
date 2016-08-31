@@ -52,12 +52,15 @@ def emoji():
     font_key = request.args.get("font", default=font_default, type=str)
     text = request.args.get("text", default='test', type=str)
     color = request.args.get("color", default='000000', type=str).upper()
+    back_color = request.args.get("back_color", default='FFFFFF00', type=str).upper()
     font = fonts_list.get(font_key,font_default).get('file')
     if text is False:
         text = ' '
     if color is False:
         color = '000000'
-    img_png = generate_emoji(text,font,color)
+    if back_color is False:
+        back_color = 'FFFFFF00'
+    img_png = generate_emoji(text,font,color,back_color)
 
     if not img_png:
         return abort(400)
@@ -73,12 +76,15 @@ def emoji_download():
     font_key = request.args.get("font", default=font_default, type=str)
     text = request.args.get("text", default='test', type=str)
     color = request.args.get("color", default='000000', type=str).upper()
+    back_color = request.args.get("back_color", default='FFFFFF00', type=str).upper()
     font = fonts_list.get(font_key,font_default).get('file')
     if text is False:
         text = ' '
     if color is False:
         color = '000000'
-    img_png = generate_emoji(text,font,color)
+    if back_color is False:
+        back_color = 'FFFFFF00'
+    img_png = generate_emoji(text,font,color,back_color)
     disp = 'attachment;' + \
            'filename=\"' + re.sub(r'\s','_',text) + '.png\"'
     res = make_response()
@@ -101,12 +107,23 @@ def api_fonts():
     res.headers['Content-Type'] = 'application/json'
     return res
 
-def generate_emoji(text,font,color):
+def generate_emoji(text,font,color,back_color):
     global cache
-    hash_text = text + ':' + color + ':' + font + ':' + str(config.cache_version)
+    hash_text = text + ':' + color + ':' + back_color + ':' + font + ':' + str(config.cache_version)
     r = int(color[0] +color[1],16)
     g = int(color[2] +color[3],16)
     b = int(color[4] +color[5],16)
+    if len(color) == 6:
+        a = 0xff
+    elif len(color) == 8:
+        a = int(color[6] + color[7],16)
+    br = int(back_color[0] + back_color[1],16)
+    bg = int(back_color[2] + back_color[3],16)
+    bb = int(back_color[4] + back_color[5],16)
+    if len(back_color) == 6:
+        ba = 0xff
+    elif len(back_color) == 8:
+        ba = int(back_color[6] + back_color[7],16)
     cache_id = hashlib.md5(hash_text.encode('utf-8')).hexdigest()
     img_png = cache.get(cache_id)
     if img_png is None:
@@ -121,7 +138,7 @@ def generate_emoji(text,font,color):
         if len(lines) > 10: # XXX: 10 行以上
             return None
 
-        emoji = String2emoji(lines, 'assets/fonts/' + font,(r,g,b))
+        emoji = String2emoji(lines, 'assets/fonts/' + font,(r,g,b,a),(br,bg,bb,ba))
         img = emoji.getEmoji()
         output = io.BytesIO()
         img.save(output,format='png')
