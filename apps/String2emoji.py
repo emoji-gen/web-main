@@ -90,7 +90,7 @@ class String2emoji(object):
             draw.text((x0,y0), self.textList[i], fill=self.fontColor, font=font)
             img_str.crop((0,0,x1,y1))
             if x1 > 128:
-                img_str = img_str.transform(img_str.size,Image.AFFINE,(x1/128.0,0,0,0,1,0),Image.BICUBIC)
+                img_str = img_str.transform(img_str.size,Image.AFFINE,(x1/128.0,0,0,0,1,0),Image.BILINEAR)
                 image_paste_x = 0
             else:
                 image_paste_x = int((128-x1)/2)
