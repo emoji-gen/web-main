@@ -79,6 +79,7 @@ module.exports = {
 
       this.queryString   = queryString.stringify(query)
       this.visibleResult = true
+      this.visibleShare  = false
       this.shortenUrl    = null
     },
   },
