@@ -21023,6 +21023,7 @@
 
 	      this.queryString = _queryString2.default.stringify(query);
 	      this.visibleResult = true;
+	      this.visibleShare = false;
 	      this.shortenUrl = null;
 	    }
 	  },
