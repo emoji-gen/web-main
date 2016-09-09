@@ -14,6 +14,8 @@ from apps.String2emoji import String2emoji
 from apps       import config
 from apps.cache import create as create_cache
 
+import slackweb
+import urllib.parse
 
 app = Flask(__name__)
 
@@ -22,6 +24,9 @@ app.debug = config.debug
 app.jinja_env.globals['debug']       = config.debug
 app.jinja_env.globals['domain']      = config.site_domain
 app.jinja_env.globals['description'] = config.site_description
+
+slack_enable = config.slack_web_hook_enable
+slack = slackweb.Slack(url=config.slack_web_hook_url)
 
 # compute JavaScript checksum
 if not config.debug:
@@ -91,6 +96,7 @@ def emoji_download():
     res.data = img_png
     res.headers['Content-Type'] = 'image/png'
     res.headers['Content-Disposition'] = disp.encode('utf-8')
+    slack_notif(text,font_key,color,back_color)
     return res
 
 @app.route('/api/fonts')
@@ -146,6 +152,26 @@ def generate_emoji(text,font,color,back_color):
         cache.set(cache_id,img_png)
     return img_png
 
+def slack_notif(text,font,color,back_color):
+    if not slack_enable:
+        return
+    attachments = []
+    params = {
+        'text':text,
+        'font':font,
+        'color':color,
+        'back_color':back_color
+    }
+    attachment = {
+        'title':'download emoji',
+        'text':str(params),
+        'image_url':'http://emoji.pine.moe/emoji?' +
+                    urllib.parse.urlencode(params),
+        'color':'#' + color
+    }
+    print(attachment['image_url'])
+    attachments.append(attachment)
+    slack.notify(attachments = attachments)
 
 @app.route('/sitemap.xml')
 def sitemap_xml():

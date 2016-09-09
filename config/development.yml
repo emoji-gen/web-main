@@ -4,3 +4,6 @@ cache:
     enabled: false
     servers:
       - '127.0.0.1:11211'
+slack:
+  enable: false
+  url: https://hooks.slack.com/services
