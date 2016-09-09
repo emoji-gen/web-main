@@ -4,6 +4,9 @@ import re
 import hashlib
 import json
 
+from queue     import Queue
+from threading import Thread
+
 from flask import Flask, render_template
 from flask import request, redirect, url_for
 from flask import Response, make_response
@@ -19,12 +22,17 @@ import urllib.parse
 
 app = Flask(__name__)
 
+# create job queue
+queue = Queue()
+threads = []
+
 # enable debug mode if on development environment
 app.debug = config.debug
 app.jinja_env.globals['debug']       = config.debug
 app.jinja_env.globals['domain']      = config.site_domain
 app.jinja_env.globals['description'] = config.site_description
 
+# slack notification
 slack_enable = config.slack_web_hook_enable
 slack = slackweb.Slack(url=config.slack_web_hook_url)
 
@@ -96,7 +104,7 @@ def emoji_download():
     res.data = img_png
     res.headers['Content-Type'] = 'image/png'
     res.headers['Content-Disposition'] = disp.encode('utf-8')
-    slack_notif(text,font_key,color,back_color)
+    queue.put_nowait((text,font_key,color,back_color))
     return res
 
 @app.route('/api/fonts')
@@ -152,31 +160,43 @@ def generate_emoji(text,font,color,back_color):
         cache.set(cache_id,img_png)
     return img_png
 
-def slack_notif(text,font,color,back_color):
-    if not slack_enable:
-        return
-    attachments = []
-    params = {
-        'text':text,
-        'font':font,
-        'color':color,
-        'back_color':back_color
-    }
-    attachment = {
-        'title':'download emoji',
-        'text':str(params),
-        'image_url':'http://emoji.pine.moe/emoji?' +
-                    urllib.parse.urlencode(params),
-        'color':'#' + color
-    }
-    print(attachment['image_url'])
-    attachments.append(attachment)
-    slack.notify(attachments = attachments)
-
 @app.route('/sitemap.xml')
 def sitemap_xml():
     return redirect(url_for('static', filename='sitemap.xml'))
 
+# -----------------------------------------------------------------------------
+
+def queue_worker():
+    while True:
+        item = queue.get()
+        slack_notify(*item)
+        queue.task_done()
+
+def slack_notify(text, font, color, back_color):
+    if not slack_enable:
+        return
+    attachments = []
+    params = {
+        'text': text,
+        'font': font,
+        'color': color,
+        'back_color': back_color
+    }
+    attachment = {
+        'title': 'download emoji',
+        'text': str(params),
+        'image_url': 'http://emoji.pine.moe/emoji?' + urllib.parse.urlencode(params),
+        'color': '#' + color
+    }
+    attachments.append(attachment)
+    slack.notify(attachments = attachments)
+
+
+# -----------------------------------------------------------------------------
 
 if __name__ == '__main__':
+    t = Thread(target=queue_worker, daemon=True)
+    t.start()
+    threads.append(t)
+
     app.run(host='0.0.0.0', port=5000)
