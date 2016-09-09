@@ -30,5 +30,7 @@ cache_version     = _config['cache']['version']
 cache_timeout     = _env_config['cache']['timeout']
 memcached_enabled = _env_config['cache']['memcached']['enabled']
 memcached_servers = _env_config['cache']['memcached']['servers']
+slack_web_hook_enable = _env_config['slack']['enable']
+slack_web_hook_url = _env_config['slack']['url']
 
 fonts = _config['fonts']
