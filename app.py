@@ -24,7 +24,6 @@ app = Flask(__name__)
 
 # create job queue
 queue = Queue()
-threads = []
 
 # enable debug mode if on development environment
 app.debug = config.debug
@@ -191,12 +190,10 @@ def slack_notify(text, font, color, back_color):
     attachments.append(attachment)
     slack.notify(attachments = attachments)
 
+thread = Thread(target=queue_worker, daemon=True)
+thread.start()
 
 # -----------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    t = Thread(target=queue_worker, daemon=True)
-    t.start()
-    threads.append(t)
-
     app.run(host='0.0.0.0', port=5000)
