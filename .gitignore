@@ -100,3 +100,4 @@ npm-debug.log*
 assets/fonts
 !view/parts
 !view/lib
+config/development.yml
