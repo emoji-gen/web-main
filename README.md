@@ -6,6 +6,8 @@ Emoji-Web
 
   - Python 3.5
   - Node 4.4.7
+  - memcached
+  - Redis
 
 ## Frameworks
 
