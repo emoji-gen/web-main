@@ -37,7 +37,7 @@ class String2emoji(object):
             y0 = self.stringOverBorderY(img,text,font,w)
             x1 = self.stringUnderBorderX(img,text,font,w,h) + x0
             y1 = self.stringUnderBorderY(img,text,font,h,w) + y0
-            if ((x1 >= wMax-4) and (x1 < wMax)) or ((y1 >= hMax-2) and (y1 < hMax)) :
+            if ((x1 >= wMax-2) and (x1 < wMax)) or ((y1 >= hMax-2) and (y1 < hMax)) :
                 return (i,x0,y0,x1,y1)
     def stringOverBorderX(self,img,text,font,h):
         for x in range(0,-255,-1):
@@ -96,7 +96,7 @@ class String2emoji(object):
                 image_paste_x = int((127-x1)/2)
                 #image_paste_x = 0
             if l != 1:
-                img.paste(img_str,(image_paste_x,int((127/l)*i)))
+                img.paste(img_str,(image_paste_x,int((127/l)*i+abs((127/l)-y1)*0.5)))
             else:
                 img.paste(img_str,(image_paste_x,int((127-y1)/2)))
         return img
