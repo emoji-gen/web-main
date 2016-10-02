@@ -15,22 +15,36 @@ const defaultColors = {
   a: 1
 }
 
+const defaultBackgroundColors = {
+  hex: '#FFFFFF',
+  rgba: {
+    r: 255,
+    g: 255,
+    b: 255,
+    a: 0
+  },
+  a: 0
+}
+
 module.exports = {
   name: 'eg-generator',
   template: require('./index.html'),
   data: () => ({
     // TODO: サーバーから取得する
     fonts: [],
+    colorKind: 'foreground',
     colors: defaultColors,
+    backgroundColors: defaultBackgroundColors,
     text: '絵文\n字。',
     fontKey: null,
   }),
 
   computed: {
     rgbaHex: function () {
-      const rgbHex = this.colors.hex.replace(/^#/, '')
-      const aHex   = sprintf('%02X', Math.floor(this.colors.rgba.a * 0xff) & 0xff)
-      return rgbHex + aHex
+      return this.colorsToRgbaHex(this.colors)
+    },
+    backgroundRgbaHex: function () {
+      return this.colorsToRgbaHex(this.backgroundColors)
     },
   },
 
@@ -51,6 +65,7 @@ module.exports = {
       const query = {
         text: this.text,
         color: this.rgbaHex,
+        back_color: this.backgroundRgbaHex,
         font: this.fontKey,
       }
       this.$dispatch('EG_EMOJI_GENERATE', query)
@@ -60,6 +75,12 @@ module.exports = {
         replace: true,
       })
     },
+
+    colorsToRgbaHex: function (colors) {
+      const rgbHex = colors.hex.replace(/^#/, '')
+      const aHex   = sprintf('%02X', Math.floor(colors.rgba.a * 0xff) & 0xff)
+      return rgbHex + aHex
+    },
   },
 
   directives: {
@@ -67,5 +88,6 @@ module.exports = {
   },
   components: {
     'chrome-picker': Chrome,
+    'eg-color-kind': require('../../components/color_kind'),
   },
 }

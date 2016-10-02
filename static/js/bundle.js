@@ -14782,7 +14782,7 @@
 
 /***/ },
 /* 13 */
-[81, 14],
+[85, 14],
 /* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14817,7 +14817,7 @@
 
 /***/ },
 /* 17 */
-[81, 18],
+[85, 18],
 /* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14856,7 +14856,7 @@
 
 /***/ },
 /* 21 */
-[81, 22],
+[85, 22],
 /* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16649,7 +16649,7 @@
 
 /***/ },
 /* 29 */
-[81, 30],
+[85, 30],
 /* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16683,7 +16683,7 @@
 	    component: __webpack_require__(33)
 	  },
 	  '/contact': {
-	    component: __webpack_require__(77)
+	    component: __webpack_require__(81)
 	  }
 	};
 
@@ -16706,8 +16706,8 @@
 	  template: __webpack_require__(36),
 	  components: {
 	    'eg-generator': __webpack_require__(37),
-	    'eg-recently': __webpack_require__(43),
-	    'eg-result': __webpack_require__(68)
+	    'eg-recently': __webpack_require__(47),
+	    'eg-result': __webpack_require__(72)
 	  },
 	  route: {
 	    activate: function activate() {
@@ -16720,7 +16720,7 @@
 
 /***/ },
 /* 34 */
-[81, 35],
+[85, 35],
 /* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16769,6 +16769,17 @@
 	  a: 1
 	};
 
+	var defaultBackgroundColors = {
+	  hex: '#FFFFFF',
+	  rgba: {
+	    r: 255,
+	    g: 255,
+	    b: 255,
+	    a: 0
+	  },
+	  a: 0
+	};
+
 	module.exports = {
 	  name: 'eg-generator',
 	  template: __webpack_require__(42),
@@ -16776,7 +16787,9 @@
 	    return {
 	      // TODO: サーバーから取得する
 	      fonts: [],
+	      colorKind: 'foreground',
 	      colors: defaultColors,
+	      backgroundColors: defaultBackgroundColors,
 	      text: '絵文\n字。',
 	      fontKey: null
 	    };
@@ -16784,9 +16797,10 @@
 
 	  computed: {
 	    rgbaHex: function rgbaHex() {
-	      var rgbHex = this.colors.hex.replace(/^#/, '');
-	      var aHex = (0, _sprintfJs.sprintf)('%02X', Math.floor(this.colors.rgba.a * 0xff) & 0xff);
-	      return rgbHex + aHex;
+	      return this.colorsToRgbaHex(this.colors);
+	    },
+	    backgroundRgbaHex: function backgroundRgbaHex() {
+	      return this.colorsToRgbaHex(this.backgroundColors);
 	    }
 	  },
 
@@ -16808,6 +16822,7 @@
 	      var query = {
 	        text: this.text,
 	        color: this.rgbaHex,
+	        back_color: this.backgroundRgbaHex,
 	        font: this.fontKey
 	      };
 	      this.$dispatch('EG_EMOJI_GENERATE', query);
@@ -16816,6 +16831,12 @@
 	        query: query,
 	        replace: true
 	      });
+	    },
+
+	    colorsToRgbaHex: function colorsToRgbaHex(colors) {
+	      var rgbHex = colors.hex.replace(/^#/, '');
+	      var aHex = (0, _sprintfJs.sprintf)('%02X', Math.floor(colors.rgba.a * 0xff) & 0xff);
+	      return rgbHex + aHex;
 	    }
 	  },
 
@@ -16823,7 +16844,8 @@
 	    'eg-scroll': __webpack_require__(24)
 	  },
 	  components: {
-	    'chrome-picker': _vueColor.Chrome
+	    'chrome-picker': _vueColor.Chrome,
+	    'eg-color-kind': __webpack_require__(43)
 	  }
 	};
 
@@ -17051,7 +17073,7 @@
 
 /***/ },
 /* 40 */
-[81, 41],
+[85, 41],
 /* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -17060,7 +17082,7 @@
 
 
 	// module
-	exports.push([module.id, ".eg-generator{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:20px 0 35px}.eg-generator,.eg-generator *{box-sizing:border-box}.eg-generator h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-generator h3{display:block;margin:0 0 16px;font-size:15px;font-weight:700;letter-spacing:1px;text-align:center;color:#3ab0c7}.eg-generator .buttons{margin:40px 0 0;text-align:center}.eg-generator .buttons button{padding:12px 60px;border-radius:12px;background-color:rgba(225,22,101,.5);background-image:none!important;color:#fff;font-weight:700}.eg-generator .buttons button:focus,.eg-generator .buttons button:hover{background-color:rgba(225,22,101,.75)}.eg-generator .parameters{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:38px 0 0}.eg-generator .parameters .parameter{margin:0 30px;text-align:center}.eg-generator .parameters .parameter.text textarea{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px;margin:0 0 50px;padding:10px;border:0;width:140px;height:100px;text-align:center;-webkit-appearance:none}.eg-generator .parameters .parameter.color{margin-right:32px}.eg-generator .parameters .parameter.color>div{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px}.eg-generator .parameters .parameter.font ul{margin:0;padding:0;list-style-type:none;list-style-position:inside}.eg-generator .parameters .parameter.font input{display:none}.eg-generator .parameters .parameter.font input:checked+label{border:1px solid rgba(112,167,179,.8);background-image:url(/static/img/checked.png);background-repeat:no-repeat;background-position:14px;background-size:20px auto;color:#709da6}.eg-generator .parameters .parameter.font label{display:block;margin:0 0 5px;padding:8px 23px 8px 46px;border-radius:16px;border:1px solid rgba(0,0,0,.2);color:rgba(0,0,0,.32);font-size:15px;text-align:left;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer}", ""]);
+	exports.push([module.id, ".eg-generator{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:20px 0 35px}.eg-generator,.eg-generator *{box-sizing:border-box}.eg-generator h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-generator h3{display:block;margin:0 0 16px;font-size:15px;font-weight:700;letter-spacing:1px;text-align:center;color:#3ab0c7}.eg-generator .buttons{margin:40px 0 0;text-align:center}.eg-generator .buttons button{padding:12px 60px;border-radius:12px;background-color:rgba(225,22,101,.5);background-image:none!important;color:#fff;font-weight:700}.eg-generator .buttons button:focus,.eg-generator .buttons button:hover{background-color:rgba(225,22,101,.75)}.eg-generator .parameters{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:38px 0 0}.eg-generator .parameters .parameter{margin:0 30px;text-align:center}.eg-generator .parameters .parameter.text textarea{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px;margin:0 0 50px;padding:10px;border:0;width:140px;height:100px;text-align:center;-webkit-appearance:none}.eg-generator .parameters .parameter.color{margin-right:32px}.eg-generator .parameters .parameter.color .picker-wrapper>div{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px;margin-bottom:8px}.eg-generator .parameters .parameter.font ul{margin:0;padding:0;list-style-type:none;list-style-position:inside}.eg-generator .parameters .parameter.font input{display:none}.eg-generator .parameters .parameter.font input:checked+label{border:1px solid rgba(112,167,179,.8);background-image:url(/static/img/checked.png);background-repeat:no-repeat;background-position:14px;background-size:20px auto;color:#709da6}.eg-generator .parameters .parameter.font label{display:block;margin:0 0 5px;padding:8px 23px 8px 46px;border-radius:16px;border:1px solid rgba(0,0,0,.2);color:rgba(0,0,0,.32);font-size:15px;text-align:left;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer}", ""]);
 
 	// exports
 
@@ -17069,7 +17091,7 @@
 /* 42 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-generator\"> <h2>絵文字にしたい文字を入力してください！</h2> <div class=buttons> <button type=button class=pure-button v-on:click=generate v-eg-scroll>生成する&#9834;</button> </div> <div class=parameters> <div class=\"parameter text\"> <h3>テキスト</h3> <textarea rows=2 cols=10 v-model=text></textarea> </div> <div class=\"parameter font\"> <h3>フォント</h3> <ul> <li v-for=\"font in fonts\"> <input type=radio name=eg_generator__font_key :value=font.key id=eg_generator__font_{{font.key}} v-model=fontKey> <label for=eg_generator__font_{{font.key}}>{{font.name}}</label> </li> </ul> </div> <div class=\"parameter color\"> <h3>カラー</h3> <chrome-picker :colors.sync=colors></chrome-picker> </div> </div> </div>";
+	module.exports = "<div class=\"v-cloak eg-generator\"> <h2>絵文字にしたい文字を入力してください！</h2> <div class=buttons> <button type=button class=pure-button v-on:click=generate v-eg-scroll>生成する&#9834;</button> </div> <div class=parameters> <div class=\"parameter text\"> <h3>テキスト</h3> <textarea rows=2 cols=10 v-model=text></textarea> </div> <div class=\"parameter font\"> <h3>フォント</h3> <ul> <li v-for=\"font in fonts\"> <input type=radio name=eg_generator__font_key :value=font.key id=eg_generator__font_{{font.key}} v-model=fontKey> <label for=eg_generator__font_{{font.key}}>{{font.name}}</label> </li> </ul> </div> <div class=\"parameter color\"> <h3>カラー</h3> <div class=pickers> <div class=picker-wrapper v-show=\"colorKind == 'foreground'\"> <chrome-picker :colors.sync=colors></chrome-picker> </div> <div class=picker-wrapper v-else> <chrome-picker :colors.sync=backgroundColors></chrome-picker> </div> </div> <eg-color-kind :color-kind.sync=colorKind></eg-color-kind> </div> </div> </div>";
 
 /***/ },
 /* 43 */
@@ -17079,17 +17101,56 @@
 
 	__webpack_require__(44);
 
-	var _flickity = __webpack_require__(46);
+	module.exports = {
+	  name: 'eg-color-kind',
+	  template: __webpack_require__(46),
+	  props: {
+	    'color-kind': String,
+	    default: 'foreground'
+	  }
+	};
+
+/***/ },
+/* 44 */
+[85, 45],
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(7)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".eg-color-kind ul{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;list-style-type:none;list-style-position:inside;margin:0}.eg-color-kind ul li{display:block}.eg-color-kind ul li label{display:block;padding:2.7px 10px;border:1px solid rgba(0,0,0,.18);color:rgba(0,0,0,.32);font-size:13px;cursor:pointer}.eg-color-kind ul li input{display:none}.eg-color-kind ul li input:checked+label{border-color:rgba(112,167,179,.8);color:#709da6}.eg-color-kind ul li:first-of-type input:checked+label{border-right-width:1px}.eg-color-kind ul li:first-of-type label{border-right-width:0;border-radius:6px 0 0 6px}.eg-color-kind ul li:last-of-type input:checked+label{border-left-width:1px}.eg-color-kind ul li:last-of-type label{border-left-width:0;border-radius:0 6px 6px 0}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 46 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"v-cloak eg-color-kind\"> <ul> <li> <input type=radio name=eg_generator__color_kind value=foreground id=eg_generator__color_kind_foreground v-model=colorKind> <label for=eg_generator__color_kind_foreground>表</label> </li> <li> <input type=radio name=eg_generator__color_kind value=background id=eg_generator__color_kind_background v-model=colorKind> <label for=eg_generator__color_kind_background>裏</label> </li> </ul> </div>";
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	__webpack_require__(48);
+
+	var _flickity = __webpack_require__(50);
 
 	var _flickity2 = _interopRequireDefault(_flickity);
 
-	__webpack_require__(65);
+	__webpack_require__(69);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-recently',
-	  template: __webpack_require__(67),
+	  template: __webpack_require__(71),
 	  ready: function ready() {
 	    new _flickity2.default(this.$els.carousel, {
 	      contain: true,
@@ -17100,13 +17161,13 @@
 	};
 
 /***/ },
-/* 44 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(45);
+	var content = __webpack_require__(49);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(8)(content, {});
@@ -17126,7 +17187,7 @@
 	}
 
 /***/ },
-/* 45 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -17140,7 +17201,7 @@
 
 
 /***/ },
-/* 46 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -17160,13 +17221,13 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(47),
-	      __webpack_require__(55),
-	      __webpack_require__(58),
-	      __webpack_require__(61),
+	      __webpack_require__(51),
+	      __webpack_require__(59),
 	      __webpack_require__(62),
-	      __webpack_require__(63),
-	      __webpack_require__(64)
+	      __webpack_require__(65),
+	      __webpack_require__(66),
+	      __webpack_require__(67),
+	      __webpack_require__(68)
 	    ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	  } else if ( typeof module == 'object' && module.exports ) {
 	    // CommonJS
@@ -17188,7 +17249,7 @@
 
 
 /***/ },
-/* 47 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Flickity main
@@ -17198,12 +17259,12 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(48),
-	      __webpack_require__(49),
-	      __webpack_require__(50),
 	      __webpack_require__(52),
 	      __webpack_require__(53),
-	      __webpack_require__(54)
+	      __webpack_require__(54),
+	      __webpack_require__(56),
+	      __webpack_require__(57),
+	      __webpack_require__(58)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( EvEmitter, getSize, utils, Cell, Slide, animatePrototype ) {
 	      return factory( window, EvEmitter, getSize, utils, Cell, Slide, animatePrototype );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -18037,7 +18098,7 @@
 
 
 /***/ },
-/* 48 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -18152,7 +18213,7 @@
 
 
 /***/ },
-/* 49 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -18367,7 +18428,7 @@
 
 
 /***/ },
-/* 50 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -18384,7 +18445,7 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(51)
+	      __webpack_require__(55)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( matchesSelector ) {
 	      return factory( window, matchesSelector );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -18609,7 +18670,7 @@
 
 
 /***/ },
-/* 51 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -18668,7 +18729,7 @@
 
 
 /***/ },
-/* 52 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// Flickity.Cell
@@ -18678,7 +18739,7 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(49)
+	      __webpack_require__(53)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( getSize ) {
 	      return factory( window, getSize );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -18764,7 +18825,7 @@
 
 
 /***/ },
-/* 53 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;// slide
@@ -18846,7 +18907,7 @@
 
 
 /***/ },
-/* 54 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// animate
@@ -18856,7 +18917,7 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(50)
+	      __webpack_require__(54)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( utils ) {
 	      return factory( window, utils );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -19071,7 +19132,7 @@
 
 
 /***/ },
-/* 55 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// drag
@@ -19081,9 +19142,9 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(47),
-	      __webpack_require__(56),
-	      __webpack_require__(50)
+	      __webpack_require__(51),
+	      __webpack_require__(60),
+	      __webpack_require__(54)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Flickity, Unidragger, utils ) {
 	      return factory( window, Flickity, Unidragger, utils );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -19450,7 +19511,7 @@
 
 
 /***/ },
-/* 56 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -19468,7 +19529,7 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(57)
+	      __webpack_require__(61)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Unipointer ) {
 	      return factory( window, Unipointer );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -19740,7 +19801,7 @@
 
 
 /***/ },
-/* 57 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -19757,7 +19818,7 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(48)
+	      __webpack_require__(52)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( EvEmitter ) {
 	      return factory( window, EvEmitter );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -20049,7 +20110,7 @@
 
 
 /***/ },
-/* 58 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// prev/next buttons
@@ -20059,9 +20120,9 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(47),
-	      __webpack_require__(59),
-	      __webpack_require__(50)
+	      __webpack_require__(51),
+	      __webpack_require__(63),
+	      __webpack_require__(54)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Flickity, TapListener, utils ) {
 	      return factory( window, Flickity, TapListener, utils );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -20281,7 +20342,7 @@
 
 
 /***/ },
-/* 59 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -20299,7 +20360,7 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(60)
+	      __webpack_require__(64)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Unipointer ) {
 	      return factory( window, Unipointer );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -20400,9 +20461,9 @@
 
 
 /***/ },
-/* 60 */
-57,
-/* 61 */
+/* 64 */
+61,
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// page dots
@@ -20412,9 +20473,9 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(47),
-	      __webpack_require__(59),
-	      __webpack_require__(50)
+	      __webpack_require__(51),
+	      __webpack_require__(63),
+	      __webpack_require__(54)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Flickity, TapListener, utils ) {
 	      return factory( window, Flickity, TapListener, utils );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -20590,7 +20651,7 @@
 
 
 /***/ },
-/* 62 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// player & autoPlay
@@ -20600,9 +20661,9 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(48),
-	      __webpack_require__(50),
-	      __webpack_require__(47)
+	      __webpack_require__(52),
+	      __webpack_require__(54),
+	      __webpack_require__(51)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( EvEmitter, utils, Flickity ) {
 	      return factory( EvEmitter, utils, Flickity );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -20809,7 +20870,7 @@
 
 
 /***/ },
-/* 63 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// add, remove cell
@@ -20819,8 +20880,8 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(47),
-	      __webpack_require__(50)
+	      __webpack_require__(51),
+	      __webpack_require__(54)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Flickity, utils ) {
 	      return factory( window, Flickity, utils );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -20997,7 +21058,7 @@
 
 
 /***/ },
-/* 64 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// lazyload
@@ -21007,8 +21068,8 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(47),
-	      __webpack_require__(50)
+	      __webpack_require__(51),
+	      __webpack_require__(54)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Flickity, utils ) {
 	      return factory( window, Flickity, utils );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -21122,9 +21183,9 @@
 
 
 /***/ },
-/* 65 */
-[81, 66],
-/* 66 */
+/* 69 */
+[85, 70],
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -21138,18 +21199,18 @@
 
 
 /***/ },
-/* 67 */
+/* 71 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"v-cloak eg-recently\"> <h2>最近生成された絵文字</h2> <div v-el:carousel class=carousel> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> </div> </div>";
 
 /***/ },
-/* 68 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _queryString = __webpack_require__(69);
+	var _queryString = __webpack_require__(73);
 
 	var _queryString2 = _interopRequireDefault(_queryString);
 
@@ -21157,17 +21218,17 @@
 
 	var _vueSharer2 = _interopRequireDefault(_vueSharer);
 
-	var _bitly = __webpack_require__(72);
+	var _bitly = __webpack_require__(76);
 
 	var _bitly2 = _interopRequireDefault(_bitly);
 
-	__webpack_require__(74);
+	__webpack_require__(78);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-result',
-	  template: __webpack_require__(76),
+	  template: __webpack_require__(80),
 	  data: function data() {
 	    return {
 	      visibleResult: false,
@@ -21278,12 +21339,12 @@
 	};
 
 /***/ },
-/* 69 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var strictUriEncode = __webpack_require__(70);
-	var objectAssign = __webpack_require__(71);
+	var strictUriEncode = __webpack_require__(74);
+	var objectAssign = __webpack_require__(75);
 
 	function encode(value, opts) {
 		if (opts.encode) {
@@ -21382,7 +21443,7 @@
 
 
 /***/ },
-/* 70 */
+/* 74 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21394,7 +21455,7 @@
 
 
 /***/ },
-/* 71 */
+/* 75 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21483,16 +21544,16 @@
 
 
 /***/ },
-/* 72 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _queryString = __webpack_require__(69);
+	var _queryString = __webpack_require__(73);
 
 	var _queryString2 = _interopRequireDefault(_queryString);
 
-	__webpack_require__(73);
+	__webpack_require__(77);
 
 	var _meta = __webpack_require__(10);
 
@@ -21522,7 +21583,7 @@
 	};
 
 /***/ },
-/* 73 */
+/* 77 */
 /***/ function(module, exports) {
 
 	(function(self) {
@@ -21961,9 +22022,9 @@
 
 
 /***/ },
-/* 74 */
-[81, 75],
-/* 75 */
+/* 78 */
+[85, 79],
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -21977,13 +22038,13 @@
 
 
 /***/ },
-/* 76 */
+/* 80 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"v-cloak eg-result\" v-show=visibleResult transition=expand> <h2>生成された絵文字</h2> <div class=preview> <div class=inner> <div class=image> <img :src=emojiUrl alt=\"\" v-if=emojiUrl> </div> <div class=detail> <ul> <li class=text> <h3>テキスト</h3> <span class=user-input>{{ text }}</span> </li> <li class=font> <h3>フォント</h3> <span class=user-input>{{ fontName }}</span> </li> <li class=color> <h3>カラー</h3> <span class=user-input> <span class=color-square v-bind:style=\"{ backgroundColor: color }\"></span> {{ color }} </span> </li> </ul> </div> </div> </div> <div class=links> <div class=inner> <div class=download> <a :href=emojiDownloadUrl>ダウンロード</a> </div> <div class=share v-on:click=toggleShare> シェアする </div> </div> </div> <div class=share :class=\"{ 'progress': progress }\" v-show=visibleShare transition=expand> <div class=inner> <input type=button class=\"twitter sharer button\" data-sharer=twitter data-title=\"絵文字ジェネレーター使って絵文字を生成しました&#9834; {{shortenUrl}} #絵文字ジェネレーター\" title=\"Twitter でシェアする\" v-eg-sharer> <input type=button class=\"facebook sharer button\" data-sharer=facebook :data-url=shortenUrl title=\"Facebook でシェアする\" v-eg-sharer> <input type=button class=\"google sharer button\" data-sharer=googleplus :data-url=shortenUrl title=\"Google+ でシェアする\" v-eg-sharer> </div> </div> </div>";
 
 /***/ },
-/* 77 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21992,19 +22053,19 @@
 
 	var _vue2 = _interopRequireDefault(_vue);
 
-	__webpack_require__(78);
+	__webpack_require__(82);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-contact',
-	  template: __webpack_require__(80)
+	  template: __webpack_require__(84)
 	};
 
 /***/ },
-/* 78 */
-[81, 79],
-/* 79 */
+/* 82 */
+[85, 83],
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -22018,13 +22079,13 @@
 
 
 /***/ },
-/* 80 */
+/* 84 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"v-cloak eg-contact\"> <h2>お問い合わせ</h2> <div class=eg-contact--body> <p>何かありましたら、GitHub の Issue へお願い致します。</p> <ul> <li class=github> <a href=https://github.com/emoji-gen/Emoji-Web/issues target=_blank> <span class=owner>emoji-gen</span>/<span class=username>Emoji-Web</span> </a> </li> </ul> <p class=break>もしくは、作者の Twitter まで直接お問い合わせ下さい。</p> <ul> <li class=twitter><a href=https://twitter.com/jiuya target=_blank>@jiuya</a></li> <li class=twitter><a href=https://twitter.com/pine613 target=_blank>@pine613</a></li> </ul> </div> </div>";
 
 /***/ },
-/* 81 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag

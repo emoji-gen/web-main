@@ -71,8 +71,11 @@
       &.color {
         margin-right: 32px;
 
-        > div {
-          @mixin _parameter;
+        .picker-wrapper {
+          > div {
+            @mixin _parameter;
+            margin-bottom: 8px;
+          }
         }
       }
 

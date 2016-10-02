@@ -1,0 +1,57 @@
+@import "../../defs/import";
+
+.eg-color-kind {
+  $_border-radius: 6px;
+
+  ul {
+    display: flex;
+    justify-content: flex-end;
+    list-style-type: none;
+    list-style-position: inside;
+    margin: 0;
+
+    li {
+      display: block;
+
+      &:first-of-type {
+        input:checked + label {
+          border-right-width: 1px;
+        }
+
+        label {
+          border-right-width: 0;
+          border-radius: $_border-radius 0 0 $_border-radius;
+        }
+      }
+
+      &:last-of-type {
+        input:checked + label {
+          border-left-width: 1px;
+        }
+
+        label {
+          border-left-width: 0;
+          border-radius: 0 $_border-radius $_border-radius 0;
+        }
+      }
+
+      label {
+        display: block;
+        padding: 2.7px 10px;
+        border: 1px solid rgba(0, 0, 0, .18);
+        color: rgba(0, 0, 0, .32);
+        font-size: $font-size-small;
+        cursor: pointer;
+      }
+
+      input {
+        display: none;
+
+        &:checked + label {
+            border-color: color($color-blue a(.80) blackness(30%));
+            color: color($color-blue blackness(35%));
+        }
+      }
+    }
+  }
+}

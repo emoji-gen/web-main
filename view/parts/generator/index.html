@@ -24,7 +24,15 @@
 
     <div class="parameter color">
       <h3>カラー</h3>
-      <chrome-picker :colors.sync="colors"></chrome-picker>
+      <div class="pickers">
+        <div class="picker-wrapper" v-show="colorKind == 'foreground'">
+          <chrome-picker :colors.sync="colors"></chrome-picker>
+        </div>
+        <div class="picker-wrapper" v-else>
+          <chrome-picker :colors.sync="backgroundColors"></chrome-picker>
+        </div>
+      </div>
+      <eg-color-kind :color-kind.sync="colorKind"></eg-color-kind>
     </div>
   </div>
 </div>
