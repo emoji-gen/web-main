@@ -98,7 +98,7 @@ def emoji_download():
 
 @app.route('/api/fonts')
 def api_fonts():
-    font_items        = list(fonts_list.items())
+    font_items        = filter(lambda item: item[1]['enabled'] == 'on',list(fonts_list.items()))
     sorted_font_items = sorted(font_items, key=lambda item: item[1]['order'])
     fonts             = [
         { 'key': item[0], 'name': item[1]['name'], 'type': item[1]['type']}

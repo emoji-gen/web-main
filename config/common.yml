@@ -11,23 +11,34 @@ fonts:
     file: 'NotoSansMonoCJKjp-Bold.otf'
     type: 'ゴシック'
     order: 1
+    enabled: 'on'
   'mplus-1p-black':
     name: 'M+ 1p black'
     file: 'mplus-1p-black.ttf'
     type: '極太ゴシック'
     order: 2
+    enabled: 'on'
   'migu-1m-bold':
     name: 'Migu 1m bold'
     file: 'migu-1m-bold.ttf'
     type: 'ゴシック'
     order: 3
+    enabled: 'off'
   'rounded-x-mplus-1p-black':
     name: 'Rounded M+ 1p black'
     file: 'rounded-x-mplus-1p-black.ttf'
     type: '丸ゴシック'
     order: 4
+    enabled: 'on'
+  'LinLibertine_RBah':
+    name: 'LinLibertine Bold'
+    file: 'LinLibertine_RBah.ttf'
+    type: '英字'
+    order: 5
+    enabled: 'on'
   'aoyagireisyoshimo':
     name: '青柳隷書しも'
     file: 'aoyagireisyosimo_otf_2_01.otf'
     type: '毛筆'
-    order: 5
+    order: 6
+    enabled: 'on'
