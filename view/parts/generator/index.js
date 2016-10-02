@@ -1,5 +1,6 @@
-import Vue      from 'vue'
-import {Chrome} from 'vue-color'
+import Vue       from 'vue'
+import {Chrome}  from 'vue-color'
+import {sprintf} from 'sprintf-js'
 
 import './index.css'
 
@@ -25,6 +26,14 @@ module.exports = {
     fontKey: null,
   }),
 
+  computed: {
+    rgbaHex: function () {
+      const rgbHex = this.colors.hex.replace(/^#/, '')
+      const aHex   = sprintf('%02X', Math.floor(this.colors.rgba.a * 0xff) & 0xff)
+      return rgbHex + aHex
+    },
+  },
+
   attached: function () {
     this.$http.get('/api/fonts')
       .then(res => {
@@ -41,7 +50,7 @@ module.exports = {
     generate: function () {
       const query = {
         text: this.text,
-        color: this.colors.hex.replace(/^#/, ''),
+        color: this.rgbaHex,
         font: this.fontKey,
       }
       this.$dispatch('EG_EMOJI_GENERATE', query)

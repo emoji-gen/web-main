@@ -42,6 +42,7 @@
   "dependencies": {
     "flickity": "^2.0.2",
     "query-string": "^4.2.2",
+    "sprintf-js": "^1.0.3",
     "sweet-scroll": "^1.0.3",
     "vue": "^1.0.26",
     "vue-color": "0.0.7",
