@@ -78,7 +78,7 @@ module.exports = {
 
     colorsToRgbaHex: function (colors) {
       const rgbHex = colors.hex.replace(/^#/, '')
-      const aHex   = sprintf('%02X', Math.floor(colors.rgba.a * 0xff) & 0xff)
+      const aHex   = sprintf('%02X', Math.floor(colors.a * 0xff) & 0xff)
       return rgbHex + aHex
     },
   },
