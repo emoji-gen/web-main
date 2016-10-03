@@ -16835,7 +16835,7 @@
 
 	    colorsToRgbaHex: function colorsToRgbaHex(colors) {
 	      var rgbHex = colors.hex.replace(/^#/, '');
-	      var aHex = (0, _sprintfJs.sprintf)('%02X', Math.floor(colors.rgba.a * 0xff) & 0xff);
+	      var aHex = (0, _sprintfJs.sprintf)('%02X', Math.floor(colors.a * 0xff) & 0xff);
 	      return rgbHex + aHex;
 	    }
 	  },
