@@ -21249,9 +21249,16 @@
 	      }
 	      return '';
 	    },
+
 	    color: function color() {
 	      if (this.rawColor) {
 	        return '#' + this.rawColor;
+	      }
+	      return '';
+	    },
+	    cssColor: function cssColor() {
+	      if (this.rawColor) {
+	        return '#' + this.rawColor.slice(0, 6);
 	      }
 	      return '';
 	    },
@@ -22041,7 +22048,7 @@
 /* 80 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-result\" v-show=visibleResult transition=expand> <h2>生成された絵文字</h2> <div class=preview> <div class=inner> <div class=image> <img :src=emojiUrl alt=\"\" v-if=emojiUrl> </div> <div class=detail> <ul> <li class=text> <h3>テキスト</h3> <span class=user-input>{{ text }}</span> </li> <li class=font> <h3>フォント</h3> <span class=user-input>{{ fontName }}</span> </li> <li class=color> <h3>カラー</h3> <span class=user-input> <span class=color-square v-bind:style=\"{ backgroundColor: color }\"></span> {{ color }} </span> </li> </ul> </div> </div> </div> <div class=links> <div class=inner> <div class=download> <a :href=emojiDownloadUrl>ダウンロード</a> </div> <div class=share v-on:click=toggleShare> シェアする </div> </div> </div> <div class=share :class=\"{ 'progress': progress }\" v-show=visibleShare transition=expand> <div class=inner> <input type=button class=\"twitter sharer button\" data-sharer=twitter data-title=\"絵文字ジェネレーター使って絵文字を生成しました&#9834; {{shortenUrl}} #絵文字ジェネレーター\" title=\"Twitter でシェアする\" v-eg-sharer> <input type=button class=\"facebook sharer button\" data-sharer=facebook :data-url=shortenUrl title=\"Facebook でシェアする\" v-eg-sharer> <input type=button class=\"google sharer button\" data-sharer=googleplus :data-url=shortenUrl title=\"Google+ でシェアする\" v-eg-sharer> </div> </div> </div>";
+	module.exports = "<div class=\"v-cloak eg-result\" v-show=visibleResult transition=expand> <h2>生成された絵文字</h2> <div class=preview> <div class=inner> <div class=image> <img :src=emojiUrl alt=\"\" v-if=emojiUrl> </div> <div class=detail> <ul> <li class=text> <h3>テキスト</h3> <span class=user-input>{{ text }}</span> </li> <li class=font> <h3>フォント</h3> <span class=user-input>{{ fontName }}</span> </li> <li class=color> <h3>カラー</h3> <span class=user-input> <span class=color-square v-bind:style=\"{ backgroundColor: cssColor }\"></span> {{ color }} </span> </li> </ul> </div> </div> </div> <div class=links> <div class=inner> <div class=download> <a :href=emojiDownloadUrl>ダウンロード</a> </div> <div class=share v-on:click=toggleShare> シェアする </div> </div> </div> <div class=share :class=\"{ 'progress': progress }\" v-show=visibleShare transition=expand> <div class=inner> <input type=button class=\"twitter sharer button\" data-sharer=twitter data-title=\"絵文字ジェネレーター使って絵文字を生成しました&#9834; {{shortenUrl}} #絵文字ジェネレーター\" title=\"Twitter でシェアする\" v-eg-sharer> <input type=button class=\"facebook sharer button\" data-sharer=facebook :data-url=shortenUrl title=\"Facebook でシェアする\" v-eg-sharer> <input type=button class=\"google sharer button\" data-sharer=googleplus :data-url=shortenUrl title=\"Google+ でシェアする\" v-eg-sharer> </div> </div> </div>";
 
 /***/ },
 /* 81 */
