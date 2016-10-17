@@ -5,7 +5,7 @@ Emoji-Web
 ## Requirements
 
   - Python 3.5
-  - Node 4.4.7
+  - Node 4.6.0
   - memcached
   - Redis
 
