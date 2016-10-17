@@ -25,9 +25,16 @@ module.exports = {
       }
       return ''
     },
+
     color: function () {
       if (this.rawColor) {
         return `#${this.rawColor}`
+      }
+      return ''
+    },
+    cssColor: function () {
+      if (this.rawColor) {
+        return `#${this.rawColor.slice(0, 6)}`
       }
       return ''
     },
