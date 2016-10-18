@@ -82,9 +82,9 @@ class String2emoji(object):
         for i in range(0,l):
             if not self.textList[i]:
                 continue
-            img_str = Image.new("RGBA",(len(self.textList[i])*128,128),self.backColor)
+            img_str = Image.new("RGBA",(int(len(self.textList[i])*256/l),128),self.backColor)
             draw = ImageDraw.Draw(img_str)
-            (size,x0,y0,x1,y1) = self.cutEffectiveRange(self.textList[i],len(self.textList[i])*127/l,int(127/l))
+            (size,x0,y0,x1,y1) = self.cutEffectiveRange(self.textList[i],len(self.textList[i])*256/l,int(127/l))
             #(size,x0,y0,x1,y1) = self.cutEffectiveRange(self.textList[i],256,128/l)
             font = self.getFont(size)
             draw.text((x0,y0), self.textList[i], fill=self.fontColor, font=font)
