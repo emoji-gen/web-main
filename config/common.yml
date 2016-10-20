@@ -30,15 +30,21 @@ fonts:
     type: '丸ゴシック'
     order: 4
     enabled: 'on'
+  'ipamjm':
+    name: 'IPAmj明朝'
+    file: 'ipamjm.ttf'
+    type: '明朝'
+    order: 5
+    enabled: 'on'
   'LinLibertine_RBah':
     name: 'LinLibertine Bold'
     file: 'LinLibertine_RBah.ttf'
     type: '英字'
-    order: 5
+    order: 6
     enabled: 'on'
   'aoyagireisyoshimo':
     name: '青柳隷書しも'
     file: 'aoyagireisyosimo_otf_2_01.otf'
     type: '毛筆'
-    order: 6
+    order: 7
     enabled: 'on'
