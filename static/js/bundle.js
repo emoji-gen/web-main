@@ -105,8 +105,8 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global, process) {/*!
-	 * Vue.js v1.0.26
+	/* WEBPACK VAR INJECTION */(function(process) {/*!
+	 * Vue.js v1.0.28
 	 * (c) 2016 Evan You
 	 * Released under the MIT License.
 	 */
@@ -262,7 +262,7 @@
 	}
 
 	/**
-	 * Camelize a hyphen-delmited string.
+	 * Camelize a hyphen-delimited string.
 	 *
 	 * @param {String} str
 	 * @return {String}
@@ -285,10 +285,10 @@
 	 * @return {String}
 	 */
 
-	var hyphenateRE = /([a-z\d])([A-Z])/g;
+	var hyphenateRE = /([^-])([A-Z])/g;
 
 	function hyphenate(str) {
-	  return str.replace(hyphenateRE, '$1-$2').toLowerCase();
+	  return str.replace(hyphenateRE, '$1-$2').replace(hyphenateRE, '$1-$2').toLowerCase();
 	}
 
 	/**
@@ -508,12 +508,7 @@
 	var isIE = UA && UA.indexOf('trident') > 0;
 	var isIE9 = UA && UA.indexOf('msie 9.0') > 0;
 	var isAndroid = UA && UA.indexOf('android') > 0;
-	var isIos = UA && /(iphone|ipad|ipod|ios)/i.test(UA);
-	var iosVersionMatch = isIos && UA.match(/os ([\d_]+)/);
-	var iosVersion = iosVersionMatch && iosVersionMatch[1].split('_');
-
-	// detecting iOS UIWebView by indexedDB
-	var hasMutationObserverBug = iosVersion && Number(iosVersion[0]) >= 9 && Number(iosVersion[1]) >= 3 && !window.indexedDB;
+	var isIOS = UA && /iphone|ipad|ipod|ios/.test(UA);
 
 	var transitionProp = undefined;
 	var transitionEndEvent = undefined;
@@ -530,6 +525,12 @@
 	  animationEndEvent = isWebkitAnim ? 'webkitAnimationEnd' : 'animationend';
 	}
 
+	/* istanbul ignore next */
+	function isNative(Ctor) {
+	  return (/native code/.test(Ctor.toString())
+	  );
+	}
+
 	/**
 	 * Defer a task to execute it asynchronously. Ideally this
 	 * should be executed as a microtask, so we leverage
@@ -543,35 +544,55 @@
 	var nextTick = (function () {
 	  var callbacks = [];
 	  var pending = false;
-	  var timerFunc;
+	  var timerFunc = undefined;
+
 	  function nextTickHandler() {
 	    pending = false;
 	    var copies = callbacks.slice(0);
-	    callbacks = [];
+	    callbacks.length = 0;
 	    for (var i = 0; i < copies.length; i++) {
 	      copies[i]();
 	    }
 	  }
 
+	  // the nextTick behavior leverages the microtask queue, which can be accessed
+	  // via either native Promise.then or MutationObserver.
+	  // MutationObserver has wider support, however it is seriously bugged in
+	  // UIWebView in iOS >= 9.3.3 when triggered in touch event handlers. It
+	  // completely stops working after triggering a few times... so, if native
+	  // Promise is available, we will use it:
 	  /* istanbul ignore if */
-	  if (typeof MutationObserver !== 'undefined' && !hasMutationObserverBug) {
+	  if (typeof Promise !== 'undefined' && isNative(Promise)) {
+	    var p = Promise.resolve();
+	    var noop = function noop() {};
+	    timerFunc = function () {
+	      p.then(nextTickHandler);
+	      // in problematic UIWebViews, Promise.then doesn't completely break, but
+	      // it can get stuck in a weird state where callbacks are pushed into the
+	      // microtask queue but the queue isn't being flushed, until the browser
+	      // needs to do some other work, e.g. handle a timer. Therefore we can
+	      // "force" the microtask queue to be flushed by adding an empty timer.
+	      if (isIOS) setTimeout(noop);
+	    };
+	  } else if (typeof MutationObserver !== 'undefined') {
+	    // use MutationObserver where native Promise is not available,
+	    // e.g. IE11, iOS7, Android 4.4
 	    var counter = 1;
 	    var observer = new MutationObserver(nextTickHandler);
-	    var textNode = document.createTextNode(counter);
+	    var textNode = document.createTextNode(String(counter));
 	    observer.observe(textNode, {
 	      characterData: true
 	    });
 	    timerFunc = function () {
 	      counter = (counter + 1) % 2;
-	      textNode.data = counter;
+	      textNode.data = String(counter);
 	    };
 	  } else {
-	    // webpack attempts to inject a shim for setImmediate
-	    // if it is used as a global, so we have to work around that to
-	    // avoid bundling unnecessary code.
-	    var context = inBrowser ? window : typeof global !== 'undefined' ? global : {};
-	    timerFunc = context.setImmediate || setTimeout;
+	    // fallback to setTimeout
+	    /* istanbul ignore next */
+	    timerFunc = setTimeout;
 	  }
+
 	  return function (cb, ctx) {
 	    var func = ctx ? function () {
 	      cb.call(ctx);
@@ -585,7 +606,7 @@
 
 	var _Set = undefined;
 	/* istanbul ignore if */
-	if (typeof Set !== 'undefined' && Set.toString().match(/native code/)) {
+	if (typeof Set !== 'undefined' && isNative(Set)) {
 	  // use native Set when available.
 	  _Set = Set;
 	} else {
@@ -706,7 +727,6 @@
 	};
 
 	var cache$1 = new Cache(1000);
-	var filterTokenRE = /[^\s'"]+|'[^']*'|"[^"]*"/g;
 	var reservedArgRE = /^in$|^-?\d+/;
 
 	/**
@@ -715,35 +735,167 @@
 
 	var str;
 	var dir;
-	var c;
-	var prev;
-	var i;
-	var l;
-	var lastFilterIndex;
-	var inSingle;
-	var inDouble;
-	var curly;
-	var square;
-	var paren;
-	/**
-	 * Push a filter to the current directive object
-	 */
+	var len;
+	var index;
+	var chr;
+	var state;
+	var startState = 0;
+	var filterState = 1;
+	var filterNameState = 2;
+	var filterArgState = 3;
 
-	function pushFilter() {
-	  var exp = str.slice(lastFilterIndex, i).trim();
-	  var filter;
-	  if (exp) {
-	    filter = {};
-	    var tokens = exp.match(filterTokenRE);
-	    filter.name = tokens[0];
-	    if (tokens.length > 1) {
-	      filter.args = tokens.slice(1).map(processFilterArg);
+	var doubleChr = 0x22;
+	var singleChr = 0x27;
+	var pipeChr = 0x7C;
+	var escapeChr = 0x5C;
+	var spaceChr = 0x20;
+
+	var expStartChr = { 0x5B: 1, 0x7B: 1, 0x28: 1 };
+	var expChrPair = { 0x5B: 0x5D, 0x7B: 0x7D, 0x28: 0x29 };
+
+	function peek() {
+	  return str.charCodeAt(index + 1);
+	}
+
+	function next() {
+	  return str.charCodeAt(++index);
+	}
+
+	function eof() {
+	  return index >= len;
+	}
+
+	function eatSpace() {
+	  while (peek() === spaceChr) {
+	    next();
+	  }
+	}
+
+	function isStringStart(chr) {
+	  return chr === doubleChr || chr === singleChr;
+	}
+
+	function isExpStart(chr) {
+	  return expStartChr[chr];
+	}
+
+	function isExpEnd(start, chr) {
+	  return expChrPair[start] === chr;
+	}
+
+	function parseString() {
+	  var stringQuote = next();
+	  var chr;
+	  while (!eof()) {
+	    chr = next();
+	    // escape char
+	    if (chr === escapeChr) {
+	      next();
+	    } else if (chr === stringQuote) {
+	      break;
 	    }
 	  }
-	  if (filter) {
-	    (dir.filters = dir.filters || []).push(filter);
+	}
+
+	function parseSpecialExp(chr) {
+	  var inExp = 0;
+	  var startChr = chr;
+
+	  while (!eof()) {
+	    chr = peek();
+	    if (isStringStart(chr)) {
+	      parseString();
+	      continue;
+	    }
+
+	    if (startChr === chr) {
+	      inExp++;
+	    }
+	    if (isExpEnd(startChr, chr)) {
+	      inExp--;
+	    }
+
+	    next();
+
+	    if (inExp === 0) {
+	      break;
+	    }
 	  }
-	  lastFilterIndex = i + 1;
+	}
+
+	/**
+	 * syntax:
+	 * expression | filterName  [arg  arg [| filterName arg arg]]
+	 */
+
+	function parseExpression() {
+	  var start = index;
+	  while (!eof()) {
+	    chr = peek();
+	    if (isStringStart(chr)) {
+	      parseString();
+	    } else if (isExpStart(chr)) {
+	      parseSpecialExp(chr);
+	    } else if (chr === pipeChr) {
+	      next();
+	      chr = peek();
+	      if (chr === pipeChr) {
+	        next();
+	      } else {
+	        if (state === startState || state === filterArgState) {
+	          state = filterState;
+	        }
+	        break;
+	      }
+	    } else if (chr === spaceChr && (state === filterNameState || state === filterArgState)) {
+	      eatSpace();
+	      break;
+	    } else {
+	      if (state === filterState) {
+	        state = filterNameState;
+	      }
+	      next();
+	    }
+	  }
+
+	  return str.slice(start + 1, index) || null;
+	}
+
+	function parseFilterList() {
+	  var filters = [];
+	  while (!eof()) {
+	    filters.push(parseFilter());
+	  }
+	  return filters;
+	}
+
+	function parseFilter() {
+	  var filter = {};
+	  var args;
+
+	  state = filterState;
+	  filter.name = parseExpression().trim();
+
+	  state = filterArgState;
+	  args = parseFilterArguments();
+
+	  if (args.length) {
+	    filter.args = args;
+	  }
+	  return filter;
+	}
+
+	function parseFilterArguments() {
+	  var args = [];
+	  while (!eof() && state !== filterState) {
+	    var arg = parseExpression();
+	    if (!arg) {
+	      break;
+	    }
+	    args.push(processFilterArg(arg));
+	  }
+
+	  return args;
 	}
 
 	/**
@@ -795,56 +947,22 @@
 
 	  // reset parser state
 	  str = s;
-	  inSingle = inDouble = false;
-	  curly = square = paren = 0;
-	  lastFilterIndex = 0;
 	  dir = {};
+	  len = str.length;
+	  index = -1;
+	  chr = '';
+	  state = startState;
 
-	  for (i = 0, l = str.length; i < l; i++) {
-	    prev = c;
-	    c = str.charCodeAt(i);
-	    if (inSingle) {
-	      // check single quote
-	      if (c === 0x27 && prev !== 0x5C) inSingle = !inSingle;
-	    } else if (inDouble) {
-	      // check double quote
-	      if (c === 0x22 && prev !== 0x5C) inDouble = !inDouble;
-	    } else if (c === 0x7C && // pipe
-	    str.charCodeAt(i + 1) !== 0x7C && str.charCodeAt(i - 1) !== 0x7C) {
-	      if (dir.expression == null) {
-	        // first filter, end of expression
-	        lastFilterIndex = i + 1;
-	        dir.expression = str.slice(0, i).trim();
-	      } else {
-	        // already has filter
-	        pushFilter();
-	      }
-	    } else {
-	      switch (c) {
-	        case 0x22:
-	          inDouble = true;break; // "
-	        case 0x27:
-	          inSingle = true;break; // '
-	        case 0x28:
-	          paren++;break; // (
-	        case 0x29:
-	          paren--;break; // )
-	        case 0x5B:
-	          square++;break; // [
-	        case 0x5D:
-	          square--;break; // ]
-	        case 0x7B:
-	          curly++;break; // {
-	        case 0x7D:
-	          curly--;break; // }
-	      }
+	  var filters;
+
+	  if (str.indexOf('|') < 0) {
+	    dir.expression = str.trim();
+	  } else {
+	    dir.expression = parseExpression().trim();
+	    filters = parseFilterList();
+	    if (filters.length) {
+	      dir.filters = filters;
 	    }
-	  }
-
-	  if (dir.expression == null) {
-	    dir.expression = str.slice(0, i).trim();
-	  } else if (lastFilterIndex !== 0) {
-	    pushFilter();
 	  }
 
 	  cache$1.put(s, dir);
@@ -2433,10 +2551,7 @@
 		isIE: isIE,
 		isIE9: isIE9,
 		isAndroid: isAndroid,
-		isIos: isIos,
-		iosVersionMatch: iosVersionMatch,
-		iosVersion: iosVersion,
-		hasMutationObserverBug: hasMutationObserverBug,
+		isIOS: isIOS,
 		get transitionProp () { return transitionProp; },
 		get transitionEndEvent () { return transitionEndEvent; },
 		get animationProp () { return animationProp; },
@@ -2536,7 +2651,7 @@
 
 	    // fragment:
 	    // if this instance is compiled inside a Fragment, it
-	    // needs to reigster itself as a child of that fragment
+	    // needs to register itself as a child of that fragment
 	    // for attach/detach to work properly.
 	    this._frag = options._frag;
 	    if (this._frag) {
@@ -2841,7 +2956,7 @@
 	 */
 
 	function getPath(obj, path) {
-	  return parseExpression(path).get(obj);
+	  return parseExpression$1(path).get(obj);
 	}
 
 	/**
@@ -2876,7 +2991,7 @@
 	    last = obj;
 	    key = path[i];
 	    if (key.charAt(0) === '*') {
-	      key = parseExpression(key.slice(1)).get.call(original, original);
+	      key = parseExpression$1(key.slice(1)).get.call(original, original);
 	    }
 	    if (i < l - 1) {
 	      obj = obj[key];
@@ -2920,7 +3035,7 @@
 
 	var wsRE = /\s/g;
 	var newlineRE = /\n/g;
-	var saveRE = /[\{,]\s*[\w\$_]+\s*:|('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*\$\{|\}(?:[^`\\]|\\.)*`|`(?:[^`\\]|\\.)*`)|new |typeof |void /g;
+	var saveRE = /[\{,]\s*[\w\$_]+\s*:|('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*\$\{|\}(?:[^`\\"']|\\.)*`|`(?:[^`\\]|\\.)*`)|new |typeof |void /g;
 	var restoreRE = /"(\d+)"/g;
 	var pathTestRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['.*?'\]|\[".*?"\]|\[\d+\]|\[[A-Za-z_$][\w$]*\])*$/;
 	var identRE = /[^\w$\.](?:[A-Za-z_$][\w$]*)/g;
@@ -3067,7 +3182,7 @@
 	 * @return {Function}
 	 */
 
-	function parseExpression(exp, needSet) {
+	function parseExpression$1(exp, needSet) {
 	  exp = exp.trim();
 	  // try cache
 	  var hit = expressionCache.get(exp);
@@ -3106,7 +3221,7 @@
 	}
 
 	var expression = Object.freeze({
-	  parseExpression: parseExpression,
+	  parseExpression: parseExpression$1,
 	  isSimplePath: isSimplePath
 	});
 
@@ -3258,7 +3373,7 @@
 	    this.getter = expOrFn;
 	    this.setter = undefined;
 	  } else {
-	    var res = parseExpression(expOrFn, this.twoWay);
+	    var res = parseExpression$1(expOrFn, this.twoWay);
 	    this.getter = res.get;
 	    this.setter = res.set;
 	  }
@@ -4102,6 +4217,10 @@
 	  params: ['track-by', 'stagger', 'enter-stagger', 'leave-stagger'],
 
 	  bind: function bind() {
+	    if (process.env.NODE_ENV !== 'production' && this.el.hasAttribute('v-if')) {
+	      warn('<' + this.el.tagName.toLowerCase() + ' v-for="' + this.expression + '" v-if="' + this.el.getAttribute('v-if') + '">: ' + 'Using v-if and v-for on the same element is not recommended - ' + 'consider filtering the source Array instead.', this.vm);
+	    }
+
 	    // support "item in/of items" syntax
 	    var inMatch = this.expression.match(/(.*) (?:in|of) (.*)/);
 	    if (inMatch) {
@@ -4212,7 +4331,7 @@
 	          });
 	        }
 	      } else {
-	        // new isntance
+	        // new instance
 	        frag = this.create(value, alias, i, key);
 	        frag.fresh = !init;
 	      }
@@ -4647,24 +4766,6 @@
 	}
 
 	/**
-	 * Find a vm from a fragment.
-	 *
-	 * @param {Fragment} frag
-	 * @return {Vue|undefined}
-	 */
-
-	function findVmFromFrag(frag) {
-	  var node = frag.node;
-	  // handle multi-node frag
-	  if (frag.end) {
-	    while (!node.__vue__ && node !== frag.end && node.nextSibling) {
-	      node = node.nextSibling;
-	    }
-	  }
-	  return node.__vue__;
-	}
-
-	/**
 	 * Create a range array from given number.
 	 *
 	 * @param {Number} n
@@ -4697,6 +4798,24 @@
 	  vFor.warnDuplicate = function (value) {
 	    warn('Duplicate value found in v-for="' + this.descriptor.raw + '": ' + JSON.stringify(value) + '. Use track-by="$index" if ' + 'you are expecting duplicate values.', this.vm);
 	  };
+	}
+
+	/**
+	 * Find a vm from a fragment.
+	 *
+	 * @param {Fragment} frag
+	 * @return {Vue|undefined}
+	 */
+
+	function findVmFromFrag(frag) {
+	  var node = frag.node;
+	  // handle multi-node frag
+	  if (frag.end) {
+	    while (!node.__vue__ && node !== frag.end && node.nextSibling) {
+	      node = node.nextSibling;
+	    }
+	  }
+	  return node.__vue__;
 	}
 
 	var vIf = {
@@ -5096,15 +5215,16 @@
 	    }
 
 	    this.listener = function () {
-	      var model = self._watcher.value;
+	      var model = self._watcher.get();
 	      if (isArray(model)) {
 	        var val = self.getValue();
+	        var i = indexOf(model, val);
 	        if (el.checked) {
-	          if (indexOf(model, val) < 0) {
-	            model.push(val);
+	          if (i < 0) {
+	            self.set(model.concat(val));
 	          }
-	        } else {
-	          model.$remove(val);
+	        } else if (i > -1) {
+	          self.set(model.slice(0, i).concat(model.slice(i + 1)));
 	        }
 	      } else {
 	        self.set(getBooleanValue());
@@ -5621,6 +5741,12 @@
 	  }
 	};
 
+	// logic control
+	// two-way binding
+	// event handling
+	// attributes
+	// ref & el
+	// cloak
 	// must export plain object
 	var directives = {
 	  text: text$1,
@@ -6112,6 +6238,7 @@
 
 	function compileProps(el, propOptions, vm) {
 	  var props = [];
+	  var propsData = vm.$options.propsData;
 	  var names = Object.keys(propOptions);
 	  var i = names.length;
 	  var options, name, attr, value, path, parsed, prop;
@@ -6179,13 +6306,16 @@
 	    } else if ((value = getAttr(el, attr)) !== null) {
 	      // has literal binding!
 	      prop.raw = value;
+	    } else if (propsData && (value = propsData[name] || propsData[path]) !== null) {
+	      // has propsData
+	      prop.raw = value;
 	    } else if (process.env.NODE_ENV !== 'production') {
 	      // check possible camelCase prop usage
 	      var lowerCaseName = path.toLowerCase();
 	      value = /[A-Z\-]/.test(name) && (el.getAttribute(lowerCaseName) || el.getAttribute(':' + lowerCaseName) || el.getAttribute('v-bind:' + lowerCaseName) || el.getAttribute(':' + lowerCaseName + '.once') || el.getAttribute('v-bind:' + lowerCaseName + '.once') || el.getAttribute(':' + lowerCaseName + '.sync') || el.getAttribute('v-bind:' + lowerCaseName + '.sync'));
 	      if (value) {
 	        warn('Possible usage error for prop `' + lowerCaseName + '` - ' + 'did you mean `' + attr + '`? HTML is case-insensitive, remember to use ' + 'kebab-case for props in templates.', vm);
-	      } else if (options.required) {
+	      } else if (options.required && (!propsData || !(name in propsData) && !(path in propsData))) {
 	        // warn missing required
 	        warn('Missing required prop: ' + name, vm);
 	      }
@@ -7030,7 +7160,7 @@
 	  var originalDirCount = vm._directives.length;
 	  linker();
 	  var dirs = vm._directives.slice(originalDirCount);
-	  dirs.sort(directiveComparator);
+	  sortDirectives(dirs);
 	  for (var i = 0, l = dirs.length; i < l; i++) {
 	    dirs[i]._bind();
 	  }
@@ -7038,16 +7168,37 @@
 	}
 
 	/**
-	 * Directive priority sort comparator
+	 * sort directives by priority (stable sort)
 	 *
-	 * @param {Object} a
-	 * @param {Object} b
+	 * @param {Array} dirs
 	 */
+	function sortDirectives(dirs) {
+	  if (dirs.length === 0) return;
 
-	function directiveComparator(a, b) {
-	  a = a.descriptor.def.priority || DEFAULT_PRIORITY;
-	  b = b.descriptor.def.priority || DEFAULT_PRIORITY;
-	  return a > b ? -1 : a === b ? 0 : 1;
+	  var groupedMap = {};
+	  var i, j, k, l;
+	  var index = 0;
+	  var priorities = [];
+	  for (i = 0, j = dirs.length; i < j; i++) {
+	    var dir = dirs[i];
+	    var priority = dir.descriptor.def.priority || DEFAULT_PRIORITY;
+	    var array = groupedMap[priority];
+	    if (!array) {
+	      array = groupedMap[priority] = [];
+	      priorities.push(priority);
+	    }
+	    array.push(dir);
+	  }
+
+	  priorities.sort(function (a, b) {
+	    return a > b ? -1 : a === b ? 0 : 1;
+	  });
+	  for (i = 0, j = priorities.length; i < j; i++) {
+	    var group = groupedMap[priorities[i]];
+	    for (k = 0, l = group.length; k < l; k++) {
+	      dirs[index++] = group[k];
+	    }
+	  }
 	}
 
 	/**
@@ -7165,7 +7316,13 @@
 	    });
 	    if (names.length) {
 	      var plural = names.length > 1;
-	      warn('Attribute' + (plural ? 's ' : ' ') + names.join(', ') + (plural ? ' are' : ' is') + ' ignored on component ' + '<' + options.el.tagName.toLowerCase() + '> because ' + 'the component is a fragment instance: ' + 'http://vuejs.org/guide/components.html#Fragment-Instance');
+
+	      var componentName = options.el.tagName.toLowerCase();
+	      if (componentName === 'component' && options.name) {
+	        componentName += ':' + options.name;
+	      }
+
+	      warn('Attribute' + (plural ? 's ' : ' ') + names.join(', ') + (plural ? ' are' : ' is') + ' ignored on component ' + '<' + componentName + '> because ' + 'the component is a fragment instance: ' + 'http://vuejs.org/guide/components.html#Fragment-Instance');
 	    }
 	  }
 
@@ -7224,6 +7381,10 @@
 	  // textarea treats its text content as the initial value.
 	  // just bind it as an attr directive for value.
 	  if (el.tagName === 'TEXTAREA') {
+	    // a textarea which has v-pre attr should skip complie.
+	    if (getAttr(el, 'v-pre') !== null) {
+	      return skip;
+	    }
 	    var tokens = parseText(el.value);
 	    if (tokens) {
 	      el.setAttribute(':value', tokensToExp(tokens));
@@ -7550,7 +7711,7 @@
 	    modifiers: modifiers,
 	    def: def
 	  };
-	  // check ref for v-for and router-view
+	  // check ref for v-for, v-if and router-view
 	  if (dirName === 'for' || dirName === 'router-view') {
 	    descriptor.ref = findRef(el);
 	  }
@@ -7790,6 +7951,9 @@
 	  var frag = parseTemplate(template, true);
 	  if (frag) {
 	    var replacer = frag.firstChild;
+	    if (!replacer) {
+	      return frag;
+	    }
 	    var tag = replacer.tagName && replacer.tagName.toLowerCase();
 	    if (options.replace) {
 	      /* istanbul ignore if */
@@ -8542,7 +8706,7 @@
 	Directive.prototype._checkStatement = function () {
 	  var expression = this.expression;
 	  if (expression && this.acceptStatement && !isSimplePath(expression)) {
-	    var fn = parseExpression(expression).get;
+	    var fn = parseExpression$1(expression).get;
 	    var scope = this._scope || this.vm;
 	    var handler = function handler(e) {
 	      scope.$event = e;
@@ -8990,7 +9154,7 @@
 	   */
 
 	  Vue.prototype.$get = function (exp, asStatement) {
-	    var res = parseExpression(exp);
+	    var res = parseExpression$1(exp);
 	    if (res) {
 	      if (asStatement) {
 	        var self = this;
@@ -9018,7 +9182,7 @@
 	   */
 
 	  Vue.prototype.$set = function (exp, val) {
-	    var res = parseExpression(exp, true);
+	    var res = parseExpression$1(exp, true);
 	    if (res && res.set) {
 	      res.set.call(this, this, val);
 	    }
@@ -9781,7 +9945,7 @@
 	}
 
 	/**
-	 * Filter filter for arrays
+	 * Order filter for arrays
 	 *
 	 * @param {String|Array<String>|Function} ...sortKeys
 	 * @param {Number} [order]
@@ -10164,7 +10328,7 @@
 
 	installGlobalAPI(Vue);
 
-	Vue.version = '1.0.26';
+	Vue.version = '1.0.28';
 
 	// devtools global hook
 	/* istanbul ignore next */
@@ -10179,7 +10343,7 @@
 	}, 0);
 
 	module.exports = Vue;
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(2)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ },
 /* 2 */
@@ -10196,35 +10360,83 @@
 	var cachedSetTimeout;
 	var cachedClearTimeout;
 
+	function defaultSetTimout() {
+	    throw new Error('setTimeout has not been defined');
+	}
+	function defaultClearTimeout () {
+	    throw new Error('clearTimeout has not been defined');
+	}
 	(function () {
 	    try {
-	        cachedSetTimeout = setTimeout;
-	    } catch (e) {
-	        cachedSetTimeout = function () {
-	            throw new Error('setTimeout is not defined');
+	        if (typeof setTimeout === 'function') {
+	            cachedSetTimeout = setTimeout;
+	        } else {
+	            cachedSetTimeout = defaultSetTimout;
 	        }
+	    } catch (e) {
+	        cachedSetTimeout = defaultSetTimout;
 	    }
 	    try {
-	        cachedClearTimeout = clearTimeout;
-	    } catch (e) {
-	        cachedClearTimeout = function () {
-	            throw new Error('clearTimeout is not defined');
+	        if (typeof clearTimeout === 'function') {
+	            cachedClearTimeout = clearTimeout;
+	        } else {
+	            cachedClearTimeout = defaultClearTimeout;
 	        }
+	    } catch (e) {
+	        cachedClearTimeout = defaultClearTimeout;
 	    }
 	} ())
 	function runTimeout(fun) {
 	    if (cachedSetTimeout === setTimeout) {
+	        //normal enviroments in sane situations
 	        return setTimeout(fun, 0);
-	    } else {
-	        return cachedSetTimeout.call(null, fun, 0);
 	    }
+	    // if setTimeout wasn't available but was latter defined
+	    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+	        cachedSetTimeout = setTimeout;
+	        return setTimeout(fun, 0);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedSetTimeout(fun, 0);
+	    } catch(e){
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+	            return cachedSetTimeout.call(null, fun, 0);
+	        } catch(e){
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+	            return cachedSetTimeout.call(this, fun, 0);
+	        }
+	    }
+
+
 	}
 	function runClearTimeout(marker) {
 	    if (cachedClearTimeout === clearTimeout) {
-	        clearTimeout(marker);
-	    } else {
-	        cachedClearTimeout.call(null, marker);
+	        //normal enviroments in sane situations
+	        return clearTimeout(marker);
 	    }
+	    // if clearTimeout wasn't available but was latter defined
+	    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+	        cachedClearTimeout = clearTimeout;
+	        return clearTimeout(marker);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedClearTimeout(marker);
+	    } catch (e){
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+	            return cachedClearTimeout.call(null, marker);
+	        } catch (e){
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+	            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+	            return cachedClearTimeout.call(this, marker);
+	        }
+	    }
+
+
+
 	}
 	var queue = [];
 	var draining = false;
@@ -14782,7 +14994,7 @@
 
 /***/ },
 /* 13 */
-[85, 14],
+[84, 14],
 /* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14800,7 +15012,7 @@
 /* 15 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-root\"> <eg-header></eg-header> <router-view></router-view> <eg-background></eg-background> <eg-footer></eg-footer> </div>";
+	module.exports = "<div class=\"v-cloak eg-root\"> <eg-header></eg-header> <router-view></router-view> <eg-background></eg-background> <eg-footer></eg-footer> </div> ";
 
 /***/ },
 /* 16 */
@@ -14817,7 +15029,7 @@
 
 /***/ },
 /* 17 */
-[85, 18],
+[84, 18],
 /* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14835,7 +15047,7 @@
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-background\"> <div class=blue></div> <div class=red></div> <div class=green></div> <div class=yellow></div> </div>";
+	module.exports = "<div class=\"v-cloak eg-background\"> <div class=blue></div> <div class=red></div> <div class=green></div> <div class=yellow></div> </div> ";
 
 /***/ },
 /* 20 */
@@ -14856,7 +15068,7 @@
 
 /***/ },
 /* 21 */
-[85, 22],
+[84, 22],
 /* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14874,7 +15086,7 @@
 /* 23 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-footer\"> <footer> <ul class=menus> <li><a v-link=\"'/contact'\" v-eg-scroll>お問い合わせ</a></li> </ul> <p class=copyright>(C) 2016 絵文字 ジェネレーター</p> </footer> </div>";
+	module.exports = "<div class=\"v-cloak eg-footer\"> <footer> <ul class=menus> <li><a v-link=\"'/contact'\" v-eg-scroll>お問い合わせ</a></li> </ul> <p class=copyright>(C) 2016 絵文字 ジェネレーター</p> </footer> </div> ";
 
 /***/ },
 /* 24 */
@@ -14912,777 +15124,1002 @@
 	 * Modern and the sweet smooth scroll library.
 	 * @author tsuyoshiwada
 	 * @license MIT
-	 * @version 1.0.3
+	 * @version 1.1.0
 	 */
 
 	(function (global, factory) {
 	   true ? module.exports = factory() :
 	  typeof define === 'function' && define.amd ? define(factory) :
 	  (global.SweetScroll = factory());
-	}(this, function () { 'use strict';
+	}(this, (function () { 'use strict';
 
-	  var cos = Math.cos;
-	  var sin = Math.sin;
-	  var pow = Math.pow;
-	  var abs = Math.abs;
-	  var sqrt = Math.sqrt;
-	  var asin = Math.asin;
-	  var PI = Math.PI;
-	  var max = Math.max;
-	  var min = Math.min;
-	  var round = Math.round;
+	var cos = Math.cos;
+	var sin = Math.sin;
+	var pow = Math.pow;
+	var abs = Math.abs;
+	var sqrt = Math.sqrt;
+	var asin = Math.asin;
+	var PI = Math.PI;
+	var max = Math.max;
+	var min = Math.min;
+	var round = Math.round;
 
-	  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-	    return typeof obj;
-	  } : function (obj) {
-	    return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
-	  };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+	  return typeof obj;
+	} : function (obj) {
+	  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+	};
 
-	  var classCallCheck = function (instance, Constructor) {
-	    if (!(instance instanceof Constructor)) {
-	      throw new TypeError("Cannot call a class as a function");
-	    }
-	  };
 
-	  var createClass = function () {
-	    function defineProperties(target, props) {
-	      for (var i = 0; i < props.length; i++) {
-	        var descriptor = props[i];
-	        descriptor.enumerable = descriptor.enumerable || false;
-	        descriptor.configurable = true;
-	        if ("value" in descriptor) descriptor.writable = true;
-	        Object.defineProperty(target, descriptor.key, descriptor);
-	      }
-	    }
 
-	    return function (Constructor, protoProps, staticProps) {
-	      if (protoProps) defineProperties(Constructor.prototype, protoProps);
-	      if (staticProps) defineProperties(Constructor, staticProps);
-	      return Constructor;
-	    };
-	  }();
 
-	  var MAX_ARRAY_INDEX = pow(2, 53) - 1;
-	  var classTypeList = ["Boolean", "Number", "String", "Function", "Array", "Object"];
-	  var classTypes = {};
 
-	  classTypeList.forEach(function (name) {
-	    classTypes["[object " + name + "]"] = name.toLowerCase();
-	  });
-
-	  function getType(obj) {
-	    if (obj == null) {
-	      return "";
-	    }
-
-	    return (typeof obj === "undefined" ? "undefined" : _typeof(obj)) === "object" || typeof obj === "function" ? classTypes[Object.prototype.toString.call(obj)] || "object" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
+	var asyncGenerator = function () {
+	  function AwaitValue(value) {
+	    this.value = value;
 	  }
 
-	  function isNumber(obj) {
-	    return getType(obj) === "number";
-	  }
+	  function AsyncGenerator(gen) {
+	    var front, back;
 
-	  function isString(obj) {
-	    return getType(obj) === "string";
-	  }
+	    function send(key, arg) {
+	      return new Promise(function (resolve, reject) {
+	        var request = {
+	          key: key,
+	          arg: arg,
+	          resolve: resolve,
+	          reject: reject,
+	          next: null
+	        };
 
-	  function isFunction(obj) {
-	    return getType(obj) === "function";
-	  }
-
-	  function isArray(obj) {
-	    return Array.isArray(obj);
-	  }
-
-	  function isArrayLike(obj) {
-	    var length = obj == null ? null : obj.length;
-
-	    return isNumber(length) && length >= 0 && length <= MAX_ARRAY_INDEX;
-	  }
-
-	  function isNumeric(obj) {
-	    return !isArray(obj) && obj - parseFloat(obj) + 1 >= 0;
-	  }
-
-	  function isObject(obj) {
-	    return !isArray(obj) && getType(obj) === "object";
-	  }
-
-	  function hasProp(obj, key) {
-	    return obj && obj.hasOwnProperty(key);
-	  }
-
-	  function each(obj, iterate, context) {
-	    if (obj == null) return obj;
-
-	    var ctx = context || obj;
-
-	    if (isObject(obj)) {
-	      for (var key in obj) {
-	        if (!hasProp(obj, key)) continue;
-	        if (iterate.call(ctx, obj[key], key) === false) break;
-	      }
-	    } else if (isArrayLike(obj)) {
-	      for (var i = 0; i < obj.length; i++) {
-	        if (iterate.call(ctx, obj[i], i) === false) break;
-	      }
-	    }
-
-	    return obj;
-	  }
-
-	  function merge(obj) {
-	    for (var _len = arguments.length, sources = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	      sources[_key - 1] = arguments[_key];
-	    }
-
-	    each(sources, function (source) {
-	      each(source, function (value, key) {
-	        obj[key] = value;
+	        if (back) {
+	          back = back.next = request;
+	        } else {
+	          front = back = request;
+	          resume(key, arg);
+	        }
 	      });
-	    });
-
-	    return obj;
-	  }
-
-	  function removeSpaces(str) {
-	    return str.replace(/\s*/g, "") || "";
-	  }
-
-	  var win = window;
-	  var doc = document;
-
-	  function $(selector) {
-	    var context = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
-
-	    if (!selector) return;
-
-	    return (context == null ? doc : context).querySelector(selector);
-	  }
-
-	  function $$(selector) {
-	    var context = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
-
-	    if (!selector) return;
-
-	    return (context == null ? doc : context).querySelectorAll(selector);
-	  }
-
-	  function matches(el, selector) {
-	    var results = (el.document || el.ownerDocument).querySelectorAll(selector);
-	    var i = results.length;
-	    while (--i >= 0 && results.item(i) !== el) {}
-
-	    return i > -1;
-	  }
-
-	  var directionMethodMap = {
-	    y: "scrollTop",
-	    x: "scrollLeft"
-	  };
-
-	  var directionPropMap = {
-	    y: "pageYOffset",
-	    x: "pageXOffset"
-	  };
-
-	  function isRootContainer(el) {
-	    return el === doc.documentElement || el === doc.body;
-	  }
-
-	  function getZoomLevel() {
-	    var _window = window;
-	    var outerWidth = _window.outerWidth;
-	    var innerWidth = _window.innerWidth;
-
-
-	    return outerWidth ? outerWidth / innerWidth : 1;
-	  }
-
-	  function getScrollable(selectors) {
-	    var direction = arguments.length <= 1 || arguments[1] === undefined ? "y" : arguments[1];
-	    var all = arguments.length <= 2 || arguments[2] === undefined ? true : arguments[2];
-
-	    var method = directionMethodMap[direction];
-	    var elements = selectors instanceof Element ? [selectors] : $$(selectors);
-	    var scrollables = [];
-	    var $div = doc.createElement("div");
-
-	    for (var i = 0; i < elements.length; i++) {
-	      var el = elements[i];
-
-	      if (el[method] > 0) {
-	        scrollables.push(el);
-	      } else {
-	        $div.style.width = el.clientWidth + 1 + "px";
-	        $div.style.height = el.clientHeight + 1 + "px";
-	        el.appendChild($div);
-
-	        el[method] = 1.5 / getZoomLevel();
-	        if (el[method] > 0) {
-	          scrollables.push(el);
-	        }
-	        el[method] = 0;
-
-	        el.removeChild($div);
-	      }
-
-	      if (!all && scrollables.length > 0) break;
 	    }
 
-	    return scrollables;
-	  }
-
-	  function scrollableFind(selectors, direction) {
-	    var scrollables = getScrollable(selectors, direction, false);
-
-	    return scrollables.length >= 1 ? scrollables[0] : null;
-	  }
-
-	  function getWindow(el) {
-	    return el != null && el === el.window ? el : el.nodeType === 9 && el.defaultView;
-	  }
-
-	  function getHeight(el) {
-	    return max(el.scrollHeight, el.clientHeight, el.offsetHeight);
-	  }
-
-	  function getWidth(el) {
-	    return max(el.scrollWidth, el.clientWidth, el.offsetWidth);
-	  }
-
-	  function getSize(el) {
-	    return {
-	      width: getWidth(el),
-	      height: getHeight(el)
-	    };
-	  }
-
-	  function getDocumentSize() {
-	    return {
-	      width: max(getWidth(doc.body), getWidth(doc.documentElement)),
-	      height: max(getHeight(doc.body), getHeight(doc.documentElement))
-	    };
-	  }
-
-	  function getViewportAndElementSizes(el) {
-	    if (isRootContainer(el)) {
-	      return {
-	        viewport: {
-	          width: min(win.innerWidth, doc.documentElement.clientWidth),
-	          height: win.innerHeight
-	        },
-	        size: getDocumentSize()
-	      };
-	    }
-
-	    return {
-	      viewport: {
-	        width: el.clientWidth,
-	        height: el.clientHeight
-	      },
-	      size: getSize(el)
-	    };
-	  }
-
-	  function getScroll(el) {
-	    var direction = arguments.length <= 1 || arguments[1] === undefined ? "y" : arguments[1];
-
-	    var currentWindow = getWindow(el);
-
-	    return currentWindow ? currentWindow[directionPropMap[direction]] : el[directionMethodMap[direction]];
-	  }
-
-	  function setScroll(el, offset) {
-	    var direction = arguments.length <= 2 || arguments[2] === undefined ? "y" : arguments[2];
-
-	    var currentWindow = getWindow(el);
-	    var top = direction === "y";
-	    if (currentWindow) {
-	      currentWindow.scrollTo(!top ? offset : currentWindow[directionPropMap.x], top ? offset : currentWindow[directionPropMap.y]);
-	    } else {
-	      el[directionMethodMap[direction]] = offset;
-	    }
-	  }
-
-	  function getOffset(el) {
-	    var context = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
-
-	    if (!el || el && !el.getClientRects().length) {
-	      return { top: 0, left: 0 };
-	    }
-
-	    var rect = el.getBoundingClientRect();
-
-	    if (rect.width || rect.height) {
-	      var scroll = {};
-	      var ctx = null;
-	      if (context == null || isRootContainer(context)) {
-	        ctx = el.ownerDocument.documentElement;
-	        scroll.top = win.pageYOffset;
-	        scroll.left = win.pageXOffset;
-	      } else {
-	        ctx = context;
-	        var ctxRect = ctx.getBoundingClientRect();
-	        scroll.top = ctxRect.top * -1 + ctx.scrollTop;
-	        scroll.left = ctxRect.left * -1 + ctx.scrollLeft;
-	      }
-
-	      return {
-	        top: rect.top + scroll.top - ctx.clientTop,
-	        left: rect.left + scroll.left - ctx.clientLeft
-	      };
-	    }
-
-	    return rect;
-	  }
-
-	  // @link https://github.com/Modernizr/Modernizr
-	  var history = function () {
-	    var ua = navigator.userAgent;
-	    if ((ua.indexOf("Android 2.") !== -1 || ua.indexOf("Android 4.0") !== -1) && ua.indexOf("Mobile Safari") !== -1 && ua.indexOf("Chrome") === -1 && ua.indexOf("Windows Phone") === -1) {
-	      return false;
-	    }
-
-	    return window.history && "pushState" in window.history && window.location.protocol !== "file:";
-	  }();
-
-	  function addEvent(el, event, listener) {
-	    var events = event.split(",");
-	    events.forEach(function (eventName) {
-	      el.addEventListener(eventName.trim(), listener, false);
-	    });
-	  }
-
-	  function removeEvent(el, event, listener) {
-	    var events = event.split(",");
-	    events.forEach(function (eventName) {
-	      el.removeEventListener(eventName.trim(), listener, false);
-	    });
-	  }
-
-	  function linear(p) {
-	    return p;
-	  }
-
-	  function InQuad(x, t, b, c, d) {
-	    return c * (t /= d) * t + b;
-	  }
-
-	  function OutQuad(x, t, b, c, d) {
-	    return -c * (t /= d) * (t - 2) + b;
-	  }
-
-	  function InOutQuad(x, t, b, c, d) {
-	    if ((t /= d / 2) < 1) {
-	      return c / 2 * t * t + b;
-	    }
-	    return -c / 2 * (--t * (t - 2) - 1) + b;
-	  }
-
-	  function InCubic(x, t, b, c, d) {
-	    return c * (t /= d) * t * t + b;
-	  }
-
-	  function OutCubic(x, t, b, c, d) {
-	    return c * ((t = t / d - 1) * t * t + 1) + b;
-	  }
-
-	  function InOutCubic(x, t, b, c, d) {
-	    if ((t /= d / 2) < 1) {
-	      return c / 2 * t * t * t + b;
-	    }
-	    return c / 2 * ((t -= 2) * t * t + 2) + b;
-	  }
-
-	  function InQuart(x, t, b, c, d) {
-	    return c * (t /= d) * t * t * t + b;
-	  }
-
-	  function OutQuart(x, t, b, c, d) {
-	    return -c * ((t = t / d - 1) * t * t * t - 1) + b;
-	  }
-
-	  function InOutQuart(x, t, b, c, d) {
-	    if ((t /= d / 2) < 1) {
-	      return c / 2 * t * t * t * t + b;
-	    }
-	    return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
-	  }
-
-	  function InQuint(x, t, b, c, d) {
-	    return c * (t /= d) * t * t * t * t + b;
-	  }
-
-	  function OutQuint(x, t, b, c, d) {
-	    return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
-	  }
-
-	  function InOutQuint(x, t, b, c, d) {
-	    if ((t /= d / 2) < 1) {
-	      return c / 2 * t * t * t * t * t + b;
-	    }
-	    return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
-	  }
-
-	  function InSine(x, t, b, c, d) {
-	    return -c * cos(t / d * (PI / 2)) + c + b;
-	  }
-
-	  function OutSine(x, t, b, c, d) {
-	    return c * sin(t / d * (PI / 2)) + b;
-	  }
-
-	  function InOutSine(x, t, b, c, d) {
-	    return -c / 2 * (cos(PI * t / d) - 1) + b;
-	  }
-
-	  function InExpo(x, t, b, c, d) {
-	    return t === 0 ? b : c * pow(2, 10 * (t / d - 1)) + b;
-	  }
-
-	  function OutExpo(x, t, b, c, d) {
-	    return t === d ? b + c : c * (-pow(2, -10 * t / d) + 1) + b;
-	  }
-
-	  function InOutExpo(x, t, b, c, d) {
-	    if (t === 0) return b;
-	    if (t === d) return b + c;
-	    if ((t /= d / 2) < 1) return c / 2 * pow(2, 10 * (t - 1)) + b;
-	    return c / 2 * (-pow(2, -10 * --t) + 2) + b;
-	  }
-
-	  function InCirc(x, t, b, c, d) {
-	    return -c * (sqrt(1 - (t /= d) * t) - 1) + b;
-	  }
-
-	  function OutCirc(x, t, b, c, d) {
-	    return c * sqrt(1 - (t = t / d - 1) * t) + b;
-	  }
-
-	  function InOutCirc(x, t, b, c, d) {
-	    if ((t /= d / 2) < 1) {
-	      return -c / 2 * (sqrt(1 - t * t) - 1) + b;
-	    }
-	    return c / 2 * (sqrt(1 - (t -= 2) * t) + 1) + b;
-	  }
-
-	  function InElastic(x, t, b, c, d) {
-	    var s = 1.70158;
-	    var p = 0;
-	    var a = c;
-	    if (t === 0) return b;
-	    if ((t /= d) === 1) return b + c;
-	    if (!p) p = d * .3;
-	    if (a < abs(c)) {
-	      a = c;
-	      s = p / 4;
-	    } else {
-	      s = p / (2 * PI) * asin(c / a);
-	    }
-	    return -(a * pow(2, 10 * (t -= 1)) * sin((t * d - s) * (2 * PI) / p)) + b;
-	  }
-
-	  function OutElastic(x, t, b, c, d) {
-	    var s = 1.70158;
-	    var p = 0;
-	    var a = c;
-	    if (t === 0) return b;
-	    if ((t /= d) === 1) return b + c;
-	    if (!p) p = d * .3;
-	    if (a < abs(c)) {
-	      a = c;
-	      s = p / 4;
-	    } else {
-	      s = p / (2 * PI) * asin(c / a);
-	    }
-	    return a * pow(2, -10 * t) * sin((t * d - s) * (2 * PI) / p) + c + b;
-	  }
-
-	  function InOutElastic(x, t, b, c, d) {
-	    var s = 1.70158;
-	    var p = 0;
-	    var a = c;
-	    if (t === 0) return b;
-	    if ((t /= d / 2) === 2) return b + c;
-	    if (!p) p = d * (.3 * 1.5);
-	    if (a < abs(c)) {
-	      a = c;
-	      s = p / 4;
-	    } else {
-	      s = p / (2 * PI) * asin(c / a);
-	    }
-	    if (t < 1) {
-	      return -.5 * (a * pow(2, 10 * (t -= 1)) * sin((t * d - s) * (2 * PI) / p)) + b;
-	    }
-	    return a * pow(2, -10 * (t -= 1)) * sin((t * d - s) * (2 * PI) / p) * .5 + c + b;
-	  }
-
-	  function InBack(x, t, b, c, d) {
-	    var s = arguments.length <= 5 || arguments[5] === undefined ? 1.70158 : arguments[5];
-
-	    return c * (t /= d) * t * ((s + 1) * t - s) + b;
-	  }
-
-	  function OutBack(x, t, b, c, d) {
-	    var s = arguments.length <= 5 || arguments[5] === undefined ? 1.70158 : arguments[5];
-
-	    return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
-	  }
-
-	  function InOutBack(x, t, b, c, d) {
-	    var s = arguments.length <= 5 || arguments[5] === undefined ? 1.70158 : arguments[5];
-
-	    if ((t /= d / 2) < 1) {
-	      return c / 2 * (t * t * (((s *= 1.525) + 1) * t - s)) + b;
-	    }
-	    return c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
-	  }
-
-	  function OutBounce(x, t, b, c, d) {
-	    if ((t /= d) < 1 / 2.75) {
-	      return c * (7.5625 * t * t) + b;
-	    } else if (t < 2 / 2.75) {
-	      return c * (7.5625 * (t -= 1.5 / 2.75) * t + .75) + b;
-	    } else if (t < 2.5 / 2.75) {
-	      return c * (7.5625 * (t -= 2.25 / 2.75) * t + .9375) + b;
-	    } else {
-	      return c * (7.5625 * (t -= 2.625 / 2.75) * t + .984375) + b;
-	    }
-	  }
-
-	  function InBounce(x, t, b, c, d) {
-	    return c - OutBounce(x, d - t, 0, c, d) + b;
-	  }
-
-	  function InOutBounce(x, t, b, c, d) {
-	    if (t < d / 2) {
-	      return InBounce(x, t * 2, 0, c, d) * .5 + b;
-	    }
-	    return OutBounce(x, t * 2 - d, 0, c, d) * .5 + c * .5 + b;
-	  }
-
-	var Easing = Object.freeze({
-	    linear: linear,
-	    InQuad: InQuad,
-	    OutQuad: OutQuad,
-	    InOutQuad: InOutQuad,
-	    InCubic: InCubic,
-	    OutCubic: OutCubic,
-	    InOutCubic: InOutCubic,
-	    InQuart: InQuart,
-	    OutQuart: OutQuart,
-	    InOutQuart: InOutQuart,
-	    InQuint: InQuint,
-	    OutQuint: OutQuint,
-	    InOutQuint: InOutQuint,
-	    InSine: InSine,
-	    OutSine: OutSine,
-	    InOutSine: InOutSine,
-	    InExpo: InExpo,
-	    OutExpo: OutExpo,
-	    InOutExpo: InOutExpo,
-	    InCirc: InCirc,
-	    OutCirc: OutCirc,
-	    InOutCirc: InOutCirc,
-	    InElastic: InElastic,
-	    OutElastic: OutElastic,
-	    InOutElastic: InOutElastic,
-	    InBack: InBack,
-	    OutBack: OutBack,
-	    InOutBack: InOutBack,
-	    OutBounce: OutBounce,
-	    InBounce: InBounce,
-	    InOutBounce: InOutBounce
-	  });
-
-	  var vendors = ["ms", "moz", "webkit"];
-	  var lastTime = 0;
-
-	  var raf = win.requestAnimationFrame;
-	  var caf = win.cancelAnimationFrame;
-
-	  for (var x = 0; x < vendors.length && !raf; ++x) {
-	    raf = win[vendors[x] + "RequestAnimationFrame"];
-	    caf = win[vendors[x] + "CancelAnimationFrame"] || win[vendors[x] + "CancelRequestAnimationFrame"];
-	  }
-
-	  if (!raf) {
-	    raf = function raf(callback) {
-	      var currentTime = Date.now();
-	      var timeToCall = max(0, 16 - (currentTime - lastTime));
-	      var id = setTimeout(function () {
-	        callback(currentTime + timeToCall);
-	      }, timeToCall);
-
-	      lastTime = currentTime + timeToCall;
-
-	      return id;
-	    };
-	  }
-
-	  if (!caf) {
-	    caf = function caf(id) {
-	      clearTimeout(id);
-	    };
-	  }
-
-	  var ScrollTween = function () {
-	    function ScrollTween(el) {
-	      classCallCheck(this, ScrollTween);
-
-	      this.el = el;
-	      this.props = {};
-	      this.options = {};
-	      this.progress = false;
-	      this.easing = null;
-	      this.startTime = null;
-	      this.rafId = null;
-	    }
-
-	    createClass(ScrollTween, [{
-	      key: "run",
-	      value: function run(x, y, options) {
-	        var _this = this;
-
-	        if (this.progress) return;
-	        this.props = { x: x, y: y };
-	        this.options = options;
-	        this.easing = isFunction(options.easing) ? options.easing : Easing[options.easing.replace("ease", "")];
-	        this.progress = true;
-
-	        setTimeout(function () {
-	          _this.startProps = {
-	            x: getScroll(_this.el, "x"),
-	            y: getScroll(_this.el, "y")
-	          };
-	          _this.rafId = raf(function (time) {
-	            return _this._loop(time);
-	          });
-	        }, this.options.delay);
-	      }
-	    }, {
-	      key: "stop",
-	      value: function stop() {
-	        var gotoEnd = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
-	        var complete = this.options.complete;
-
-	        this.startTime = null;
-	        this.progress = false;
-	        caf(this.rafId);
-
-	        if (gotoEnd) {
-	          setScroll(this.el, this.props.x, "x");
-	          setScroll(this.el, this.props.y, "y");
-	        }
-
-	        if (isFunction(complete)) {
-	          complete.call(this);
-	          this.options.complete = null;
-	        }
-	      }
-	    }, {
-	      key: "_loop",
-	      value: function _loop(time) {
-	        var _this2 = this;
-
-	        if (!this.startTime) {
-	          this.startTime = time;
-	        }
-
-	        if (!this.progress) {
-	          this.stop(false);
-
-	          return;
-	        }
-
-	        var el = this.el;
-	        var props = this.props;
-	        var options = this.options;
-	        var startTime = this.startTime;
-	        var startProps = this.startProps;
-	        var easing = this.easing;
-	        var duration = options.duration;
-	        var step = options.step;
-
-	        var toProps = {};
-	        var timeElapsed = time - startTime;
-	        var t = min(1, max(timeElapsed / duration, 0));
-
-	        each(props, function (value, key) {
-	          var initialValue = startProps[key];
-	          var delta = value - initialValue;
-	          if (delta === 0) return true;
-
-	          var val = easing(t, duration * t, 0, 1, duration);
-	          toProps[key] = round(initialValue + delta * val);
-	        });
-
-	        each(toProps, function (value, key) {
-	          setScroll(el, value, key);
-	        });
-
-	        if (timeElapsed <= duration) {
-	          step.call(this, t, toProps);
-	          this.rafId = raf(function (currentTime) {
-	            return _this2._loop(currentTime);
+	    function resume(key, arg) {
+	      try {
+	        var result = gen[key](arg);
+	        var value = result.value;
+
+	        if (value instanceof AwaitValue) {
+	          Promise.resolve(value.value).then(function (arg) {
+	            resume("next", arg);
+	          }, function (arg) {
+	            resume("throw", arg);
 	          });
 	        } else {
-	          this.stop(true);
+	          settle(result.done ? "return" : "normal", result.value);
 	        }
+	      } catch (err) {
+	        settle("throw", err);
 	      }
-	    }]);
-	    return ScrollTween;
-	  }();
-
-	  var WHEEL_EVENT = function () {
-	    if ("onwheel" in doc) {
-	      return "wheel";
-	    } else if ("onmousewheel" in doc) {
-	      return "mousewheel";
-	    } else {
-	      return "DOMMouseScroll";
 	    }
-	  }();
 
-	  var CONTAINER_STOP_EVENTS = WHEEL_EVENT + ", touchstart, touchmove";
-	  var DOM_CONTENT_LOADED = "DOMContentLoaded";
-	  var isDomContentLoaded = false;
+	    function settle(type, value) {
+	      switch (type) {
+	        case "return":
+	          front.resolve({
+	            value: value,
+	            done: true
+	          });
+	          break;
 
-	  addEvent(doc, DOM_CONTENT_LOADED, function () {
-	    isDomContentLoaded = true;
+	        case "throw":
+	          front.reject(value);
+	          break;
+
+	        default:
+	          front.resolve({
+	            value: value,
+	            done: false
+	          });
+	          break;
+	      }
+
+	      front = front.next;
+
+	      if (front) {
+	        resume(front.key, front.arg);
+	      } else {
+	        back = null;
+	      }
+	    }
+
+	    this._invoke = send;
+
+	    if (typeof gen.return !== "function") {
+	      this.return = undefined;
+	    }
+	  }
+
+	  if (typeof Symbol === "function" && Symbol.asyncIterator) {
+	    AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
+	      return this;
+	    };
+	  }
+
+	  AsyncGenerator.prototype.next = function (arg) {
+	    return this._invoke("next", arg);
+	  };
+
+	  AsyncGenerator.prototype.throw = function (arg) {
+	    return this._invoke("throw", arg);
+	  };
+
+	  AsyncGenerator.prototype.return = function (arg) {
+	    return this._invoke("return", arg);
+	  };
+
+	  return {
+	    wrap: function (fn) {
+	      return function () {
+	        return new AsyncGenerator(fn.apply(this, arguments));
+	      };
+	    },
+	    await: function (value) {
+	      return new AwaitValue(value);
+	    }
+	  };
+	}();
+
+
+
+
+
+	var classCallCheck = function (instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	};
+
+	var createClass = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];
+	      descriptor.enumerable = descriptor.enumerable || false;
+	      descriptor.configurable = true;
+	      if ("value" in descriptor) descriptor.writable = true;
+	      Object.defineProperty(target, descriptor.key, descriptor);
+	    }
+	  }
+
+	  return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+	    if (staticProps) defineProperties(Constructor, staticProps);
+	    return Constructor;
+	  };
+	}();
+
+
+
+
+
+
+
+	var get = function get(object, property, receiver) {
+	  if (object === null) object = Function.prototype;
+	  var desc = Object.getOwnPropertyDescriptor(object, property);
+
+	  if (desc === undefined) {
+	    var parent = Object.getPrototypeOf(object);
+
+	    if (parent === null) {
+	      return undefined;
+	    } else {
+	      return get(parent, property, receiver);
+	    }
+	  } else if ("value" in desc) {
+	    return desc.value;
+	  } else {
+	    var getter = desc.get;
+
+	    if (getter === undefined) {
+	      return undefined;
+	    }
+
+	    return getter.call(receiver);
+	  }
+	};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	var set = function set(object, property, value, receiver) {
+	  var desc = Object.getOwnPropertyDescriptor(object, property);
+
+	  if (desc === undefined) {
+	    var parent = Object.getPrototypeOf(object);
+
+	    if (parent !== null) {
+	      set(parent, property, value, receiver);
+	    }
+	  } else if ("value" in desc && desc.writable) {
+	    desc.value = value;
+	  } else {
+	    var setter = desc.set;
+
+	    if (setter !== undefined) {
+	      setter.call(receiver, value);
+	    }
+	  }
+
+	  return value;
+	};
+
+	var MAX_ARRAY_INDEX = pow(2, 53) - 1;
+	var classTypeList = ["Boolean", "Number", "String", "Function", "Array", "Object"];
+	var classTypes = {};
+
+	classTypeList.forEach(function (name) {
+	  classTypes["[object " + name + "]"] = name.toLowerCase();
+	});
+
+	function getType(obj) {
+	  if (obj == null) {
+	    return "";
+	  }
+
+	  return (typeof obj === "undefined" ? "undefined" : _typeof(obj)) === "object" || typeof obj === "function" ? classTypes[Object.prototype.toString.call(obj)] || "object" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
+	}
+
+	function isNumber(obj) {
+	  return getType(obj) === "number";
+	}
+
+	function isString(obj) {
+	  return getType(obj) === "string";
+	}
+
+
+
+	function isFunction(obj) {
+	  return getType(obj) === "function";
+	}
+
+	function isArray(obj) {
+	  return Array.isArray(obj);
+	}
+
+	function isArrayLike(obj) {
+	  var length = obj == null ? null : obj.length;
+
+	  return isNumber(length) && length >= 0 && length <= MAX_ARRAY_INDEX;
+	}
+
+	function isNumeric(obj) {
+	  return !isArray(obj) && obj - parseFloat(obj) + 1 >= 0;
+	}
+
+	function isObject(obj) {
+	  return !isArray(obj) && getType(obj) === "object";
+	}
+
+	function hasProp(obj, key) {
+	  return obj && obj.hasOwnProperty(key);
+	}
+
+
+
+	function each(obj, iterate, context) {
+	  if (obj == null) return obj;
+
+	  var ctx = context || obj;
+
+	  if (isObject(obj)) {
+	    for (var key in obj) {
+	      if (!hasProp(obj, key)) continue;
+	      if (iterate.call(ctx, obj[key], key) === false) break;
+	    }
+	  } else if (isArrayLike(obj)) {
+	    for (var i = 0; i < obj.length; i++) {
+	      if (iterate.call(ctx, obj[i], i) === false) break;
+	    }
+	  }
+
+	  return obj;
+	}
+
+	function merge(obj) {
+	  for (var _len = arguments.length, sources = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	    sources[_key - 1] = arguments[_key];
+	  }
+
+	  each(sources, function (source) {
+	    each(source, function (value, key) {
+	      obj[key] = value;
+	    });
 	  });
 
-	  var SweetScroll = function () {
+	  return obj;
+	}
 
-	    /* eslint-enable max-len */
+	function removeSpaces(str) {
+	  return str.replace(/\s*/g, "") || "";
+	}
 
-	    /**
-	     * SweetScroll constructor
-	     * @constructor
-	     * @param {Object} options
-	     * @param {String | Element} container
-	     */
+	function warning(message) {
+	  /* eslint-disable no-console */
+	  if (typeof console !== "undefined" && typeof console.error === "function") {
+	    console.error(message);
+	  }
+	  /* eslint-enable no-console */
 
-	    function SweetScroll() {
+	  /* eslint-disable no-empty */
+	  try {
+	    throw new Error(message);
+	  } catch (e) {}
+	  /* eslint-enable no-empty */
+	}
+
+	var win = window;
+	var doc = document;
+
+	function $(selector) {
+	  var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+	  if (!selector) return;
+
+	  return (context == null ? doc : context).querySelector(selector);
+	}
+
+	function $$(selector) {
+	  var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+	  if (!selector) return;
+
+	  return (context == null ? doc : context).querySelectorAll(selector);
+	}
+
+	function matches(el, selector) {
+	  var results = (el.document || el.ownerDocument).querySelectorAll(selector);
+	  var i = results.length;
+	  while (--i >= 0 && results.item(i) !== el) {}
+
+	  return i > -1;
+	}
+
+	var directionMethodMap = {
+	  y: "scrollTop",
+	  x: "scrollLeft"
+	};
+
+	var directionPropMap = {
+	  y: "pageYOffset",
+	  x: "pageXOffset"
+	};
+
+	function isRootContainer(el) {
+	  return el === doc.documentElement || el === doc.body;
+	}
+
+	function getZoomLevel() {
+	  var outerWidth = win.outerWidth;
+	  var innerWidth = win.innerWidth;
+
+
+	  return outerWidth ? outerWidth / innerWidth : 1;
+	}
+
+	function getScrollable(selectors) {
+	  var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "y";
+	  var all = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+
+	  var method = directionMethodMap[direction];
+	  var elements = selectors instanceof Element ? [selectors] : $$(selectors);
+	  var scrollables = [];
+	  var $div = doc.createElement("div");
+
+	  for (var i = 0; i < elements.length; i++) {
+	    var el = elements[i];
+
+	    if (el[method] > 0) {
+	      scrollables.push(el);
+	    } else {
+	      $div.style.width = el.clientWidth + 1 + "px";
+	      $div.style.height = el.clientHeight + 1 + "px";
+	      el.appendChild($div);
+
+	      el[method] = 1.5 / getZoomLevel();
+	      if (el[method] > 0) {
+	        scrollables.push(el);
+	      }
+	      el[method] = 0;
+
+	      el.removeChild($div);
+	    }
+
+	    if (!all && scrollables.length > 0) break;
+	  }
+
+	  return scrollables;
+	}
+
+	function scrollableFind(selectors, direction) {
+	  var scrollables = getScrollable(selectors, direction, false);
+
+	  return scrollables.length >= 1 ? scrollables[0] : null;
+	}
+
+	function getWindow(el) {
+	  return el != null && el === el.window ? el : el.nodeType === 9 && el.defaultView;
+	}
+
+	function getHeight(el) {
+	  return max(el.scrollHeight, el.clientHeight, el.offsetHeight);
+	}
+
+	function getWidth(el) {
+	  return max(el.scrollWidth, el.clientWidth, el.offsetWidth);
+	}
+
+	function getSize(el) {
+	  return {
+	    width: getWidth(el),
+	    height: getHeight(el)
+	  };
+	}
+
+	function getDocumentSize() {
+	  return {
+	    width: max(getWidth(doc.body), getWidth(doc.documentElement)),
+	    height: max(getHeight(doc.body), getHeight(doc.documentElement))
+	  };
+	}
+
+	function getViewportAndElementSizes(el) {
+	  if (isRootContainer(el)) {
+	    return {
+	      viewport: {
+	        width: min(win.innerWidth, doc.documentElement.clientWidth),
+	        height: win.innerHeight
+	      },
+	      size: getDocumentSize()
+	    };
+	  }
+
+	  return {
+	    viewport: {
+	      width: el.clientWidth,
+	      height: el.clientHeight
+	    },
+	    size: getSize(el)
+	  };
+	}
+
+	function getScroll(el) {
+	  var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "y";
+
+	  var currentWindow = getWindow(el);
+
+	  return currentWindow ? currentWindow[directionPropMap[direction]] : el[directionMethodMap[direction]];
+	}
+
+	function setScroll(el, offset) {
+	  var direction = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "y";
+
+	  var currentWindow = getWindow(el);
+	  var top = direction === "y";
+	  if (currentWindow) {
+	    currentWindow.scrollTo(!top ? offset : currentWindow[directionPropMap.x], top ? offset : currentWindow[directionPropMap.y]);
+	  } else {
+	    el[directionMethodMap[direction]] = offset;
+	  }
+	}
+
+	function getOffset(el) {
+	  var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+	  if (!el || el && !el.getClientRects().length) {
+	    return { top: 0, left: 0 };
+	  }
+
+	  var rect = el.getBoundingClientRect();
+
+	  if (rect.width || rect.height) {
+	    var scroll = {};
+	    var ctx = null;
+	    if (context == null || isRootContainer(context)) {
+	      ctx = el.ownerDocument.documentElement;
+	      scroll.top = win.pageYOffset;
+	      scroll.left = win.pageXOffset;
+	    } else {
+	      ctx = context;
+	      var ctxRect = ctx.getBoundingClientRect();
+	      scroll.top = ctxRect.top * -1 + ctx.scrollTop;
+	      scroll.left = ctxRect.left * -1 + ctx.scrollLeft;
+	    }
+
+	    return {
+	      top: rect.top + scroll.top - ctx.clientTop,
+	      left: rect.left + scroll.left - ctx.clientLeft
+	    };
+	  }
+
+	  return rect;
+	}
+
+	// @link https://github.com/Modernizr/Modernizr
+	var history = function () {
+	  var ua = navigator.userAgent;
+	  if ((ua.indexOf("Android 2.") !== -1 || ua.indexOf("Android 4.0") !== -1) && ua.indexOf("Mobile Safari") !== -1 && ua.indexOf("Chrome") === -1 && ua.indexOf("Windows Phone") === -1) {
+	    return false;
+	  }
+
+	  return win.history && "pushState" in win.history && win.location.protocol !== "file:";
+	}();
+
+	function addEvent(el, event, listener) {
+	  var events = event.split(",");
+	  events.forEach(function (eventName) {
+	    el.addEventListener(eventName.trim(), listener, false);
+	  });
+	}
+
+	function removeEvent(el, event, listener) {
+	  var events = event.split(",");
+	  events.forEach(function (eventName) {
+	    el.removeEventListener(eventName.trim(), listener, false);
+	  });
+	}
+
+	var vendors = ["ms", "moz", "webkit"];
+	var lastTime = 0;
+
+	var raf = win.requestAnimationFrame;
+	var caf = win.cancelAnimationFrame;
+
+	for (var x = 0; x < vendors.length && !raf; ++x) {
+	  raf = win[vendors[x] + "RequestAnimationFrame"];
+	  caf = win[vendors[x] + "CancelAnimationFrame"] || win[vendors[x] + "CancelRequestAnimationFrame"];
+	}
+
+	if (!raf) {
+	  raf = function raf(callback) {
+	    var currentTime = Date.now();
+	    var timeToCall = max(0, 16 - (currentTime - lastTime));
+	    var id = setTimeout(function () {
+	      callback(currentTime + timeToCall);
+	    }, timeToCall);
+
+	    lastTime = currentTime + timeToCall;
+
+	    return id;
+	  };
+	}
+
+	if (!caf) {
+	  caf = function caf(id) {
+	    clearTimeout(id);
+	  };
+	}
+
+	/* eslint-disable no-param-reassign, newline-before-return, max-params, new-cap */
+	function linear(p) {
+	  return p;
+	}
+
+	function InQuad(x, t, b, c, d) {
+	  return c * (t /= d) * t + b;
+	}
+
+	function OutQuad(x, t, b, c, d) {
+	  return -c * (t /= d) * (t - 2) + b;
+	}
+
+	function InOutQuad(x, t, b, c, d) {
+	  if ((t /= d / 2) < 1) {
+	    return c / 2 * t * t + b;
+	  }
+	  return -c / 2 * (--t * (t - 2) - 1) + b;
+	}
+
+	function InCubic(x, t, b, c, d) {
+	  return c * (t /= d) * t * t + b;
+	}
+
+	function OutCubic(x, t, b, c, d) {
+	  return c * ((t = t / d - 1) * t * t + 1) + b;
+	}
+
+	function InOutCubic(x, t, b, c, d) {
+	  if ((t /= d / 2) < 1) {
+	    return c / 2 * t * t * t + b;
+	  }
+	  return c / 2 * ((t -= 2) * t * t + 2) + b;
+	}
+
+	function InQuart(x, t, b, c, d) {
+	  return c * (t /= d) * t * t * t + b;
+	}
+
+	function OutQuart(x, t, b, c, d) {
+	  return -c * ((t = t / d - 1) * t * t * t - 1) + b;
+	}
+
+	function InOutQuart(x, t, b, c, d) {
+	  if ((t /= d / 2) < 1) {
+	    return c / 2 * t * t * t * t + b;
+	  }
+	  return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
+	}
+
+	function InQuint(x, t, b, c, d) {
+	  return c * (t /= d) * t * t * t * t + b;
+	}
+
+	function OutQuint(x, t, b, c, d) {
+	  return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
+	}
+
+	function InOutQuint(x, t, b, c, d) {
+	  if ((t /= d / 2) < 1) {
+	    return c / 2 * t * t * t * t * t + b;
+	  }
+	  return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
+	}
+
+	function InSine(x, t, b, c, d) {
+	  return -c * cos(t / d * (PI / 2)) + c + b;
+	}
+
+	function OutSine(x, t, b, c, d) {
+	  return c * sin(t / d * (PI / 2)) + b;
+	}
+
+	function InOutSine(x, t, b, c, d) {
+	  return -c / 2 * (cos(PI * t / d) - 1) + b;
+	}
+
+	function InExpo(x, t, b, c, d) {
+	  return t === 0 ? b : c * pow(2, 10 * (t / d - 1)) + b;
+	}
+
+	function OutExpo(x, t, b, c, d) {
+	  return t === d ? b + c : c * (-pow(2, -10 * t / d) + 1) + b;
+	}
+
+	function InOutExpo(x, t, b, c, d) {
+	  if (t === 0) return b;
+	  if (t === d) return b + c;
+	  if ((t /= d / 2) < 1) return c / 2 * pow(2, 10 * (t - 1)) + b;
+	  return c / 2 * (-pow(2, -10 * --t) + 2) + b;
+	}
+
+	function InCirc(x, t, b, c, d) {
+	  return -c * (sqrt(1 - (t /= d) * t) - 1) + b;
+	}
+
+	function OutCirc(x, t, b, c, d) {
+	  return c * sqrt(1 - (t = t / d - 1) * t) + b;
+	}
+
+	function InOutCirc(x, t, b, c, d) {
+	  if ((t /= d / 2) < 1) {
+	    return -c / 2 * (sqrt(1 - t * t) - 1) + b;
+	  }
+	  return c / 2 * (sqrt(1 - (t -= 2) * t) + 1) + b;
+	}
+
+	function InElastic(x, t, b, c, d) {
+	  var s = 1.70158;
+	  var p = 0;
+	  var a = c;
+	  if (t === 0) return b;
+	  if ((t /= d) === 1) return b + c;
+	  if (!p) p = d * .3;
+	  if (a < abs(c)) {
+	    a = c;
+	    s = p / 4;
+	  } else {
+	    s = p / (2 * PI) * asin(c / a);
+	  }
+	  return -(a * pow(2, 10 * (t -= 1)) * sin((t * d - s) * (2 * PI) / p)) + b;
+	}
+
+	function OutElastic(x, t, b, c, d) {
+	  var s = 1.70158;
+	  var p = 0;
+	  var a = c;
+	  if (t === 0) return b;
+	  if ((t /= d) === 1) return b + c;
+	  if (!p) p = d * .3;
+	  if (a < abs(c)) {
+	    a = c;
+	    s = p / 4;
+	  } else {
+	    s = p / (2 * PI) * asin(c / a);
+	  }
+	  return a * pow(2, -10 * t) * sin((t * d - s) * (2 * PI) / p) + c + b;
+	}
+
+	function InOutElastic(x, t, b, c, d) {
+	  var s = 1.70158;
+	  var p = 0;
+	  var a = c;
+	  if (t === 0) return b;
+	  if ((t /= d / 2) === 2) return b + c;
+	  if (!p) p = d * (.3 * 1.5);
+	  if (a < abs(c)) {
+	    a = c;
+	    s = p / 4;
+	  } else {
+	    s = p / (2 * PI) * asin(c / a);
+	  }
+	  if (t < 1) {
+	    return -.5 * (a * pow(2, 10 * (t -= 1)) * sin((t * d - s) * (2 * PI) / p)) + b;
+	  }
+	  return a * pow(2, -10 * (t -= 1)) * sin((t * d - s) * (2 * PI) / p) * .5 + c + b;
+	}
+
+	function InBack(x, t, b, c, d) {
+	  var s = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 1.70158;
+
+	  return c * (t /= d) * t * ((s + 1) * t - s) + b;
+	}
+
+	function OutBack(x, t, b, c, d) {
+	  var s = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 1.70158;
+
+	  return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
+	}
+
+	function InOutBack(x, t, b, c, d) {
+	  var s = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 1.70158;
+
+	  if ((t /= d / 2) < 1) {
+	    return c / 2 * (t * t * (((s *= 1.525) + 1) * t - s)) + b;
+	  }
+	  return c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
+	}
+
+	function OutBounce(x, t, b, c, d) {
+	  if ((t /= d) < 1 / 2.75) {
+	    return c * (7.5625 * t * t) + b;
+	  } else if (t < 2 / 2.75) {
+	    return c * (7.5625 * (t -= 1.5 / 2.75) * t + .75) + b;
+	  } else if (t < 2.5 / 2.75) {
+	    return c * (7.5625 * (t -= 2.25 / 2.75) * t + .9375) + b;
+	  } else {
+	    return c * (7.5625 * (t -= 2.625 / 2.75) * t + .984375) + b;
+	  }
+	}
+
+	function InBounce(x, t, b, c, d) {
+	  return c - OutBounce(x, d - t, 0, c, d) + b;
+	}
+
+	function InOutBounce(x, t, b, c, d) {
+	  if (t < d / 2) {
+	    return InBounce(x, t * 2, 0, c, d) * .5 + b;
+	  }
+	  return OutBounce(x, t * 2 - d, 0, c, d) * .5 + c * .5 + b;
+	}
+
+	var Easing = Object.freeze({
+		linear: linear,
+		InQuad: InQuad,
+		OutQuad: OutQuad,
+		InOutQuad: InOutQuad,
+		InCubic: InCubic,
+		OutCubic: OutCubic,
+		InOutCubic: InOutCubic,
+		InQuart: InQuart,
+		OutQuart: OutQuart,
+		InOutQuart: InOutQuart,
+		InQuint: InQuint,
+		OutQuint: OutQuint,
+		InOutQuint: InOutQuint,
+		InSine: InSine,
+		OutSine: OutSine,
+		InOutSine: InOutSine,
+		InExpo: InExpo,
+		OutExpo: OutExpo,
+		InOutExpo: InOutExpo,
+		InCirc: InCirc,
+		OutCirc: OutCirc,
+		InOutCirc: InOutCirc,
+		InElastic: InElastic,
+		OutElastic: OutElastic,
+		InOutElastic: InOutElastic,
+		InBack: InBack,
+		OutBack: OutBack,
+		InOutBack: InOutBack,
+		OutBounce: OutBounce,
+		InBounce: InBounce,
+		InOutBounce: InOutBounce
+	});
+
+	var ScrollTween = function () {
+	  function ScrollTween(el) {
+	    classCallCheck(this, ScrollTween);
+
+	    this.el = el;
+	    this.props = {};
+	    this.options = {};
+	    this.progress = false;
+	    this.easing = null;
+	    this.startTime = null;
+	    this.rafId = null;
+	  }
+
+	  createClass(ScrollTween, [{
+	    key: "run",
+	    value: function run(x, y, options) {
 	      var _this = this;
 
-	      var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	      var container = arguments.length <= 1 || arguments[1] === undefined ? "body, html" : arguments[1];
-	      classCallCheck(this, SweetScroll);
+	      if (this.progress) return;
+	      this.props = { x: x, y: y };
+	      this.options = options;
+	      this.easing = isFunction(options.easing) ? options.easing : Easing[options.easing.replace("ease", "")];
+	      this.progress = true;
 
-	      var params = merge({}, SweetScroll.defaults, options);
+	      setTimeout(function () {
+	        _this.startProps = {
+	          x: getScroll(_this.el, "x"),
+	          y: getScroll(_this.el, "y")
+	        };
+	        _this.rafId = raf(function (time) {
+	          return _this._loop(time);
+	        });
+	      }, this.options.delay);
+	    }
+	  }, {
+	    key: "stop",
+	    value: function stop() {
+	      var gotoEnd = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+	      var complete = this.options.complete;
 
-	      this.options = params;
-	      this.getContainer(container, function (target) {
-	        _this.container = target;
-	        _this.header = $(params.header);
-	        _this.tween = new ScrollTween(target);
-	        _this._trigger = null;
-	        _this._shouldCallCancelScroll = false;
-	        _this.bindContainerClick();
-	        _this.hook(params, "initialized");
+	      this.startTime = null;
+	      this.progress = false;
+	      caf(this.rafId);
+
+	      if (gotoEnd) {
+	        setScroll(this.el, this.props.x, "x");
+	        setScroll(this.el, this.props.y, "y");
+	      }
+
+	      if (isFunction(complete)) {
+	        complete.call(this);
+	        this.options.complete = null;
+	      }
+	    }
+	  }, {
+	    key: "_loop",
+	    value: function _loop(time) {
+	      var _this2 = this;
+
+	      if (!this.startTime) {
+	        this.startTime = time;
+	      }
+
+	      if (!this.progress) {
+	        this.stop(false);
+
+	        return;
+	      }
+
+	      var el = this.el;
+	      var props = this.props;
+	      var options = this.options;
+	      var startTime = this.startTime;
+	      var startProps = this.startProps;
+	      var easing = this.easing;
+	      var duration = options.duration;
+	      var step = options.step;
+
+	      var toProps = {};
+	      var timeElapsed = time - startTime;
+	      var t = min(1, max(timeElapsed / duration, 0));
+
+	      each(props, function (value, key) {
+	        var initialValue = startProps[key];
+	        var delta = value - initialValue;
+	        if (delta === 0) return true;
+
+	        var val = easing(t, duration * t, 0, 1, duration);
+	        toProps[key] = round(initialValue + delta * val);
 	      });
+
+	      each(toProps, function (value, key) {
+	        setScroll(el, value, key);
+	      });
+
+	      if (timeElapsed <= duration) {
+	        step.call(this, t, toProps);
+	        this.rafId = raf(function (currentTime) {
+	          return _this2._loop(currentTime);
+	        });
+	      } else {
+	        this.stop(true);
+	      }
+	    }
+	  }]);
+	  return ScrollTween;
+	}();
+
+	var WHEEL_EVENT = function () {
+	  if ("onwheel" in doc) {
+	    return "wheel";
+	  } else if ("onmousewheel" in doc) {
+	    return "mousewheel";
+	  } else {
+	    return "DOMMouseScroll";
+	  }
+	}();
+
+	var CONTAINER_STOP_EVENTS = WHEEL_EVENT + ", touchstart, touchmove";
+	var DOM_CONTENT_LOADED = "DOMContentLoaded";
+	var LOAD = "load";
+
+	var SweetScroll = function () {
+	  /* eslint-enable max-len */
+
+	  /**
+	   * SweetScroll constructor
+	   * @constructor
+	   * @param {Object} options
+	   * @param {String | Element} container
+	   */
+	  function SweetScroll() {
+	    var _this = this;
+
+	    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	    var container = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "body, html";
+	    classCallCheck(this, SweetScroll);
+
+	    this.createAt = new Date();
+	    this.options = merge({}, SweetScroll.defaults, options);
+
+	    this.getContainer(container, function (target) {
+	      if (target == null) {
+	        _this.log("Not found scrollable container. => \"" + container + "\"");
+	      }
+
+	      _this.container = target;
+	      _this.header = $(_this.options.header);
+	      _this.tween = new ScrollTween(target);
+	      _this._trigger = null;
+	      _this._shouldCallCancelScroll = false;
+	      _this.bindContainerClick();
+	      _this.hook(_this.options, "initialized");
+	    });
+	  }
+
+	  /**
+	   * Output log
+	   * @param {String} message
+	   * @return {void}
+	   */
+
+
+	  // Default options
+	  /* eslint-disable max-len */
+
+
+	  createClass(SweetScroll, [{
+	    key: "log",
+	    value: function log(message) {
+	      if (this.options.outputLog) {
+	        warning("[SweetScroll] " + message);
+	      }
 	    }
 
 	    /**
@@ -15692,640 +16129,666 @@
 	     * @return {void}
 	     */
 
+	  }, {
+	    key: "to",
+	    value: function to(distance) {
+	      var _this2 = this;
 
-	    // Default options
-	    /* eslint-disable max-len */
+	      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	      var container = this.container;
+	      var header = this.header;
 
+	      var params = merge({}, this.options, options);
 
-	    createClass(SweetScroll, [{
-	      key: "to",
-	      value: function to(distance) {
-	        var _this2 = this;
+	      // Temporary options
+	      this._options = params;
 
-	        var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-	        var container = this.container;
-	        var header = this.header;
+	      var offset = this.parseCoodinate(params.offset);
+	      var trigger = this._trigger;
+	      var scroll = this.parseCoodinate(distance);
+	      var hash = null;
 
-	        var params = merge({}, this.options, options);
+	      // Remove the triggering elements which has been temporarily retained
+	      this._trigger = null;
 
-	        // Temporary options
-	        this._options = params;
+	      // Disable the call flag of `cancelScroll`
+	      this._shouldCallCancelScroll = false;
 
-	        var offset = this.parseCoodinate(params.offset);
-	        var trigger = this._trigger;
-	        var scroll = this.parseCoodinate(distance);
-	        var hash = null;
+	      // Stop current animation
+	      this.stop();
 
-	        // Remove the triggering elements which has been temporarily retained
-	        this._trigger = null;
-
-	        // Disable the call flag of `cancelScroll`
-	        this._shouldCallCancelScroll = false;
-
-	        // Stop current animation
-	        this.stop();
-
-	        // Does not move if the container is not found
-	        if (!container) return;
-
-	        // Using the coordinates in the case of CSS Selector
-	        if (!scroll && isString(distance)) {
-	          hash = /^#/.test(distance) ? distance : null;
-
-	          if (distance === "#") {
-	            scroll = {
-	              top: 0,
-	              left: 0
-	            };
-	          } else {
-	            var target = $(distance);
-	            var targetOffset = getOffset(target, container);
-	            if (!targetOffset) return;
-	            scroll = targetOffset;
-	          }
-	        }
-
-	        if (!scroll) return;
-
-	        // Apply `offset` value
-	        if (offset) {
-	          scroll.top += offset.top;
-	          scroll.left += offset.left;
-	        }
-
-	        // If the header is present apply the height
-	        if (header) {
-	          scroll.top = max(0, scroll.top - getSize(header).height);
-	        }
-
-	        // Determine the final scroll coordinates
-
-	        var _Dom$getViewportAndEl = getViewportAndElementSizes(container);
-
-	        var viewport = _Dom$getViewportAndEl.viewport;
-	        var size = _Dom$getViewportAndEl.size;
-
-	        // Call `beforeScroll`
-	        // Stop scrolling when it returns false
-
-	        if (this.hook(params, "beforeScroll", scroll, trigger) === false) {
-	          return;
-	        }
-
-	        // Adjustment of the maximum value
-	        scroll.top = params.verticalScroll ? max(0, min(size.height - viewport.height, scroll.top)) : getScroll(container, "y");
-	        scroll.left = params.horizontalScroll ? max(0, min(size.width - viewport.width, scroll.left)) : getScroll(container, "x");
-
-	        // Run the animation!!
-	        this.tween.run(scroll.left, scroll.top, {
-	          duration: params.duration,
-	          delay: params.delay,
-	          easing: params.easing,
-	          complete: function complete() {
-	            // Update URL
-	            if (hash != null && hash !== window.location.hash) {
-	              _this2.updateURLHash(hash, params.updateURL);
-	            }
-
-	            // Unbind the scroll stop events, And call `afterScroll` or `cancelScroll`
-	            _this2.unbindContainerStop();
-
-	            // Remove the temporary options
-	            _this2._options = null;
-
-	            // Call `cancelScroll` or `afterScroll`
-	            if (_this2._shouldCallCancelScroll) {
-	              _this2.hook(params, "cancelScroll");
-	            } else {
-	              _this2.hook(params, "afterScroll", scroll, trigger);
-	            }
-
-	            // Call `completeScroll`
-	            _this2.hook(params, "completeScroll", _this2._shouldCallCancelScroll);
-	          },
-	          step: function step(currentTime, props) {
-	            _this2.hook(params, "stepScroll", currentTime, props);
-	          }
-	        });
-
-	        // Bind the scroll stop events
-	        this.bindContainerStop();
+	      // Does not move if the container is not found
+	      if (!container) {
+	        return this.log("Not found container element.");
 	      }
 
-	      /**
-	       * Scroll animation to the specified top position
-	       * @param {*} distance
-	       * @param {Object} options
-	       * @return {void}
-	       */
+	      // Using the coordinates in the case of CSS Selector
+	      if (!scroll && isString(distance)) {
+	        hash = /^#/.test(distance) ? distance : null;
 
-	    }, {
-	      key: "toTop",
-	      value: function toTop(distance) {
-	        var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-	        this.to(distance, merge({}, options, {
-	          verticalScroll: true,
-	          horizontalScroll: false
-	        }));
-	      }
-
-	      /**
-	       * Scroll animation to the specified left position
-	       * @param {*} distance
-	       * @param {Object} options
-	       * @return {void}
-	       */
-
-	    }, {
-	      key: "toLeft",
-	      value: function toLeft(distance) {
-	        var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-	        this.to(distance, merge({}, options, {
-	          verticalScroll: false,
-	          horizontalScroll: true
-	        }));
-	      }
-
-	      /**
-	       * Scroll animation to the specified element
-	       * @param {Element} el
-	       * @param {Object} options
-	       * @return {void}
-	       */
-
-	    }, {
-	      key: "toElement",
-	      value: function toElement(el) {
-	        var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-	        if (el instanceof Element) {
-	          var offset = getOffset(el, this.container);
-	          this.to(offset, merge({}, options));
+	        if (distance === "#") {
+	          scroll = {
+	            top: 0,
+	            left: 0
+	          };
+	        } else {
+	          var target = $(distance);
+	          var targetOffset = getOffset(target, container);
+	          if (!targetOffset) return;
+	          scroll = targetOffset;
 	        }
 	      }
 
-	      /**
-	       * Stop the current animation
-	       * @param {Boolean} gotoEnd
-	       * @return {void}
-	       */
-
-	    }, {
-	      key: "stop",
-	      value: function stop() {
-	        var gotoEnd = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
-
-	        if (this._stopScrollListener) {
-	          this._shouldCallCancelScroll = true;
-	        }
-	        this.tween.stop(gotoEnd);
+	      if (!scroll) {
+	        return this.log("Invalid parameter of distance. => " + distance);
 	      }
 
-	      /**
-	       * Update the instance
-	       * @param {Object} options
-	       * @return {void}
-	       */
-
-	    }, {
-	      key: "update",
-	      value: function update() {
-	        var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-
-	        this.stop();
-	        this.unbindContainerClick();
-	        this.unbindContainerStop();
-	        this.options = merge({}, this.options, options);
-	        this.header = $(this.options.header);
-	        this.bindContainerClick();
+	      // Apply `offset` value
+	      if (offset) {
+	        scroll.top += offset.top;
+	        scroll.left += offset.left;
 	      }
 
-	      /**
-	       * Destroy SweetScroll instance
-	       * @return {void}
-	       */
-
-	    }, {
-	      key: "destroy",
-	      value: function destroy() {
-	        this.stop();
-	        this.unbindContainerClick();
-	        this.unbindContainerStop();
-	        this.container = null;
-	        this.header = null;
-	        this.tween = null;
+	      // If the header is present apply the height
+	      if (header) {
+	        scroll.top = max(0, scroll.top - getSize(header).height);
 	      }
 
-	      /**
-	       * Called at after of the initialize.
-	       * @return {void}
-	       */
+	      // Determine the final scroll coordinates
 
-	    }, {
-	      key: "initialized",
-	      value: function initialized() {}
+	      var _Dom$getViewportAndEl = getViewportAndElementSizes(container);
 
-	      /**
-	       * Called at before of the scroll.
-	       * @param {Object} toScroll
-	       * @param {Element} trigger
-	       * @return {Boolean}
-	       */
-	      /* eslint-disable no-unused-vars */
+	      var viewport = _Dom$getViewportAndEl.viewport;
+	      var size = _Dom$getViewportAndEl.size;
 
-	    }, {
-	      key: "beforeScroll",
-	      value: function beforeScroll(toScroll, trigger) {
-	        return true;
+	      // Call `beforeScroll`
+	      // Stop scrolling when it returns false
+
+	      if (this.hook(params, "beforeScroll", scroll, trigger) === false) {
+	        return;
 	      }
 
-	      /* eslint-enable no-unused-vars */
+	      // Adjustment of the maximum value
+	      scroll.top = params.verticalScroll ? max(0, min(size.height - viewport.height, scroll.top)) : getScroll(container, "y");
+	      scroll.left = params.horizontalScroll ? max(0, min(size.width - viewport.width, scroll.left)) : getScroll(container, "x");
 
-	      /**
-	       * Called at cancel of the scroll.
-	       * @return {void}
-	       */
-
-	    }, {
-	      key: "cancelScroll",
-	      value: function cancelScroll() {}
-
-	      /**
-	       * Called at after of the scroll.
-	       * @param {Object} toScroll
-	       * @param {Element} trigger
-	       * @return {void}
-	       */
-	      /* eslint-disable no-unused-vars */
-
-	    }, {
-	      key: "afterScroll",
-	      value: function afterScroll(toScroll, trigger) {}
-
-	      /* eslint-enable no-unused-vars */
-
-	      /**
-	       * Called at complete of the scroll.
-	       * @param {Boolean} isCancel
-	       * @return {void}
-	       */
-	      /* eslint-disable no-unused-vars */
-
-	    }, {
-	      key: "completeScroll",
-	      value: function completeScroll(isCancel) {}
-
-	      /* eslint-enable no-unused-vars */
-
-	      /**
-	       * Called at each animation frame of the scroll.
-	       * @param {Float} currentTime
-	       * @param {Object} props
-	       * @return {void}
-	       */
-	      /* eslint-disable no-unused-vars */
-
-	    }, {
-	      key: "stepScroll",
-	      value: function stepScroll(currentTime, props) {}
-
-	      /* eslint-enable no-unused-vars */
-
-	      /**
-	       * Parse the value of coordinate
-	       * @param {*} coodinate
-	       * @return {Object}
-	       */
-
-	    }, {
-	      key: "parseCoodinate",
-	      value: function parseCoodinate(coodinate) {
-	        var enableTop = this._options ? this._options.verticalScroll : this.options.verticalScroll;
-	        var scroll = { top: 0, left: 0 };
-
-	        // Object
-	        if (hasProp(coodinate, "top") || hasProp(coodinate, "left")) {
-	          scroll = merge(scroll, coodinate);
-
-	          // Array
-	        } else if (isArray(coodinate)) {
-	          if (coodinate.length === 2) {
-	            scroll.top = coodinate[0];
-	            scroll.left = coodinate[1];
-	          } else {
-	            scroll.top = enableTop ? coodinate[0] : 0;
-	            scroll.left = !enableTop ? coodinate[0] : 0;
+	      // Run the animation!!
+	      this.tween.run(scroll.left, scroll.top, {
+	        duration: params.duration,
+	        delay: params.delay,
+	        easing: params.easing,
+	        complete: function complete() {
+	          // Update URL
+	          if (hash != null && hash !== win.location.hash) {
+	            _this2.updateURLHash(hash, params.updateURL);
 	          }
 
-	          // Number
-	        } else if (isNumeric(coodinate)) {
-	          scroll.top = enableTop ? coodinate : 0;
-	          scroll.left = !enableTop ? coodinate : 0;
+	          // Unbind the scroll stop events, And call `afterScroll` or `cancelScroll`
+	          _this2.unbindContainerStop();
 
-	          // String
-	        } else if (isString(coodinate)) {
-	          var trimedCoodinate = removeSpaces(coodinate);
+	          // Remove the temporary options
+	          _this2._options = null;
 
-	          // "{n},{n}" (Array like syntax)
-	          if (/^\d+,\d+$/.test(trimedCoodinate)) {
-	            trimedCoodinate = trimedCoodinate.split(",");
-	            scroll.top = trimedCoodinate[0];
-	            scroll.left = trimedCoodinate[1];
-
-	            // "top:{n}, left:{n}" (Object like syntax)
-	          } else if (/^(top|left):\d+,?(?:(top|left):\d+)?$/.test(trimedCoodinate)) {
-	            var top = trimedCoodinate.match(/top:(\d+)/);
-	            var left = trimedCoodinate.match(/left:(\d+)/);
-	            scroll.top = top ? top[1] : 0;
-	            scroll.left = left ? left[1] : 0;
-
-	            // "+={n}", "-={n}" (Relative position)
-	          } else if (this.container && /^(\+|-)=(\d+)$/.test(trimedCoodinate)) {
-	            var current = getScroll(this.container, enableTop ? "y" : "x");
-	            var results = trimedCoodinate.match(/^(\+|-)=(\d+)$/);
-	            var op = results[1];
-	            var value = parseInt(results[2], 10);
-	            if (op === "+") {
-	              scroll.top = enableTop ? current + value : 0;
-	              scroll.left = !enableTop ? current + value : 0;
-	            } else {
-	              scroll.top = enableTop ? current - value : 0;
-	              scroll.left = !enableTop ? current - value : 0;
-	            }
+	          // Call `cancelScroll` or `afterScroll`
+	          if (_this2._shouldCallCancelScroll) {
+	            _this2.hook(params, "cancelScroll");
 	          } else {
-	            return null;
+	            _this2.hook(params, "afterScroll", scroll, trigger);
+	          }
+
+	          // Call `completeScroll`
+	          _this2.hook(params, "completeScroll", _this2._shouldCallCancelScroll);
+	        },
+	        step: function step(currentTime, props) {
+	          _this2.hook(params, "stepScroll", currentTime, props);
+	        }
+	      });
+
+	      // Bind the scroll stop events
+	      this.bindContainerStop();
+	    }
+
+	    /**
+	     * Scroll animation to the specified top position
+	     * @param {*} distance
+	     * @param {Object} options
+	     * @return {void}
+	     */
+
+	  }, {
+	    key: "toTop",
+	    value: function toTop(distance) {
+	      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+	      this.to(distance, merge({}, options, {
+	        verticalScroll: true,
+	        horizontalScroll: false
+	      }));
+	    }
+
+	    /**
+	     * Scroll animation to the specified left position
+	     * @param {*} distance
+	     * @param {Object} options
+	     * @return {void}
+	     */
+
+	  }, {
+	    key: "toLeft",
+	    value: function toLeft(distance) {
+	      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+	      this.to(distance, merge({}, options, {
+	        verticalScroll: false,
+	        horizontalScroll: true
+	      }));
+	    }
+
+	    /**
+	     * Scroll animation to the specified element
+	     * @param {Element} el
+	     * @param {Object} options
+	     * @return {void}
+	     */
+
+	  }, {
+	    key: "toElement",
+	    value: function toElement(el) {
+	      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+	      if (el instanceof Element) {
+	        var offset = getOffset(el, this.container);
+	        this.to(offset, merge({}, options));
+	      } else {
+	        this.log("Invalid parameter. in toElement()");
+	      }
+	    }
+
+	    /**
+	     * Stop the current animation
+	     * @param {Boolean} gotoEnd
+	     * @return {void}
+	     */
+
+	  }, {
+	    key: "stop",
+	    value: function stop() {
+	      var gotoEnd = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+	      if (!this.container) {
+	        this.log("Not found scrollable container.");
+	      }
+
+	      if (this._stopScrollListener) {
+	        this._shouldCallCancelScroll = true;
+	      }
+	      this.tween.stop(gotoEnd);
+	    }
+
+	    /**
+	     * Update the instance
+	     * @param {Object} options
+	     * @return {void}
+	     */
+
+	  }, {
+	    key: "update",
+	    value: function update() {
+	      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+	      if (!this.container) {
+	        this.log("Not found scrollable container.");
+	      }
+
+	      this.stop();
+	      this.unbindContainerClick();
+	      this.unbindContainerStop();
+	      this.options = merge({}, this.options, options);
+	      this.header = $(this.options.header);
+	      this.bindContainerClick();
+	    }
+
+	    /**
+	     * Destroy SweetScroll instance
+	     * @return {void}
+	     */
+
+	  }, {
+	    key: "destroy",
+	    value: function destroy() {
+	      if (!this.container) {
+	        this.log("Not found scrollable container.");
+	      }
+
+	      this.stop();
+	      this.unbindContainerClick();
+	      this.unbindContainerStop();
+	      this.container = null;
+	      this.header = null;
+	      this.tween = null;
+	    }
+
+	    /* eslint-disable no-unused-vars */
+	    /**
+	     * Called at after of the initialize.
+	     * @return {void}
+	     */
+
+	  }, {
+	    key: "initialized",
+	    value: function initialized() {}
+
+	    /**
+	     * Called at before of the scroll.
+	     * @param {Object} toScroll
+	     * @param {Element} trigger
+	     * @return {Boolean}
+	     */
+
+	  }, {
+	    key: "beforeScroll",
+	    value: function beforeScroll(toScroll, trigger) {
+	      return true;
+	    }
+
+	    /**
+	     * Called at cancel of the scroll.
+	     * @return {void}
+	     */
+
+	  }, {
+	    key: "cancelScroll",
+	    value: function cancelScroll() {}
+
+	    /**
+	     * Called at after of the scroll.
+	     * @param {Object} toScroll
+	     * @param {Element} trigger
+	     * @return {void}
+	     */
+
+	  }, {
+	    key: "afterScroll",
+	    value: function afterScroll(toScroll, trigger) {}
+
+	    /**
+	     * Called at complete of the scroll.
+	     * @param {Boolean} isCancel
+	     * @return {void}
+	     */
+
+	  }, {
+	    key: "completeScroll",
+	    value: function completeScroll(isCancel) {}
+
+	    /**
+	     * Called at each animation frame of the scroll.
+	     * @param {Float} currentTime
+	     * @param {Object} props
+	     * @return {void}
+	     */
+
+	  }, {
+	    key: "stepScroll",
+	    value: function stepScroll(currentTime, props) {}
+	    /* eslint-enable no-unused-vars */
+
+	    /**
+	     * Parse the value of coordinate
+	     * @param {*} coodinate
+	     * @return {Object}
+	     */
+
+	  }, {
+	    key: "parseCoodinate",
+	    value: function parseCoodinate(coodinate) {
+	      var enableTop = this._options ? this._options.verticalScroll : this.options.verticalScroll;
+	      var scroll = { top: 0, left: 0 };
+
+	      // Object
+	      if (hasProp(coodinate, "top") || hasProp(coodinate, "left")) {
+	        scroll = merge(scroll, coodinate);
+
+	        // Array
+	      } else if (isArray(coodinate)) {
+	        if (coodinate.length === 2) {
+	          scroll.top = coodinate[0];
+	          scroll.left = coodinate[1];
+	        } else {
+	          scroll.top = enableTop ? coodinate[0] : 0;
+	          scroll.left = !enableTop ? coodinate[0] : 0;
+	        }
+
+	        // Number
+	      } else if (isNumeric(coodinate)) {
+	        scroll.top = enableTop ? coodinate : 0;
+	        scroll.left = !enableTop ? coodinate : 0;
+
+	        // String
+	      } else if (isString(coodinate)) {
+	        var trimedCoodinate = removeSpaces(coodinate);
+
+	        // "{n},{n}" (Array like syntax)
+	        if (/^\d+,\d+$/.test(trimedCoodinate)) {
+	          trimedCoodinate = trimedCoodinate.split(",");
+	          scroll.top = trimedCoodinate[0];
+	          scroll.left = trimedCoodinate[1];
+
+	          // "top:{n}, left:{n}" (Object like syntax)
+	        } else if (/^(top|left):\d+,?(?:(top|left):\d+)?$/.test(trimedCoodinate)) {
+	          var top = trimedCoodinate.match(/top:(\d+)/);
+	          var left = trimedCoodinate.match(/left:(\d+)/);
+	          scroll.top = top ? top[1] : 0;
+	          scroll.left = left ? left[1] : 0;
+
+	          // "+={n}", "-={n}" (Relative position)
+	        } else if (this.container && /^(\+|-)=(\d+)$/.test(trimedCoodinate)) {
+	          var current = getScroll(this.container, enableTop ? "y" : "x");
+	          var results = trimedCoodinate.match(/^(\+|-)=(\d+)$/);
+	          var op = results[1];
+	          var value = parseInt(results[2], 10);
+	          if (op === "+") {
+	            scroll.top = enableTop ? current + value : 0;
+	            scroll.left = !enableTop ? current + value : 0;
+	          } else {
+	            scroll.top = enableTop ? current - value : 0;
+	            scroll.left = !enableTop ? current - value : 0;
 	          }
 	        } else {
 	          return null;
 	        }
-
-	        scroll.top = parseInt(scroll.top, 10);
-	        scroll.left = parseInt(scroll.left, 10);
-
-	        return scroll;
+	      } else {
+	        return null;
 	      }
 
-	      /**
-	       * Update the Hash of the URL.
-	       * @param {String} hash
-	       * @param {Boolean | String} historyType
-	       * @return {void}
-	       */
+	      scroll.top = parseInt(scroll.top, 10);
+	      scroll.left = parseInt(scroll.left, 10);
 
-	    }, {
-	      key: "updateURLHash",
-	      value: function updateURLHash(hash, historyType) {
-	        if (!history || !historyType) return;
-	        window.history[historyType === "replace" ? "replaceState" : "pushState"](null, null, hash);
+	      return scroll;
+	    }
+
+	    /**
+	     * Update the Hash of the URL.
+	     * @param {String} hash
+	     * @param {Boolean | String} historyType
+	     * @return {void}
+	     */
+
+	  }, {
+	    key: "updateURLHash",
+	    value: function updateURLHash(hash, historyType) {
+	      if (!history || !historyType) return;
+	      win.history[historyType === "replace" ? "replaceState" : "pushState"](null, null, hash);
+	    }
+
+	    /**
+	     * Get the container for the scroll, depending on the options.
+	     * @param {String | Element} selector
+	     * @param {Function} callback
+	     * @return {void}
+	     * @private
+	     */
+
+	  }, {
+	    key: "getContainer",
+	    value: function getContainer(selector, callback) {
+	      var _this3 = this;
+
+	      var _options = this.options;
+	      var verticalScroll = _options.verticalScroll;
+	      var horizontalScroll = _options.horizontalScroll;
+
+	      var finalCallback = callback.bind(this);
+	      var container = null;
+
+	      if (verticalScroll) {
+	        container = scrollableFind(selector, "y");
 	      }
 
-	      /**
-	       * Get the container for the scroll, depending on the options.
-	       * @param {String | Element} selector
-	       * @param {Function} callback
-	       * @return {void}
-	       * @private
-	       */
+	      if (!container && horizontalScroll) {
+	        container = scrollableFind(selector, "x");
+	      }
 
-	    }, {
-	      key: "getContainer",
-	      value: function getContainer(selector, callback) {
-	        var _this3 = this;
+	      if (container) {
+	        finalCallback(container);
+	      } else if (!/comp|inter|loaded/.test(doc.readyState)) {
+	        (function () {
+	          var isCompleted = false;
 
-	        var _options = this.options;
-	        var verticalScroll = _options.verticalScroll;
-	        var horizontalScroll = _options.horizontalScroll;
+	          var handleDomContentLoaded = function handleDomContentLoaded() {
+	            removeHandlers(); // eslint-disable-line no-use-before-define
+	            isCompleted = true;
+	            _this3.getContainer(selector, callback);
+	          };
 
-	        var container = null;
-
-	        if (verticalScroll) {
-	          container = scrollableFind(selector, "y");
-	        }
-
-	        if (!container && horizontalScroll) {
-	          container = scrollableFind(selector, "x");
-	        }
-
-	        if (!container && !isDomContentLoaded) {
-	          (function () {
-	            var isCompleted = false;
-
-	            addEvent(doc, DOM_CONTENT_LOADED, function () {
-	              isCompleted = true;
+	          var handleLoad = function handleLoad() {
+	            removeHandlers(); // eslint-disable-line no-use-before-define
+	            if (!isCompleted) {
 	              _this3.getContainer(selector, callback);
-	            });
+	            }
+	          };
 
-	            // Fallback for DOMContentLoaded
-	            addEvent(win, "load", function () {
-	              if (!isCompleted) {
-	                _this3.getContainer(selector, callback);
-	              }
-	            });
-	          })();
-	        } else {
-	          callback.call(this, container);
-	        }
-	      }
+	          /* eslint-disable func-style */
+	          var removeHandlers = function removeHandlers() {
+	            removeEvent(doc, DOM_CONTENT_LOADED, handleDomContentLoaded);
+	            removeEvent(win, LOAD, handleLoad);
+	          };
+	          /* eslint-enable func-style */
 
-	      /**
-	       * Bind a click event to the container
-	       * @return {void}
-	       * @private
-	       */
-
-	    }, {
-	      key: "bindContainerClick",
-	      value: function bindContainerClick() {
-	        var container = this.container;
-
-	        if (!container) return;
-	        this._containerClickListener = this.handleContainerClick.bind(this);
-	        addEvent(container, "click", this._containerClickListener);
-	      }
-
-	      /**
-	       * Unbind a click event to the container
-	       * @return {void}
-	       * @private
-	       */
-
-	    }, {
-	      key: "unbindContainerClick",
-	      value: function unbindContainerClick() {
-	        var container = this.container;
-
-	        if (!container || !this._containerClickListener) return;
-	        removeEvent(container, "click", this._containerClickListener);
-	        this._containerClickListener = null;
-	      }
-
-	      /**
-	       * Bind the scroll stop of events
-	       * @return {void}
-	       * @private
-	       */
-
-	    }, {
-	      key: "bindContainerStop",
-	      value: function bindContainerStop() {
-	        var container = this.container;
-
-	        if (!container) return;
-	        this._stopScrollListener = this.handleStopScroll.bind(this);
-	        addEvent(container, CONTAINER_STOP_EVENTS, this._stopScrollListener);
-	      }
-
-	      /**
-	       * Unbind the scroll stop of events
-	       * @return {void}
-	       * @private
-	       */
-
-	    }, {
-	      key: "unbindContainerStop",
-	      value: function unbindContainerStop() {
-	        var container = this.container;
-
-	        if (!container || !this._stopScrollListener) return;
-	        removeEvent(container, CONTAINER_STOP_EVENTS, this._stopScrollListener);
-	        this._stopScrollListener = null;
-	      }
-
-	      /**
-	       * Call the specified callback
-	       * @param {Object} options
-	       * @param {String} type
-	       * @param {...*} args
-	       * @return {void}
-	       * @private
-	       */
-
-	    }, {
-	      key: "hook",
-	      value: function hook(options, type) {
-	        var callback = options[type];
-
-	        // callback
-
-	        for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-	          args[_key - 2] = arguments[_key];
-	        }
-
-	        if (isFunction(callback)) {
-	          var result = callback.apply(this, args);
-	          if (typeof result === "undefined") return result;
-	        }
-
-	        // method
-	        return this[type].apply(this, args);
-	      }
-
-	      /**
-	       * Handling of scroll stop event
-	       * @param {Event} e
-	       * @return {void}
-	       * @private
-	       */
-
-	    }, {
-	      key: "handleStopScroll",
-	      value: function handleStopScroll(e) {
-	        var stopScroll = this._options ? this._options.stopScroll : this.options.stopScroll;
-	        if (stopScroll) {
-	          this.stop();
-	        } else {
-	          e.preventDefault();
-	        }
-	      }
-
-	      /**
-	       * Handling of container click event
-	       * @param {Event} e
-	       * @return {void}
-	       * @private
-	       */
-
-	    }, {
-	      key: "handleContainerClick",
-	      value: function handleContainerClick(e) {
-	        var options = this.options;
-
-	        var el = e.target;
-
-	        // Explore parent element until the trigger selector matches
-	        for (; el && el !== doc; el = el.parentNode) {
-	          if (!matches(el, options.trigger)) continue;
-	          var data = el.getAttribute("data-scroll");
-	          var dataOptions = this.parseDataOptions(el);
-	          var href = data || el.getAttribute("href");
-
-	          options = merge({}, options, dataOptions);
-
-	          if (options.preventDefault) e.preventDefault();
-	          if (options.stopPropagation) e.stopPropagation();
-
-	          // Passes the trigger elements to callback
-	          this._trigger = el;
-
-	          if (options.horizontalScroll && options.verticalScroll) {
-	            this.to(href, options);
-	          } else if (options.verticalScroll) {
-	            this.toTop(href, options);
-	          } else if (options.horizontalScroll) {
-	            this.toLeft(href, options);
+	          addEvent(doc, DOM_CONTENT_LOADED, handleDomContentLoaded);
+	          addEvent(win, LOAD, handleLoad);
+	        })();
+	      } else {
+	        raf(function () {
+	          if (Date.now() - _this3.createAt.getTime() > _this3.options.searchContainerTimeout) {
+	            finalCallback(null);
+	          } else {
+	            _this3.getContainer(selector, callback);
 	          }
+	        });
+	      }
+	    }
+
+	    /**
+	     * Bind a click event to the container
+	     * @return {void}
+	     * @private
+	     */
+
+	  }, {
+	    key: "bindContainerClick",
+	    value: function bindContainerClick() {
+	      var container = this.container;
+
+	      if (!container) return;
+	      this._containerClickListener = this.handleContainerClick.bind(this);
+	      addEvent(container, "click", this._containerClickListener);
+	    }
+
+	    /**
+	     * Unbind a click event to the container
+	     * @return {void}
+	     * @private
+	     */
+
+	  }, {
+	    key: "unbindContainerClick",
+	    value: function unbindContainerClick() {
+	      var container = this.container;
+
+	      if (!container || !this._containerClickListener) return;
+	      removeEvent(container, "click", this._containerClickListener);
+	      this._containerClickListener = null;
+	    }
+
+	    /**
+	     * Bind the scroll stop of events
+	     * @return {void}
+	     * @private
+	     */
+
+	  }, {
+	    key: "bindContainerStop",
+	    value: function bindContainerStop() {
+	      var container = this.container;
+
+	      if (!container) return;
+	      this._stopScrollListener = this.handleStopScroll.bind(this);
+	      addEvent(container, CONTAINER_STOP_EVENTS, this._stopScrollListener);
+	    }
+
+	    /**
+	     * Unbind the scroll stop of events
+	     * @return {void}
+	     * @private
+	     */
+
+	  }, {
+	    key: "unbindContainerStop",
+	    value: function unbindContainerStop() {
+	      var container = this.container;
+
+	      if (!container || !this._stopScrollListener) return;
+	      removeEvent(container, CONTAINER_STOP_EVENTS, this._stopScrollListener);
+	      this._stopScrollListener = null;
+	    }
+
+	    /**
+	     * Call the specified callback
+	     * @param {Object} options
+	     * @param {String} type
+	     * @param {...*} args
+	     * @return {void}
+	     * @private
+	     */
+
+	  }, {
+	    key: "hook",
+	    value: function hook(options, type) {
+	      var callback = options[type];
+
+	      // callback
+
+	      for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+	        args[_key - 2] = arguments[_key];
+	      }
+
+	      if (isFunction(callback)) {
+	        var result = callback.apply(this, args);
+	        if (typeof result === "undefined") return result;
+	      }
+
+	      // method
+	      return this[type].apply(this, args);
+	    }
+
+	    /**
+	     * Handling of scroll stop event
+	     * @param {Event} e
+	     * @return {void}
+	     * @private
+	     */
+
+	  }, {
+	    key: "handleStopScroll",
+	    value: function handleStopScroll(e) {
+	      var stopScroll = this._options ? this._options.stopScroll : this.options.stopScroll;
+	      if (stopScroll) {
+	        this.stop();
+	      } else {
+	        e.preventDefault();
+	      }
+	    }
+
+	    /**
+	     * Handling of container click event
+	     * @param {Event} e
+	     * @return {void}
+	     * @private
+	     */
+
+	  }, {
+	    key: "handleContainerClick",
+	    value: function handleContainerClick(e) {
+	      var options = this.options;
+
+	      var el = e.target;
+
+	      // Explore parent element until the trigger selector matches
+	      for (; el && el !== doc; el = el.parentNode) {
+	        if (!matches(el, options.trigger)) continue;
+	        var data = el.getAttribute("data-scroll");
+	        var dataOptions = this.parseDataOptions(el);
+	        var href = data || el.getAttribute("href");
+
+	        options = merge({}, options, dataOptions);
+
+	        if (options.preventDefault) e.preventDefault();
+	        if (options.stopPropagation) e.stopPropagation();
+
+	        // Passes the trigger elements to callback
+	        this._trigger = el;
+
+	        if (options.horizontalScroll && options.verticalScroll) {
+	          this.to(href, options);
+	        } else if (options.verticalScroll) {
+	          this.toTop(href, options);
+	        } else if (options.horizontalScroll) {
+	          this.toLeft(href, options);
 	        }
 	      }
+	    }
 
-	      /**
-	       * Parse the data-scroll-options attribute
-	       * @param {Element} el
-	       * @return {Object}
-	       * @private
-	       */
+	    /**
+	     * Parse the data-scroll-options attribute
+	     * @param {Element} el
+	     * @return {Object}
+	     * @private
+	     */
 
-	    }, {
-	      key: "parseDataOptions",
-	      value: function parseDataOptions(el) {
-	        var options = el.getAttribute("data-scroll-options");
+	  }, {
+	    key: "parseDataOptions",
+	    value: function parseDataOptions(el) {
+	      var options = el.getAttribute("data-scroll-options");
 
-	        return options ? JSON.parse(options) : {};
-	      }
-	    }]);
-	    return SweetScroll;
-	  }();
-
-	  // Export SweetScroll class
-
-
-	  SweetScroll.defaults = {
-	    trigger: "[data-scroll]", // Selector for trigger (must be a valid css selector)
-	    header: "[data-scroll-header]", // Selector for fixed header (must be a valid css selector)
-	    duration: 1000, // Specifies animation duration in integer
-	    delay: 0, // Specifies timer for delaying the execution of the scroll in milliseconds
-	    easing: "easeOutQuint", // Specifies the pattern of easing
-	    offset: 0, // Specifies the value to offset the scroll position in pixels
-	    verticalScroll: true, // Enable the vertical scroll
-	    horizontalScroll: false, // Enable the horizontal scroll
-	    stopScroll: true, // When fired wheel or touchstart events to stop scrolling
-	    updateURL: false, // Update the URL hash on after scroll (true | false | "push" | "replace")
-	    preventDefault: true, // Cancels the container element click event
-	    stopPropagation: true, // Prevents further propagation of the container element click event in the bubbling phase
-
-	    // Callbacks
-	    initialized: null,
-	    beforeScroll: null,
-	    afterScroll: null,
-	    cancelScroll: null,
-	    completeScroll: null,
-	    stepScroll: null
-	  };
-
+	      return options ? JSON.parse(options) : {};
+	    }
+	  }]);
 	  return SweetScroll;
+	}();
 
-	}));
+	// Export SweetScroll class
+
+
+	SweetScroll.defaults = {
+	  trigger: "[data-scroll]", // Selector for trigger (must be a valid css selector)
+	  header: "[data-scroll-header]", // Selector for fixed header (must be a valid css selector)
+	  duration: 1000, // Specifies animation duration in integer
+	  delay: 0, // Specifies timer for delaying the execution of the scroll in milliseconds
+	  easing: "easeOutQuint", // Specifies the pattern of easing
+	  offset: 0, // Specifies the value to offset the scroll position in pixels
+	  verticalScroll: true, // Enable the vertical scroll
+	  horizontalScroll: false, // Enable the horizontal scroll
+	  stopScroll: true, // When fired wheel or touchstart events to stop scrolling
+	  updateURL: false, // Update the URL hash on after scroll (true | false | "push" | "replace")
+	  preventDefault: true, // Cancels the container element click event
+	  stopPropagation: true, // Prevents further propagation of the container element click event in the bubbling phase
+	  searchContainerTimeout: 4000, // Specifies the maximum search time of Scrollabe Container
+	  outputLog: false, // Specify level of output to log
+
+	  // Callbacks
+	  initialized: null,
+	  beforeScroll: null,
+	  afterScroll: null,
+	  cancelScroll: null,
+	  completeScroll: null,
+	  stepScroll: null
+	};
+
+	return SweetScroll;
+
+	})));
+
 
 /***/ },
 /* 26 */
@@ -16649,7 +17112,7 @@
 
 /***/ },
 /* 29 */
-[85, 30],
+[84, 30],
 /* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16667,7 +17130,7 @@
 /* 31 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-header\"> <header> <h1><a href=/ >絵文字 ジェネレーター</a></h1> <div class=icons> <input type=button class=\"twitter sharer button\" data-sharer=twitter data-title=絵文字ジェネレーター使ってます&#9834; data-hashtags=絵文字ジェネレーター data-url=http://emoji.pine.moe/ title=\"Twitter でシェアする\" v-eg-sharer> <input type=button class=\"facebook sharer button\" data-sharer=facebook data-url=http://emoji.pine.moe/ title=\"Facebook でシェアする\" v-eg-sharer> <input type=button class=\"google sharer button\" data-sharer=googleplus data-url=http://emoji.pine.moe/ title=\"Google+ でシェアする\" v-eg-sharer> <a href=https://github.com/emoji-gen/Emoji-Web class=github target=_blank>GitHub</a> </div> </header> </div>";
+	module.exports = "<div class=\"v-cloak eg-header\"> <header> <h1><a href=/ >絵文字 ジェネレーター</a></h1> <div class=icons> <input type=button class=\"twitter sharer button\" data-sharer=twitter data-title=絵文字ジェネレーター使ってます&#9834; data-hashtags=絵文字ジェネレーター data-url=http://emoji.pine.moe/ title=\"Twitter でシェアする\" v-eg-sharer> <input type=button class=\"facebook sharer button\" data-sharer=facebook data-url=http://emoji.pine.moe/ title=\"Facebook でシェアする\" v-eg-sharer> <input type=button class=\"google sharer button\" data-sharer=googleplus data-url=http://emoji.pine.moe/ title=\"Google+ でシェアする\" v-eg-sharer> <a href=https://github.com/emoji-gen/Emoji-Web class=github target=_blank>GitHub</a> </div> </header> </div> ";
 
 /***/ },
 /* 32 */
@@ -16683,7 +17146,7 @@
 	    component: __webpack_require__(33)
 	  },
 	  '/contact': {
-	    component: __webpack_require__(81)
+	    component: __webpack_require__(80)
 	  }
 	};
 
@@ -16707,7 +17170,7 @@
 	  components: {
 	    'eg-generator': __webpack_require__(37),
 	    'eg-recently': __webpack_require__(47),
-	    'eg-result': __webpack_require__(72)
+	    'eg-result': __webpack_require__(71)
 	  },
 	  route: {
 	    activate: function activate() {
@@ -16720,7 +17183,7 @@
 
 /***/ },
 /* 34 */
-[85, 35],
+[84, 35],
 /* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -16738,7 +17201,7 @@
 /* 36 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-emoji\"> <eg-result></eg-result> <eg-generator></eg-generator> </div>";
+	module.exports = "<div class=\"v-cloak eg-emoji\"> <eg-result></eg-result> <eg-generator></eg-generator> </div> ";
 
 /***/ },
 /* 37 */
@@ -17073,7 +17536,7 @@
 
 /***/ },
 /* 40 */
-[85, 41],
+[84, 41],
 /* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -17091,7 +17554,7 @@
 /* 42 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-generator\"> <h2>絵文字にしたい文字を入力してください！</h2> <div class=buttons> <button type=button class=pure-button v-on:click=generate v-eg-scroll>生成する&#9834;</button> </div> <div class=parameters> <div class=\"parameter text\"> <h3>テキスト</h3> <textarea rows=2 cols=10 v-model=text></textarea> </div> <div class=\"parameter font\"> <h3>フォント</h3> <ul> <li v-for=\"font in fonts\"> <input type=radio name=eg_generator__font_key :value=font.key id=eg_generator__font_{{font.key}} v-model=fontKey> <label for=eg_generator__font_{{font.key}}>{{font.name}}</label> </li> </ul> </div> <div class=\"parameter color\"> <h3>カラー</h3> <div class=pickers> <div class=picker-wrapper v-show=\"colorKind == 'foreground'\"> <chrome-picker :colors.sync=colors></chrome-picker> </div> <div class=picker-wrapper v-else> <chrome-picker :colors.sync=backgroundColors></chrome-picker> </div> </div> <eg-color-kind :color-kind.sync=colorKind></eg-color-kind> </div> </div> </div>";
+	module.exports = "<div class=\"v-cloak eg-generator\"> <h2>絵文字にしたい文字を入力してください！</h2> <div class=buttons> <button type=button class=pure-button v-on:click=generate v-eg-scroll>生成する&#9834;</button> </div> <div class=parameters> <div class=\"parameter text\"> <h3>テキスト</h3> <textarea rows=2 cols=10 v-model=text></textarea> </div> <div class=\"parameter font\"> <h3>フォント</h3> <ul> <li v-for=\"font in fonts\"> <input type=radio name=eg_generator__font_key :value=font.key id=eg_generator__font_{{font.key}} v-model=fontKey> <label for=eg_generator__font_{{font.key}}>{{font.name}}</label> </li> </ul> </div> <div class=\"parameter color\"> <h3>カラー</h3> <div class=pickers> <div class=picker-wrapper v-show=\"colorKind == 'foreground'\"> <chrome-picker :colors.sync=colors></chrome-picker> </div> <div class=picker-wrapper v-else> <chrome-picker :colors.sync=backgroundColors></chrome-picker> </div> </div> <eg-color-kind :color-kind.sync=colorKind></eg-color-kind> </div> </div> </div> ";
 
 /***/ },
 /* 43 */
@@ -17112,7 +17575,7 @@
 
 /***/ },
 /* 44 */
-[85, 45],
+[84, 45],
 /* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -17130,7 +17593,7 @@
 /* 46 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-color-kind\"> <ul> <li> <input type=radio name=eg_generator__color_kind value=foreground id=eg_generator__color_kind_foreground v-model=colorKind> <label for=eg_generator__color_kind_foreground>表</label> </li> <li> <input type=radio name=eg_generator__color_kind value=background id=eg_generator__color_kind_background v-model=colorKind> <label for=eg_generator__color_kind_background>裏</label> </li> </ul> </div>";
+	module.exports = "<div class=\"v-cloak eg-color-kind\"> <ul> <li> <input type=radio name=eg_generator__color_kind value=foreground id=eg_generator__color_kind_foreground v-model=colorKind> <label for=eg_generator__color_kind_foreground>表</label> </li> <li> <input type=radio name=eg_generator__color_kind value=background id=eg_generator__color_kind_background v-model=colorKind> <label for=eg_generator__color_kind_background>裏</label> </li> </ul> </div> ";
 
 /***/ },
 /* 47 */
@@ -17144,13 +17607,13 @@
 
 	var _flickity2 = _interopRequireDefault(_flickity);
 
-	__webpack_require__(69);
+	__webpack_require__(68);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-recently',
-	  template: __webpack_require__(71),
+	  template: __webpack_require__(70),
 	  ready: function ready() {
 	    new _flickity2.default(this.$els.carousel, {
 	      contain: true,
@@ -17195,7 +17658,7 @@
 
 
 	// module
-	exports.push([module.id, "/*! Flickity v2.0.2\nhttp://flickity.metafizzy.co\n---------------------------------------------- */.flickity-enabled{position:relative}.flickity-enabled:focus{outline:none}.flickity-viewport{overflow:hidden;position:relative;height:100%}.flickity-slider{position:absolute;width:100%;height:100%}.flickity-enabled.is-draggable{-webkit-tap-highlight-color:transparent;tap-highlight-color:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.flickity-enabled.is-draggable .flickity-viewport{cursor:move;cursor:-webkit-grab;cursor:grab}.flickity-enabled.is-draggable .flickity-viewport.is-pointer-down{cursor:-webkit-grabbing;cursor:grabbing}.flickity-prev-next-button{position:absolute;top:50%;width:44px;height:44px;border:none;border-radius:50%;background:#fff;background:hsla(0,0%,100%,.75);cursor:pointer;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.flickity-prev-next-button:hover{background:#fff}.flickity-prev-next-button:focus{outline:none;box-shadow:0 0 0 5px #09f}.flickity-prev-next-button:active{opacity:.6}.flickity-prev-next-button.previous{left:10px}.flickity-prev-next-button.next{right:10px}.flickity-rtl .flickity-prev-next-button.previous{left:auto;right:10px}.flickity-rtl .flickity-prev-next-button.next{right:auto;left:10px}.flickity-prev-next-button:disabled{opacity:.3;cursor:auto}.flickity-prev-next-button svg{position:absolute;left:20%;top:20%;width:60%;height:60%}.flickity-prev-next-button .arrow{fill:#333}.flickity-page-dots{position:absolute;width:100%;bottom:-25px;padding:0;margin:0;list-style:none;text-align:center;line-height:1}.flickity-rtl .flickity-page-dots{direction:rtl}.flickity-page-dots .dot{display:inline-block;width:10px;height:10px;margin:0 8px;background:#333;border-radius:50%;opacity:.25;cursor:pointer}.flickity-page-dots .dot.is-selected{opacity:1}", ""]);
+	exports.push([module.id, "/*! Flickity v2.0.5\nhttp://flickity.metafizzy.co\n---------------------------------------------- */.flickity-enabled{position:relative}.flickity-enabled:focus{outline:none}.flickity-viewport{overflow:hidden;position:relative;height:100%}.flickity-slider{position:absolute;width:100%;height:100%}.flickity-enabled.is-draggable{-webkit-tap-highlight-color:transparent;tap-highlight-color:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.flickity-enabled.is-draggable .flickity-viewport{cursor:move;cursor:-webkit-grab;cursor:grab}.flickity-enabled.is-draggable .flickity-viewport.is-pointer-down{cursor:-webkit-grabbing;cursor:grabbing}.flickity-prev-next-button{position:absolute;top:50%;width:44px;height:44px;border:none;border-radius:50%;background:#fff;background:hsla(0,0%,100%,.75);cursor:pointer;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.flickity-prev-next-button:hover{background:#fff}.flickity-prev-next-button:focus{outline:none;box-shadow:0 0 0 5px #09f}.flickity-prev-next-button:active{opacity:.6}.flickity-prev-next-button.previous{left:10px}.flickity-prev-next-button.next{right:10px}.flickity-rtl .flickity-prev-next-button.previous{left:auto;right:10px}.flickity-rtl .flickity-prev-next-button.next{right:auto;left:10px}.flickity-prev-next-button:disabled{opacity:.3;cursor:auto}.flickity-prev-next-button svg{position:absolute;left:20%;top:20%;width:60%;height:60%}.flickity-prev-next-button .arrow{fill:#333}.flickity-page-dots{position:absolute;width:100%;bottom:-25px;padding:0;margin:0;list-style:none;text-align:center;line-height:1}.flickity-rtl .flickity-page-dots{direction:rtl}.flickity-page-dots .dot{display:inline-block;width:10px;height:10px;margin:0 8px;background:#333;border-radius:50%;opacity:.25;cursor:pointer}.flickity-page-dots .dot.is-selected{opacity:1}", ""]);
 
 	// exports
 
@@ -17205,7 +17668,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	 * Flickity v2.0.2
+	 * Flickity v2.0.5
 	 * Touch, responsive, flickable carousels
 	 *
 	 * Licensed GPLv3 for open source use
@@ -17224,10 +17687,10 @@
 	      __webpack_require__(51),
 	      __webpack_require__(59),
 	      __webpack_require__(62),
+	      __webpack_require__(64),
 	      __webpack_require__(65),
 	      __webpack_require__(66),
-	      __webpack_require__(67),
-	      __webpack_require__(68)
+	      __webpack_require__(67)
 	    ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	  } else if ( typeof module == 'object' && module.exports ) {
 	    // CommonJS
@@ -17327,6 +17790,13 @@
 	    return;
 	  }
 	  this.element = queryElement;
+	  // do not initialize twice on same element
+	  if ( this.element.flickityGUID ) {
+	    var instance = instances[ this.element.flickityGUID ];
+	    instance.option( options );
+	    return instance;
+	  }
+
 	  // add jQuery
 	  if ( jQuery ) {
 	    this.$element = jQuery( this.element );
@@ -17804,12 +18274,12 @@
 	  }
 	};
 
-	proto.previous = function( isWrap ) {
-	  this.select( this.selectedIndex - 1, isWrap );
+	proto.previous = function( isWrap, isInstant ) {
+	  this.select( this.selectedIndex - 1, isWrap, isInstant );
 	};
 
-	proto.next = function( isWrap ) {
-	  this.select( this.selectedIndex + 1, isWrap );
+	proto.next = function( isWrap, isInstant ) {
+	  this.select( this.selectedIndex + 1, isWrap, isInstant );
 	};
 
 	proto.updateSelectedSlide = function() {
@@ -18432,7 +18902,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
-	 * Fizzy UI utils v2.0.2
+	 * Fizzy UI utils v2.0.3
 	 * MIT license
 	 */
 
@@ -18605,7 +19075,8 @@
 	utils.docReady = function( callback ) {
 	  var readyState = document.readyState;
 	  if ( readyState == 'complete' || readyState == 'interactive' ) {
-	    callback();
+	    // do async to allow for other scripts to run. metafizzy/flickity#441
+	    setTimeout( callback );
 	  } else {
 	    document.addEventListener( 'DOMContentLoaded', callback );
 	  }
@@ -18653,7 +19124,7 @@
 	      }
 	      // initialize
 	      var instance = new WidgetClass( elem, options );
-	      // make available via $().data('layoutname')
+	      // make available via $().data('namespace')
 	      if ( jQuery ) {
 	        jQuery.data( elem, namespace, instance );
 	      }
@@ -19188,11 +19659,20 @@
 
 	// --------------------------  -------------------------- //
 
+	var isTouch = 'createTouch' in document;
+	var isTouchmoveScrollCanceled = false;
+
 	proto._createDrag = function() {
 	  this.on( 'activate', this.bindDrag );
 	  this.on( 'uiChange', this._uiChangeDrag );
 	  this.on( 'childUIPointerDown', this._childUIPointerDownDrag );
 	  this.on( 'deactivate', this.unbindDrag );
+	  // HACK - add seemingly innocuous handler to fix iOS 10 scroll behavior
+	  // #457, RubaXa/Sortable#973
+	  if ( isTouch && !isTouchmoveScrollCanceled ) {
+	    window.addEventListener( 'touchmove', function() {});
+	    isTouchmoveScrollCanceled = true;
+	  }
 	};
 
 	proto.bindDrag = function() {
@@ -19229,6 +19709,7 @@
 	var cursorNodes = {
 	  TEXTAREA: true,
 	  INPUT: true,
+	  OPTION: true,
 	};
 
 	// input types that do not have text fields
@@ -19242,7 +19723,7 @@
 	};
 
 	proto.pointerDown = function( event, pointer ) {
-	  // dismiss inputs with text fields. #404
+	  // dismiss inputs with text fields. #403, #404
 	  var isCursorInput = cursorNodes[ event.target.nodeName ] &&
 	    !clickTypes[ event.target.type ];
 	  if ( isCursorInput ) {
@@ -19330,6 +19811,7 @@
 	proto.dragStart = function( event, pointer ) {
 	  this.dragStartPosition = this.x;
 	  this.startAnimation();
+	  window.removeEventListener( 'scroll', this );
 	  this.dispatchEvent( 'dragStart', event, [ pointer ] );
 	};
 
@@ -20179,16 +20661,10 @@
 	  // create arrow
 	  var svg = this.createSVG();
 	  element.appendChild( svg );
-	  // update on select
-	  this.parent.on( 'select', function() {
-	    this.update();
-	  }.bind( this ));
-	  // tap
+	  // events
 	  this.on( 'tap', this.onTap );
-	  // pointerDown
-	  this.on( 'pointerDown', function onPointerDown( button, event ) {
-	    this.parent.childUIPointerDown( event );
-	  }.bind( this ));
+	  this.parent.on( 'select', this.update.bind( this ) );
+	  this.on( 'pointerDown', this.parent.childUIPointerDown.bind( this.parent ) );
 	};
 
 	PrevNextButton.prototype.activate = function() {
@@ -20360,7 +20836,7 @@
 	  if ( true ) {
 	    // AMD
 	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-	      __webpack_require__(64)
+	      __webpack_require__(61)
 	    ], __WEBPACK_AMD_DEFINE_RESULT__ = function( Unipointer ) {
 	      return factory( window, Unipointer );
 	    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -20462,8 +20938,6 @@
 
 /***/ },
 /* 64 */
-61,
-/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// page dots
@@ -20516,9 +20990,9 @@
 	  this.holder.className = 'flickity-page-dots';
 	  // create dots, array of elements
 	  this.dots = [];
-	  // tap
+	  // events
 	  this.on( 'tap', this.onTap );
-
+	  this.on( 'pointerDown', this.parent.childUIPointerDown.bind( this.parent ) );
 	};
 
 	PageDots.prototype.activate = function() {
@@ -20619,10 +21093,6 @@
 	  this.on( 'cellChange', this.updatePageDots );
 	  this.on( 'resize', this.updatePageDots );
 	  this.on( 'deactivate', this.deactivatePageDots );
-
-	  this.pageDots.on( 'pointerDown', function( button, event ) {
-	    this.childUIPointerDown( event );
-	  }.bind( this ));
 	};
 
 	proto.activatePageDots = function() {
@@ -20651,7 +21121,7 @@
 
 
 /***/ },
-/* 66 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// player & autoPlay
@@ -20870,7 +21340,7 @@
 
 
 /***/ },
-/* 67 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// add, remove cell
@@ -21058,7 +21528,7 @@
 
 
 /***/ },
-/* 68 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;// lazyload
@@ -21183,9 +21653,9 @@
 
 
 /***/ },
+/* 68 */
+[84, 69],
 /* 69 */
-[85, 70],
-/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -21199,18 +21669,18 @@
 
 
 /***/ },
-/* 71 */
+/* 70 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-recently\"> <h2>最近生成された絵文字</h2> <div v-el:carousel class=carousel> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> </div> </div>";
+	module.exports = "<div class=\"v-cloak eg-recently\"> <h2>最近生成された絵文字</h2> <div v-el:carousel class=carousel> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> <div class=carousel-cell></div> </div> </div> ";
 
 /***/ },
-/* 72 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _queryString = __webpack_require__(73);
+	var _queryString = __webpack_require__(72);
 
 	var _queryString2 = _interopRequireDefault(_queryString);
 
@@ -21218,17 +21688,17 @@
 
 	var _vueSharer2 = _interopRequireDefault(_vueSharer);
 
-	var _bitly = __webpack_require__(76);
+	var _bitly = __webpack_require__(75);
 
 	var _bitly2 = _interopRequireDefault(_bitly);
 
-	__webpack_require__(78);
+	__webpack_require__(77);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-result',
-	  template: __webpack_require__(80),
+	  template: __webpack_require__(79),
 	  data: function data() {
 	    return {
 	      visibleResult: false,
@@ -21346,12 +21816,12 @@
 	};
 
 /***/ },
-/* 73 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var strictUriEncode = __webpack_require__(74);
-	var objectAssign = __webpack_require__(75);
+	var strictUriEncode = __webpack_require__(73);
+	var objectAssign = __webpack_require__(74);
 
 	function encode(value, opts) {
 		if (opts.encode) {
@@ -21450,7 +21920,7 @@
 
 
 /***/ },
-/* 74 */
+/* 73 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21462,7 +21932,7 @@
 
 
 /***/ },
-/* 75 */
+/* 74 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21551,16 +22021,16 @@
 
 
 /***/ },
-/* 76 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _queryString = __webpack_require__(73);
+	var _queryString = __webpack_require__(72);
 
 	var _queryString2 = _interopRequireDefault(_queryString);
 
-	__webpack_require__(77);
+	__webpack_require__(76);
 
 	var _meta = __webpack_require__(10);
 
@@ -21590,7 +22060,7 @@
 	};
 
 /***/ },
-/* 77 */
+/* 76 */
 /***/ function(module, exports) {
 
 	(function(self) {
@@ -22029,9 +22499,9 @@
 
 
 /***/ },
+/* 77 */
+[84, 78],
 /* 78 */
-[85, 79],
-/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -22045,13 +22515,13 @@
 
 
 /***/ },
-/* 80 */
+/* 79 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-result\" v-show=visibleResult transition=expand> <h2>生成された絵文字</h2> <div class=preview> <div class=inner> <div class=image> <img :src=emojiUrl alt=\"\" v-if=emojiUrl> </div> <div class=detail> <ul> <li class=text> <h3>テキスト</h3> <span class=user-input>{{ text }}</span> </li> <li class=font> <h3>フォント</h3> <span class=user-input>{{ fontName }}</span> </li> <li class=color> <h3>カラー</h3> <span class=user-input> <span class=color-square v-bind:style=\"{ backgroundColor: cssColor }\"></span> {{ color }} </span> </li> </ul> </div> </div> </div> <div class=links> <div class=inner> <div class=download> <a :href=emojiDownloadUrl>ダウンロード</a> </div> <div class=share v-on:click=toggleShare> シェアする </div> </div> </div> <div class=share :class=\"{ 'progress': progress }\" v-show=visibleShare transition=expand> <div class=inner> <input type=button class=\"twitter sharer button\" data-sharer=twitter data-title=\"絵文字ジェネレーター使って絵文字を生成しました&#9834; {{shortenUrl}} #絵文字ジェネレーター\" title=\"Twitter でシェアする\" v-eg-sharer> <input type=button class=\"facebook sharer button\" data-sharer=facebook :data-url=shortenUrl title=\"Facebook でシェアする\" v-eg-sharer> <input type=button class=\"google sharer button\" data-sharer=googleplus :data-url=shortenUrl title=\"Google+ でシェアする\" v-eg-sharer> </div> </div> </div>";
+	module.exports = "<div class=\"v-cloak eg-result\" v-show=visibleResult transition=expand> <h2>生成された絵文字</h2> <div class=preview> <div class=inner> <div class=image> <img :src=emojiUrl alt=\"\" v-if=emojiUrl> </div> <div class=detail> <ul> <li class=text> <h3>テキスト</h3> <span class=user-input>{{ text }}</span> </li> <li class=font> <h3>フォント</h3> <span class=user-input>{{ fontName }}</span> </li> <li class=color> <h3>カラー</h3> <span class=user-input> <span class=color-square v-bind:style=\"{ backgroundColor: cssColor }\"></span> {{ color }} </span> </li> </ul> </div> </div> </div> <div class=links> <div class=inner> <div class=download> <a :href=emojiDownloadUrl>ダウンロード</a> </div> <div class=share v-on:click=toggleShare> シェアする </div> </div> </div> <div class=share :class=\"{ 'progress': progress }\" v-show=visibleShare transition=expand> <div class=inner> <input type=button class=\"twitter sharer button\" data-sharer=twitter data-title=\"絵文字ジェネレーター使って絵文字を生成しました&#9834; {{shortenUrl}} #絵文字ジェネレーター\" title=\"Twitter でシェアする\" v-eg-sharer> <input type=button class=\"facebook sharer button\" data-sharer=facebook :data-url=shortenUrl title=\"Facebook でシェアする\" v-eg-sharer> <input type=button class=\"google sharer button\" data-sharer=googleplus :data-url=shortenUrl title=\"Google+ でシェアする\" v-eg-sharer> </div> </div> </div> ";
 
 /***/ },
-/* 81 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22060,19 +22530,19 @@
 
 	var _vue2 = _interopRequireDefault(_vue);
 
-	__webpack_require__(82);
+	__webpack_require__(81);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-contact',
-	  template: __webpack_require__(84)
+	  template: __webpack_require__(83)
 	};
 
 /***/ },
+/* 81 */
+[84, 82],
 /* 82 */
-[85, 83],
-/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(7)();
@@ -22086,13 +22556,13 @@
 
 
 /***/ },
-/* 84 */
+/* 83 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-contact\"> <h2>お問い合わせ</h2> <div class=eg-contact--body> <p>何かありましたら、GitHub の Issue へお願い致します。</p> <ul> <li class=github> <a href=https://github.com/emoji-gen/Emoji-Web/issues target=_blank> <span class=owner>emoji-gen</span>/<span class=username>Emoji-Web</span> </a> </li> </ul> <p class=break>もしくは、作者の Twitter まで直接お問い合わせ下さい。</p> <ul> <li class=twitter><a href=https://twitter.com/jiuya target=_blank>@jiuya</a></li> <li class=twitter><a href=https://twitter.com/pine613 target=_blank>@pine613</a></li> </ul> </div> </div>";
+	module.exports = "<div class=\"v-cloak eg-contact\"> <h2>お問い合わせ</h2> <div class=eg-contact--body> <p>何かありましたら、GitHub の Issue へお願い致します。</p> <ul> <li class=github> <a href=https://github.com/emoji-gen/Emoji-Web/issues target=_blank> <span class=owner>emoji-gen</span>/<span class=username>Emoji-Web</span> </a> </li> </ul> <p class=break>もしくは、作者の Twitter まで直接お問い合わせ下さい。</p> <ul> <li class=twitter><a href=https://twitter.com/jiuya target=_blank>@jiuya</a></li> <li class=twitter><a href=https://twitter.com/pine613 target=_blank>@pine613</a></li> </ul> </div> </div> ";
 
 /***/ },
-/* 85 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
