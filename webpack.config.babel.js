@@ -8,7 +8,7 @@ const isWatch = ~process.argv.indexOf('--watch')
 const plugins = [ new WebpackNotifierPlugin({ alwaysNotify: true }) ]
 
 if (!isWatch) {
-  Array.prototype.push.apply(plugins, [
+  plugins.push(... [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.UglifyJsPlugin({
