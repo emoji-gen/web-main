@@ -56,9 +56,13 @@ You should download used fonts for `assets/fonts` directory.
 $ node -v
 v6.9.1
 
-$ npm install
-$ npm start     # for development
-$ npm run build # for production
+$ npm i -g yarn
+$ yarn --version
+0.16.1
+
+$ yarn
+$ yarn start     # for development
+$ yarn run build # for production
 ```
 
 ## License

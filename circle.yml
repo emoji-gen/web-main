@@ -11,10 +11,13 @@ checkout:
 dependencies:
   cache_directories:
     - node_modules
+  override:
+    - npm i -g yarn
+    - yarn
 
 test:
   override:
-    - npm run build
+    - yarn run build
   post:
     - scripts/notify/end-test.sh
 
