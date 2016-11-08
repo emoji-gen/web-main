@@ -5,7 +5,7 @@ Emoji-Web
 ## Requirements
 
   - Python 3.5
-  - Node 4.6.0
+  - Node 6.9.1
   - memcached
   - Redis
 
@@ -54,7 +54,7 @@ You should download used fonts for `assets/fonts` directory.
 
 ```
 $ node -v
-v4.4.7
+v6.9.1
 
 $ npm install
 $ npm start     # for development
