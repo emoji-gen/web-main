@@ -5,7 +5,8 @@
   "main": "view/index.js",
   "scripts": {
     "start": "webpack --progress --watch",
-    "build": "webpack --progress"
+    "build": "webpack --progress",
+    "test": "eslint view"
   },
   "repository": {
     "type": "git",
