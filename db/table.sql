@@ -13,5 +13,5 @@ CREATE TABLE `emoji_log` (
   `updated_at` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY(`id`),
 	INDEX `generated_at_public_fg_idx` (`generated_at`, `public_fg`)
-) ENGINE=InnoDB DEFAULT CHARACTER SET utf8;
+) ENGINE=InnoDB DEFAULT CHARACTER SET utf8mb4;
 

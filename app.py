@@ -13,6 +13,7 @@ from flask_rq2 import RQ
 from apps.String2emoji import String2emoji
 
 from apps       import config
+from apps       import history
 from apps.cache import create as create_cache
 from apps.jobs  import rq, slack_notify
 
@@ -93,7 +94,19 @@ def emoji_download():
     res.data = img_png
     res.headers['Content-Type'] = 'image/png'
     res.headers['Content-Disposition'] = disp.encode('utf-8')
-    slack_notify.queue(text,font_key,color,back_color)
+
+    if config.slack_web_hook_enable:
+        slack_notify.queue(text,font_key,color,back_color)
+
+    if config.mysql_enabled:
+        history.logging(
+            text,
+            color,
+            back_color,
+            font=font_key,
+            public_fg=True,
+            )
+
     return res
 
 @app.route('/api/fonts')
@@ -109,6 +122,21 @@ def api_fonts():
     res.data = json.dumps(fonts)
     res.headers['Content-Type'] = 'application/json'
     return res
+
+
+@app.route('/api/history')
+def api_history():
+    res = make_response()
+    res.headers['Content-Type'] = 'application/json'
+
+    if not config.mysql_enabled:
+        res.data = json.dumps([])
+        return res
+
+    rows     = history.search()
+    res.data = json.dumps(rows, cls=history.AlchemyEncoder)
+    return res
+
 
 def generate_emoji(text,font,color,back_color):
     global cache
