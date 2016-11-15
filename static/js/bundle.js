@@ -83,9 +83,7 @@
 
 	__webpack_require__(5);
 
-	var _ga = __webpack_require__(9);
-
-	var _ga2 = _interopRequireDefault(_ga);
+	__webpack_require__(9);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14969,13 +14967,7 @@
 
 	'use strict';
 
-	var _vue = __webpack_require__(1);
-
-	var _vue2 = _interopRequireDefault(_vue);
-
 	__webpack_require__(13);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-root',
@@ -17156,13 +17148,7 @@
 
 	'use strict';
 
-	var _vue = __webpack_require__(1);
-
-	var _vue2 = _interopRequireDefault(_vue);
-
 	__webpack_require__(34);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-emoji',
@@ -17209,17 +17195,11 @@
 
 	'use strict';
 
-	var _vue = __webpack_require__(1);
-
-	var _vue2 = _interopRequireDefault(_vue);
-
 	var _vueColor = __webpack_require__(38);
 
 	var _sprintfJs = __webpack_require__(39);
 
 	__webpack_require__(40);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var defaultColors = {
 	  hex: '#EC71A1',
@@ -22045,12 +22025,14 @@
 
 	module.exports = {
 	  shorten: function shorten(longUrl) {
+	    var queryLongUrl = longUrl;
+
 	    // for debug
 	    if (_meta2.default.env.debug) {
-	      longUrl = longUrl.replace(/localhost\:\d+/, _meta2.default.env.domain);
+	      queryLongUrl = queryLongUrl.replace(/localhost:\d+/, _meta2.default.env.domain);
 	    }
 
-	    var query = Object.assign({ longUrl: longUrl, format: 'txt' }, baseQuery);
+	    var query = Object.assign({ longUrl: queryLongUrl, format: 'txt' }, baseQuery);
 	    var url = baseUrl + 'shorten?' + _queryString2.default.stringify(query);
 
 	    return fetch(url).then(function (res) {
@@ -22526,13 +22508,7 @@
 
 	'use strict';
 
-	var _vue = __webpack_require__(1);
-
-	var _vue2 = _interopRequireDefault(_vue);
-
 	__webpack_require__(81);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-contact',
