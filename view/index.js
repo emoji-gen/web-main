@@ -10,7 +10,7 @@ Vue.use(VueRouter)
 
 const RootView = Vue.extend(require('./views/root'))
 const router   = new VueRouter({
-	hashbang: true,
+  hashbang: true,
   saveScrollPosition: false,
 })
 
