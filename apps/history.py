@@ -70,6 +70,7 @@ class EmojiLog(Base):
         self.font         = font
         self.public_fg    = public_fg
         self.generated_at = generated_at or datetime.now()
+        self.updated_at   = datetime.now()
         self.created_at   = datetime.now()
 
 
