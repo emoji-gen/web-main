@@ -34,6 +34,8 @@ memcached_servers = _env_config['cache']['memcached']['servers']
 slack_web_hook_enable = _env_config['slack']['enable']
 slack_web_hook_url    = _env_config['slack']['url']
 
+history_enabled = _env_config['history']['enabled']
+
 mysql_enabled = _env_config['mysql']['enabled']
 mysql_url     = _env_config['mysql']['url']
 

@@ -26,6 +26,8 @@ app.jinja_env.globals['debug']       = config.debug
 app.jinja_env.globals['domain']      = config.site_domain
 app.jinja_env.globals['description'] = config.site_description
 
+app.jinja_env.globals['history_enabled'] = config.history_enabled
+
 # compute JavaScript checksum
 if not config.debug:
     app.jinja_env.globals['js_min_checksum'] = \
