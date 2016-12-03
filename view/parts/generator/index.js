@@ -37,6 +37,7 @@ module.exports = {
     backgroundColors: defaultBackgroundColors,
     text: '絵文\n字。',
     fontKey: null,
+    publicFg: true,
   }),
 
   computed: {
@@ -67,6 +68,7 @@ module.exports = {
         color: this.rgbaHex,
         back_color: this.backgroundRgbaHex,
         font: this.fontKey,
+        public_fg: this.publicFg,
       }
       this.$dispatch('EG_EMOJI_GENERATE', query)
       this.$router.go({
