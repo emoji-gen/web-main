@@ -17,6 +17,7 @@ dependencies:
 
 test:
   override:
+    - yarn test
     - yarn run build
   post:
     - scripts/notify/end-test.sh

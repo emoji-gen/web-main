@@ -1,4 +1,3 @@
-import Vue       from 'vue'
 import {Chrome}  from 'vue-color'
 import {sprintf} from 'sprintf-js'
 

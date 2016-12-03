@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 import './index.css'
 
 module.exports = {

@@ -9,12 +9,14 @@ const baseQuery = {
 
 module.exports = {
   shorten: function (longUrl) {
+    let queryLongUrl = longUrl
+
     // for debug
     if (meta.env.debug) {
-      longUrl = longUrl.replace(/localhost\:\d+/, meta.env.domain)
+      queryLongUrl = queryLongUrl.replace(/localhost:\d+/, meta.env.domain)
     }
 
-    const query   = Object.assign({ longUrl: longUrl, format: 'txt' }, baseQuery)
+    const query   = Object.assign({ longUrl: queryLongUrl, format: 'txt' }, baseQuery)
     const url     = `${baseUrl}shorten?${queryString.stringify(query)}`
 
     return fetch(url).then(res => res.text())
