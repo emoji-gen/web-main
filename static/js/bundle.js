@@ -14943,6 +14943,9 @@
 	  env: {
 	    debug: getMetaValue('app:env:debug') === 'true',
 	    domain: getMetaValue('app:env:domain')
+	  },
+	  feature: {
+	    history: getMetaValue('app:feature:history') === 'true'
 	  }
 	};
 
@@ -17150,20 +17153,34 @@
 
 	__webpack_require__(34);
 
+	var _meta = __webpack_require__(10);
+
+	var _meta2 = _interopRequireDefault(_meta);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	module.exports = {
 	  name: 'eg-emoji',
 	  template: __webpack_require__(36),
-	  components: {
-	    'eg-generator': __webpack_require__(37),
-	    'eg-recently': __webpack_require__(47),
-	    'eg-result': __webpack_require__(76)
+
+	  data: function data() {
+	    return {
+	      historyEnabled: _meta2.default.feature.history
+	    };
 	  },
+
+
 	  route: {
 	    activate: function activate() {
 	      if (~this.$route.path.indexOf('/emoji')) {
 	        this.$dispatch('EG_EMOJI_GENERATE', this.$route.query);
 	      }
 	    }
+	  },
+	  components: {
+	    'eg-generator': __webpack_require__(37),
+	    'eg-recently': __webpack_require__(47),
+	    'eg-result': __webpack_require__(76)
 	  }
 	};
 
@@ -17187,7 +17204,7 @@
 /* 36 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-emoji\"> <eg-result></eg-result> <eg-generator></eg-generator> <eg-recently></eg-recently> </div> ";
+	module.exports = "<div class=\"v-cloak eg-emoji\"> <eg-result></eg-result> <eg-generator></eg-generator> <eg-recently v-if=historyEnabled></eg-recently> </div> ";
 
 /***/ },
 /* 37 */
