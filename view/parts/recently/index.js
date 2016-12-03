@@ -1,3 +1,5 @@
+'use strict'
+
 import queryString from 'query-string'
 import pick from 'lodash.pick'
 
@@ -26,7 +28,7 @@ module.exports = {
 
       // add
       const template = this._makeTemplate()
-      for (let history of val) {
+      for (const history of val) {
         const elem = template.cloneNode(true)
         const url  = this._makeEmojiUrl(history)
         elem.style.backgroundImage = `url('${url}')`
@@ -57,7 +59,7 @@ module.exports = {
 
     _makeEmojiUrl(history) {
       const query = pick(history, ['text', 'color', 'back_color', 'font'])
-      return '/emoji?' + queryString.stringify(query)
+      return `/emoji?${queryString.stringify(query)}`
     },
   },
 }
