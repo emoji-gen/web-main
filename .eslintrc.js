@@ -6,7 +6,8 @@ module.exports = {
     'browser': true,
   },
   'rules': {
-    'no-unused-vars': 2,
+    'no-unused-vars': [ 2, { 'args': 'none' } ],
+    'no-restricted-syntax': [ 2, 'WithStatement' ],
     'object-shorthand': 1,
     'comma-dangle': 1,
     'no-new': 1,
@@ -19,5 +20,6 @@ module.exports = {
     'no-bitwise': 0,
     'no-multi-spaces': 0,
     'import/newline-after-import': 0,
+    'no-underscore-dangle': 0,
   },
 }
