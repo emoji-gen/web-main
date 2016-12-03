@@ -80,6 +80,7 @@ def emoji_download():
     text = request.args.get("text", default='test', type=str)
     color = request.args.get("color", default='000000', type=str).upper()
     back_color = request.args.get("back_color", default='FFFFFF00', type=str).upper()
+    public_fg = request.args.get('public_fg', default='true', type=str) == 'true'
     font = fonts_list.get(font_key,font_default).get('file')
     if text is False:
         text = ' '
@@ -99,7 +100,7 @@ def emoji_download():
         slack_notify.queue(text,font_key,color,back_color)
 
     if config.mysql_enabled:
-        history.logging(text, color, back_color, font_key, public_fg=True)
+        history.logging(text, color, back_color, font_key, public_fg)
 
     return res
 
