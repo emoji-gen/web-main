@@ -1,6 +1,7 @@
 import {Chrome}  from 'vue-color'
 import {sprintf} from 'sprintf-js'
 
+import meta from '../../lib/meta'
 import './index.css'
 
 const defaultColors = {
@@ -28,16 +29,19 @@ const defaultBackgroundColors = {
 module.exports = {
   name: 'eg-generator',
   template: require('./index.html'),
-  data: () => ({
-    // TODO: サーバーから取得する
-    fonts: [],
-    colorKind: 'foreground',
-    colors: defaultColors,
-    backgroundColors: defaultBackgroundColors,
-    text: '絵文\n字。',
-    fontKey: null,
-    publicFg: true,
-  }),
+  data() {
+    return {
+      // TODO: サーバーから取得する
+      fonts: [],
+      colorKind: 'foreground',
+      colors: defaultColors,
+      backgroundColors: defaultBackgroundColors,
+      text: '絵文\n字。',
+      fontKey: null,
+      publicFg: true,
+      historyEnabled: meta.feature.history,
+    }
+  },
 
   computed: {
     rgbaHex: function () {

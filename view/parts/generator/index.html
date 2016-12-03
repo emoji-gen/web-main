@@ -4,7 +4,7 @@
   <div class="buttons">
     <button type="button" class="pure-button" v-on:click="generate" v-eg-scroll>生成する&#9834;</button>
 
-    <p class="history"
+    <p class="history" v-if="historyEnabled"
        title="チェックマークを外すと、絵文字が生成履歴に残りません。">
       <label class="pure-checkbox">
         <input type="checkbox" v-model="publicFg"/>
