@@ -17216,7 +17216,13 @@
 
 	var _sprintfJs = __webpack_require__(39);
 
+	var _meta = __webpack_require__(10);
+
+	var _meta2 = _interopRequireDefault(_meta);
+
 	__webpack_require__(40);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var defaultColors = {
 	  hex: '#EC71A1',
@@ -17252,9 +17258,11 @@
 	      backgroundColors: defaultBackgroundColors,
 	      text: '絵文\n字。',
 	      fontKey: null,
-	      publicFg: true
+	      publicFg: true,
+	      historyEnabled: _meta2.default.feature.history
 	    };
 	  },
+
 
 	  computed: {
 	    rgbaHex: function rgbaHex() {
@@ -17553,7 +17561,7 @@
 /* 42 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-generator\"> <h2>絵文字にしたい文字を入力してください！</h2> <div class=buttons> <button type=button class=pure-button v-on:click=generate v-eg-scroll>生成する&#9834;</button> <p class=history title=チェックマークを外すと、絵文字が生成履歴に残りません。> <label class=pure-checkbox> <input type=checkbox v-model=publicFg /> 生成履歴に絵文字を表示する </label> </p> </div> <div class=parameters> <div class=\"parameter text\"> <h3>テキスト</h3> <textarea rows=2 cols=10 v-model=text></textarea> </div> <div class=\"parameter font\"> <h3>フォント</h3> <ul> <li v-for=\"font in fonts\"> <input type=radio name=eg_generator__font_key :value=font.key id=eg_generator__font_{{font.key}} v-model=fontKey> <label for=eg_generator__font_{{font.key}}>{{font.name}}</label> </li> </ul> </div> <div class=\"parameter color\"> <h3>カラー</h3> <div class=pickers> <div class=picker-wrapper v-show=\"colorKind == 'foreground'\"> <chrome-picker :colors.sync=colors></chrome-picker> </div> <div class=picker-wrapper v-else> <chrome-picker :colors.sync=backgroundColors></chrome-picker> </div> </div> <eg-color-kind :color-kind.sync=colorKind></eg-color-kind> </div> </div> </div> ";
+	module.exports = "<div class=\"v-cloak eg-generator\"> <h2>絵文字にしたい文字を入力してください！</h2> <div class=buttons> <button type=button class=pure-button v-on:click=generate v-eg-scroll>生成する&#9834;</button> <p class=history v-if=historyEnabled title=チェックマークを外すと、絵文字が生成履歴に残りません。> <label class=pure-checkbox> <input type=checkbox v-model=publicFg /> 生成履歴に絵文字を表示する </label> </p> </div> <div class=parameters> <div class=\"parameter text\"> <h3>テキスト</h3> <textarea rows=2 cols=10 v-model=text></textarea> </div> <div class=\"parameter font\"> <h3>フォント</h3> <ul> <li v-for=\"font in fonts\"> <input type=radio name=eg_generator__font_key :value=font.key id=eg_generator__font_{{font.key}} v-model=fontKey> <label for=eg_generator__font_{{font.key}}>{{font.name}}</label> </li> </ul> </div> <div class=\"parameter color\"> <h3>カラー</h3> <div class=pickers> <div class=picker-wrapper v-show=\"colorKind == 'foreground'\"> <chrome-picker :colors.sync=colors></chrome-picker> </div> <div class=picker-wrapper v-else> <chrome-picker :colors.sync=backgroundColors></chrome-picker> </div> </div> <eg-color-kind :color-kind.sync=colorKind></eg-color-kind> </div> </div> </div> ";
 
 /***/ },
 /* 43 */
