@@ -13,7 +13,7 @@ from sqlalchemy.ext.declarative import DeclarativeMeta
 from . import config
 
 engine = create_engine(
-        'mysql+pymysql://root:@localhost/emoji?charset=utf8mb4',
+        config.mysql_url,
         encoding='utf-8',
         echo=config.debug
         )
