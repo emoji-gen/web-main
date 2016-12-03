@@ -118,8 +118,8 @@ def api_fonts():
     return res
 
 
-@app.route('/api/history')
-def api_history():
+@app.route('/api/histories')
+def api_histories():
     res = make_response()
     res.headers['Content-Type'] = 'application/json'
 

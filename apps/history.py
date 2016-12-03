@@ -12,14 +12,7 @@ from sqlalchemy.ext.declarative import DeclarativeMeta
 
 from . import config
 
-engine = create_engine(
-        config.mysql_url,
-        encoding='utf-8',
-        echo=config.debug
-        )
-
-Session = sessionmaker(bind=engine, autocommit=False)
-Base    = declarative_base()
+Base = declarative_base()
 
 # -----------------------------------------------------------------------------
 
@@ -82,6 +75,28 @@ class EmojiLog(Base):
 
 # -----------------------------------------------------------------------------
 
+engine = None
+def get_engine():
+    global engine
+
+    if not engine:
+        engine = create_engine(
+                config.mysql_url,
+                encoding='utf-8',
+                echo=config.debug
+                )
+    return engine
+
+
+session_factory = None
+def make_session():
+    global session_factory
+
+    if not session_factory:
+        session_factory = sessionmaker(bind=get_engine(), autocommit=False)
+    return session_factory()
+
+
 def logging(
             text,
             color,
@@ -90,7 +105,7 @@ def logging(
             public_fg=True,
             ):
     emoji_log = EmojiLog(text, color, back_color, font, public_fg)
-    session   = Session()
+    session   = make_session()
     session.add(emoji_log)
     session.commit()
 
@@ -98,7 +113,7 @@ def logging(
 def search(
         limit=20
         ):
-    session    = Session()
+    session    = make_session()
     emoji_logs = (session
         .query(EmojiLog)
         .filter(EmojiLog.public_fg == True)
