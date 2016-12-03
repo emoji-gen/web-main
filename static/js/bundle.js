@@ -17254,7 +17254,8 @@
 	      colors: defaultColors,
 	      backgroundColors: defaultBackgroundColors,
 	      text: '絵文\n字。',
-	      fontKey: null
+	      fontKey: null,
+	      publicFg: true
 	    };
 	  },
 
@@ -17286,7 +17287,8 @@
 	        text: this.text,
 	        color: this.rgbaHex,
 	        back_color: this.backgroundRgbaHex,
-	        font: this.fontKey
+	        font: this.fontKey,
+	        public_fg: this.publicFg
 	      };
 	      this.$dispatch('EG_EMOJI_GENERATE', query);
 	      this.$router.go({
@@ -17545,7 +17547,7 @@
 
 
 	// module
-	exports.push([module.id, ".eg-generator{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:20px 0 35px}.eg-generator,.eg-generator *{box-sizing:border-box}.eg-generator h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-generator h3{display:block;margin:0 0 16px;font-size:15px;font-weight:700;letter-spacing:1px;text-align:center;color:#3ab0c7}.eg-generator .buttons{margin:40px 0 0;text-align:center}.eg-generator .buttons button{padding:12px 60px;border-radius:12px;background-color:rgba(225,22,101,.5);background-image:none!important;color:#fff;font-weight:700}.eg-generator .buttons button:focus,.eg-generator .buttons button:hover{background-color:rgba(225,22,101,.75)}.eg-generator .parameters{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:38px 0 0}.eg-generator .parameters .parameter{margin:0 30px;text-align:center}.eg-generator .parameters .parameter.text textarea{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px;margin:0 0 50px;padding:10px;border:0;width:140px;height:100px;text-align:center;-webkit-appearance:none}.eg-generator .parameters .parameter.color{margin-right:32px}.eg-generator .parameters .parameter.color .picker-wrapper>div{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px;margin-bottom:8px}.eg-generator .parameters .parameter.font ul{margin:0;padding:0;list-style-type:none;list-style-position:inside}.eg-generator .parameters .parameter.font input{display:none}.eg-generator .parameters .parameter.font input:checked+label{border:1px solid rgba(112,167,179,.8);background-image:url(/static/img/checked.png);background-repeat:no-repeat;background-position:14px;background-size:20px auto;color:#709da6}.eg-generator .parameters .parameter.font label{display:block;margin:0 0 5px;padding:8px 23px 8px 46px;border-radius:16px;border:1px solid rgba(0,0,0,.2);color:rgba(0,0,0,.32);font-size:15px;text-align:left;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer}", ""]);
+	exports.push([module.id, ".eg-generator{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:20px 0 35px}.eg-generator,.eg-generator *{box-sizing:border-box}.eg-generator h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-generator h3{display:block;margin:0 0 16px;font-size:15px;font-weight:700;letter-spacing:1px;text-align:center;color:#3ab0c7}.eg-generator .buttons{margin:40px 0 0;text-align:center}.eg-generator .buttons button{padding:12px 60px;border-radius:12px;background-color:rgba(225,22,101,.5);background-image:none!important;color:#fff;font-weight:700}.eg-generator .buttons button:focus,.eg-generator .buttons button:hover{background-color:rgba(225,22,101,.75)}.eg-generator .buttons>.history{color:#8c8c8c;letter-spacing:.4px;font-size:11px}.eg-generator .buttons>.history label{padding:0 3px}.eg-generator .buttons>.history label input{margin-right:3px}.eg-generator .parameters{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:38px 0 0}.eg-generator .parameters .parameter{margin:0 30px;text-align:center}.eg-generator .parameters .parameter.text textarea{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px;margin:0 0 50px;padding:10px;border:0;width:140px;height:100px;text-align:center;-webkit-appearance:none}.eg-generator .parameters .parameter.color{margin-right:32px}.eg-generator .parameters .parameter.color .picker-wrapper>div{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px;margin-bottom:8px}.eg-generator .parameters .parameter.font ul{margin:0;padding:0;list-style-type:none;list-style-position:inside}.eg-generator .parameters .parameter.font input{display:none}.eg-generator .parameters .parameter.font input:checked+label{border:1px solid rgba(112,167,179,.8);background-image:url(/static/img/checked.png);background-repeat:no-repeat;background-position:14px;background-size:20px auto;color:#709da6}.eg-generator .parameters .parameter.font label{display:block;margin:0 0 5px;padding:8px 23px 8px 46px;border-radius:16px;border:1px solid rgba(0,0,0,.2);color:rgba(0,0,0,.32);font-size:15px;text-align:left;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer}", ""]);
 
 	// exports
 
@@ -17554,7 +17556,7 @@
 /* 42 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-generator\"> <h2>絵文字にしたい文字を入力してください！</h2> <div class=buttons> <button type=button class=pure-button v-on:click=generate v-eg-scroll>生成する&#9834;</button> </div> <div class=parameters> <div class=\"parameter text\"> <h3>テキスト</h3> <textarea rows=2 cols=10 v-model=text></textarea> </div> <div class=\"parameter font\"> <h3>フォント</h3> <ul> <li v-for=\"font in fonts\"> <input type=radio name=eg_generator__font_key :value=font.key id=eg_generator__font_{{font.key}} v-model=fontKey> <label for=eg_generator__font_{{font.key}}>{{font.name}}</label> </li> </ul> </div> <div class=\"parameter color\"> <h3>カラー</h3> <div class=pickers> <div class=picker-wrapper v-show=\"colorKind == 'foreground'\"> <chrome-picker :colors.sync=colors></chrome-picker> </div> <div class=picker-wrapper v-else> <chrome-picker :colors.sync=backgroundColors></chrome-picker> </div> </div> <eg-color-kind :color-kind.sync=colorKind></eg-color-kind> </div> </div> </div> ";
+	module.exports = "<div class=\"v-cloak eg-generator\"> <h2>絵文字にしたい文字を入力してください！</h2> <div class=buttons> <button type=button class=pure-button v-on:click=generate v-eg-scroll>生成する&#9834;</button> <p class=history title=チェックマークを外すと、絵文字が生成履歴に残りません。> <label class=pure-checkbox> <input type=checkbox v-model=publicFg /> 生成履歴に絵文字を表示する </label> </p> </div> <div class=parameters> <div class=\"parameter text\"> <h3>テキスト</h3> <textarea rows=2 cols=10 v-model=text></textarea> </div> <div class=\"parameter font\"> <h3>フォント</h3> <ul> <li v-for=\"font in fonts\"> <input type=radio name=eg_generator__font_key :value=font.key id=eg_generator__font_{{font.key}} v-model=fontKey> <label for=eg_generator__font_{{font.key}}>{{font.name}}</label> </li> </ul> </div> <div class=\"parameter color\"> <h3>カラー</h3> <div class=pickers> <div class=picker-wrapper v-show=\"colorKind == 'foreground'\"> <chrome-picker :colors.sync=colors></chrome-picker> </div> <div class=picker-wrapper v-else> <chrome-picker :colors.sync=backgroundColors></chrome-picker> </div> </div> <eg-color-kind :color-kind.sync=colorKind></eg-color-kind> </div> </div> </div> ";
 
 /***/ },
 /* 43 */
