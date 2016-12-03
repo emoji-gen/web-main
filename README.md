@@ -25,7 +25,7 @@ $ pip install -r requirements.txt
 $ python app.py
 ```
 
-### Job Queue
+#### Job Queue
 Emoji Generator use [RQ](http://python-rq.org/) and Redis as job queue.
 
 Try to type command as following.
