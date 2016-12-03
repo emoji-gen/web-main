@@ -111,7 +111,7 @@ def logging(
 
 
 def search(
-        limit=20
+        limit=10
         ):
     session    = make_session()
     emoji_logs = (session
