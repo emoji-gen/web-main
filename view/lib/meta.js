@@ -8,7 +8,4 @@ module.exports = {
     debug: getMetaValue('app:env:debug') === 'true',
     domain: getMetaValue('app:env:domain'),
   },
-  feature: {
-    history: getMetaValue('app:feature:history') === 'true',
-  },
 }
