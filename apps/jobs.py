@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import slackweb
 import urllib.parse
 from flask_rq2 import RQ

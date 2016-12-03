@@ -42,6 +42,6 @@ indent_size = 2
 indent_style = space
 indent_size = 2
 
-[.eslintrc]
+[*.sql]
 indent_style = space
 indent_size = 2

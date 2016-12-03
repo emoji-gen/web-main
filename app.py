@@ -13,6 +13,7 @@ from flask_rq2 import RQ
 from apps.String2emoji import String2emoji
 
 from apps       import config
+from apps       import history
 from apps.cache import create as create_cache
 from apps.jobs  import rq, slack_notify
 
@@ -24,6 +25,8 @@ app.debug = config.debug
 app.jinja_env.globals['debug']       = config.debug
 app.jinja_env.globals['domain']      = config.site_domain
 app.jinja_env.globals['description'] = config.site_description
+
+app.jinja_env.globals['history_enabled'] = config.history_enabled
 
 # compute JavaScript checksum
 if not config.debug:
@@ -79,6 +82,7 @@ def emoji_download():
     text = request.args.get("text", default='test', type=str)
     color = request.args.get("color", default='000000', type=str).upper()
     back_color = request.args.get("back_color", default='FFFFFF00', type=str).upper()
+    public_fg = request.args.get('public_fg', default='true', type=str) == 'true'
     font = fonts_list.get(font_key,font_default).get('file')
     if text is False:
         text = ' '
@@ -93,7 +97,13 @@ def emoji_download():
     res.data = img_png
     res.headers['Content-Type'] = 'image/png'
     res.headers['Content-Disposition'] = disp.encode('utf-8')
-    slack_notify.queue(text,font_key,color,back_color)
+
+    if config.slack_web_hook_enable:
+        slack_notify.queue(text,font_key,color,back_color)
+
+    if config.mysql_enabled:
+        history.logging(text, color, back_color, font_key, public_fg)
+
     return res
 
 @app.route('/api/fonts')
@@ -109,6 +119,21 @@ def api_fonts():
     res.data = json.dumps(fonts)
     res.headers['Content-Type'] = 'application/json'
     return res
+
+
+@app.route('/api/histories')
+def api_histories():
+    res = make_response()
+    res.headers['Content-Type'] = 'application/json'
+
+    if not config.mysql_enabled:
+        res.data = json.dumps([])
+        return res
+
+    rows     = history.search()
+    res.data = json.dumps(rows, cls=history.AlchemyEncoder)
+    return res
+
 
 def generate_emoji(text,font,color,back_color):
     global cache

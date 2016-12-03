@@ -7,3 +7,10 @@ cache:
 slack:
   enable: false
   url: https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX
+
+mysql:
+  enabled: false
+  url: 'mysql+pymysql://root:@localhost/emoji?charset=utf8mb4'
+
+history:
+  enabled: false

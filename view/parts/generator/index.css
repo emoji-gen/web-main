@@ -44,6 +44,20 @@
         background-color: color($color-red a(.75));
       }
     }
+
+    > .history {
+      color: $color-gray;
+      letter-spacing: .4px;
+      font-size: $font-size-xsmall;
+
+      label {
+        padding: 0 3px;
+
+        input {
+          margin-right: 3px;
+        }
+      }
+    }
   }
 
   .parameters {
