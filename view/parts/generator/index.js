@@ -38,7 +38,7 @@ module.exports = {
       backgroundColors: defaultBackgroundColors,
       text: '絵文\n字。',
       fontKey: null,
-      publicFg: true,
+      publicFg: false,
       historyEnabled: meta.feature.history,
     }
   },
