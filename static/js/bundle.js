@@ -17258,7 +17258,7 @@
 	      backgroundColors: defaultBackgroundColors,
 	      text: '絵文\n字。',
 	      fontKey: null,
-	      publicFg: true,
+	      publicFg: false,
 	      historyEnabled: _meta2.default.feature.history
 	    };
 	  },
