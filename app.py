@@ -130,7 +130,7 @@ def api_histories():
         res.data = json.dumps([])
         return res
 
-    rows     = history.search()
+    rows     = history.search(limit=20)
     res.data = json.dumps(rows, cls=history.AlchemyEncoder)
     return res
 
