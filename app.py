@@ -167,7 +167,7 @@ def generate_emoji(text,font,color,back_color):
             return None
 
         emoji = String2emoji(lines, 'assets/fonts/' + font,(r,g,b,a),(br,bg,bb,ba))
-        img = emoji.getEmoji()
+        img = emoji.getEmoji(emoji.MODE_NOMAL)
         output = io.BytesIO()
         img.save(output,format='png')
         img_png = output.getvalue()
