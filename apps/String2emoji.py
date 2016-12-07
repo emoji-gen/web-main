@@ -87,7 +87,7 @@ class String2emoji(object):
                 if color != self.backColor:
                     return cy
 
-    def getEmoji(self,argMode = MODE_NOMAL):
+    def getEmoji(self,argMode = MODE_NOMAL,align = 'centor'):
         self.mode = argMode
         img = Image.new("RGBA",self.imageSize,self.backColor)
         draw = ImageDraw.Draw(img)
@@ -115,9 +115,19 @@ class String2emoji(object):
                     image_paste_x = int((127-x1)/2)
                     #image_paste_x = 0
                 if l != 1:
-                    img.paste(img_str,(image_paste_x,int((127/l)*i+abs((127/l)-y1)*0.5)))
+                    if align == 'right':
+                        img.paste(img_str,(127-x1,int((127/l)*i+abs((127/l)-y1)*0.5)))
+                    elif align == 'left':
+                        img.paste(img_str,(0,int((127/l)*i+abs((127/l)-y1)*0.5)))
+                    else:
+                        img.paste(img_str,(image_paste_x,int((127/l)*i+abs((127/l)-y1)*0.5)))
                 else:
-                    img.paste(img_str,(image_paste_x,int((127-y1)/2)))
+                    if align == 'right':
+                        img.paste(img_str,(127-x1,int((127-y1)/2)))
+                    elif align == 'left':
+                        img.paste(img_str,(0,int((127-y1)/2)))
+                    else:
+                        img.paste(img_str,(image_paste_x,int((127-y1)/2)))
             return img
         if self.mode == self.MODE_FONTSIZE_FIXED:
             for i in range(0,l):
@@ -145,8 +155,17 @@ class String2emoji(object):
                     image_paste_x = int((127-x1)/2)
                     #image_paste_x = 0
                 if l != 1:
-                    img.paste(img_str,(image_paste_x,int((127/l)*i+abs((127/l)-y1)*0.5)))
+                    if align == 'right':
+                        img.paste(img_str,(127-x1,int((127/l)*i+abs((127/l)-y1)*0.5)))
+                    elif align == 'left':
+                        img.paste(img_str,(0,int((127/l)*i+abs((127/l)-y1)*0.5)))
+                    else:
+                        img.paste(img_str,(image_paste_x,int((127/l)*i+abs((127/l)-y1)*0.5)))
                 else:
-                    img.paste(img_str,(image_paste_x,int((127-y1)/2)))
+                    if align == 'right':
+                        img.paste(img_str,(127-x1,int((127-y1)/2)))
+                    elif align == 'left':
+                        img.paste(img_str,(0,int((127-y1)/2)))
+                    else:
+                        img.paste(img_str,(image_paste_x,int((127-y1)/2)))
             return img
-

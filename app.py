@@ -59,6 +59,7 @@ def emoji():
     color = request.args.get("color", default='000000', type=str).upper()
     back_color = request.args.get("back_color", default='FFFFFF00', type=str).upper()
     size_fixed = request.args.get("size_fixed",default='false',type=str).lower()
+    align = request.args.get("align",default='centor',type=str).lower()
     font = fonts_list.get(font_key,font_default).get('file')
     if text is False:
         text = ' '
@@ -68,7 +69,9 @@ def emoji():
         back_color = 'FFFFFF00'
     if size_fixed not in ['true','false']:
         size_fixed = 'false'
-    img_png = generate_emoji(text,font,color,back_color,size_fixed)
+    if align not in ['centor','right','left']:
+        align = 'centor'
+    img_png = generate_emoji(text,font,color,back_color,size_fixed,align)
 
     if not img_png:
         return abort(400)
@@ -86,6 +89,7 @@ def emoji_download():
     color = request.args.get("color", default='000000', type=str).upper()
     back_color = request.args.get("back_color", default='FFFFFF00', type=str).upper()
     size_fixed = request.args.get('size_fixed',default='false',type=str).lower()
+    align = request.args.get("align",default='centor',type=str).lower()
     public_fg = request.args.get('public_fg', default='true', type=str) == 'true'
     font = fonts_list.get(font_key,font_default).get('file')
     if text is False:
@@ -96,8 +100,9 @@ def emoji_download():
         back_color = 'FFFFFF00'
     if size_fixed not in ['true','false']:
         size_fixed = 'false'
-
-    img_png = generate_emoji(text,font,color,back_color,size_fixed)
+    if align not in ['centor','right','left']:
+        align = 'centor'
+    img_png = generate_emoji(text,font,color,back_color,size_fixed,align)
     disp = 'attachment;' + \
            'filename=\"' + re.sub(r'\s','_',text) + '.png\"'
     res = make_response()
@@ -142,9 +147,15 @@ def api_histories():
     return res
 
 
-def generate_emoji(text,font,color,back_color,size_fixed = 'false'):
+def generate_emoji(text,font,color,back_color,size_fixed = 'false',align = 'centor'):
     global cache
-    hash_text = text + ':' + color + ':' + back_color + ':' + font + ':' + size_fixed + ':' + str(config.cache_version)
+    hash_text = text + \
+            ':' + color +\
+            ':' + back_color +\
+            ':' + font +\
+            ':' + size_fixed +\
+            ':' + align +\
+            ':' + str(config.cache_version)
     r = int(color[0] +color[1],16)
     g = int(color[2] +color[3],16)
     b = int(color[4] +color[5],16)
@@ -180,7 +191,7 @@ def generate_emoji(text,font,color,back_color,size_fixed = 'false'):
             emojiMode = emoji.MODE_FONTSIZE_FIXED
         else :
             emojiMode = emoji.MODE_NOMAL
-        img = emoji.getEmoji(emojiMode)
+        img = emoji.getEmoji(emojiMode,align)
         output = io.BytesIO()
         img.save(output,format='png')
         img_png = output.getvalue()
