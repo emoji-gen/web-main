@@ -12,7 +12,7 @@ slack_enable = config.slack_web_hook_enable
 slack = slackweb.Slack(url=config.slack_web_hook_url)
 
 @rq.job('low')
-def slack_notify(text, font, color, back_color):
+def slack_notify(text, font, color, back_color,size_fixed,align):
     bar_color = color[:6]
     if not slack_enable:
         return
@@ -22,6 +22,8 @@ def slack_notify(text, font, color, back_color):
         'font': font,
         'color': color,
         'back_color': back_color
+        'size_fixed':size_fixed
+        'align':align
     }
     attachment = {
         'title': 'download emoji',

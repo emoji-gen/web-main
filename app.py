@@ -111,7 +111,7 @@ def emoji_download():
     res.headers['Content-Disposition'] = disp.encode('utf-8')
 
     if config.slack_web_hook_enable:
-        slack_notify.queue(text,font_key,color,back_color)
+        slack_notify.queue(text,font_key,color,back_color,size_fixed,align)
 
     if config.mysql_enabled:
         history.logging(text, color, back_color, font_key, public_fg)
