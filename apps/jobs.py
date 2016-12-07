@@ -21,8 +21,8 @@ def slack_notify(text, font, color, back_color,size_fixed,align):
         'text': text,
         'font': font,
         'color': color,
-        'back_color': back_color
-        'size_fixed':size_fixed
+        'back_color': back_color,
+        'size_fixed':size_fixed,
         'align':align
     }
     attachment = {
