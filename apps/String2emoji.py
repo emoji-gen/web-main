@@ -87,7 +87,7 @@ class String2emoji(object):
                 if color != self.backColor:
                     return cy
 
-    def getEmoji(self,argMode = MODE_NOMAL,align = 'centor'):
+    def getEmoji(self,argMode = MODE_NOMAL,align = 'center'):
         self.mode = argMode
         img = Image.new("RGBA",self.imageSize,self.backColor)
         draw = ImageDraw.Draw(img)

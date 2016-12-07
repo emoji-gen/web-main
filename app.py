@@ -59,7 +59,7 @@ def emoji():
     color = request.args.get("color", default='000000', type=str).upper()
     back_color = request.args.get("back_color", default='FFFFFF00', type=str).upper()
     size_fixed = request.args.get("size_fixed",default='false',type=str).lower()
-    align = request.args.get("align",default='centor',type=str).lower()
+    align = request.args.get("align",default='center',type=str).lower()
     font = fonts_list.get(font_key,font_default).get('file')
     if text is False:
         text = ' '
@@ -69,8 +69,8 @@ def emoji():
         back_color = 'FFFFFF00'
     if size_fixed not in ['true','false']:
         size_fixed = 'false'
-    if align not in ['centor','right','left']:
-        align = 'centor'
+    if align not in ['center','right','left']:
+        align = 'center'
     img_png = generate_emoji(text,font,color,back_color,size_fixed,align)
 
     if not img_png:
@@ -89,7 +89,7 @@ def emoji_download():
     color = request.args.get("color", default='000000', type=str).upper()
     back_color = request.args.get("back_color", default='FFFFFF00', type=str).upper()
     size_fixed = request.args.get('size_fixed',default='false',type=str).lower()
-    align = request.args.get("align",default='centor',type=str).lower()
+    align = request.args.get("align",default='center',type=str).lower()
     public_fg = request.args.get('public_fg', default='true', type=str) == 'true'
     font = fonts_list.get(font_key,font_default).get('file')
     if text is False:
@@ -100,8 +100,8 @@ def emoji_download():
         back_color = 'FFFFFF00'
     if size_fixed not in ['true','false']:
         size_fixed = 'false'
-    if align not in ['centor','right','left']:
-        align = 'centor'
+    if align not in ['center','right','left']:
+        align = 'center'
     img_png = generate_emoji(text,font,color,back_color,size_fixed,align)
     disp = 'attachment;' + \
            'filename=\"' + re.sub(r'\s','_',text) + '.png\"'
@@ -147,7 +147,7 @@ def api_histories():
     return res
 
 
-def generate_emoji(text,font,color,back_color,size_fixed = 'false',align = 'centor'):
+def generate_emoji(text,font,color,back_color,size_fixed = 'false',align = 'center'):
     global cache
     hash_text = text + \
             ':' + color +\
