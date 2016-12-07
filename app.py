@@ -97,7 +97,7 @@ def emoji_download():
     if size_fixed not in ['true','false']:
         size_fixed = 'false'
 
-    img_png = generate_emoji(text,font,color,back_colori,size_fixed)
+    img_png = generate_emoji(text,font,color,back_color,size_fixed)
     disp = 'attachment;' + \
            'filename=\"' + re.sub(r'\s','_',text) + '.png\"'
     res = make_response()
