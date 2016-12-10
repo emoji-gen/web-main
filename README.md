@@ -8,6 +8,7 @@ Emoji-Web
   - Node 6.9.1
   - memcached
   - Redis
+  - MySQL 5.6
 
 ## Frameworks
 
@@ -23,6 +24,15 @@ Python 3.5.0
 
 $ pip install -r requirements.txt
 $ python app.py
+```
+
+#### Database
+Emoji Generator requires MySQL database for saving emoji generated histories.
+
+First, try to type commands as following.
+
+```
+$ ./db/setup.sh
 ```
 
 #### Job Queue
