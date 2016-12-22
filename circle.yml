@@ -2,7 +2,7 @@ machine:
   python:
     version: 3.5.0
   node:
-    version: 6.9.1
+    version: 6.9.2
 
 checkout:
   post:
