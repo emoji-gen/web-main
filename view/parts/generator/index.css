@@ -24,9 +24,16 @@
     font-weight: bold;
     letter-spacing: 1px;
     text-align: center;
-    color: $color-blue-dark;
   }
 
+  h4 {
+    display: block;
+    margin: 0 0 16px;
+    font-size: $font-size-small;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: left;
+  }
 
   .buttons {
     margin: 40px 0 0 0;
@@ -69,6 +76,10 @@
       margin: 0 30px 0;
       text-align: center;
 
+      h3 {
+        color: $color-blue-dark;
+      }
+
       &.text {
         textarea {
           @mixin _parameter;
@@ -79,6 +90,34 @@
           height: 100px;
           text-align: center;
           -webkit-appearance: none;
+        }
+
+        .aligns {
+          display: flex;
+          justify-content: space-between;
+          width: 120px;
+          margin: 0 auto 0;
+
+          .align {
+            $_size: 18px;
+
+            display: inline-block;
+            width: $_size;
+            height: $_size;
+            background-size: $_size $_size;
+
+            &.left {
+              background-image: url('/static/img/align-left.png');
+            }
+
+            &.center {
+              background-image: url('/static/img/align-center.png');
+            }
+
+            &.right {
+              background-image: url('/static/img/align-right.png');
+            }
+          }
         }
       }
 
