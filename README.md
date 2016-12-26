@@ -64,7 +64,7 @@ You should download used fonts for `assets/fonts` directory.
 
 ```
 $ node -v
-v6.9.1
+v6.9.2
 
 $ npm i -g yarn
 $ yarn --version
