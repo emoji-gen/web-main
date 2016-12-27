@@ -60,6 +60,7 @@ def emoji():
     back_color = request.args.get("back_color", default='FFFFFF00', type=str).upper()
     size_fixed = request.args.get("size_fixed",default='false',type=str).lower()
     align = request.args.get("align",default='center',type=str).lower()
+    stretch = request.args.get("stretch",default='true',type=str).lower()
     font = fonts_list.get(font_key,font_default).get('file')
     if text is False:
         text = ' '
@@ -71,7 +72,9 @@ def emoji():
         size_fixed = 'false'
     if align not in ['center','right','left']:
         align = 'center'
-    img_png = generate_emoji(text,font,color,back_color,size_fixed,align)
+    if stretch not in ['true','false']:
+        stretch = 'true'
+    img_png = generate_emoji(text,font,color,back_color,size_fixed,align,stretch)
 
     if not img_png:
         return abort(400)
@@ -90,6 +93,8 @@ def emoji_download():
     back_color = request.args.get("back_color", default='FFFFFF00', type=str).upper()
     size_fixed = request.args.get('size_fixed',default='false',type=str).lower()
     align = request.args.get("align",default='center',type=str).lower()
+    stretch = request.args.get("stretch",default='true',type=str).lower()
+    font = fonts_list.get(font_key,font_default).get('file')
     public_fg = request.args.get('public_fg', default='true', type=str) == 'true'
     font = fonts_list.get(font_key,font_default).get('file')
     if text is False:
@@ -102,7 +107,10 @@ def emoji_download():
         size_fixed = 'false'
     if align not in ['center','right','left']:
         align = 'center'
-    img_png = generate_emoji(text,font,color,back_color,size_fixed,align)
+    if stretch not in ['true','false']:
+        stretch = 'true'
+
+    img_png = generate_emoji(text,font,color,back_color,size_fixed,align,stretch)
     disp = 'attachment;' + \
            'filename=\"' + re.sub(r'\s','_',text) + '.png\"'
     res = make_response()
@@ -111,7 +119,7 @@ def emoji_download():
     res.headers['Content-Disposition'] = disp.encode('utf-8')
 
     if config.slack_web_hook_enable:
-        slack_notify.queue(text,font_key,color,back_color,size_fixed,align)
+        slack_notify.queue(text,font_key,color,back_color,size_fixed,align,strech)
 
     if config.mysql_enabled:
         history.logging(text, color, back_color, font_key, public_fg)
@@ -147,7 +155,10 @@ def api_histories():
     return res
 
 
-def generate_emoji(text,font,color,back_color,size_fixed = 'false',align = 'center'):
+def generate_emoji(text,font,color,back_color, \
+                    size_fixed = 'false', \
+                    align = 'center', \
+                    stretch = 'true'):
     global cache
     hash_text = text + \
             ':' + color +\
@@ -155,6 +166,7 @@ def generate_emoji(text,font,color,back_color,size_fixed = 'false',align = 'cent
             ':' + font +\
             ':' + size_fixed +\
             ':' + align +\
+            ':' + stretch +\
             ':' + str(config.cache_version)
     r = int(color[0] +color[1],16)
     g = int(color[2] +color[3],16)
@@ -191,7 +203,7 @@ def generate_emoji(text,font,color,back_color,size_fixed = 'false',align = 'cent
             emojiMode = emoji.MODE_FONTSIZE_FIXED
         else :
             emojiMode = emoji.MODE_NOMAL
-        img = emoji.getEmoji(emojiMode,align)
+        img = emoji.getEmoji(emojiMode,align,stretch)
         output = io.BytesIO()
         img.save(output,format='png')
         img_png = output.getvalue()

@@ -22,14 +22,21 @@ class String2emoji(object):
 
     def setFontColor(self,color):
         self.fontColor = color
-    def cutEffectiveRange(self,text,wMax,hMax,size = 0):
+    def cutEffectiveRange(self,text,wMax,hMax,size = 0,stretch = 'true'):
         if size == 0:
-            wt, ht = self.getFont(hMax).getsize(text)
-            if wt > wMax :
-                wMax = wt
-            hMax0 = hMax
-            while self.getFont(hMax0).getsize(text)[1] > hMax :
-                hMax0 = hMax0 - 1
+            if stretch == 'true':
+                wt, ht = self.getFont(hMax).getsize(text)
+                if wt > wMax :
+                    wMax = wt
+                hMax0 = hMax
+                while self.getFont(hMax0).getsize(text)[1] > hMax :
+                    hMax0 = hMax0 - 1
+            else:
+                hMax0 = hMax
+                while self.getFont(hMax0).getsize(text)[0] > wMax :
+                    hMax0 = hMax0 - 1
+                while self.getFont(hMax0).getsize(text)[1] > hMax :
+                    hMax0 = hMax0 - 1
 
             for i in range(hMax0,hMax0*3):
                 font = self.getFont(i)
@@ -41,8 +48,8 @@ class String2emoji(object):
                 y0 = self.stringOverBorderY(img,text,font,w)
                 x1 = self.stringUnderBorderX(img,text,font,w,h) + x0
                 y1 = self.stringUnderBorderY(img,text,font,h,w) + y0
-                #print(x0,y0,x1,y1,wMax,hMax,w,h)
-                if ((x1 >= wMax-2) and (x1 < wMax)) or ((y1 >= hMax-2) and (y1 <= hMax)) :
+                print(x0,y0,x1,y1,wMax,hMax,w,h)
+                if ((x1 >= wMax-4) and (x1 < wMax)) or ((y1 >= hMax-2) and (y1 <= hMax)) :
                     return (i,x0,y0,x1,y1)
         else:
             font = self.getFont(size)
@@ -87,7 +94,7 @@ class String2emoji(object):
                 if color != self.backColor:
                     return cy
 
-    def getEmoji(self,argMode = MODE_NOMAL,align = 'center'):
+    def getEmoji(self,argMode = MODE_NOMAL,align = 'center',stretch = 'true'):
         self.mode = argMode
         img = Image.new("RGBA",self.imageSize,self.backColor)
         draw = ImageDraw.Draw(img)
@@ -102,7 +109,10 @@ class String2emoji(object):
                     continue
                 img_str = Image.new("RGBA",(int(len(self.textList[i])*256/l),128),self.backColor)
                 draw = ImageDraw.Draw(img_str)
-                (size,x0,y0,x1,y1) = self.cutEffectiveRange(self.textList[i],len(self.textList[i])*256/l,int(127/l))
+                if stretch == 'true':
+                    (size,x0,y0,x1,y1) = self.cutEffectiveRange(self.textList[i],len(self.textList[i])*256/l,int(127/l))
+                else:
+                    (size,x0,y0,x1,y1) = self.cutEffectiveRange(self.textList[i],127,int(127/l),0,stretch)
                 #(size,x0,y0,x1,y1) = self.cutEffectiveRange(self.textList[i],256,128/l)
                 fontSizeList.append(size)
                 font = self.getFont(size)
@@ -133,7 +143,10 @@ class String2emoji(object):
             for i in range(0,l):
                 if not self.textList[i]:
                     continue
-                (size,x0,y0,x1,y1) = self.cutEffectiveRange(self.textList[i],len(self.textList[i])*256/l,int(127/l))
+                if stretch == 'true':
+                    (size,x0,y0,x1,y1) = self.cutEffectiveRange(self.textList[i],len(self.textList[i])*256/l,int(127/l))
+                else:
+                    (size,x0,y0,x1,y1) = self.cutEffectiveRange(self.textList[i],127,int(127/l),0,stretch)
                 fontSizeList.append(size)
             minFontSize = min(fontSizeList)
             font = self.getFont(minFontSize)
