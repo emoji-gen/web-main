@@ -58,15 +58,7 @@ module.exports = {
     },
 
     _makeEmojiUrl(history) {
-      const query = pick(history, [
-        'text',
-        'color',
-        'back_color',
-        'font',
-        'size_fixed',
-        'align',
-        'stretch',
-      ])
+      const query = pick(history, ['text', 'color', 'back_color', 'font'])
       return `/emoji?${queryString.stringify(query)}`
     },
   },
