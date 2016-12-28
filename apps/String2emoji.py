@@ -48,7 +48,7 @@ class String2emoji(object):
                 y0 = self.stringOverBorderY(img,text,font,w)
                 x1 = self.stringUnderBorderX(img,text,font,w,h) + x0
                 y1 = self.stringUnderBorderY(img,text,font,h,w) + y0
-                print(x0,y0,x1,y1,wMax,hMax,w,h)
+                #print(x0,y0,x1,y1,wMax,hMax,w,h)
                 if ((x1 >= wMax-4) and (x1 < wMax)) or ((y1 >= hMax-2) and (y1 <= hMax)) :
                     return (i,x0,y0,x1,y1)
         else:
