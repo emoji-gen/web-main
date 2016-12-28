@@ -122,7 +122,7 @@ def emoji_download():
         slack_notify.queue(text,font_key,color,back_color,size_fixed,align,stretch)
 
     if config.mysql_enabled:
-        history.logging(text, color, back_color, font_key, public_fg)
+        history.logging(text, color, back_color, font_key,size_fixed,align,stretch, public_fg)
 
     return res
 
