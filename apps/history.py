@@ -66,7 +66,7 @@ class EmojiLog(Base):
             font,
             size_fixed=False,
             align='center',
-            stretch=False,
+            stretch=True,
             public_fg=True,
             generated_at=None
             ):
@@ -114,7 +114,7 @@ def logging(
             font,
             size_fixed=False,
             align='center',
-            stretch=False,
+            stretch=True,
             public_fg=True,
             ):
     emoji_log = EmojiLog(

@@ -89,7 +89,7 @@ def emoji_download():
     back_color = request.args.get("back_color", default='FFFFFF00', type=str).upper()
     size_fixed = request.args.get('size_fixed',default='false',type=str).lower() == 'true'
     align = request.args.get("align",default='center',type=str).lower()
-    stretch = request.args.get("stretch",default='true',type=str).lower() == 'true'
+    stretch = request.args.get("stretch",default='true',type=str).lower() != 'false'
     font = fonts_list.get(font_key,font_default).get('file')
     public_fg = request.args.get('public_fg', default='true', type=str) == 'true'
     font = fonts_list.get(font_key,font_default).get('file')
