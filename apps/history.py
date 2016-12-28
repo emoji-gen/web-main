@@ -50,9 +50,9 @@ class EmojiLog(Base):
     color        = Column('color', CHAR(8), nullable=False)
     back_color   = Column('back_color', CHAR(8), nullable=False)
     font         = Column('font', String(255), nullable=False)
-    size_fixed   = Column('size_fixed', String(15), nullable=False)
-    align        = Column('align', String(15), nullable=False)
-    stretch      = Column('stretch', String(15), nullable=False)
+    size_fixed   = Column('size_fixed', Boolean(), nullable=False)
+    align        = Column('align', String(255), nullable=False)
+    stretch      = Column('stretch', Boolean(), nullable=False)
     public_fg    = Column('public_fg', Boolean(), nullable=False)
     generated_at = Column('generated_at', DateTime(), nullable=False)
     created_at   = Column('created_at', DateTime(), nullable=False)
@@ -64,9 +64,9 @@ class EmojiLog(Base):
             color,
             back_color,
             font,
-            size_fixed,
-            align,
-            stretch,
+            size_fixed=False,
+            align='center',
+            stretch=False,
             public_fg=True,
             generated_at=None
             ):
@@ -112,12 +112,21 @@ def logging(
             color,
             back_color,
             font,
+            size_fixed=False,
+            align='center',
+            stretch=False,
+            public_fg=True,
+            ):
+    emoji_log = EmojiLog(
+            text,
+            color,
+            back_color,
+            font,
             size_fixed,
             align,
             stretch,
-            public_fg=True,
-            ):
-    emoji_log = EmojiLog(text, color, back_color, font,size_fixed,align,stretch, public_fg)
+            public_fg
+            )
     session   = make_session()
     session.add(emoji_log)
     session.commit()
