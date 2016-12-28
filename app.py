@@ -58,9 +58,9 @@ def emoji():
     text = request.args.get("text", default='test', type=str)
     color = request.args.get("color", default='000000', type=str).upper()
     back_color = request.args.get("back_color", default='FFFFFF00', type=str).upper()
-    size_fixed = request.args.get("size_fixed",default='false',type=str).lower() == 'true'
+    size_fixed = request.args.get("size_fixed",default='false',type=str).lower()
     align = request.args.get("align",default='center',type=str).lower()
-    stretch = request.args.get("stretch",default='true',type=str).lower() != 'false'
+    stretch = request.args.get("stretch",default='true',type=str).lower()
     font = fonts_list.get(font_key,font_default).get('file')
     if text is False:
         text = ' '
@@ -68,8 +68,12 @@ def emoji():
         color = '000000'
     if back_color is False:
         back_color = 'FFFFFF00'
+    if size_fixed not in ['true','false']:
+        size_fixed = 'false'
     if align not in ['center','right','left']:
         align = 'center'
+    if stretch not in ['true','false']:
+        stretch = 'true'
     img_png = generate_emoji(text,font,color,back_color,size_fixed,align,stretch)
 
     if not img_png:
@@ -87,9 +91,9 @@ def emoji_download():
     text = request.args.get("text", default='test', type=str)
     color = request.args.get("color", default='000000', type=str).upper()
     back_color = request.args.get("back_color", default='FFFFFF00', type=str).upper()
-    size_fixed = request.args.get('size_fixed',default='false',type=str).lower() == 'true'
+    size_fixed = request.args.get('size_fixed',default='false',type=str).lower()
     align = request.args.get("align",default='center',type=str).lower()
-    stretch = request.args.get("stretch",default='true',type=str).lower() != 'false'
+    stretch = request.args.get("stretch",default='true',type=str).lower()
     font = fonts_list.get(font_key,font_default).get('file')
     public_fg = request.args.get('public_fg', default='true', type=str) == 'true'
     font = fonts_list.get(font_key,font_default).get('file')
@@ -99,8 +103,12 @@ def emoji_download():
         color = '000000'
     if back_color is False:
         back_color = 'FFFFFF00'
+    if size_fixed not in ['true','false']:
+        size_fixed = 'false'
     if align not in ['center','right','left']:
         align = 'center'
+    if stretch not in ['true','false']:
+        stretch = 'true'
 
     img_png = generate_emoji(text,font,color,back_color,size_fixed,align,stretch)
     disp = 'attachment;' + \
@@ -114,7 +122,7 @@ def emoji_download():
         slack_notify.queue(text,font_key,color,back_color,size_fixed,align,stretch)
 
     if config.mysql_enabled:
-        history.logging(text, color, back_color, font_key,size_fixed,align,stretch, public_fg)
+        history.logging(text, color, back_color, font_key, public_fg)
 
     return res
 
@@ -148,17 +156,17 @@ def api_histories():
 
 
 def generate_emoji(text,font,color,back_color, \
-                    size_fixed = False, \
+                    size_fixed = 'false', \
                     align = 'center', \
-                    stretch = True):
+                    stretch = 'true'):
     global cache
     hash_text = text + \
             ':' + color +\
             ':' + back_color +\
             ':' + font +\
-            ':' + ('true' if size_fixed else 'false') +\
+            ':' + size_fixed +\
             ':' + align +\
-            ':' + ('true' if stretch else 'false') +\
+            ':' + stretch +\
             ':' + str(config.cache_version)
     r = int(color[0] +color[1],16)
     g = int(color[2] +color[3],16)
@@ -189,9 +197,9 @@ def generate_emoji(text,font,color,back_color, \
             return None
 
         emoji = String2emoji(lines, 'assets/fonts/' + font,(r,g,b,a),(br,bg,bb,ba))
-        if not size_fixed:
+        if size_fixed == 'false':
             emojiMode = emoji.MODE_NOMAL
-        elif size_fixed:
+        elif size_fixed == 'true':
             emojiMode = emoji.MODE_FONTSIZE_FIXED
         else :
             emojiMode = emoji.MODE_NOMAL

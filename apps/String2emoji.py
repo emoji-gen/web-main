@@ -22,9 +22,9 @@ class String2emoji(object):
 
     def setFontColor(self,color):
         self.fontColor = color
-    def cutEffectiveRange(self,text,wMax,hMax,size = 0,stretch = True):
+    def cutEffectiveRange(self,text,wMax,hMax,size = 0,stretch = 'true'):
         if size == 0:
-            if stretch:
+            if stretch == 'true':
                 wt, ht = self.getFont(hMax).getsize(text)
                 if wt > wMax :
                     wMax = wt
