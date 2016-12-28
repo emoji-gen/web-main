@@ -28,11 +28,11 @@
 
   h4 {
     display: block;
-    margin: 0 0 16px;
+    margin: 0 0 10px;
     font-size: $font-size-small;
     font-weight: bold;
     letter-spacing: 1px;
-    text-align: left;
+    text-align: center;
   }
 
   .buttons {
@@ -80,10 +80,18 @@
         color: $color-blue-dark;
       }
 
+      h4 {
+        color: $color-gray;
+      }
+
       &.text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
         textarea {
           @mixin _parameter;
-          margin: 0 0 50px 0;
+          margin: 0 0 24px 0;
           padding: 10px;
           border: 0;
           width: 140px;
@@ -95,27 +103,80 @@
         .aligns {
           display: flex;
           justify-content: space-between;
-          width: 120px;
-          margin: 0 auto 0;
+          width: 98px;
+          margin: -1px 0 24px;
 
           .align {
-            $_size: 18px;
+            $_size: 20px;
 
             display: inline-block;
+            position: relative;
             width: $_size;
             height: $_size;
-            background-size: $_size $_size;
+
+            label {
+              position: absolute;
+              top: 0;
+              right: 0;
+              bottom: 0;
+              left: 0;
+              overflow: hidden;
+              padding-top: $_size;
+              background-size: $_size, 0;
+              background-repeat: no-repeat;
+            }
+
+            input:checked + label {
+              background-size: 0, $_size;
+            }
 
             &.left {
-              background-image: url('/static/img/align-left.png');
+              label {
+                background-image:
+                  url('/static/img/align_left.png'),
+                  url('/static/img/align_left_active.png');
+              }
             }
 
             &.center {
-              background-image: url('/static/img/align-center.png');
+              label {
+                background-image:
+                  url('/static/img/align_center.png'),
+                  url('/static/img/align_center_active.png');
+              }
             }
 
             &.right {
-              background-image: url('/static/img/align-right.png');
+              label {
+                background-image:
+                  url('/static/img/align_right.png'),
+                  url('/static/img/align_right_active.png');
+              }
+            }
+
+            input {
+              display: none;
+            }
+          }
+        }
+
+        .sizes {
+          display: flex;
+          flex-direction: column;
+          line-height: 1;
+          color: $color-gray;
+          text-align: left;
+          font-size: $font-size-xsmall;
+
+          label {
+            display: block;
+
+            &:first-of-type {
+              margin-bottom: 6px;
+            }
+
+            input {
+              margin-right: 2px;
             }
           }
         }
