@@ -8,7 +8,7 @@ const isWatch = ~process.argv.indexOf('--watch')
 const plugins = [ new WebpackNotifierPlugin({ alwaysNotify: true }) ]
 
 if (!isWatch) {
-  plugins.push(... [
+  plugins.push(
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.UglifyJsPlugin({
@@ -17,7 +17,7 @@ if (!isWatch) {
     }),
     new UnminifiedWebpackPlugin(),
     WebpackFailPlugin,
-  ])
+  )
 }
 
 module.exports = {
@@ -48,7 +48,7 @@ module.exports = {
   watchOptions: {
     poll: true,
   },
-  postcss: function () {
+  postcss() {
     return [
       require('autoprefixer'),
       require('precss'),
