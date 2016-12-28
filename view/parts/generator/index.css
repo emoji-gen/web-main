@@ -124,6 +124,7 @@
               padding-top: $_size;
               background-size: $_size, 0;
               background-repeat: no-repeat;
+              cursor: pointer;
             }
 
             input:checked + label {
@@ -170,6 +171,7 @@
 
           label {
             display: block;
+            cursor: pointer;
 
             &:first-of-type {
               margin-bottom: 6px;
