@@ -17,37 +17,6 @@
     <div class="parameter text">
       <h3>テキスト</h3>
       <textarea rows="2" cols="10" v-model="text"></textarea>
-
-      <h4>文字揃え</h4>
-      <div class="aligns">
-        <span class="align left">
-          <input type="radio" name="eg_generator__text_align_key"
-                 id="eg_generator__text_align_left" value="left" v-model="textAlign">
-          <label for="eg_generator__text_align_left">左</label>
-        </span>
-        <span class="align center">
-          <input type="radio" name="eg_generator__text_align_key"
-                 id="eg_generator__text_align_center" value="center" v-model="textAlign">
-          <label for="eg_generator__text_align_center">中央</label>
-        </span>
-        <span class="align right">
-          <input type="radio" name="eg_generator__text_align_key"
-                 id="eg_generator__text_align_right" value="right" v-model="textAlign">
-          <label for="eg_generator__text_align_right">右</label>
-        </span>
-      </div>
-
-      <h4>サイズ調整</h4>
-      <div class="sizes">
-        <label>
-          <input type="checkbox" v-model="sizeFixed">
-          文字サイズを固定する
-        </label>
-        <label>
-          <input type="checkbox" v-model="nonStretch">
-          自動で伸縮しない
-        </label>
-      </div>
     </div>
 
     <div class="parameter font">

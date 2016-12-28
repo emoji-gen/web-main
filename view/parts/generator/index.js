@@ -31,15 +31,13 @@ module.exports = {
   template: require('./index.html'),
   data() {
     return {
+      // TODO: サーバーから取得する
       fonts: [],
       colorKind: 'foreground',
       colors: defaultColors,
       backgroundColors: defaultBackgroundColors,
       text: '絵文\n字。',
       fontKey: null,
-      sizeFixed: false,
-      textAlign: 'center',
-      nonStretch: false,
       publicFg: true,
       historyEnabled: meta.feature.history,
     }
@@ -73,9 +71,6 @@ module.exports = {
         color: this.rgbaHex,
         back_color: this.backgroundRgbaHex,
         font: this.fontKey,
-        size_fixed: this.sizeFixed,
-        align: this.textAlign,
-        stretch: !this.nonStretch,
         public_fg: this.publicFg,
       }
       this.$dispatch('EG_EMOJI_GENERATE', query)
