@@ -76,4 +76,4 @@ $ yarn run build # for production
 ```
 
 ## License
-Copyright (C) 2016 Emoji Generator.
+Copyright (C) 2016-2017 Emoji Generator.
