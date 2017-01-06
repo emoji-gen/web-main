@@ -14,6 +14,7 @@ from apps.String2emoji import String2emoji
 
 from apps       import config
 from apps       import history
+from apps       import font
 from apps.cache import create as create_cache
 from apps.jobs  import rq, slack_notify
 
@@ -120,18 +121,17 @@ def emoji_download():
 
 @app.route('/api/fonts')
 def api_fonts():
-    font_items        = filter(lambda item: item[1]['enabled'] == 'on',list(fonts_list.items()))
-    sorted_font_items = sorted(font_items, key=lambda item: item[1]['order'])
-    fonts             = [
-        { 'key': item[0], 'name': item[1]['name'], 'type': item[1]['type']}
-        for item in sorted_font_items
-    ]
-
     res = make_response()
-    res.data = json.dumps(fonts)
+    res.data = json.dumps(font.search_font_list())
     res.headers['Content-Type'] = 'application/json'
     return res
 
+@app.route('/api/v1/fonts')
+def api_v1_fonts():
+    res = make_response()
+    res.data = json.dumps(font.search_font_list_v1())
+    res.headers['Content-Type'] = 'application/json'
+    return res
 
 @app.route('/api/histories')
 def api_histories():
