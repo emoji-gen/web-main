@@ -135,6 +135,9 @@ def logging(
 def search(
         limit=10
         ):
+    if not config.mysql_enabled:
+        return None
+
     session    = make_session()
     emoji_logs = (session
         .query(EmojiLog)

@@ -122,30 +122,27 @@ def emoji_download():
 @app.route('/api/fonts')
 def api_fonts():
     res = make_response()
-    res.data = json.dumps(font.search_font_list())
     res.headers['Content-Type'] = 'application/json'
+    res.data = json.dumps(font.search_font_list())
     return res
 
 @app.route('/api/v1/fonts')
 def api_v1_fonts():
     res = make_response()
-    res.data = json.dumps(font.search_font_list_v1())
     res.headers['Content-Type'] = 'application/json'
+    res.data = json.dumps(font.search_font_list_v1())
     return res
 
 @app.route('/api/histories')
 def api_histories():
     res = make_response()
     res.headers['Content-Type'] = 'application/json'
-
-    if not config.mysql_enabled:
+    rows = history.search(limit=20)
+    if rows is None:
         res.data = json.dumps([])
-        return res
-
-    rows     = history.search(limit=20)
-    res.data = json.dumps(rows, cls=history.AlchemyEncoder)
+    else:
+        res.data = json.dumps(rows, cls=history.AlchemyEncoder)
     return res
-
 
 def generate_emoji(text,font,color,back_color, \
                     size_fixed = False, \
