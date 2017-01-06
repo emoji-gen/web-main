@@ -15081,7 +15081,7 @@
 /* 23 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-footer\"> <footer> <ul class=menus> <li><a v-link=\"'/contact'\" v-eg-scroll>お問い合わせ</a></li> </ul> <p class=copyright>(C) 2016 絵文字 ジェネレーター</p> </footer> </div> ";
+	module.exports = "<div class=\"v-cloak eg-footer\"> <footer> <ul class=menus> <li><a v-link=\"'/contact'\" v-eg-scroll>お問い合わせ</a></li> </ul> <p class=copyright>(C) 2016-2017 絵文字 ジェネレーター</p> </footer> </div> ";
 
 /***/ },
 /* 24 */
