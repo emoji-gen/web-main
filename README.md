@@ -75,5 +75,11 @@ $ yarn start     # for development
 $ yarn run build # for production
 ```
 
+## Public API
+Emoji Generator has public API for third-party applications.
+
+Please see API references.
+http://docs.emojigeneratorapi.apiary.io/
+
 ## License
 Copyright (C) 2016-2017 Emoji Generator.
