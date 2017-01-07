@@ -14,9 +14,11 @@ from apps.String2emoji import String2emoji
 
 from apps       import config
 from apps       import history
-from apps       import font
 from apps.cache import create as create_cache
 from apps.jobs  import rq, slack_notify
+
+from apps.services import font
+from apps.services import history as x_history
 
 app = Flask(__name__)
 rq.init_app(app)
@@ -138,6 +140,7 @@ def api_histories():
     res = make_response()
     res.headers['Content-Type'] = 'application/json'
     rows = history.search(limit=20)
+    x_history.search(limit=20)
     if rows is None:
         res.data = json.dumps([])
     else:
