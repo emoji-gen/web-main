@@ -11,11 +11,14 @@ module.exports = {
   },
   created() {
     const _this = this
-    document.body.addEventListener('chrome_extension:attach', function (e) {
+    document.body.addEventListener('CE_ATTACH', function (e) {
       if (meta.env.debug) {
-        console.log('Chrome Extension attached', e.detail)
+        console.log('attached by Chrome Extension', e.detail)
       }
-      _this.$broadcast('EG_CHROME_EXTENSION_ATTACHED', e.detail)
+      _this.$broadcast('CE_ATTACH', e.detail)
+    })
+    document.body.addEventListener('CE_SEARCH_JOINED_TEAMS_END', function (e) {
+      _this.$broadcast('CE_SEARCH_JOINED_TEAM_END', e.detail)
     })
   },
   components: {

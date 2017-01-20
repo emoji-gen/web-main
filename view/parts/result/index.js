@@ -90,8 +90,11 @@ module.exports = {
       this.visibleShare  = false
       this.shortenUrl    = null
     },
-    EG_CHROME_EXTENSION_ATTACHED(detail) {
+    CE_ATTACH(detail) {
       this.chromeExtensionAttached = true
+
+      const ev = new CustomEvent('CE_SEARCH_JOINED_TEAMS')
+      document.body.dispatchEvent(ev)
     },
   },
 
