@@ -19,7 +19,7 @@ test:
   override:
     - yarn test
     - yarn run build
-    - scripts/test/git-status.sh
+    - [ $CIRCLE_BRANCH = 'master' ] && scripts/test/git-status.sh
   post:
     - scripts/notify/end-test.sh
 
