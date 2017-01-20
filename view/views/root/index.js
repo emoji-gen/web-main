@@ -12,6 +12,10 @@ module.exports = {
       const ce = new CustomEvent('CE_SEARCH_JOINED_TEAMS')
       document.body.dispatchEvent(ce)
     },
+    CE_REGISTER_EMOJI(args) {
+      const ce = new CustomEvent('CE_REGISTER_EMOJI', { detail: args })
+      document.body.dispatchEvent(ce)
+    },
   },
   created() {
     document.body.addEventListener('CE_ATTACH', e => {
@@ -20,9 +24,13 @@ module.exports = {
       }
       this.$broadcast('CE_ATTACH', e.detail)
     })
-    document.body.addEventListener('CE_SEARCH_JOINED_TEAMS_END', e => {
-      if (e.detail.err) { console.error(e.detail.err) }
-      this.$broadcast('CE_SEARCH_JOINED_TEAM', e.detail)
+    document.body.addEventListener('CE_SEARCH_JOINED_TEAMS_DONE', e => {
+      if (meta.env.debug) { console.log(e.detail) }
+      this.$broadcast('CE_SEARCH_JOINED_TEAM_DONE', e.detail)
+    })
+    document.body.addEventListener('CE_REGISTER_EMOJI_DONE', e => {
+      if (meta.env.debug) { console.log(e.detail) }
+      this.$broadcast('CE_REGISTER_EMOJI_DONE', e.detail)
     })
   },
   components: {

@@ -92,9 +92,14 @@ module.exports = {
     },
     CE_ATTACH() {
       this.chromeExtensionAttached = true
+
+      // this.$dispatch('CE_REGISTER_EMOJI', {
+      //   url: 'http://localhost:5000/emoji?align=center&back_color=FFFFFF00&color=EC71A1FF&font=notosans-mono-bold&public_fg=true&size_fixed=false&stretch=true&text=%E7%B5%B5%E6%96%87%0A%E5%AD%97%E3%80%82',
+      //   text: 'emoji',
+      //   teamdomain: 'prismrhythm',
+      // })
     },
-    CE_SEARCH_JOINED_TEAM(detail) {
-      console.log(detail)
+    CE_SEARCH_JOINED_TEAM_DONE(detail) {
     },
   },
 
