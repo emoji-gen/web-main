@@ -10,20 +10,19 @@ module.exports = {
     },
   },
   created() {
-    const _this = this
-    document.body.addEventListener('CE_ATTACH', function (e) {
+    document.body.addEventListener('CE_ATTACH', e => {
       if (meta.env.debug) {
         console.log('attached by Chrome Extension', e.detail)
       }
-      _this.$broadcast('CE_ATTACH', e.detail)
+      this.$broadcast('CE_ATTACH', e.detail)
     })
-    document.body.addEventListener('CE_SEARCH_JOINED_TEAMS_END', function (e) {
-      _this.$broadcast('CE_SEARCH_JOINED_TEAM_END', e.detail)
+    document.body.addEventListener('CE_SEARCH_JOINED_TEAMS_END', e => {
+      this.$broadcast('CE_SEARCH_JOINED_TEAM_END', e.detail)
     })
   },
   components: {
     'eg-background': require('../../parts/background'),
     'eg-footer': require('../../parts/footer'),
     'eg-header': require('../../parts/header'),
-  },
+  }
 }
