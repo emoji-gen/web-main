@@ -90,11 +90,11 @@ module.exports = {
       this.visibleShare  = false
       this.shortenUrl    = null
     },
-    CE_ATTACH(detail) {
+    CE_ATTACH() {
       this.chromeExtensionAttached = true
-
-      const ev = new CustomEvent('CE_SEARCH_JOINED_TEAMS')
-      document.body.dispatchEvent(ev)
+    },
+    CE_SEARCH_JOINED_TEAM(detail) {
+      console.log(detail)
     },
   },
 

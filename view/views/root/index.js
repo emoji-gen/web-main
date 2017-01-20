@@ -8,6 +8,10 @@ module.exports = {
     EG_EMOJI_GENERATE: function (args) {
       this.$broadcast('EG_EMOJI_GENERATE', args)
     },
+    CE_SEARCH_JOINED_TEAMS() {
+      const ce = new CustomEvent('CE_SEARCH_JOINED_TEAMS')
+      document.body.dispatchEvent(ce)
+    },
   },
   created() {
     document.body.addEventListener('CE_ATTACH', e => {
@@ -17,7 +21,8 @@ module.exports = {
       this.$broadcast('CE_ATTACH', e.detail)
     })
     document.body.addEventListener('CE_SEARCH_JOINED_TEAMS_END', e => {
-      this.$broadcast('CE_SEARCH_JOINED_TEAM_END', e.detail)
+      if (e.detail.err) { console.error(e.detail.err) }
+      this.$broadcast('CE_SEARCH_JOINED_TEAM', e.detail)
     })
   },
   components: {
