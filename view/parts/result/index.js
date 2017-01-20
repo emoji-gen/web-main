@@ -16,6 +16,7 @@ module.exports = {
     queryString: null,
     fonts: [],
     shortenUrl: null,
+    chromeExtensionAttached: false,
   }),
 
   computed: {
@@ -79,7 +80,7 @@ module.exports = {
   },
 
   events: {
-    EG_EMOJI_GENERATE: function (query) {
+    EG_EMOJI_GENERATE(query) {
       this.rawText  = query.text
       this.rawColor = query.color
       this.rawFont  = query.font
@@ -88,6 +89,9 @@ module.exports = {
       this.visibleResult = true
       this.visibleShare  = false
       this.shortenUrl    = null
+    },
+    EG_CHROME_EXTENSION_ATTACHED(detail) {
+      this.chromeExtensionAttached = true
     },
   },
 
