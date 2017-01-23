@@ -22531,21 +22531,13 @@
 
 	var _queryString2 = _interopRequireDefault(_queryString);
 
-	var _vueSharer = __webpack_require__(27);
-
-	var _vueSharer2 = _interopRequireDefault(_vueSharer);
-
-	var _bitly = __webpack_require__(77);
-
-	var _bitly2 = _interopRequireDefault(_bitly);
-
-	__webpack_require__(79);
+	__webpack_require__(77);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = {
 	  name: 'eg-result',
-	  template: __webpack_require__(81),
+	  template: __webpack_require__(79),
 	  data: function data() {
 	    return {
 	      visibleResult: false,
@@ -22652,13 +22644,107 @@
 	  },
 
 	  components: {
-	    'eg-share': __webpack_require__(82),
+	    'eg-share': __webpack_require__(80),
 	    'eg-register': __webpack_require__(86)
 	  }
 	};
 
 /***/ },
 /* 77 */
+[101, 78],
+/* 78 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(7)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".eg-result{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:20px}.eg-result,.eg-result *{box-sizing:border-box}.eg-result h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-result .preview{margin:30px auto 0;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.eg-result .preview,.eg-result .preview>.inner{display:-webkit-box;display:-ms-flexbox;display:flex}.eg-result .preview>.inner{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.eg-result .preview>.inner .image{display:block;width:129px;height:129px;border-radius:5px;background-color:hsla(0,0%,100%,.38)}.eg-result .preview>.inner .image img{box-sizing:content-box;width:128px;height:128px;border:1px solid rgba(0,0,0,.18);border-radius:5px}.eg-result .preview>.inner .detail{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:0 0 0 50px}.eg-result .preview>.inner .detail ul{margin:0;padding:0;list-style-type:none;list-style-position:inside}.eg-result .preview>.inner .detail ul li{display:-webkit-box;display:-ms-flexbox;display:flex;line-height:40px}.eg-result .preview>.inner .detail ul li h3{margin:0;width:68px;color:#3ab0c7;font-weight:700;font-size:15px}.eg-result .preview>.inner .detail ul li .user-input{display:block;margin:0 0 0 12px;color:rgba(0,0,0,.75);font-size:13px}.eg-result .preview>.inner .detail ul li .user-input>.color-square{display:inline-block;margin:1px 4px 0 0;border:1px solid rgba(0,0,0,.18);width:10px;height:10px}.eg-result .preview>.inner .detail ul li:before{display:block;float:left;margin-right:10px;width:30px;height:40px;background-repeat:no-repeat;background-position:50%;content:'';opacity:.8}.eg-result .preview>.inner .detail ul li.text:before{background-image:url('/static/img/text.png');background-size:28px auto;opacity:.8}.eg-result .preview>.inner .detail ul li.color:before{background-image:url('/static/img/color.png');background-size:19px auto;opacity:.8}.eg-result .preview>.inner .detail ul li.font:before{background-image:url('/static/img/font.png');background-size:25px auto;opacity:.8}.eg-result .links{margin:30px auto 15px;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.eg-result .links,.eg-result .links .inner{display:-webkit-box;display:-ms-flexbox;display:flex}.eg-result .links .inner>div{margin-left:40px;padding:0;height:40px;line-height:40px;font-size:15px}.eg-result .links .inner>div a{display:block;text-decoration:none}.eg-result .links .inner>div:first-child{margin-left:0}.eg-result .links .inner>div.download a{background-image:url('/static/img/download.png')}.eg-result .links .inner>div.download a,.eg-result .links .inner>div.register{padding:0 0 0 34px;color:#be1c60;height:100%;background-repeat:no-repeat;background-position:0;background-size:22px auto;cursor:pointer}.eg-result .links .inner>div.register{background-image:url('/static/img/register.png')}.eg-result .links .inner>div.share{padding:0 0 0 34px;color:#ad780c;background-image:url('/static/img/share.png');background-repeat:no-repeat;background-position:0;background-size:22px auto;cursor:pointer}.eg-result.expand-transition{height:auto;-webkit-transition:opacity .8s ease-in-out;transition:opacity .8s ease-in-out;opacity:1}.eg-result.expand-enter,.eg-result.expand-leave{padding:0;height:0;overflow:hidden;opacity:0}", ""]);
+
+	// exports
+
+
+/***/ },
+/* 79 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"v-cloak eg-result\" v-show=visibleResult transition=expand> <h2>生成された絵文字</h2> <div class=preview> <div class=inner> <div class=image> <img :src=emojiUrl alt=\"\" v-if=emojiUrl> </div> <div class=detail> <ul> <li class=text> <h3>テキスト</h3> <span class=user-input>{{ text }}</span> </li> <li class=font> <h3>フォント</h3> <span class=user-input>{{ fontName }}</span> </li> <li class=color> <h3>カラー</h3> <span class=user-input> <span class=color-square v-bind:style=\"{ backgroundColor: cssColor }\"></span> {{ color }} </span> </li> </ul> </div> </div> </div> <div class=links> <div class=inner> <div class=download> <a :href=emojiDownloadUrl>ダウンロード</a> </div> <div class=register @click=toggleRegister v-show=hasChromeExtension> 登録する </div> <div class=share @click=toggleShare> シェアする </div> </div> </div> <eg-share v-show=visibleShare transition=expand :visible=visibleShare></eg-share> <eg-register v-show=visibleRegister transition=expand :visible=visibleRegister :emoji-url=emojiUrl> </eg-register></div> ";
+
+/***/ },
+/* 80 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _vueSharer = __webpack_require__(27);
+
+	var _vueSharer2 = _interopRequireDefault(_vueSharer);
+
+	var _bitly = __webpack_require__(81);
+
+	var _bitly2 = _interopRequireDefault(_bitly);
+
+	__webpack_require__(83);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	module.exports = {
+	  name: 'eg-share',
+	  template: __webpack_require__(85),
+	  props: {
+	    visible: Boolean
+	  },
+	  data: function data() {
+	    return {
+	      shortenUrl: null,
+	      chromeExtensionAttached: false
+	    };
+	  },
+
+	  computed: {
+	    currentUrl: function currentUrl() {
+	      return location.href;
+	    },
+
+	    progress: function progress() {
+	      return !this.shortenUrl;
+	    }
+	  },
+
+	  watch: {
+	    visible: function visible(val, oldVal) {
+	      if (val) {
+	        this.onShown();
+	      }
+	    }
+	  },
+
+	  events: {
+	    EG_EMOJI_GENERATE: function EG_EMOJI_GENERATE(query) {
+	      this.shortenUrl = null;
+	    }
+	  },
+
+	  methods: {
+	    onShown: function onShown() {
+	      var _this = this;
+
+	      if (!this.shortenUrl) {
+	        _bitly2.default.shorten(this.currentUrl).then(function (url) {
+	          _this.shortenUrl = url;
+	        });
+	      }
+	    }
+	  },
+
+	  directives: {
+	    sharer: _vueSharer2.default
+	  }
+	};
+
+/***/ },
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22667,7 +22753,7 @@
 
 	var _queryString2 = _interopRequireDefault(_queryString);
 
-	__webpack_require__(78);
+	__webpack_require__(82);
 
 	var _meta = __webpack_require__(10);
 
@@ -22699,7 +22785,7 @@
 	};
 
 /***/ },
-/* 78 */
+/* 82 */
 /***/ function(module, exports) {
 
 	(function(self) {
@@ -23136,104 +23222,6 @@
 	  self.fetch.polyfill = true
 	})(typeof self !== 'undefined' ? self : this);
 
-
-/***/ },
-/* 79 */
-[101, 80],
-/* 80 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(7)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".eg-result{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:20px}.eg-result,.eg-result *{box-sizing:border-box}.eg-result h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-result .preview{margin:30px auto 0;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.eg-result .preview,.eg-result .preview>.inner{display:-webkit-box;display:-ms-flexbox;display:flex}.eg-result .preview>.inner{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.eg-result .preview>.inner .image{display:block;width:129px;height:129px;border-radius:5px;background-color:hsla(0,0%,100%,.38)}.eg-result .preview>.inner .image img{box-sizing:content-box;width:128px;height:128px;border:1px solid rgba(0,0,0,.18);border-radius:5px}.eg-result .preview>.inner .detail{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:0 0 0 50px}.eg-result .preview>.inner .detail ul{margin:0;padding:0;list-style-type:none;list-style-position:inside}.eg-result .preview>.inner .detail ul li{display:-webkit-box;display:-ms-flexbox;display:flex;line-height:40px}.eg-result .preview>.inner .detail ul li h3{margin:0;width:68px;color:#3ab0c7;font-weight:700;font-size:15px}.eg-result .preview>.inner .detail ul li .user-input{display:block;margin:0 0 0 12px;color:rgba(0,0,0,.75);font-size:13px}.eg-result .preview>.inner .detail ul li .user-input>.color-square{display:inline-block;margin:1px 4px 0 0;border:1px solid rgba(0,0,0,.18);width:10px;height:10px}.eg-result .preview>.inner .detail ul li:before{display:block;float:left;margin-right:10px;width:30px;height:40px;background-repeat:no-repeat;background-position:50%;content:'';opacity:.8}.eg-result .preview>.inner .detail ul li.text:before{background-image:url('/static/img/text.png');background-size:28px auto;opacity:.8}.eg-result .preview>.inner .detail ul li.color:before{background-image:url('/static/img/color.png');background-size:19px auto;opacity:.8}.eg-result .preview>.inner .detail ul li.font:before{background-image:url('/static/img/font.png');background-size:25px auto;opacity:.8}.eg-result .links{margin:30px auto 15px;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.eg-result .links,.eg-result .links .inner{display:-webkit-box;display:-ms-flexbox;display:flex}.eg-result .links .inner>div{margin-left:40px;padding:0;height:40px;line-height:40px;font-size:15px}.eg-result .links .inner>div a{display:block;text-decoration:none}.eg-result .links .inner>div:first-child{margin-left:0}.eg-result .links .inner>div.download a{background-image:url('/static/img/download.png')}.eg-result .links .inner>div.download a,.eg-result .links .inner>div.register{padding:0 0 0 34px;color:#be1c60;height:100%;background-repeat:no-repeat;background-position:0;background-size:22px auto;cursor:pointer}.eg-result .links .inner>div.register{background-image:url('/static/img/register.png')}.eg-result .links .inner>div.share{padding:0 0 0 34px;color:#ad780c;background-image:url('/static/img/share.png');background-repeat:no-repeat;background-position:0;background-size:22px auto;cursor:pointer}.eg-result.expand-transition{height:auto;-webkit-transition:opacity .8s ease-in-out;transition:opacity .8s ease-in-out;opacity:1}.eg-result.expand-enter,.eg-result.expand-leave{padding:0;height:0;overflow:hidden;opacity:0}", ""]);
-
-	// exports
-
-
-/***/ },
-/* 81 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"v-cloak eg-result\" v-show=visibleResult transition=expand> <h2>生成された絵文字</h2> <div class=preview> <div class=inner> <div class=image> <img :src=emojiUrl alt=\"\" v-if=emojiUrl> </div> <div class=detail> <ul> <li class=text> <h3>テキスト</h3> <span class=user-input>{{ text }}</span> </li> <li class=font> <h3>フォント</h3> <span class=user-input>{{ fontName }}</span> </li> <li class=color> <h3>カラー</h3> <span class=user-input> <span class=color-square v-bind:style=\"{ backgroundColor: cssColor }\"></span> {{ color }} </span> </li> </ul> </div> </div> </div> <div class=links> <div class=inner> <div class=download> <a :href=emojiDownloadUrl>ダウンロード</a> </div> <div class=register @click=toggleRegister v-show=hasChromeExtension> 登録する </div> <div class=share @click=toggleShare> シェアする </div> </div> </div> <eg-share v-show=visibleShare transition=expand :visible=visibleShare></eg-share> <eg-register v-show=visibleRegister transition=expand :visible=visibleRegister :emoji-url=emojiUrl> </eg-register></div> ";
-
-/***/ },
-/* 82 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _queryString = __webpack_require__(48);
-
-	var _queryString2 = _interopRequireDefault(_queryString);
-
-	var _vueSharer = __webpack_require__(27);
-
-	var _vueSharer2 = _interopRequireDefault(_vueSharer);
-
-	var _bitly = __webpack_require__(77);
-
-	var _bitly2 = _interopRequireDefault(_bitly);
-
-	__webpack_require__(83);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	module.exports = {
-	  name: 'eg-share',
-	  template: __webpack_require__(85),
-	  props: {
-	    visible: Boolean
-	  },
-	  data: function data() {
-	    return {
-	      shortenUrl: null,
-	      chromeExtensionAttached: false
-	    };
-	  },
-
-	  computed: {
-	    currentUrl: function currentUrl() {
-	      return location.href;
-	    },
-
-	    progress: function progress() {
-	      return !this.shortenUrl;
-	    }
-	  },
-
-	  watch: {
-	    visible: function visible(val, oldVal) {
-	      if (val) {
-	        this.onShown();
-	      }
-	    }
-	  },
-
-	  events: {
-	    EG_EMOJI_GENERATE: function EG_EMOJI_GENERATE(query) {
-	      this.shortenUrl = null;
-	    }
-	  },
-
-	  methods: {
-	    onShown: function onShown() {
-	      var _this = this;
-
-	      if (!this.shortenUrl) {
-	        _bitly2.default.shorten(this.currentUrl).then(function (url) {
-	          _this.shortenUrl = url;
-	        });
-	      }
-	    }
-	  },
-
-	  directives: {
-	    sharer: _vueSharer2.default
-	  }
-	};
 
 /***/ },
 /* 83 */
