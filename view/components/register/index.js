@@ -67,7 +67,12 @@ module.exports = {
 
     CE_REGISTER_EMOJI_DONE(detail) {
       this.progress = false
-      this.result   = detail
+
+      if (typeof detail.err !== 'string') {
+        this.result = { err: '不明なエラーが発生しました' }
+      } else {
+        this.result = detail
+      }
     },
   },
 
