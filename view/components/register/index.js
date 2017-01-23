@@ -53,11 +53,18 @@ module.exports = {
   },
 
   events: {
+    EG_EMOJI_GENERATE() {
+      this.result        = {}
+      this.text          = ''
+      this.visibleErrors = false
+    },
+
     CE_SEARCH_JOINED_TEAMS_DONE(detail) {
       if (detail.contents) {
         this.teams = detail.contents
       }
     },
+
     CE_REGISTER_EMOJI_DONE(detail) {
       this.progress = false
       this.result   = detail

@@ -75,9 +75,12 @@ module.exports = {
       this.rawColor = query.color
       this.rawFont  = query.font
 
-      this.queryString   = queryString.stringify(query)
-      this.visibleResult = true
-      this.visibleShare  = false
+      this.queryString     = queryString.stringify(query)
+      this.visibleResult   = true
+      this.visibleRegister = false
+      this.visibleShare    = false
+
+      return true
     },
     CE_ATTACH() {
       this.hasChromeExtension = true
