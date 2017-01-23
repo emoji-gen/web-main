@@ -22617,7 +22617,10 @@
 
 	      this.queryString = _queryString2.default.stringify(query);
 	      this.visibleResult = true;
+	      this.visibleRegister = false;
 	      this.visibleShare = false;
+
+	      return true;
 	    },
 	    CE_ATTACH: function CE_ATTACH() {
 	      this.hasChromeExtension = true;
@@ -23313,6 +23316,11 @@
 	  },
 
 	  events: {
+	    EG_EMOJI_GENERATE: function EG_EMOJI_GENERATE() {
+	      this.result = {};
+	      this.text = '';
+	      this.visibleErrors = false;
+	    },
 	    CE_SEARCH_JOINED_TEAMS_DONE: function CE_SEARCH_JOINED_TEAMS_DONE(detail) {
 	      if (detail.contents) {
 	        this.teams = detail.contents;
