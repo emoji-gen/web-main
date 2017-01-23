@@ -1,4 +1,6 @@
 import queryString from 'query-string'
+import VueSharer from 'vue-sharer'
+import bitly from '../../lib/bitly'
 
 import './index.css'
 
@@ -8,13 +10,12 @@ module.exports = {
   data: () => ({
     visibleResult: false,
     visibleShare: false,
-    visibleRegister: false,
     rawText: null,
     rawColor: null,
     rawFont: null,
     queryString: null,
     fonts: [],
-    hasChromeExtension: false,
+    shortenUrl: null,
   }),
 
   computed: {
@@ -60,6 +61,14 @@ module.exports = {
       }
       return null
     },
+
+    currentUrl: function () {
+      return location.href
+    },
+
+    progress: function () {
+      return !this.shortenUrl
+    },
   },
 
   attached: function () {
@@ -70,7 +79,7 @@ module.exports = {
   },
 
   events: {
-    EG_EMOJI_GENERATE(query) {
+    EG_EMOJI_GENERATE: function (query) {
       this.rawText  = query.text
       this.rawColor = query.color
       this.rawFont  = query.font
@@ -78,34 +87,30 @@ module.exports = {
       this.queryString   = queryString.stringify(query)
       this.visibleResult = true
       this.visibleShare  = false
-    },
-    CE_ATTACH() {
-      this.hasChromeExtension = true
+      this.shortenUrl    = null
     },
   },
 
   methods: {
-    toggleShare() {
+    toggleShare: function () {
+      this.visibleShare = !this.visibleShare;
+
       if (this.visibleShare) {
-        this.visibleShare    = false
-      } else {
-        this.visibleShare    = true
-        this.visibleRegister = false
+        this.onShareShown()
       }
     },
 
-    toggleRegister() {
-      if (this.visibleRegister) {
-        this.visibleRegister = false
-      } else {
-        this.visibleRegister = true
-        this.visibleShare    = false
+    onShareShown: function () {
+      if (!this.shortenUrl) {
+        bitly.shorten(this.currentUrl)
+          .then(url => {
+            this.shortenUrl = url
+          })
       }
     },
   },
 
-  components: {
-    'eg-share': require('../../components/share'),
-    'eg-register': require('../../components/register'),
+  directives: {
+    'eg-sharer': VueSharer,
   },
 }

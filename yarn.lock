@@ -3868,10 +3868,6 @@ vue-color@0.0.7:
     tinycolor2 "^1.1.2"
     vue "^1.0.12"
 
-vue-multiselect@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/vue-multiselect/-/vue-multiselect-1.1.4.tgz#5cdcca897394613e079e4484f4903817065fc4e3"
-
 vue-resource@^0.9.3:
   version "0.9.3"
   resolved "https://registry.yarnpkg.com/vue-resource/-/vue-resource-0.9.3.tgz#ab46e1c44ea219142dcc28ae4043b3b04c80959d"
