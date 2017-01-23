@@ -1,6 +1,4 @@
 import queryString from 'query-string'
-import VueSharer from 'vue-sharer'
-import bitly from '../../lib/bitly'
 
 import './index.css'
 
