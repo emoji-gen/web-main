@@ -24,6 +24,9 @@ $bar-box-shadow-color: rgba(0, 0, 0, 0.2);
 $slack-rotate-left: -18deg;
 $slack-rotate-right: 18deg;
 
+/* z-index */
+$z-index-overlay: 100;
+
 /* dimensions */
 $dimen-root-height: 1135px;
 $dimen-header-height: 74px;

@@ -10,13 +10,13 @@ module.exports = {
   data: () => ({
     visibleResult: false,
     visibleShare: false,
+    visibleRegister: false,
     rawText: null,
     rawColor: null,
     rawFont: null,
     queryString: null,
     fonts: [],
-    shortenUrl: null,
-    chromeExtensionAttached: false,
+    hasChromeExtension: false,
   }),
 
   computed: {
@@ -62,14 +62,6 @@ module.exports = {
       }
       return null
     },
-
-    currentUrl: function () {
-      return location.href
-    },
-
-    progress: function () {
-      return !this.shortenUrl
-    },
   },
 
   attached: function () {
@@ -88,41 +80,34 @@ module.exports = {
       this.queryString   = queryString.stringify(query)
       this.visibleResult = true
       this.visibleShare  = false
-      this.shortenUrl    = null
     },
     CE_ATTACH() {
-      this.chromeExtensionAttached = true
-
-      // this.$dispatch('CE_REGISTER_EMOJI', {
-      //   url: 'http://localhost:5000/emoji?align=center&back_color=FFFFFF00&color=EC71A1FF&font=notosans-mono-bold&public_fg=true&size_fixed=false&stretch=true&text=%E7%B5%B5%E6%96%87%0A%E5%AD%97%E3%80%82',
-      //   text: 'emoji',
-      //   teamdomain: 'prismrhythm',
-      // })
-    },
-    CE_SEARCH_JOINED_TEAM_DONE(detail) {
+      this.hasChromeExtension = true
     },
   },
 
   methods: {
-    toggleShare: function () {
-      this.visibleShare = !this.visibleShare;
-
+    toggleShare() {
       if (this.visibleShare) {
-        this.onShareShown()
+        this.visibleShare    = false
+      } else {
+        this.visibleShare    = true
+        this.visibleRegister = false
       }
     },
 
-    onShareShown: function () {
-      if (!this.shortenUrl) {
-        bitly.shorten(this.currentUrl)
-          .then(url => {
-            this.shortenUrl = url
-          })
+    toggleRegister() {
+      if (this.visibleRegister) {
+        this.visibleRegister = false
+      } else {
+        this.visibleRegister = true
+        this.visibleShare    = false
       }
     },
   },
 
-  directives: {
-    'eg-sharer': VueSharer,
+  components: {
+    'eg-share': require('../../components/share'),
+    'eg-register': require('../../components/register'),
   },
 }

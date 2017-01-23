@@ -25,11 +25,11 @@ module.exports = {
       this.$broadcast('CE_ATTACH', e.detail)
     })
     document.body.addEventListener('CE_SEARCH_JOINED_TEAMS_DONE', e => {
-      if (meta.env.debug) { console.log(e.detail) }
-      this.$broadcast('CE_SEARCH_JOINED_TEAM_DONE', e.detail)
+      if (meta.env.debug) { console.log('CE_SEARCH_JOINED_TEAMS_DONE', e.detail) }
+      this.$broadcast('CE_SEARCH_JOINED_TEAMS_DONE', e.detail)
     })
     document.body.addEventListener('CE_REGISTER_EMOJI_DONE', e => {
-      if (meta.env.debug) { console.log(e.detail) }
+      if (meta.env.debug) { console.log('CE_REGISTER_EMOJI_DONE', e.detail) }
       this.$broadcast('CE_REGISTER_EMOJI_DONE', e.detail)
     })
   },
