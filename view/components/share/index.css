@@ -1,0 +1,52 @@
+@import '../../defs/import';
+
+.eg-share {
+  display: block;
+
+  .inner {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: opacity .8s ease-in-out;
+    opacity: 1;
+
+    input, a {
+      @mixin icon-40px;
+      margin: 0 0 0 14px;
+
+      &.twitter {
+        @mixin icon-twitter;
+        margin-left: 0;
+      }
+      &.facebook { @mixin icon-facebook }
+      &.google { @mixin icon-google }
+    }
+  }
+
+  &.expand-transition {
+    padding: 20px 0 15px;
+    transition: opacity .8s ease-in-out;
+    opacity: 1;
+  }
+
+  &.expand-enter, &.expand-leave {
+    height: auto;
+    padding: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+  }
+
+  &.progress {
+    background-image: url('/static/img/loading.gif');
+    background-position: center 10px;
+    background-size: 40px auto;
+    background-repeat: no-repeat;
+
+    .inner {
+      opacity: 0;
+    }
+  }
+}

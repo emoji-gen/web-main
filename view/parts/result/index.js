@@ -1,6 +1,4 @@
 import queryString from 'query-string'
-import VueSharer from 'vue-sharer'
-import bitly from '../../lib/bitly'
 
 import './index.css'
 
@@ -10,12 +8,13 @@ module.exports = {
   data: () => ({
     visibleResult: false,
     visibleShare: false,
+    visibleRegister: false,
     rawText: null,
     rawColor: null,
     rawFont: null,
     queryString: null,
     fonts: [],
-    shortenUrl: null,
+    hasChromeExtension: false,
   }),
 
   computed: {
@@ -61,14 +60,6 @@ module.exports = {
       }
       return null
     },
-
-    currentUrl: function () {
-      return location.href
-    },
-
-    progress: function () {
-      return !this.shortenUrl
-    },
   },
 
   attached: function () {
@@ -79,7 +70,7 @@ module.exports = {
   },
 
   events: {
-    EG_EMOJI_GENERATE: function (query) {
+    EG_EMOJI_GENERATE(query) {
       this.rawText  = query.text
       this.rawColor = query.color
       this.rawFont  = query.font
@@ -87,30 +78,34 @@ module.exports = {
       this.queryString   = queryString.stringify(query)
       this.visibleResult = true
       this.visibleShare  = false
-      this.shortenUrl    = null
+    },
+    CE_ATTACH() {
+      this.hasChromeExtension = true
     },
   },
 
   methods: {
-    toggleShare: function () {
-      this.visibleShare = !this.visibleShare;
-
+    toggleShare() {
       if (this.visibleShare) {
-        this.onShareShown()
+        this.visibleShare    = false
+      } else {
+        this.visibleShare    = true
+        this.visibleRegister = false
       }
     },
 
-    onShareShown: function () {
-      if (!this.shortenUrl) {
-        bitly.shorten(this.currentUrl)
-          .then(url => {
-            this.shortenUrl = url
-          })
+    toggleRegister() {
+      if (this.visibleRegister) {
+        this.visibleRegister = false
+      } else {
+        this.visibleRegister = true
+        this.visibleShare    = false
       }
     },
   },
 
-  directives: {
-    'eg-sharer': VueSharer,
+  components: {
+    'eg-share': require('../../components/share'),
+    'eg-register': require('../../components/register'),
   },
 }
