@@ -1,5 +1,4 @@
-Emoji-Web
----------
+## Emoji-Web [![CircleCI](https://circleci.com/gh/emoji-gen/Emoji-Web/tree/master.svg?style=shield)](https://circleci.com/gh/emoji-gen/Emoji-Web/tree/master)
 :tada: Ultimate Emoji Generator
 
 ## Requirements
