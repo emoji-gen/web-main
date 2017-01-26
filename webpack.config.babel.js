@@ -43,6 +43,9 @@ module.exports = {
   },
   plugins,
   resolve: {
+    alias:{
+      eg: path.resolve( __dirname, 'view'),
+    },
     extensions: ['', '.js', '.json'],
   },
   watchOptions: {
@@ -50,10 +53,13 @@ module.exports = {
   },
   postcss() {
     return [
-      require('autoprefixer'),
+      require('postcss-import')({
+        path: [ path.join(__dirname, 'view') ],
+      }),
       require('precss'),
       require('postcss-clearfix'),
       require('postcss-calc'),
+      require('autoprefixer'),
     ]
   },
 }

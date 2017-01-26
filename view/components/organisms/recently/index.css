@@ -1,0 +1,30 @@
+@import "style/import";
+
+.eg-recently {
+  $_padding: 32px;
+  @mixin box;
+
+  padding: $_padding $_padding calc($_padding + 28px) $_padding;
+
+  &, * {
+    box-sizing: border-box;
+  }
+
+  h2 {
+    @mixin box-heading;
+  }
+
+  .carousel {
+    $_border-width: 1px;
+    height: calc($dimen-emoji-size + $_border-width * 2);
+
+    .carousel-cell {
+      box-sizing: content-box;
+      width: $dimen-emoji-size;
+      height: $dimen-emoji-size;
+      margin-right: 10px;
+      border: $_border-width solid rgba(0, 0, 0, 0.18);
+      border-radius: 5px;
+    }
+  }
+}
