@@ -1,4 +1,4 @@
-@charset "utf-8";
+@import 'style/import';
 
 html, body {
   margin: 0;
