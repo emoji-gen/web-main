@@ -20,6 +20,10 @@ module.exports = {
     'no-bitwise': 0,
     'no-multi-spaces': 0,
     'import/newline-after-import': 0,
+    'import/no-extraneous-dependencies': 0,
+    'import/first': 0,
+    'import/extensions': 0,
+    'import/no-unresolved': 0,
     'no-underscore-dangle': 0,
   },
 }
