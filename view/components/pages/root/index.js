@@ -9,33 +9,31 @@ module.exports = {
       this.$broadcast('EG_EMOJI_GENERATE', args)
     },
     CE_SEARCH_JOINED_TEAMS() {
-      const ce = new CustomEvent('CE_SEARCH_JOINED_TEAMS')
-      document.body.dispatchEvent(ce)
+      this.$ptero.emit('CE_SEARCH_JOINED_TEAMS')
     },
     CE_REGISTER_EMOJI(args) {
-      const ce = new CustomEvent('CE_REGISTER_EMOJI', { detail: args })
-      document.body.dispatchEvent(ce)
+      this.$ptero.emit('CE_REGISTER_EMOJI', { detail: args })
     },
   },
   created() {
-    document.body.addEventListener('CE_ATTACH', e => {
+    this.$ptero.on('CE_ATTACH', e => {
       if (meta.env.debug) {
         console.log('attached by Chrome Extension', e.detail)
       }
       this.$broadcast('CE_ATTACH', e.detail)
     })
-    document.body.addEventListener('CE_SEARCH_JOINED_TEAMS_DONE', e => {
+    this.$ptero.on('CE_SEARCH_JOINED_TEAMS_DONE', e => {
       if (meta.env.debug) { console.log('CE_SEARCH_JOINED_TEAMS_DONE', e.detail) }
       this.$broadcast('CE_SEARCH_JOINED_TEAMS_DONE', e.detail)
     })
-    document.body.addEventListener('CE_REGISTER_EMOJI_DONE', e => {
+    this.$ptero.on('CE_REGISTER_EMOJI_DONE', e => {
       if (meta.env.debug) { console.log('CE_REGISTER_EMOJI_DONE', e.detail) }
       this.$broadcast('CE_REGISTER_EMOJI_DONE', e.detail)
     })
   },
   components: {
-    'eg-background': require('eg/components/organisms/background'),
-    'eg-footer': require('eg/components/organisms/footer'),
-    'eg-header': require('eg/components/organisms/header'),
+    egBackground: require('eg/components/organisms/background'),
+    egFooter: require('eg/components/organisms/footer'),
+    egHeader: require('eg/components/organisms/header'),
   }
 }
