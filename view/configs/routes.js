@@ -2,12 +2,12 @@
 
 module.exports = {
   '/': {
-    component: require('eg/components/pages/emoji'),
+    component: require('eg/components/templates/emoji'),
   },
   '/emoji': {
-    component: require('eg/components/pages/emoji'),
+    component: require('eg/components/templates/emoji'),
   },
   '/contact': {
-    component: require('eg/components/pages/contact'),
+    component: require('eg/components/templates/contact'),
   },
 }
