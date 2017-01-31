@@ -12,7 +12,7 @@ module.exports = {
       this.$ptero.emit('CE_SEARCH_JOINED_TEAMS')
     },
     CE_REGISTER_EMOJI(args) {
-      this.$ptero.emit('CE_REGISTER_EMOJI', { detail: args })
+      this.$ptero.emit('CE_REGISTER_EMOJI', args)
     },
   },
   created() {
