@@ -8,9 +8,11 @@ module.exports = {
   'rules': {
     'no-unused-vars': [ 2, { 'args': 'none' } ],
     'no-restricted-syntax': [ 2, 'WithStatement' ],
+
     'object-shorthand': 1,
     'comma-dangle': 1,
     'no-new': 1,
+    'no-else-return': 1,
     'arrow-parens': 1,
     'object-curly-spacing': 1,
     'strict': [1, 'global'],
