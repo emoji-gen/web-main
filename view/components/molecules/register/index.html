@@ -6,7 +6,7 @@
         <label>登録するチーム</label>
         <multiselect
           :selected="selected"
-          :options="teams"
+          :options="teamsOrEmptyArray"
           :close-on-select="true"
           :show-labels="false"
           :loading="progressTeams"

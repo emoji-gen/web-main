@@ -15,15 +15,23 @@ module.exports = {
     progress: false,
     result: {},
     selected: null,
-    teams: [],
+    teams: null,
     selectedTeam: null,
     text: '',
     visibleErrors: false,
   }),
 
   computed: {
+    teamsOrEmptyArray() {
+      if (Array.isArray(this.teams)) {
+        return this.teams
+      } else {
+        return []
+      }
+    },
+
     progressTeams() {
-      return this.teams.length === 0
+      return !Array.isArray(this.teams)
     },
 
     hasErrorMessages() {
@@ -78,7 +86,7 @@ module.exports = {
 
   methods: {
     onShown() {
-      if (this.teams.length === 0) {
+      if (this.teamsOrEmptyArray.length === 0) {
         this.$dispatch('CE_SEARCH_JOINED_TEAMS')
       }
     },
