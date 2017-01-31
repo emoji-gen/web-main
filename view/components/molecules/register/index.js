@@ -25,9 +25,8 @@ module.exports = {
     teamsOrEmptyArray() {
       if (Array.isArray(this.teams)) {
         return this.teams
-      } else {
-        return []
       }
+      return []
     },
 
     progressTeams() {
