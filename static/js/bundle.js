@@ -23511,7 +23511,7 @@
 	      progress: false,
 	      result: {},
 	      selected: null,
-	      teams: [],
+	      teams: null,
 	      selectedTeam: null,
 	      text: '',
 	      visibleErrors: false
@@ -23519,8 +23519,15 @@
 	  },
 
 	  computed: {
+	    teamsOrEmptyArray: function teamsOrEmptyArray() {
+	      if (Array.isArray(this.teams)) {
+	        return this.teams;
+	      } else {
+	        return [];
+	      }
+	    },
 	    progressTeams: function progressTeams() {
-	      return this.teams.length === 0;
+	      return !Array.isArray(this.teams);
 	    },
 	    hasErrorMessages: function hasErrorMessages() {
 	      return this.errorMessages.length > 0;
@@ -23571,7 +23578,7 @@
 
 	  methods: {
 	    onShown: function onShown() {
-	      if (this.teams.length === 0) {
+	      if (this.teamsOrEmptyArray.length === 0) {
 	        this.$dispatch('CE_SEARCH_JOINED_TEAMS');
 	      }
 	    },
@@ -25105,7 +25112,7 @@
 /* 99 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-register\" :class=\"{ 'progress': progress }\"> <div class=overlay></div> <div class=inner> <div class=groups> <div class=\"group teams\"> <label>登録するチーム</label> <multiselect :selected=selected :options=teams :close-on-select=true :show-labels=false :loading=progressTeams @update=updateSelectedTeam label=name placeholder=登録するチームを選んで下さい></multiselect> </div> <div class=\"group name\"> <label>絵文字の名前</label> <input type=text placeholder=絵文字の名前を入れて下さい v-model=text> </div> </div> <div class=\"messages error\" v-if=\"visibleErrors && hasErrorMessages\"> <label>入力を確認してください</label> <p v-for=\"errorMessage in errorMessages\">{{ errorMessage }}</p> </div> <div class=messages v-if=result.contents> <label>絵文字を登録しました！</label> <p>{{ result.contents }}</p> </div> <div class=\"messages error\" v-if=result.err> <label>絵文字の登録に失敗しました</label> <p>{{ result.err }}</p> </div> <div class=buttons> <button type=button class=pure-button @click=register>登録する&#9834;</button> </div> </div> </div> ";
+	module.exports = "<div class=\"v-cloak eg-register\" :class=\"{ 'progress': progress }\"> <div class=overlay></div> <div class=inner> <div class=groups> <div class=\"group teams\"> <label>登録するチーム</label> <multiselect :selected=selected :options=teamsOrEmptyArray :close-on-select=true :show-labels=false :loading=progressTeams @update=updateSelectedTeam label=name placeholder=登録するチームを選んで下さい></multiselect> </div> <div class=\"group name\"> <label>絵文字の名前</label> <input type=text placeholder=絵文字の名前を入れて下さい v-model=text> </div> </div> <div class=\"messages error\" v-if=\"visibleErrors && hasErrorMessages\"> <label>入力を確認してください</label> <p v-for=\"errorMessage in errorMessages\">{{ errorMessage }}</p> </div> <div class=messages v-if=result.contents> <label>絵文字を登録しました！</label> <p>{{ result.contents }}</p> </div> <div class=\"messages error\" v-if=result.err> <label>絵文字の登録に失敗しました</label> <p>{{ result.err }}</p> </div> <div class=buttons> <button type=button class=pure-button @click=register>登録する&#9834;</button> </div> </div> </div> ";
 
 /***/ },
 /* 100 */
