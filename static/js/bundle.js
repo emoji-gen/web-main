@@ -23522,9 +23522,8 @@
 	    teamsOrEmptyArray: function teamsOrEmptyArray() {
 	      if (Array.isArray(this.teams)) {
 	        return this.teams;
-	      } else {
-	        return [];
 	      }
+	      return [];
 	    },
 	    progressTeams: function progressTeams() {
 	      return !Array.isArray(this.teams);
