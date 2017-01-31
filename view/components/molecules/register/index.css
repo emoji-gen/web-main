@@ -86,7 +86,7 @@
   }
 
   .messages {
-    margin: 10px 0 30px;
+    margin: 8px 0 30px;
     font-size: $font-size-small;
     color: $color-gray;
 
@@ -108,7 +108,7 @@
   }
 
   .buttons {
-    margin-top: 10px;
+    margin: 8px 0 0;
     text-align: center;
 
     button {
@@ -121,6 +121,20 @@
 
       &:hover, &:focus {
         background-color: color($color-red a(.75));
+      }
+    }
+  }
+
+  .help {
+    margin: 45px 0 0;
+
+    p {
+      margin: 0 0 5px 0;
+      color: $color-gray;
+      font-size: $font-size-small;
+
+      &::before {
+        content: '\00203b ';
       }
     }
   }
