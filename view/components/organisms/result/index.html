@@ -33,7 +33,7 @@
       <div class="download">
         <a :href="emojiDownloadUrl">ダウンロード</a>
       </div>
-      <div class="register" @click="toggleRegister" v-show="hasChromeExtension">
+      <div class="register" @click="toggleRegister" v-show="visibleRegisterButton">
         登録する
       </div>
       <div class="share" @click="toggleShare">

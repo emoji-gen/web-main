@@ -19,6 +19,7 @@ module.exports = {
     selectedTeam: null,
     text: '',
     visibleErrors: false,
+    hasBrowserExtension: false,
   }),
 
   computed: {
@@ -66,6 +67,9 @@ module.exports = {
       this.visibleErrors = false
     },
 
+    CE_ATTACH() {
+      this.hasBrowserExtension = true
+    },
     CE_SEARCH_JOINED_TEAMS_DONE(detail) {
       if (detail.contents) {
         this.teams = detail.contents
@@ -85,7 +89,8 @@ module.exports = {
 
   methods: {
     onShown() {
-      if (this.teamsOrEmptyArray.length === 0) {
+      const isEmpty = this.teamsOrEmptyArray.length === 0
+      if (this.hasBrowserExtension && isEmpty) {
         this.$dispatch('CE_SEARCH_JOINED_TEAMS')
       }
     },
