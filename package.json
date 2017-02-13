@@ -45,6 +45,7 @@
     "webpack-notifier": "^1.3.0"
   },
   "dependencies": {
+    "detect-browser": "^1.6.2",
     "flickity": "^2.0.2",
     "lodash.pick": "^4.4.0",
     "query-string": "^4.2.2",
