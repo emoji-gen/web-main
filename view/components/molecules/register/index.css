@@ -8,9 +8,20 @@
   font-weight: bold;
 }
 
+@define-mixin _help_text {
+  color: $color-gray;
+  font-size: $font-size-small;
+  letter-spacing: .5px;
+}
+
 .eg-register {
   display: block;
   position: relative;
+
+  h3 {
+    @mixin _block-label;
+    color: $color-blue-dark;
+  }
 
   .inner {
     display: flex;
@@ -129,13 +140,30 @@
     margin: 45px 0 0;
 
     p {
+      @mixin _help_text;
       margin: 0 0 5px 0;
-      color: $color-gray;
-      font-size: $font-size-small;
 
       &::before {
         content: '\00203b ';
       }
     }
+  }
+
+  .description {
+    margin: 0;
+
+    p {
+      @mixin _help_text;
+      line-height: 1.8;
+      text-align: center;
+
+      strong {
+        margin: 0 1.5px;
+      }
+    }
+  }
+
+  .download {
+    margin: 30px 0 20px;
   }
 }

@@ -1,3 +1,4 @@
+import browser from 'detect-browser'
 import queryString from 'query-string'
 
 import './index.css'
@@ -14,7 +15,7 @@ module.exports = {
     rawFont: null,
     queryString: null,
     fonts: [],
-    hasChromeExtension: false,
+    hasBrowserExtension: false,
   }),
 
   computed: {
@@ -60,6 +61,13 @@ module.exports = {
       }
       return null
     },
+
+    isRegisterSupportedBrowser() {
+      return browser.name === 'chrome'
+    },
+    visibleRegisterButton() {
+      return this.hasBrowserExtension || this.isRegisterSupportedBrowser
+    },
   },
 
   attached: function () {
@@ -83,7 +91,8 @@ module.exports = {
       return true
     },
     CE_ATTACH() {
-      this.hasChromeExtension = true
+      this.hasBrowserExtension = true
+      return true
     },
   },
 

@@ -1214,6 +1214,10 @@ desandro-matches-selector@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/desandro-matches-selector/-/desandro-matches-selector-2.0.1.tgz#2bd348d5d7605dbe475fa246af8b1feed022d05e"
 
+detect-browser@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/detect-browser/-/detect-browser-1.6.2.tgz#7b6b7d0125c399a3998613767a30d58b2764e858"
+
 detect-indent@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-4.0.0.tgz#f76d064352cdf43a1cb6ce619c4ee3a9475de208"
