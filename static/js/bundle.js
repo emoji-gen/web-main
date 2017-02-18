@@ -16935,20 +16935,24 @@
 /* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const Sharer = __webpack_require__(30)
+	'use strict'
+
+	var Sharer = __webpack_require__(30)
 
 	function share(e) {
-	  const sharer = new Sharer(e.target)
+	  var sharer = new Sharer(e.target)
 	  sharer.share()
 	}
 
 	module.exports = {
-	  bind: function () {
-	    this.el.addEventListener('click', share, false)
+	  bind: function (el) {
+	    el = el || this.el
+	    el.addEventListener('click', share, false)
 	  },
 
-	  unbind: function () {
-	    this.el.removeEventListener('click', share, false)
+	  unbind: function (el) {
+	    el = el || this.el
+	    el.removeEventListener('click', share, false)
 	  },
 	}
 
