@@ -3836,9 +3836,9 @@ vue-router@^0.7.13:
   version "0.7.13"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-0.7.13.tgz#e1f0f042ac2561504b27f46f6dcd17b832b1c8d1"
 
-vue-sharer@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/vue-sharer/-/vue-sharer-0.1.0.tgz#e27cdc40273924415f775e22db930d4bc755e441"
+"vue-sharer@>=0.2.2 <1.0.0":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/vue-sharer/-/vue-sharer-0.2.2.tgz#43ebac25a6b04ea39ffcfbd91269b370a84c1b53"
   dependencies:
     sharer.npm.js "^0.0.10"
 

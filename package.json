@@ -57,7 +57,7 @@
     "vue-ptero": "^0.1.0",
     "vue-resource": "^0.9.3",
     "vue-router": "^0.7.13",
-    "vue-sharer": "^0.1.0",
+    "vue-sharer": ">=0.2.2 <1.0.0",
     "whatwg-fetch": "^1.0.0"
   }
 }
