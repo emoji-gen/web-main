@@ -6,7 +6,8 @@ funcy==1.7.2
 itsdangerous==0.24
 Jinja2==2.8
 MarkupSafe==0.23
-Pillow==3.3.0
+olefile==0.44
+Pillow==4.0.0
 pylibmc==1.5.1
 PyMySQL==0.7.9
 python-dateutil==2.5.3

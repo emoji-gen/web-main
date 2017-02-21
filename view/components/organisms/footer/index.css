@@ -1,0 +1,62 @@
+@import 'style/import';
+
+$_height: 50px;
+$_width: $dimen-content-width;
+$_font-size: $font-size-xsmall;
+$_color: $color-gray;
+
+.eg-footer {
+  width: 100%;
+  height: $_height;
+  background-color: $background-color-white;
+  box-shadow: 0px 0px 3px 1px $bar-box-shadow-color;
+
+  &, * {
+    box-sizing: border-box;
+  }
+
+  footer {
+    display: flex;
+    margin: 0 auto;
+    padding: 0 10px;
+    width: $_width;
+    height: $_height;
+
+    .menus {
+      display: block;
+      margin: 0;
+      padding: 0;
+      font-size: $_font-size;
+
+      li {
+        display: inline-block;
+        margin: 0;
+        list-style-position: inside;
+        list-style-type: none;
+        line-height: $_height;
+        color: $_color;
+
+        &::before {
+          display: inline;
+          margin: 0 6px 0 4px;
+          content: '|';
+        }
+
+        &:first-child {
+          &::before {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .copyright {
+      flex: 1 1 auto;
+      margin: 0;
+      line-height: $_height;
+      color: $_color;
+      font-size: $_font-size;
+      text-align: right;
+    }
+  }
+}
