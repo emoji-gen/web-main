@@ -76,4 +76,4 @@ $ yarn run build # for production
 ```
 
 ## License
-Copyright (C) 2016-2017 Emoji Generator.
+GPLv3 &copy; [Emoji Generator](https://emoji.pine.moe/)
