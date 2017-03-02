@@ -23630,7 +23630,11 @@
 	    },
 	    CE_SEARCH_JOINED_TEAMS_DONE: function CE_SEARCH_JOINED_TEAMS_DONE(detail) {
 	      if (detail.contents) {
-	        this.teams = detail.contents;
+	        var teams = [].concat(detail.contents);
+	        teams.sort(function (a, b) {
+	          return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+	        }); // alphabetical order
+	        this.teams = teams;
 	      }
 	    },
 	    CE_REGISTER_EMOJI_DONE: function CE_REGISTER_EMOJI_DONE(detail) {
