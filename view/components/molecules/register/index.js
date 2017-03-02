@@ -72,7 +72,11 @@ module.exports = {
     },
     CE_SEARCH_JOINED_TEAMS_DONE(detail) {
       if (detail.contents) {
-        this.teams = detail.contents
+        const teams = [].concat(detail.contents)
+        teams.sort((a, b) =>
+          a.name < b.name ? -1 :
+          a.name > b.name ?  1 : 0) // alphabetical order
+        this.teams = teams
       }
     },
 
