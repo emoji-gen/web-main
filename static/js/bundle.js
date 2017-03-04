@@ -23672,6 +23672,14 @@
 	      this.progress = true;
 	      this.result = {};
 	      this.$dispatch('CE_REGISTER_EMOJI', args);
+	    },
+	    registerByKeyPress: function registerByKeyPress(e) {
+	      if (e.keyCode === 13) {
+	        // Enter
+	        if (this.selectedTeam && this.text.length > 0) {
+	          this.register();
+	        }
+	      }
 	    }
 	  },
 
@@ -25185,7 +25193,7 @@
 /* 101 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-register\" :class=\"{ 'progress': progress }\"> <div class=overlay></div> <div class=inner v-if=hasBrowserExtension> <div class=groups> <div class=\"group teams\"> <label>登録するチーム</label> <multiselect :selected=selected :options=teamsOrEmptyArray :close-on-select=true :show-labels=false :loading=progressTeams @update=updateSelectedTeam label=name placeholder=登録するチームを選んで下さい></multiselect> </div> <div class=\"group name\"> <label>絵文字の名前</label> <input type=text placeholder=絵文字の名前を入れて下さい v-model=text> </div> </div> <div class=\"messages error\" v-if=\"visibleErrors && hasErrorMessages\"> <label>入力を確認してください</label> <p v-for=\"errorMessage in errorMessages\">{{ errorMessage }}</p> </div> <div class=messages v-if=result.contents> <label>絵文字を登録しました！</label> <p>{{ result.contents }}</p> </div> <div class=\"messages error\" v-if=result.err> <label>絵文字の登録に失敗しました</label> <p>{{ result.err }}</p> </div> <div class=buttons> <button type=button class=pure-button @click=register>登録する&#9834;</button> </div> <div class=help> <p>ブラウザでログイン中の Slack チームが一覧に表示されます</p> <p>登録したいチームが表示されない場合、該当のチームへ<a href=https://slack.com/signin target=_blank>ログイン</a>してください</p> </div> </div> <div class=inner v-else> <h3>ブラウザ拡張機能をインストールしてください</h3> <div class=description> <p> ブラウザ拡張機能をインストールすると、<br> Slack チームへ絵文字を<strong>直接登録</strong>することができます。 </p> </div> <div class=download> <a href=\"https://chrome.google.com/webstore/detail/%E7%B5%B5%E6%96%87%E5%AD%97%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC/ghbhakkknnmocmiilhneahbkiaegdnmf?hl=ja&amp;gl=JP\" target=_blank> <img src=/static/img/chrome_web_store.png width=248 height=75> </a> </div> </div> </div> ";
+	module.exports = "<div class=\"v-cloak eg-register\" :class=\"{ 'progress': progress }\"> <div class=overlay></div> <div class=inner v-if=hasBrowserExtension> <div class=groups> <div class=\"group teams\"> <label>登録するチーム</label> <multiselect :selected=selected :options=teamsOrEmptyArray :close-on-select=true :show-labels=false :loading=progressTeams @update=updateSelectedTeam label=name placeholder=登録するチームを選んで下さい></multiselect> </div> <div class=\"group name\"> <label>絵文字の名前</label> <input type=text placeholder=絵文字の名前を入れて下さい v-model=text @keypress=registerByKeyPress> </div> </div> <div class=\"messages error\" v-if=\"visibleErrors && hasErrorMessages\"> <label>入力を確認してください</label> <p v-for=\"errorMessage in errorMessages\">{{ errorMessage }}</p> </div> <div class=messages v-if=result.contents> <label>絵文字を登録しました！</label> <p>{{ result.contents }}</p> </div> <div class=\"messages error\" v-if=result.err> <label>絵文字の登録に失敗しました</label> <p>{{ result.err }}</p> </div> <div class=buttons> <button type=button class=pure-button @click=register>登録する&#9834;</button> </div> <div class=help> <p>ブラウザでログイン中の Slack チームが一覧に表示されます</p> <p>登録したいチームが表示されない場合、該当のチームへ<a href=https://slack.com/signin target=_blank>ログイン</a>してください</p> </div> </div> <div class=inner v-else> <h3>ブラウザ拡張機能をインストールしてください</h3> <div class=description> <p> ブラウザ拡張機能をインストールすると、<br> Slack チームへ絵文字を<strong>直接登録</strong>することができます。 </p> </div> <div class=download> <a href=\"https://chrome.google.com/webstore/detail/%E7%B5%B5%E6%96%87%E5%AD%97%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC/ghbhakkknnmocmiilhneahbkiaegdnmf?hl=ja&amp;gl=JP\" target=_blank> <img src=/static/img/chrome_web_store.png width=248 height=75> </a> </div> </div> </div> ";
 
 /***/ },
 /* 102 */
