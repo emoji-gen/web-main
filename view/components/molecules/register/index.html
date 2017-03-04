@@ -17,7 +17,8 @@
       </div>
       <div class="group name">
         <label>絵文字の名前</label>
-        <input type="text" placeholder="絵文字の名前を入れて下さい" v-model="text">
+        <input type="text" placeholder="絵文字の名前を入れて下さい"
+          v-model="text" @keypress="registerByKeyPress">
       </div>
     </div>
 

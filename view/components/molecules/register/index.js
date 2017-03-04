@@ -117,7 +117,15 @@ module.exports = {
       this.progress = true
       this.result   = {}
       this.$dispatch('CE_REGISTER_EMOJI', args)
-    }
+    },
+
+    registerByKeyPress(e) {
+      if (e.keyCode === 13) { // Enter
+        if (this.selectedTeam && this.text.length > 0) {
+          this.register()
+        }
+      }
+    },
   },
 
   components: {
