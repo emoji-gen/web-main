@@ -1,3 +1,4 @@
+import datetime
 import io
 import os
 import re
@@ -49,6 +50,10 @@ fonts_list = config.fonts
 
 @app.route('/')
 def index():
+    if config.debug:
+        epoch_f = datetime.datetime.now().timestamp()
+        args = { 'js_timestamp': hashlib.md5(str(epoch_f).encode('utf-8')).hexdigest() }
+        return render_template('index.j2', **args)
     return render_template('index.j2')
 
 @app.route('/emoji')

@@ -27,7 +27,7 @@
   <body>
     <div class="v-cloak eg-root"></div>
     {% if debug -%}
-    <script src="{{ url_for('static', filename='js/bundle.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bundle.js') }}?{{ js_timestamp }}"></script>
     {%- else -%}
     <script src="{{ url_for('static', filename='js/bundle.min.js') }}?{{ js_min_checksum }}"></script>
     {%- endif %}
