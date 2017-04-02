@@ -31,6 +31,7 @@ jobs:
           paths:
             - ~/workspace/node_modules
             - ~/.cache/yarn/
+            - ~/.cache/pip/
       - deploy:
           name: Deploy to Production
           command: |
