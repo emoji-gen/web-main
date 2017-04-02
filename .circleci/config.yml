@@ -16,6 +16,16 @@ jobs:
             echo "Node $(node -v)"
             echo "Yarn v$(yarn --version)"
       - run:
+          name: Create virtualenv
+          command: |
+            if [ ! -d venv ]; then
+              python3 -m venv venv
+            fi
+      - run:
+          name: Activate virtualenv
+          command: |
+            . venv/bin/activate
+      - run:
           name: Install dependencies (Python)
           command: pip3 install -r requirements.txt
       - run:
