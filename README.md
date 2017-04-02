@@ -75,5 +75,12 @@ $ yarn start     # for development
 $ yarn run build # for production
 ```
 
+## Public API
+Emoji Generator has public API for third-party applications.
+
+Please see API references.
+
+- http://docs.emojigeneratorapi.apiary.io/
+
 ## License
 GPLv3 &copy; [Emoji Generator](https://emoji.pine.moe/)
