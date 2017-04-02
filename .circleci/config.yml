@@ -41,6 +41,7 @@ jobs:
           key: Emoji-Web-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/workspace/node_modules
+            - ~/workspace/venv
             - ~/.cache/yarn/
       - deploy:
           name: Deploy to Production
