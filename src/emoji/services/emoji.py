@@ -1,9 +1,15 @@
+# -*- encoding: utf-8 -*-
 
-def generate_emoji(text,font,color,back_color, \
+import io
+import hashlib
+
+from emoji import app, cache
+from emoji_lib import *
+
+def generate(text,font,color,back_color, \
                     size_fixed = False, \
                     align = 'center', \
                     stretch = True):
-    global cache
     hash_text = text + \
             ':' + color +\
             ':' + back_color +\
@@ -11,7 +17,7 @@ def generate_emoji(text,font,color,back_color, \
             ':' + ('true' if size_fixed else 'false') +\
             ':' + align +\
             ':' + ('true' if stretch else 'false') +\
-            ':' + str(config.cache_version)
+            ':' + str(app.config['CACHE_VERSION'])
     r = int(color[0] +color[1],16)
     g = int(color[2] +color[3],16)
     b = int(color[4] +color[5],16)
@@ -40,7 +46,7 @@ def generate_emoji(text,font,color,back_color, \
         if len(lines) > 10: # XXX: 10 行以上
             return None
 
-        emoji = String2emoji(lines, 'assets/fonts/' + font,(r,g,b,a),(br,bg,bb,ba))
+        emoji = String2Emoji(lines, 'assets/fonts/' + font,(r,g,b,a),(br,bg,bb,ba))
         if not size_fixed:
             emojiMode = emoji.MODE_NOMAL
         elif size_fixed:

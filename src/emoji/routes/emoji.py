@@ -3,6 +3,7 @@
 from flask import request, make_response
 
 from emoji import app
+from emoji.services.emoji import generate
 
 @app.route('/emoji')
 def emoji():
@@ -20,20 +21,20 @@ def emoji():
 
     font_file = font_list.get(font_key, default_font_key).get('file')
 
-    # if text is False:
-    #     text = ' '
-    # if color is False:
-    #     color = '000000'
-    # if back_color is False:
-    #     back_color = 'FFFFFF00'
-    # if align not in ['center','right','left']:
-    #     align = 'center'
-    # img_png = generate_emoji(text,font,color,back_color,size_fixed,align,stretch)
+    if text is False:
+        text = ' '
+    if color is False:
+        color = '000000'
+    if back_color is False:
+        back_color = 'FFFFFF00'
+    if align not in ['center','right','left']:
+        align = 'center'
 
-    # if not img_png:
-    #     return abort(400)
+    img_png = generate(text,font_file,color,back_color,size_fixed,align,stretch)
+    if not img_png:
+        return abort(400)
 
     res = make_response()
-    res.data = ''#img_png
+    res.data = img_png
     res.headers['Content-Type'] = 'image/png'
     return res

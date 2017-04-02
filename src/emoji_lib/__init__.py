@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
+
 from PIL import Image, ImageDraw, ImageFont
 
-class String2emoji(object):
+class String2Emoji(object):
     MODE_NOMAL = 1
     MODE_FONTSIZE_FIXED = 2
     """docstring for String2emoji"""
