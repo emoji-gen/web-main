@@ -4,7 +4,8 @@ jobs:
     working_directory: ~/workspace
     docker:
       - image: emojigen/emoji-circleci-dockerfile
-
+    environment:
+      - VIRTUAL_ENV: "~/workspace/venv"
     steps:
       - checkout
       - restore_cache:
