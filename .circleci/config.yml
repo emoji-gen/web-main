@@ -17,7 +17,7 @@ jobs:
             echo "Yarn v$(yarn --version)"
       - run:
           name: Install dependencies (Python)
-          command: pip3 -r requirements.txt
+          command: pip3 install -r requirements.txt
       - run:
           name: Install dependencies (Node)
           command: yarn
