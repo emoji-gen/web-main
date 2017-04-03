@@ -2,9 +2,31 @@
 
 import io
 import hashlib
+from urllib.parse import urlencode, urljoin
 
 from emoji import app, cache
 from emoji_lib import *
+
+def url_for(
+        text,
+        font,
+        color,
+        back_color,
+        size_fixed = False,
+        align = 'center',
+        stretch = True
+        ):
+    base_url = app.config['SITE_BASE_URL']
+    payload = {
+            'text': text,
+            'font': font,
+            'color': color,
+            'back_color': back_color,
+            'size_fixed': str(size_fixed).lower(),
+            'align': align,
+            'stretch': str(stretch).lower()
+            }
+    return urljoin(base_url, 'emoji') + '?' + urlencode(payload)
 
 def generate(text,font,color,back_color, \
                     size_fixed = False, \

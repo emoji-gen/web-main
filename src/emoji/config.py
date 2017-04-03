@@ -52,6 +52,7 @@ MEMCACHED_HOSTS = _env_config['memcached']['hosts']
 
 MYSQL_ENABLED = _env_config['mysql']['enabled']
 
+SITE_BASE_URL = _config['site']['base_url']
 SITE_DOMAIN = _config['site']['domain']
 SITE_DESCRIPTION = _config['site']['description']
 

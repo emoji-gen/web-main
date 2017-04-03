@@ -3,7 +3,7 @@
 from flask import jsonify
 
 from emoji import app
-from emoji.services import history
+from emoji.services import history, emoji
 
 @app.route('/api/histories')
 def api_histories():
@@ -18,6 +18,34 @@ def api_histories():
             'size_fixed': row.size_fixed,
             'align': row.align,
             'stretch': row.stretch,
-            'public_fg': row.public_fg
+        })
+    return jsonify(result)
+
+@app.route('/api/v1/histories')
+def api_v1_histories():
+    result = []
+    rows = history.search(limit=20)
+    for row in rows:
+        result.append({
+            'id': row.id,
+            'generated_at': int(row.generated_at.timestamp()),
+            'emoji_url': emoji.url_for(
+                row.text,
+                row.font,
+                row.color,
+                row.back_color,
+                row.size_fixed,
+                row.align,
+                row.stretch
+            ),
+            'parameters': {
+                'text': row.text,
+                'font': row.font,
+                'color': row.color,
+                'back_color': row.back_color,
+                'align': row.align,
+                'size_fixed': row.size_fixed,
+                'stretch': row.stretch,
+            },
         })
     return jsonify(result)
