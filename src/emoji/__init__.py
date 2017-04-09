@@ -45,6 +45,7 @@ cache = make_cache()
 # -----------------------------------------------------------------------------
 # Import routes
 
+import emoji.routes.api.emoji
 import emoji.routes.api.font
 import emoji.routes.api.history
 import emoji.routes.emoji
