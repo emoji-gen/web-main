@@ -117,6 +117,8 @@ module.exports = {
       this.progress = true
       this.result   = {}
       this.$dispatch('CE_REGISTER_EMOJI', args)
+
+      ga('send', 'event', 'Emoji', 'register')
     },
 
     registerByKeyPress(e) {

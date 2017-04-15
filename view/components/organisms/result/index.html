@@ -31,7 +31,7 @@
   <div class="links">
     <div class="inner">
       <div class="download">
-        <a :href="emojiDownloadUrl">ダウンロード</a>
+        <a :href="emojiDownloadUrl" @click="download">ダウンロード</a>
       </div>
       <div class="register" @click="toggleRegister" v-show="visibleRegisterButton">
         登録する

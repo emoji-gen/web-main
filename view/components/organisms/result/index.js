@@ -97,6 +97,10 @@ module.exports = {
   },
 
   methods: {
+    download() {
+      ga('send', 'event', 'Emoji', 'download')
+    },
+
     toggleShare() {
       if (this.visibleShare) {
         this.visibleShare    = false
