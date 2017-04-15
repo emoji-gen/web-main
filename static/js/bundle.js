@@ -15012,7 +15012,7 @@
 	if (!_meta2.default.env.debug) {
 	  __webpack_require__(13);
 	} else {
-	  window.ga = {};
+	  window.ga = function () {};
 	}
 
 	module.exports = window.ga;
@@ -22843,6 +22843,9 @@
 	  },
 
 	  methods: {
+	    download: function download() {
+	      ga('send', 'event', 'Emoji', 'download');
+	    },
 	    toggleShare: function toggleShare() {
 	      if (this.visibleShare) {
 	        this.visibleShare = false;
@@ -22936,7 +22939,7 @@
 /* 83 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-result\" v-show=visibleResult transition=expand> <h2>生成された絵文字</h2> <div class=preview> <div class=inner> <div class=image> <img :src=emojiUrl alt=\"\" v-if=emojiUrl> </div> <div class=detail> <ul> <li class=text> <h3>テキスト</h3> <span class=user-input>{{ text }}</span> </li> <li class=font> <h3>フォント</h3> <span class=user-input>{{ fontName }}</span> </li> <li class=color> <h3>カラー</h3> <span class=user-input> <span class=color-square v-bind:style=\"{ backgroundColor: cssColor }\"></span> {{ color }} </span> </li> </ul> </div> </div> </div> <div class=links> <div class=inner> <div class=download> <a :href=emojiDownloadUrl>ダウンロード</a> </div> <div class=register @click=toggleRegister v-show=visibleRegisterButton> 登録する </div> <div class=share @click=toggleShare> シェアする </div> </div> </div> <eg-share v-show=visibleShare transition=expand :visible=visibleShare></eg-share> <eg-register v-show=visibleRegister transition=expand :visible=visibleRegister :emoji-url=emojiDownloadUrl> </eg-register></div> ";
+	module.exports = "<div class=\"v-cloak eg-result\" v-show=visibleResult transition=expand> <h2>生成された絵文字</h2> <div class=preview> <div class=inner> <div class=image> <img :src=emojiUrl alt=\"\" v-if=emojiUrl> </div> <div class=detail> <ul> <li class=text> <h3>テキスト</h3> <span class=user-input>{{ text }}</span> </li> <li class=font> <h3>フォント</h3> <span class=user-input>{{ fontName }}</span> </li> <li class=color> <h3>カラー</h3> <span class=user-input> <span class=color-square v-bind:style=\"{ backgroundColor: cssColor }\"></span> {{ color }} </span> </li> </ul> </div> </div> </div> <div class=links> <div class=inner> <div class=download> <a :href=emojiDownloadUrl @click=download>ダウンロード</a> </div> <div class=register @click=toggleRegister v-show=visibleRegisterButton> 登録する </div> <div class=share @click=toggleShare> シェアする </div> </div> </div> <eg-share v-show=visibleShare transition=expand :visible=visibleShare></eg-share> <eg-register v-show=visibleRegister transition=expand :visible=visibleRegister :emoji-url=emojiDownloadUrl> </eg-register></div> ";
 
 /***/ },
 /* 84 */
@@ -23672,6 +23675,8 @@
 	      this.progress = true;
 	      this.result = {};
 	      this.$dispatch('CE_REGISTER_EMOJI', args);
+
+	      ga('send', 'event', 'Emoji', 'register');
 	    },
 	    registerByKeyPress: function registerByKeyPress(e) {
 	      if (e.keyCode === 13) {
