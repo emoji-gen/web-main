@@ -5,6 +5,9 @@ module.exports = {
   'env': {
     'browser': true,
   },
+  'globals': {
+    'ga': true,
+  },
   'rules': {
     'no-unused-vars': [ 2, { 'args': 'none' } ],
     'no-restricted-syntax': [ 2, 'WithStatement' ],
