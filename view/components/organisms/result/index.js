@@ -63,7 +63,7 @@ module.exports = {
     },
 
     isRegisterSupportedBrowser() {
-      return browser.name === 'chrome'
+      return browser.name === 'chrome' || browser.name === 'firefox'
     },
     visibleRegisterButton() {
       return this.hasBrowserExtension || this.isRegisterSupportedBrowser

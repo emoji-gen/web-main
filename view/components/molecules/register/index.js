@@ -1,4 +1,5 @@
 import url from 'url'
+import browser from 'detect-browser'
 import VueMultiselect from 'vue-multiselect'
 
 import './index.css'
@@ -49,6 +50,10 @@ module.exports = {
       }
 
       return messages
+    },
+
+    browserName() {
+      return browser.name
     },
   },
 
