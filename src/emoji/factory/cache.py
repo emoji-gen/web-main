@@ -10,9 +10,9 @@ class BinarySupportedMemcachedCache(MemcachedCache):
         return pylibmc.Client(servers, binary=True)
 
 def make_cache():
+    timeout = app.config['CACHE_TIMEOUT']
     if app.config['MEMCACHED_ENABLED']:
         hosts = app.config['MEMCACHED_HOSTS']
-        timeout = app.config['CACHE_TIMEOUT']
         return BinarySupportedMemcachedCache(hosts, default_timeout=timeout)
 
     return SimpleCache(default_timeout=timeout)
