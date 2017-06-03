@@ -1,13 +1,11 @@
 @import 'style/import';
 
-$_height: 50px;
 $_width: $dimen-content-width;
 $_font-size: $font-size-xsmall;
 $_color: $color-gray;
 
 .eg-footer {
   width: 100%;
-  height: $_height;
   background-color: $background-color-white;
   box-shadow: 0px 0px 3px 1px $bar-box-shadow-color;
 
@@ -17,15 +15,23 @@ $_color: $color-gray;
 
   footer {
     display: flex;
+    flex-direction: row;
     margin: 0 auto;
-    padding: 0 10px;
+    padding: 8px 15px 10px;
     width: $_width;
-    height: $_height;
+
+    .banner {
+      display: inline-block;
+    }
 
     .menus {
-      display: block;
-      margin: 0;
+      margin: 0 20px 15px 0;
       padding: 0;
+      flex: 1 1 auto;
+      align-self: flex-end;
+
+      color: $_color;
+      text-align: right;
       font-size: $_font-size;
 
       li {
@@ -51,12 +57,9 @@ $_color: $color-gray;
     }
 
     .copyright {
-      flex: 1 1 auto;
-      margin: 0;
-      line-height: $_height;
-      color: $_color;
+      margin: 0 0 15px;
       font-size: $_font-size;
-      text-align: right;
+      align-self: flex-end;
     }
   }
 }
