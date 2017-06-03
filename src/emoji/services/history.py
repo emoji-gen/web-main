@@ -26,12 +26,13 @@ def logging(
     db.session.add(emoji_log)
     db.session.commit()
 
-def search(limit=10):
+def search(limit=30, offset=0):
     if not app.config['MYSQL_ENABLED']:
         return []
 
     return (EmojiLog.query
         .filter(EmojiLog.public_fg == True)
         .order_by(EmojiLog.generated_at.desc())
+        .offset(offset)
         .limit(limit)
         .all())

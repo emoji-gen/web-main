@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-from flask import jsonify
+from flask import jsonify, request
 
 from emoji import app
 from emoji.services import history, emoji
@@ -23,8 +23,11 @@ def api_histories():
 
 @app.route('/api/v1/histories')
 def api_v1_histories():
+    limit = request.args.get("limit", default=20, type=int)
+    offset = request.args.get("offset", default=0, type=int)
+
     result = []
-    rows = history.search(limit=20)
+    rows = history.search(limit=limit, offset=offset)
     for row in rows:
         result.append({
             'id': row.id,
