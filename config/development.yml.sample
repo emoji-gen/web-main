@@ -1,16 +1,22 @@
-cache:
-  timeout: 86400 # 24 hours
-  memcached:
-    enabled: false
-    servers:
-      - '127.0.0.1:11211'
-slack:
-  enable: false
-  url: https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX
-
+# servers
 mysql:
-  enabled: false
+  enabled: true
   url: 'mysql+pymysql://root:@localhost/emoji?charset=utf8mb4'
 
+memcached:
+  enabled: true
+  hosts:
+    - 'localhost:11211'
+
+# services
+slack:
+  enabled: true
+  webhook_url: https://hooks.slack.com/services/XXXXXXXXX/XXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXXXX
+
+
+# features
+cache:
+  timeout: 86400 # forever
+
 history:
-  enabled: false
+  enabled: true
