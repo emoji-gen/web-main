@@ -15200,7 +15200,7 @@
 
 
 	// module
-	exports.push([module.id, ".eg-footer{width:100%;height:50px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 3px 1px rgba(0,0,0,.2)}.eg-footer,.eg-footer *{box-sizing:border-box}.eg-footer footer{display:-webkit-box;display:-ms-flexbox;display:flex;margin:0 auto;padding:0 10px;width:900px;height:50px}.eg-footer footer .menus{display:block;margin:0;padding:0;font-size:11px}.eg-footer footer .menus li{display:inline-block;margin:0;list-style-position:inside;list-style-type:none;line-height:50px;color:#8c8c8c}.eg-footer footer .menus li:before{display:inline;margin:0 6px 0 4px;content:\"|\"}.eg-footer footer .menus li:first-child:before{display:none}.eg-footer footer .copyright{-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;margin:0;line-height:50px;color:#8c8c8c;font-size:11px;text-align:right}", ""]);
+	exports.push([module.id, ".eg-footer{width:100%;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 3px 1px rgba(0,0,0,.2)}.eg-footer,.eg-footer *{box-sizing:border-box}.eg-footer footer{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;margin:0 auto;padding:8px 15px 10px;width:900px}.eg-footer footer .banner{display:inline-block}.eg-footer footer .menus{margin:0 20px 15px 0;padding:0;-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;-ms-flex-item-align:end;align-self:flex-end;color:#8c8c8c;text-align:right;font-size:11px}.eg-footer footer .menus li{display:inline-block;margin:0;list-style-position:inside;list-style-type:none;line-height:$_height;color:#8c8c8c}.eg-footer footer .menus li:before{display:inline;margin:0 6px 0 4px;content:\"|\"}.eg-footer footer .menus li:first-child:before{display:none}.eg-footer footer .copyright{margin:0 0 15px;font-size:11px;-ms-flex-item-align:end;align-self:flex-end}", ""]);
 
 	// exports
 
@@ -15209,7 +15209,7 @@
 /* 25 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-footer\"> <footer> <ul class=menus> <li><a v-link=\"'/contact'\" v-eg-scroll>お問い合わせ</a></li> </ul> <p class=copyright>(C) 2016-2017 絵文字 ジェネレーター</p> </footer> </div> ";
+	module.exports = "<div class=\"v-cloak eg-footer\"> <footer> <div class=banner> <a href=\"https://play.google.com/store/apps/details?id=moe.pine.emoji&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1\" target=_blank> <img src=/static/img/playstore.png width=162 height=63 alt=\"Google Play で手に入れよう\"> </a> </div> <ul class=menus> <li><a v-link=\"'/contact'\" v-eg-scroll>お問い合わせ</a></li> </ul> <p class=copyright>(C) 2016-2017 絵文字 ジェネレーター</p> </footer> </div> ";
 
 /***/ }),
 /* 26 */
