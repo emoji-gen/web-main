@@ -73,7 +73,7 @@ module.exports = {
   attached: function () {
     this.$http.get('/api/fonts')
       .then(res => {
-        this.fonts = res.data
+        this.fonts = res.json()
       })
   },
 

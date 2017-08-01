@@ -46,7 +46,7 @@ module.exports = {
 
     this.$http.get('/api/histories')
       .then(res => {
-        this.histories = res.data
+        this.histories = res.json()
       })
   },
 

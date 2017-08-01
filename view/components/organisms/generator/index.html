@@ -53,7 +53,7 @@
     <div class="parameter font">
       <h3>フォント</h3>
       <ul>
-        <li v-for="font in fonts" track-by="font.key">
+        <li v-for="font in fonts" track-by="$index">
           <input type="radio" name="eg_generator__font_key" :value="font.key"
             id="eg_generator__font_{{font.key}}" v-model="fontKey">
           <label for="eg_generator__font_{{font.key}}">{{font.name}}</label>

@@ -57,7 +57,7 @@ module.exports = {
   attached: function () {
     this.$http.get('/api/fonts')
       .then(res => {
-        this.fonts = res.data
+        this.fonts = res.json()
 
         if (this.fonts.length > 0) {
           this.fontKey = this.fonts[0].key
