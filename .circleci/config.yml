@@ -22,7 +22,7 @@ jobs:
             echo "Yarn v$(yarn --version)"
       - run:
           name: Install dependencies (Python)
-          command: pip3 install -r requirements.txt
+          command: pip3 install -r requirements.txt --extra-index-url https://repo.fury.io/emoji-gen/
       - run:
           name: Install dependencies (Node)
           command: yarn
