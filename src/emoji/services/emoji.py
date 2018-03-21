@@ -4,8 +4,8 @@ import io
 import hashlib
 from urllib.parse import urlencode, urljoin
 
-import emojilib
 from emoji import app, cache
+from emoji_lib import *
 
 def url_for(
         text,
@@ -68,17 +68,16 @@ def generate(text,font,color,back_color, \
         if len(lines) > 10: # XXX: 10 行以上
             return None
 
-        img_png = emojilib.generate(
-            text=text,
-            width=128,
-            height=128,
-            color=color,
-            background_color=back_color,
-            size_fixed=size_fixed,
-            disable_stretch=not stretch,
-            align=align,
-            typeface_file='assets/fonts/' + font,
-            format='png'
-        )
+        emoji = String2Emoji(lines, 'assets/fonts/' + font,(r,g,b,a),(br,bg,bb,ba))
+        if not size_fixed:
+            emojiMode = emoji.MODE_NOMAL
+        elif size_fixed:
+            emojiMode = emoji.MODE_FONTSIZE_FIXED
+        else :
+            emojiMode = emoji.MODE_NOMAL
+        img = emoji.getEmoji(emojiMode,align,stretch)
+        output = io.BytesIO()
+        img.save(output,format='png')
+        img_png = output.getvalue()
         cache.set(cache_id,img_png)
     return img_png
