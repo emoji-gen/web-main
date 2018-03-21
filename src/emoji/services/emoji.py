@@ -74,21 +74,11 @@ def generate(text,font,color,back_color, \
             height=128,
             color=color,
             background_color=back_color,
+            size_fixed=size_fixed,
+            disable_stretch=not stretch,
             align=align,
             typeface_file='assets/fonts/' + font,
             format='png'
         )
         cache.set(cache_id,img_png)
-
-    #     emoji = String2Emoji(lines, 'assets/fonts/' + font,(r,g,b,a),(br,bg,bb,ba))
-    #     if not size_fixed:
-    #         emojiMode = emoji.MODE_NOMAL
-    #     elif size_fixed:
-    #         emojiMode = emoji.MODE_FONTSIZE_FIXED
-    #     else :
-    #         emojiMode = emoji.MODE_NOMAL
-    #     img = emoji.getEmoji(emojiMode,align,stretch)
-    #     output = io.BytesIO()
-    #     img.save(output,format='png')
-    #     img_png = output.getvalue()
     return img_png
