@@ -22,7 +22,7 @@
 $ python --version
 Python 3.5.0
 
-$ pip install -r requirements.txt
+$ pip install -r requirements.txt --extra-index-url https://repo.fury.io/emoji-gen/
 $ python app.py
 ```
 

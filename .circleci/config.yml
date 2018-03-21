@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/workspace
     docker:
-      - image: emojigen/emoji-circleci-dockerfile
+      - image: emojigen/docker-web-main-obsolete
     steps:
       - checkout
       - run:
@@ -22,7 +22,7 @@ jobs:
             echo "Yarn v$(yarn --version)"
       - run:
           name: Install dependencies (Python)
-          command: pip3 install -r requirements.txt
+          command: pip3 install --extra-index-url https://repo.fury.io/emoji-gen/ -r requirements.txt
       - run:
           name: Install dependencies (Node)
           command: yarn
