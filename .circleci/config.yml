@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/workspace
     docker:
-      - image: emojigen/emoji-circleci-dockerfile
+      - image: emojigen/docker-web-main-obsolete
     steps:
       - checkout
       - run:
