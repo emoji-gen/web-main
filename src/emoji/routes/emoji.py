@@ -22,7 +22,7 @@ async def generate(request):
     background_color = request.query.get('back_color', default_background_color).upper()
     size_fixed = request.query.get('size_fixed',default='false').lower() == 'true'
     align = request.query.get('align', 'center').lower()
-    stretch = request.query.get('stretch', 'true').lower() != 'false'
+    disable_stretch = request.query.get('stretch', 'true').lower() == 'false'
 
     img_data = emojilib.generate(
         text=text,
@@ -32,7 +32,7 @@ async def generate(request):
         background_color=background_color,
         size_fixed=size_fixed,
         disable_stretch=disable_stretch,
-        align='center',
+        align=align,
         typeface_file=font_path,
         format='png'
     )
