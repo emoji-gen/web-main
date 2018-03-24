@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+    <meta charset="utf-8">
+    <meta name="description" content="{{description}}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="google-site-verification" content="v9Ipl9yMsI0_Ao06TE0ZR-8gDNOn58nQQuI-H_fJ2co">
+    <meta property="fb:app_id" content="1668136526839121">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="絵文字ジェネレーター">
+    <meta property="og:title" content="絵文字ジェネレーター">
+    <meta property="og:description" content="{{ description }}">
+    <meta property="og:url" content="https://{{ domain }}">
+    <meta property="og:image" content="https://{{ domain }}/static/img/ogp_summary.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="app:name" content="Emoji-Web">
+    <meta name="app:env:debug" content="{% if debug %}true{% else %}false{% endif %}">
+    <meta name="app:env:domain" content="{{ domain }}">
+    <meta name="app:feature:history" content="{% if history_enabled %}true{% else %}false{% endif %}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    <link rel="canonical" href="https://{{ domain }}">
+    <style> [v-cloak] { display: none } </style>
+    <title>絵文字ジェネレーター</title>
+  </head>
+  <body>
+    <div class="v-cloak eg-root"></div>
+    {% if debug -%}
+    <script src="{{ url_for('static', filename='js/bundle.js') }}?{{ js_timestamp }}"></script>
+    {%- else -%}
+    <script src="{{ url_for('static', filename='js/bundle.min.js') }}?{{ js_min_checksum }}"></script>
+    {%- endif %}
+  </body>
+</html>

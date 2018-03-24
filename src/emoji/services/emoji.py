@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 
-import io
 import hashlib
 from urllib.parse import urlencode, urljoin
 
@@ -55,7 +54,7 @@ def generate(text,font,color,back_color, \
     elif len(back_color) == 8:
         ba = int(back_color[6] + back_color[7],16)
     cache_id = hashlib.md5(hash_text.encode('utf-8')).hexdigest()
-    img_png = cache.get(cache_id)
+    img_png = None #cache.get(cache_id)
     if img_png is None:
         lines = text.splitlines()
 
@@ -80,5 +79,5 @@ def generate(text,font,color,back_color, \
             typeface_file='assets/fonts/' + font,
             format='png'
         )
-        cache.set(cache_id,img_png)
+        # cache.set(cache_id,img_png)
     return img_png
