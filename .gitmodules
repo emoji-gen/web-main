@@ -1,0 +1,3 @@
+[submodule "externals/fonts"]
+	path = externals/fonts
+	url = git@github.com:pine/eg-fonts.git

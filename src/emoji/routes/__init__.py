@@ -1,14 +1,10 @@
 # -*- encoding: utf-8 -*-
 
-import aiohttp_jinja2
 from pathlib import Path
 
 from emoji.routes import emoji
 from emoji.routes.api import fonts
-
-@aiohttp_jinja2.template('index.j2')
-async def index(request):
-    return {}
+from emoji.routes.views import index
 
 
 def setup_routes(app):
