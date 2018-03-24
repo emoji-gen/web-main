@@ -1,10 +1,20 @@
 # -*- encoding: utf-8 -*-
 
 import emojilib
+import re
 from aiohttp.web import Response, HTTPBadRequest
 from pathlib import Path
 
+
 async def generate(request):
+    return await _execute(request)
+
+
+async def download(request):
+    return await _execute(request, download_fg=True)
+
+
+async def _execute(request, download_fg=False):
     fonts = request.app['repos']['fonts'].all_as_dict()
 
     default_font_key = request.app['config']['routes']['default_font_key']
@@ -24,6 +34,11 @@ async def generate(request):
     align = request.query.get('align', 'center').lower()
     disable_stretch = request.query.get('stretch', 'true').lower() == 'false'
 
+    headers = {}
+    if download_fg:
+        desposition = 'attachment; filename=\"{}.png\"'.format(re.sub(r'\s','_',text))
+        headers['Content-Disposition'] = desposition
+
     img_data = emojilib.generate(
         text=text,
         width=128,
@@ -38,5 +53,6 @@ async def generate(request):
     )
     return Response(
         body=img_data,
+        headers=headers,
         content_type='image/png'
     )
