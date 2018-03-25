@@ -41,6 +41,9 @@ async def _execute(request, download_fg=False):
         desposition = 'attachment; filename=\"{}.png\"'.format(re.sub(r'\s','_',text))
         headers['Content-Disposition'] = desposition
 
+    # TODO: History 記録
+    # TODO: Slack 通知
+
     img_data = emojilib.generate(
         text=text,
         width=128,
