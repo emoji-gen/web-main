@@ -15,13 +15,15 @@ async def download(request):
 
 
 async def _execute(request, download_fg=False):
-    fonts = request.app['repos']['font'].all_as_dict()
+    emoji_log_repository = request.app['repos']['emoji_log']
+    font_repository = request.app['repos']['font']
 
     default_font_key = request.app['config']['routes']['default_font_key']
     default_text = request.app['config']['routes']['default_text']
     default_color = request.app['config']['routes']['default_color']
     default_background_color = request.app['config']['routes']['default_background_color']
 
+    fonts = font_repository.all_as_dict()
     font_key = request.query.get('font', default_font_key)
     font_file = fonts.get(font_key, default_font_key).get('file')
     fonts_path = request.app['config']['fonts_path']
@@ -33,17 +35,11 @@ async def _execute(request, download_fg=False):
     size_fixed = request.query.get('size_fixed',default='false').lower() == 'true'
     align = request.query.get('align', 'center').lower()
     disable_stretch = request.query.get('stretch', 'true').lower() == 'false'
+    public_fg = request.query.get('public_fg', 'true').lower() == 'true'
 
-    headers = {}
-    if not request.app.debug:
-        headers['Cache-Control'] = 'public, max-age={}'.format(60 * 60 * 24) # 1 day
-    if download_fg:
-        desposition = 'attachment; filename=\"{}.png\"'.format(re.sub(r'\s','_',text))
-        headers['Content-Disposition'] = desposition
-
-    # TODO: History 記録
     # TODO: Slack 通知
 
+    # 絵文字を生成
     img_data = emojilib.generate(
         text=text,
         width=128,
@@ -56,6 +52,26 @@ async def _execute(request, download_fg=False):
         typeface_file=font_path,
         format='png'
     )
+
+    # 生成ログを記録
+    if download_fg:
+        await emoji_log_repository.logging(
+            text=text,
+            color=color,
+            back_color=background_color,
+            font=font_key,
+            size_fixed=size_fixed,
+            align=align,
+            stretch=not disable_stretch,
+            public_fg=public_fg
+        )
+
+    headers = {}
+    if not request.app.debug:
+        headers['Cache-Control'] = 'public, max-age={}'.format(60 * 60 * 24) # 1 day
+    if download_fg:
+        desposition = 'attachment; filename=\"{}.png\"'.format(re.sub(r'\s','_',text))
+        headers['Content-Disposition'] = desposition
     return Response(
         body=img_data,
         headers=headers,
