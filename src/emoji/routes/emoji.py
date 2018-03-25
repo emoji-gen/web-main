@@ -15,7 +15,7 @@ async def download(request):
 
 
 async def _execute(request, download_fg=False):
-    fonts = request.app['repos']['fonts'].all_as_dict()
+    fonts = request.app['repos']['font'].all_as_dict()
 
     default_font_key = request.app['config']['routes']['default_font_key']
     default_text = request.app['config']['routes']['default_text']
