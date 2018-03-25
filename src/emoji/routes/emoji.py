@@ -35,6 +35,8 @@ async def _execute(request, download_fg=False):
     disable_stretch = request.query.get('stretch', 'true').lower() == 'false'
 
     headers = {}
+    if not request.app.debug:
+        headers['Cache-Control'] = 'public, max-age={}'.format(60 * 60 * 24) # 1 day
     if download_fg:
         desposition = 'attachment; filename=\"{}.png\"'.format(re.sub(r'\s','_',text))
         headers['Content-Disposition'] = desposition
