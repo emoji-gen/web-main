@@ -1,3 +1,5 @@
+product_base_url: 'https://emoji.pine.moe'
+
 templates:
   title: '絵文字ジェネレーター'
 

@@ -10,3 +10,9 @@ class EmojiLogRepository():
       async with self._app['db'].acquire() as conn:
         itr = conn.execute(EmojiLog.select().limit(limit))
         return [ dict(v) async for v in itr ]
+
+
+    async def filter(self, limit, offset):
+      async with self._app['db'].acquire() as conn:
+        itr = conn.execute(EmojiLog.select().limit(limit).offset(offset))
+        return [ dict(v) async for v in itr ]
