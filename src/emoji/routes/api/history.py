@@ -6,7 +6,7 @@ from funcy import project
 
 async def all_v0(request):
     emoji_log_repository = request.app['repos']['emoji_log']
-    emoji_logs = await emoji_log_repository.recently(limit=20)
+    emoji_logs = await emoji_log_repository.filter(limit=20)
 
     columns = ['text', 'color', 'back_color', 'font', 'size_fixed', 'align', 'stretch']
     result = [ project(v, columns) for v in emoji_logs ]
