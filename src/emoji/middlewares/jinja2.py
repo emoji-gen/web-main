@@ -30,7 +30,7 @@ def request_processor():
         return {
             'protocol': protocol,
             'host': host,
-            'baseUrl': '{0}://{1}'.format(protocol, host),
+            'base_url': '{0}://{1}'.format(protocol, host),
         }
     return processor
 
