@@ -11,13 +11,16 @@ from emoji.repos import setup_repos
 from emoji.routes import setup_routes
 from emoji.services import setup_services
 
-app = Application(debug=True)
+def app_factory():
+    app = Application(debug=True)
 
-setup_config(app)
-setup_routes(app)
-setup_middlewares(app)
-setup_repos(app)
-setup_services(app)
+    setup_config(app)
+    setup_routes(app)
+    setup_middlewares(app)
+    setup_repos(app)
+    setup_services(app)
 
-app.on_startup.append(init_db)
-app.on_cleanup.append(close_db)
+    app.on_startup.append(init_db)
+    app.on_cleanup.append(close_db)
+
+    return app
