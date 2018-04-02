@@ -11,7 +11,7 @@ from emoji.repos import setup_repos
 from emoji.routes import setup_routes
 from emoji.services import setup_services
 
-async def app_factory():
+def app_provider():
     app = Application(debug=True)
 
     setup_config(app)
