@@ -101,7 +101,6 @@ assets/fonts
 public/fonts
 !view/parts
 !view/lib
-config/local.yml
 
 # Idea directory
 .idea

@@ -1,0 +1,5 @@
+mysql:
+  user: root
+  db: emoji
+  host: localhost
+  password:
