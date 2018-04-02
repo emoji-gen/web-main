@@ -48,6 +48,7 @@ def config_processor(config):
     async def processor(request):
         return {
             'title': config['templates']['title'],
+            'product_base_url': config['product_base_url'],
         }
     return processor
 
