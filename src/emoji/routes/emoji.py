@@ -67,11 +67,16 @@ async def _execute(request, download_fg=False):
         )
 
     headers = {}
-    if not request.app.debug:
-        headers['Cache-Control'] = 'public, max-age={}'.format(60 * 60 * 24) # 1 day
     if download_fg:
         desposition = 'attachment; filename=\"{}.png\"'.format(re.sub(r'\s','_',text))
         headers['Content-Disposition'] = desposition
+        headers['Cache-Control'] = 'private, no-store, no-cache, must-revalidate'
+    else:
+        if request.app.debug:
+            headers['Cache-Control'] = 'private, no-store, no-cache, must-revalidate'
+        else:
+            headers['Cache-Control'] = 'public, max-age={}'.format(60 * 60 * 24) # 1 day
+
     return Response(
         body=img_data,
         headers=headers,
