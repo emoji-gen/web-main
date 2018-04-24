@@ -1,6 +1,6 @@
 click==6.6
 croniter==0.3.12
-emojilib==0.1.1
+emojilib==0.1.2
 Flask==0.11.1
 Flask-RQ2==16.1.1
 Flask-SQLAlchemy==2.2
