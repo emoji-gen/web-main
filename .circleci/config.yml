@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/workspace
     docker:
-      - image: emojigen/docker-web-main-obsolete
+      - image: emojigen/docker-web
     steps:
       - checkout
       - run:
