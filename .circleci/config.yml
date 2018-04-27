@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/workspace
     docker:
-      - image: emojigen/docker-web
+      - image: emojigen/docker-web-main
     steps:
       - checkout
       - run:
