@@ -24,7 +24,7 @@ jobs:
           name: Install dependencies (Python)
           command: |
             /usr/local/python/bin/pip install \
-              -r requirements.txt \
+              -q -r requirements.txt \
               --index-url https://repo.fury.io/emoji-gen/ \
               --extra-index-url https://pypi.org/simple
       - run:
