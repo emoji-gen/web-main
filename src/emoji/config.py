@@ -3,7 +3,7 @@
 import yaml
 from pathlib import Path
 
-def setup_config(app):
+def load_config():
     project_path = str(Path(__file__).resolve().parents[2])
     templates_path = str(Path(project_path).joinpath('templates'))
     fonts_path = str(Path(project_path).joinpath('externals/fonts'))
@@ -29,4 +29,5 @@ def setup_config(app):
     config['config_path'] = config_path
     config['htmlmin_enabled'] = True
 
-    app['config'] = config
+    return config
+

@@ -1,3 +1,4 @@
+debug: true
 mysql:
   user: root
   db: emoji
