@@ -9,7 +9,7 @@ jobs:
       - run:
           name: Notify if in master
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "v1" ]; then
               scripts/notify/start-test.sh
             fi
       - restore_cache:
@@ -31,7 +31,7 @@ jobs:
           command: |
             yarn test
             yarn run build
-            if [ $CIRCLE_BRANCH = 'master' ]; then scripts/test/git-status.sh; fi
+            if [ $CIRCLE_BRANCH = 'v1' ]; then scripts/test/git-status.sh; fi
       - save_cache:
           key: Emoji-Web-{{ checksum "yarn.lock" }}-{{ checksum "requirements.txt" }}
           paths:
@@ -41,7 +41,7 @@ jobs:
       - run:
           name: Notify if in master
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "v1" ]; then
               scripts/notify/end-test.sh
             fi
       - deploy:
