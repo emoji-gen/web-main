@@ -88,3 +88,5 @@ Please see API references.
 
 ## License
 GPLv3 &copy; [Emoji Generator](https://emoji.pine.moe/)
+
+test
