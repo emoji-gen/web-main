@@ -5,10 +5,8 @@
 ## Requirements
 
   - Python 3.6
-  - Node 6.9.2
-  - memcached
-  - Redis
-  - MySQL 5.6
+  - Node `$(cat .node-version)`
+  - MySQL 5.7
 
 ## Frameworks
 
