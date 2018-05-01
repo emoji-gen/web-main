@@ -1,54 +1,67 @@
 # -*- encoding: utf-8 -*-
 
-from flask import jsonify, request
+from aiohttp import web
+from funcy import project
 
-from emoji import app
-from emoji.services import history, emoji
 
-@app.route('/api/histories')
-def api_histories():
+async def all_v0(request):
+    emoji_log_repository = request.app['repos']['emoji_log']
+    emoji_logs = await emoji_log_repository.filter(limit=20)
+
+    columns = ['text', 'color', 'back_color', 'font', 'size_fixed', 'align', 'stretch']
+    result = [ project(v, columns) for v in emoji_logs ]
+
+    headers = {}
+    if not request.app.debug:
+        headers['Cache-Control'] = 'public, max-age={}'.format(10) # 10 seconds
+    return web.json_response(result, headers=headers)
+
+
+async def all_v1(request):
+    emoji_log_repository = request.app['repos']['emoji_log']
+    emoji_service = request.app['services']['emoji']
+
+    limit, offset = _parse_v1_parameters(request)
+    emoji_logs = await emoji_log_repository.filter(limit=limit, offset=offset)
+
+    columns = ['text', 'color', 'back_color', 'font', 'size_fixed', 'align', 'stretch']
     result = []
-    rows = history.search(limit=20)
-    for row in rows:
+    for emoji_log in emoji_logs:
         result.append({
-            'text': row.text,
-            'color': row.color,
-            'back_color': row.back_color,
-            'font': row.font,
-            'size_fixed': row.size_fixed,
-            'align': row.align,
-            'stretch': row.stretch,
-        })
-    return jsonify(result)
-
-@app.route('/api/v1/histories')
-def api_v1_histories():
-    limit = request.args.get("limit", default=20, type=int)
-    offset = request.args.get("offset", default=0, type=int)
-
-    result = []
-    rows = history.search(limit=limit, offset=offset)
-    for row in rows:
-        result.append({
-            'id': row.id,
-            'generated_at': int(row.generated_at.timestamp()),
-            'emoji_url': emoji.url_for(
-                row.text,
-                row.font,
-                row.color,
-                row.back_color,
-                row.size_fixed,
-                row.align,
-                row.stretch
+            'id': emoji_log['id'],
+            'generated_at': int(emoji_log['generated_at'].timestamp()),
+            'emoji_url': emoji_service.make_url(
+                text=emoji_log['text'],
+                font=emoji_log['font'],
+                color=emoji_log['color'],
+                back_color=emoji_log['back_color'],
+                size_fixed=emoji_log['size_fixed'],
+                align=emoji_log['align'],
+                stretch=emoji_log['stretch']
             ),
-            'parameters': {
-                'text': row.text,
-                'font': row.font,
-                'color': row.color,
-                'back_color': row.back_color,
-                'align': row.align,
-                'size_fixed': row.size_fixed,
-                'stretch': row.stretch,
-            },
+            'parameters': project(emoji_log, columns)
         })
-    return jsonify(result)
+
+    headers = {}
+    if not request.app.debug:
+        headers['Cache-Control'] = 'public, max-age={}'.format(10) # 10 seconds
+    return web.json_response(result, headers=headers)
+
+
+def _parse_v1_parameters(request):
+    try:
+        limit = int(request.query.get('limit', None))
+    except (TypeError, ValueError):
+        limit = 20
+
+    try:
+        offset = int(request.query.get('limit', None))
+    except (TypeError, ValueError):
+        offset = 0
+
+    return min(limit, 100), offset # TODO: 定数外だし
+
+
+
+if __name__ == '__main__':
+    pass

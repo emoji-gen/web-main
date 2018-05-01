@@ -1,16 +1,23 @@
 # -*- encoding: utf-8 -*-
 
-from flask import jsonify
+from aiohttp import web
+from funcy import project
 
-from emoji import app
-from emoji.services.font import *
 
-@app.route('/api/fonts')
-def api_fonts():
-    font_list = search_font_list()
-    return jsonify(font_list)
+async def all_v0(request):
+    fonts = request.app['repos']['font'].all()
 
-@app.route('/api/v1/fonts')
-def api_v1_fonts():
-    font_list = search_font_list_v1()
-    return jsonify(font_list)
+    headers = {}
+    if not request.app.debug:
+        headers['Cache-Control'] = 'public, max-age={}'.format(60 * 10) # 10 minutes
+    return web.json_response(fonts, headers=headers)
+
+
+async def all_v1(request):
+    fonts = request.app['repos']['font'].all()
+    result = [ project(v, ['key', 'name']) for v in fonts ]
+
+    headers = {}
+    if not request.app.debug:
+        headers['Cache-Control'] = 'public, max-age={}'.format(60 * 10) # 10 minutes
+    return web.json_response(result, headers=headers)

@@ -1,10 +1,10 @@
-## Emoji-Web &nbsp;[![CircleCI](https://circleci.com/gh/emoji-gen/Emoji-Web/tree/master.svg?style=shield)](https://circleci.com/gh/emoji-gen/Emoji-Web/tree/master) [![Dependency Status](https://gemnasium.com/badges/github.com/emoji-gen/Emoji-Web.svg)](https://gemnasium.com/github.com/emoji-gen/Emoji-Web)
+## Emoji Generator &nbsp;[![CircleCI](https://circleci.com/gh/emoji-gen/Emoji-Web/tree/master.svg?style=shield)](https://circleci.com/gh/emoji-gen/Emoji-Web/tree/master) [![Dependency Status](https://gemnasium.com/badges/github.com/emoji-gen/Emoji-Web.svg)](https://gemnasium.com/github.com/emoji-gen/Emoji-Web)
 
 :tada: Ultimate Emoji Generator
 
 ## Requirements
 
-  - Python 3.5
+  - Python 3.6
   - Node 6.9.2
   - memcached
   - Redis
@@ -12,7 +12,7 @@
 
 ## Frameworks
 
-- [Flask](http://flask.pocoo.org/)
+- [aiohttp](https://github.com/aio-libs/aiohttp)
 - [Vue](https://vuejs.org/)
 
 ## Getting Started

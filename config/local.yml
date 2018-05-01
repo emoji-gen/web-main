@@ -1,0 +1,6 @@
+debug: true
+mysql:
+  user: root
+  db: emoji
+  host: localhost
+  password:

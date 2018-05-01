@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/workspace
     docker:
-      - image: emojigen/docker-web-main-obsolete
+      - image: emojigen/docker-web-main
     steps:
       - checkout
       - run:
@@ -17,12 +17,16 @@ jobs:
       - run:
           name: System information
           command: |
-            python3 --version
+            /usr/local/python/bin/python --version
             echo "Node $(node -v)"
             echo "Yarn v$(yarn --version)"
       - run:
           name: Install dependencies (Python)
-          command: pip3 install --extra-index-url https://repo.fury.io/emoji-gen/ -r requirements.txt
+          command: |
+            /usr/local/python/bin/pip install \
+              -q -r requirements.txt \
+              --index-url https://repo.fury.io/emoji-gen/ \
+              --extra-index-url https://pypi.org/simple
       - run:
           name: Install dependencies (Node)
           command: yarn
