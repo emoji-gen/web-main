@@ -13,9 +13,9 @@ def main():
     if message == 'started':
         _notify('Test started', '#66d3e4')
     elif message == 'successful':
-        _notify('Deploy successful', '#41aa58')
+        _notify('Test successful', '#41aa58')
     elif message == 'failed':
-        _notify('Deploy failed', '#d10c20')
+        _notify('Test failed', '#d10c20')
     else:
         raise RuntimeError('invalid message')
 
