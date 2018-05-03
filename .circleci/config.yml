@@ -51,6 +51,6 @@ jobs:
       - deploy:
           name: Deploy to Production
           command: |
-            if [ "${CIRCLE_BRANCH}" == "v1" ]; then
-              scripts/deploy.sh
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              curl -X POST "https://circleci.com/api/v1.1/project/github/pine/eg-fabric/tree/master?circle-token=$CIRCLE_TOKEN"
             fi
