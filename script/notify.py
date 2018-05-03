@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import sys
 import slackweb
 
 circleci_icon = 'https://i.imgur.com/FLjAA35.png'
@@ -8,7 +9,15 @@ pytest_mini_icon = 'https://i.imgur.com/H3RVdT1.png'
 
 
 def main():
-    _notify('Test started', '#66d3e4')
+    message = sys.argv[1]
+    if message == 'started':
+        _notify('Test started', '#66d3e4')
+    elif message == 'successful':
+        _notify('Deploy successful', '#41aa58')
+    elif message == 'failed':
+        _notify('Deploy failed', '#d10c20')
+    else:
+        raise RuntimeError('invalid message')
 
 
 def _notify(text, color):

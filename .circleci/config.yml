@@ -21,7 +21,7 @@ jobs:
           command: |
             $PIP_BIN install -q slackweb
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              $PYTHON_BIN script/notify/start-test.py
+              $PYTHON_BIN script/notify.py started
             fi
       - restore_cache:
           key: emoji-gen/web-main/{{ arch }}/{{ checksum "yarn.lock" }}/{{ checksum "requirements.txt" }}
@@ -46,10 +46,10 @@ jobs:
             - ~/.cache/yarn/
             - ~/.cache/pip/
       - run:
-          name: Notify if in master
+          name: Notify test successful
           command: |
-            if [ "${CIRCLE_BRANCH}" == "v1" ]; then
-              scripts/notify/end-test.sh
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              $PYTHON_BIN script/notify.py successful
             fi
       - deploy:
           name: Deploy to Production
