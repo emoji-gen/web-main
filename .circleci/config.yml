@@ -13,7 +13,7 @@ jobs:
               scripts/notify/start-test.sh
             fi
       - restore_cache:
-          key: Emoji-Web-{{ checksum "yarn.lock" }}-{{ checksum "requirements.txt" }}
+          key: emoji-gen/web-main/{{ arch }}/{{ checksum "yarn.lock" }}/{{ checksum "requirements.txt" }}
       - run:
           name: System information
           command: |
@@ -37,7 +37,7 @@ jobs:
             yarn run build
             if [ $CIRCLE_BRANCH = 'v1' ]; then scripts/test/git-status.sh; fi
       - save_cache:
-          key: Emoji-Web-{{ checksum "yarn.lock" }}-{{ checksum "requirements.txt" }}
+          key: emoji-gen/web-main/{{ arch }}/{{ checksum "yarn.lock" }}/{{ checksum "requirements.txt" }}
           paths:
             - ~/workspace/node_modules
             - ~/.cache/yarn/
