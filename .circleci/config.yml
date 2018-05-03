@@ -4,8 +4,16 @@ jobs:
     working_directory: ~/workspace
     docker:
       - image: emojigen/docker-web-main
+    environment:
+      PYTHON_BIN: /usr/local/python/bin/python
     steps:
       - checkout
+      - run:
+          name: System information
+          command: |
+            $PYTHON_BIN --version
+            echo "Node $(node -v)"
+            echo "Yarn v$(yarn --version)"
       - run:
           name: Notify if in master
           command: |
@@ -14,12 +22,6 @@ jobs:
             fi
       - restore_cache:
           key: emoji-gen/web-main/{{ arch }}/{{ checksum "yarn.lock" }}/{{ checksum "requirements.txt" }}
-      - run:
-          name: System information
-          command: |
-            /usr/local/python/bin/python --version
-            echo "Node $(node -v)"
-            echo "Yarn v$(yarn --version)"
       - run:
           name: Install dependencies (Python)
           command: |
