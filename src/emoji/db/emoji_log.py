@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 import sqlalchemy as sa
+from sqlalchemy.ext.declarative import declarative_base
 
 metadata = sa.MetaData()
 
