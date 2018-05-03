@@ -38,7 +38,10 @@ jobs:
           command: |
             yarn test
             yarn run build
-            if [ $CIRCLE_BRANCH = 'v1' ]; then scripts/test/git-status.sh; fi
+
+            if [ $CIRCLE_BRANCH = 'master' ]; then
+              script/is-git-dirty.sh
+            fi
       - save_cache:
           key: emoji-gen/web-main/{{ arch }}/{{ checksum "yarn.lock" }}/{{ checksum "requirements.txt" }}
           paths:
