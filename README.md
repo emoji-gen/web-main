@@ -33,12 +33,6 @@ First, try to type commands as following.
 $ ./db/setup.sh
 ```
 
-#### Job Queue
-Emoji Generator use [RQ](http://python-rq.org/) and Redis as job queue.
-
-Try to type command as following.
-
-`$ rq worker high normal low`
 
 #### venv
 
@@ -54,9 +48,6 @@ $ source venv/bin/activate
 
 $ deactivate # exit
 ```
-
-### fonts
-You should download used fonts for `assets/fonts` directory.
 
 ### Frontend
 
