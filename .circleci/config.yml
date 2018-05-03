@@ -6,6 +6,7 @@ jobs:
       - image: emojigen/docker-web-main
     environment:
       PYTHON_BIN: /usr/local/python/bin/python
+      PIP_BIN: /usr/local/python/bin/pip
     steps:
       - checkout
       - run:
@@ -25,10 +26,8 @@ jobs:
       - run:
           name: Install dependencies (Python)
           command: |
-            /usr/local/python/bin/pip install \
-              -q -r requirements.txt \
-              --index-url https://repo.fury.io/emoji-gen/ \
-              --extra-index-url https://pypi.org/simple
+            $PIP_BIN install -q -r requirements.txt \
+              --index-url https://repo.fury.io/emoji-gen/ --extra-index-url https://pypi.org/simple
       - run:
           name: Install dependencies (Node)
           command: yarn
