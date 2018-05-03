@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 import slackweb
 
 circleci_icon = 'https://i.imgur.com/FLjAA35.png'
