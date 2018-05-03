@@ -13,6 +13,7 @@ jobs:
           name: System information
           command: |
             $PYTHON_BIN --version
+            $PIP_BIN --version
             echo "Node $(node -v)"
             echo "Yarn v$(yarn --version)"
       - run:
