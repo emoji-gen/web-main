@@ -4,7 +4,7 @@
 
 ## Requirements
 
-  - Python 3.6
+  - Python `$(cat .python-version)`
   - Node `$(cat .node-version)`
   - MySQL 5.7
 
