@@ -76,4 +76,4 @@ Please see API references.
 - [Emoji-CLI](https://github.com/emoji-gen/Emoji-CLI) (for Console)
 
 ## License
-GPLv3 &copy; [Emoji Generator](https://emoji.pine.moe/)
+GPLv3 &copy; [Emoji Generator](https://emoji-gen.ninja)
