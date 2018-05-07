@@ -17,9 +17,9 @@ _sym_db = _symbol_database.Default()
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Font.proto',
-  package='',
+  package='emoji.proto',
   syntax='proto3',
-  serialized_pb=_b('\n\nFont.proto\" \n\x04\x46ont\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0c\n\x04name\x18\x02 \x01(\tb\x06proto3')
+  serialized_pb=_b('\n\nFont.proto\x12\x0b\x65moji.proto\" \n\x04\x46ont\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0c\n\x04name\x18\x02 \x01(\tb\x06proto3')
 )
 
 
@@ -27,20 +27,20 @@ DESCRIPTOR = _descriptor.FileDescriptor(
 
 _FONT = _descriptor.Descriptor(
   name='Font',
-  full_name='Font',
+  full_name='emoji.proto.Font',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='Font.id', index=0,
+      name='id', full_name='emoji.proto.Font.id', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='name', full_name='Font.name', index=1,
+      name='name', full_name='emoji.proto.Font.name', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -58,8 +58,8 @@ _FONT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14,
-  serialized_end=46,
+  serialized_start=27,
+  serialized_end=59,
 )
 
 DESCRIPTOR.message_types_by_name['Font'] = _FONT
@@ -68,7 +68,7 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 Font = _reflection.GeneratedProtocolMessageType('Font', (_message.Message,), dict(
   DESCRIPTOR = _FONT,
   __module__ = 'Font_pb2'
-  # @@protoc_insertion_point(class_scope:Font)
+  # @@protoc_insertion_point(class_scope:emoji.proto.Font)
   ))
 _sym_db.RegisterMessage(Font)
 

@@ -1,0 +1,6 @@
+syntax = "proto3";
+import "Font.proto";
+
+message InitialState {
+  repeated Font fonts = 1;
+}
