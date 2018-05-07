@@ -1,0 +1,1 @@
+protoc -I common/proto --js_out=import_style=commonjs,binary:frontend/src/proto common/proto/*.proto --python_out=server/src/emoji/proto
