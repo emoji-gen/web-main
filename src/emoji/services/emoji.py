@@ -18,7 +18,7 @@ class EmojiService():
         align = 'center',
         stretch = True
     ):
-        base_url = self._app['config']['product_base_url']
+        base_url = self._app['config']['base_url']
         payload = {
             'text': text,
             'font': font,

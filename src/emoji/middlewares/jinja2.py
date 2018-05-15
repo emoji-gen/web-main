@@ -11,7 +11,6 @@ def setup_jinja2_middleware(app):
     env = aiohttp_jinja2.setup(
         app,
         context_processors=[
-            request_processor(),
             computed_processor(debug=app.debug),
             config_processor(config=app['config']),
         ],
@@ -21,18 +20,6 @@ def setup_jinja2_middleware(app):
     env.globals.update({
         'assets_path': assets_path,
     })
-
-
-def request_processor():
-    async def processor(request):
-        protocol = request.headers.get('X-Forwarded-Proto', 'http')
-        host = request.host
-        return {
-            'protocol': protocol,
-            'host': host,
-            'base_url': '{0}://{1}'.format(protocol, host),
-        }
-    return processor
 
 
 def computed_processor(debug):
@@ -48,7 +35,7 @@ def config_processor(config):
     async def processor(request):
         return {
             'title': config['templates']['title'],
-            'product_base_url': config['product_base_url'],
+            'base_url': config['base_url'],
         }
     return processor
 
