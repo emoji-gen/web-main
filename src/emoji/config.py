@@ -5,6 +5,7 @@ from pathlib import Path
 
 def load_config():
     project_path = str(Path(__file__).resolve().parents[2])
+    assets_path = str(Path(project_path).joinpath('public'))
     templates_path = str(Path(project_path).joinpath('templates'))
     fonts_path = str(Path(project_path).joinpath('externals/fonts'))
     config_path = str(Path(project_path).joinpath('config'))
@@ -24,6 +25,7 @@ def load_config():
         config.update(local_config)
 
     config['project_path'] = project_path
+    config['assets_path'] = assets_path
     config['templates_path'] = templates_path
     config['fonts_path'] = fonts_path
     config['config_path'] = config_path
