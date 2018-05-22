@@ -7,7 +7,7 @@ def load_config():
     project_path = str(Path(__file__).resolve().parents[2])
     assets_path = str(Path(project_path).joinpath('public'))
     templates_path = str(Path(project_path).joinpath('templates'))
-    fonts_path = str(Path(project_path).joinpath('externals/fonts'))
+    fonts_path = str(Path(project_path).joinpath('resources/fonts'))
     config_path = str(Path(project_path).joinpath('config'))
 
     default_config_path = str(Path(config_path).joinpath('default.yml'))

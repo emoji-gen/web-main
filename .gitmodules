@@ -4,3 +4,9 @@
 [submodule "externals/conf"]
 	path = externals/conf
 	url = git@github.com:pine/eg-conf.git
+[submodule "server/res/fonts"]
+	path = server/res/fonts
+	url = git@github.com:pine/eg-fonts.git
+[submodule "server/resources/fonts"]
+	path = server/resources/fonts
+	url = git@github.com:pine/eg-fonts.git
