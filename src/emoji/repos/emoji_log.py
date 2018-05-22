@@ -10,7 +10,6 @@ class EmojiLogRepository():
 
     async def filter(self, limit=20, offset=0):
         async with self._app['db'].acquire() as conn:
-            print(conn)
             query = (EmojiLog.select()
                 .where(EmojiLog.columns.public_fg == 1)
                 .order_by(EmojiLog.columns.generated_at.desc())

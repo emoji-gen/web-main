@@ -1,4 +1,7 @@
-## Emoji Generator &nbsp;[![CircleCI](https://circleci.com/gh/emoji-gen/web-main/tree/master.svg?style=shield)](https://circleci.com/gh/emoji-gen/web-main/tree/master) [![Dependency Status](https://gemnasium.com/badges/github.com/emoji-gen/Emoji-Web.svg)](https://gemnasium.com/github.com/emoji-gen/Emoji-Web)
+## Emoji Generator
+[![CircleCI](https://circleci.com/gh/emoji-gen/web-main/tree/master.svg?style=shield)](https://circleci.com/gh/emoji-gen/web-main/tree/master)
+[![dependencies Status](https://david-dm.org/emoji-gen/web-main/status.svg)](https://david-dm.org/emoji-gen/web-main)
+[![devDependencies Status](https://david-dm.org/emoji-gen/web-main/dev-status.svg)](https://david-dm.org/emoji-gen/web-main?type=dev)
 
 :tada: Ultimate Emoji Generator
 
