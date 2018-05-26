@@ -26,6 +26,7 @@
       border: $_border-width solid rgba(0, 0, 0, 0.18);
       border-radius: 5px;
       background-repeat: no-repeat;
+      background-position: center center;
     }
   }
 }
