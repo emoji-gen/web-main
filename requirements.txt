@@ -5,7 +5,7 @@ async-timeout==2.0.1
 asyncio==3.4.3
 attrs==17.4.0
 chardet==3.0.4
-emojilib==0.1.4
+emojilib==0.1.5
 funcy==1.10.1
 htmlmin==0.1.12
 idna==2.6
