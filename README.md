@@ -2,6 +2,7 @@
 [![CircleCI](https://circleci.com/gh/emoji-gen/web-main/tree/master.svg?style=shield)](https://circleci.com/gh/emoji-gen/web-main/tree/master)
 [![dependencies Status](https://david-dm.org/emoji-gen/web-main/status.svg)](https://david-dm.org/emoji-gen/web-main)
 [![devDependencies Status](https://david-dm.org/emoji-gen/web-main/dev-status.svg)](https://david-dm.org/emoji-gen/web-main?type=dev)
+[![Osushi](https://img.shields.io/badge/donate-osushi-EA2F57.svg)](https://osushi.love/intent/post/9ad90add99954e62ac79251606c10eec)
 
 :tada: Ultimate Emoji Generator
 
