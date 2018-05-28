@@ -1,16 +1,34 @@
+Frontend - Emoji Generator
+--------------------------
 
-### Frontend
+## Requirements
+
+- Node `$(cat .node-version)`
+- Yarn
+
+## Getting started
+If you don't have [Yarn](https://yarnpkg.com/lang/en/), please install it first.
 
 ```
-$ node -v
-v6.9.2
+$ npm install -g yarn
+```
 
-$ npm i -g yarn
-$ yarn --version
-0.16.1
-
+Next, please install dependencies using `yarn`.
+```
 $ yarn
-$ yarn start     # for development
-$ yarn run build # for production
+```
+
+## Build
+You can build for production with the following command.
+
+```
+$ yarn run build
+```
+
+## Development
+When you development frontend, please use the following command.
+
+```
+$ yarn start
 ```
 
