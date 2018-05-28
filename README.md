@@ -22,21 +22,7 @@
 ## Getting Started
 
 - [Server-side setup document](server/README.md)
-
-### Frontend
-
-```
-$ node -v
-v6.9.2
-
-$ npm i -g yarn
-$ yarn --version
-0.16.1
-
-$ yarn
-$ yarn start     # for development
-$ yarn run build # for production
-```
+- [Frontend setup document](frontend/README.md)
 
 ## Other platforms
 
