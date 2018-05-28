@@ -24,7 +24,7 @@ module.exports = {
   context: __dirname,
   entry: path.join(__dirname, 'view/index.js'),
   output: {
-    filename: isWatch ? 'public/js/bundle.js' : 'public/js/bundle.min.js',
+    filename: isWatch ? 'dist/js/bundle.js' : 'dist/js/bundle.min.js',
   },
   module: {
     loaders: [
