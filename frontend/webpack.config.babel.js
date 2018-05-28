@@ -1,4 +1,4 @@
-import path from 'path'
+import { join } from 'path'
 import webpack from 'webpack'
 import WebpackFailPlugin from 'webpack-fail-plugin'
 import WebpackNotifierPlugin from 'webpack-notifier'
@@ -22,9 +22,9 @@ if (!isWatch) {
 
 module.exports = {
   context: __dirname,
-  entry: path.join(__dirname, 'view/index.js'),
+  entry: join(__dirname, 'view/index.js'),
   output: {
-    filename: isWatch ? 'dist/js/bundle.js' : 'dist/js/bundle.min.js',
+    filename: isWatch ? '../server/public/js/bundle.js' : '../server/public/js/bundle.min.js',
   },
   module: {
     loaders: [
@@ -44,7 +44,7 @@ module.exports = {
   plugins,
   resolve: {
     alias:{
-      eg: path.resolve( __dirname, 'view'),
+      eg: join( __dirname, 'view'),
     },
     extensions: ['', '.js', '.json'],
   },
@@ -54,7 +54,7 @@ module.exports = {
   postcss() {
     return [
       require('postcss-import')({
-        path: [ path.join(__dirname, 'view') ],
+        path: [ join(__dirname, 'view') ],
       }),
       require('precss'),
       require('postcss-clearfix'),
