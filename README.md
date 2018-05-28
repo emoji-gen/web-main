@@ -38,16 +38,9 @@ $ yarn start     # for development
 $ yarn run build # for production
 ```
 
-## Public API
-Emoji Generator has public API for third-party applications.
-
-Please see API references.
-
-- http://docs.emojigeneratorapi.apiary.io/
-
 ## Other platforms
 
-- [Emoji-CLI](https://github.com/emoji-gen/Emoji-CLI) (for Console)
+- [cli](https://github.com/emoji-gen/cli) - Console application
 
 ## License
 GPLv3 &copy; [Emoji Generator](https://emoji-gen.ninja)
