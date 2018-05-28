@@ -4,6 +4,8 @@
 [![devDependencies Status](https://david-dm.org/emoji-gen/web-main/dev-status.svg)](https://david-dm.org/emoji-gen/web-main?type=dev)
 
 :tada: Ultimate Emoji Generator
+<br>
+<br>
 
 ## Requirements
 
@@ -11,14 +13,15 @@
   - Node `$(cat .node-version)`
   - MySQL 5.7
 
-## Frameworks
+## Libraries
 
-- [aiohttp](https://github.com/aio-libs/aiohttp)
-- [Vue](https://vuejs.org/)
+- [aiohttp](https://github.com/aio-libs/aiohttp) - Server-side framework
+- [Vue](https://vuejs.org/) - Frontend framework
+- [Skia](https://skia.org/) - Graphics library
 
 ## Getting Started
 
-- [Server-side](server/README.md)
+- [Server-side setup document](server/README.md)
 
 ### Frontend
 
