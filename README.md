@@ -19,7 +19,7 @@
 - [Vue](https://vuejs.org/) - Frontend framework
 - [Skia](https://skia.org/) - Graphics library
 
-## Getting Started
+## Getting started
 
 - [Server-side setup document](server/README.md)
 - [Frontend setup document](frontend/README.md)

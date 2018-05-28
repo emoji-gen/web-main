@@ -1,12 +1,14 @@
 Server-side - Emoji Generator
 -----------------------------
 
-### Server Side
+## Requirements
+
+  - Python `$(cat .python-version)`
+  - MySQL 5.7
+
+### Getting started
 
 ```
-$ python --version
-Python 3.5.0
-
 $ ./script/pip-install.sh
 $ python app.py
 ```
@@ -19,7 +21,6 @@ First, try to type commands as following.
 ```
 $ ./db/setup.sh
 ```
-
 
 #### venv
 
