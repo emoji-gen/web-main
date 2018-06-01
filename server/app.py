@@ -8,6 +8,8 @@ from pathlib import Path
 src_path = str(Path(__file__).resolve().parent.joinpath('src'))
 sys.path.append(src_path)
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 from emoji import app_provider
 app = app_provider()
 

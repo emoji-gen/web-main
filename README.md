@@ -5,6 +5,8 @@
 [![Osushi](https://img.shields.io/badge/donate-osushi-EA2F57.svg)](https://osushi.love/intent/post/9ad90add99954e62ac79251606c10eec)
 
 :tada: Ultimate Emoji Generator
+<br>
+<br>
 
 ## Requirements
 
@@ -12,72 +14,20 @@
   - Node `$(cat .node-version)`
   - MySQL 5.7
 
-## Frameworks
+## Libraries
 
-- [aiohttp](https://github.com/aio-libs/aiohttp)
-- [Vue](https://vuejs.org/)
+- [aiohttp](https://github.com/aio-libs/aiohttp) - Server-side framework
+- [Vue](https://vuejs.org/) - Frontend framework
+- [Skia](https://skia.org/) - Graphics library
 
-## Getting Started
-### Server Side
+## Getting started
 
-```
-$ python --version
-Python 3.5.0
-
-$ ./script/pip-install.sh
-$ python app.py
-```
-
-#### Database
-Emoji Generator requires MySQL database for saving emoji generated histories.
-
-First, try to type commands as following.
-
-```
-$ ./db/setup.sh
-```
-
-
-#### venv
-
-It is recommended that you use the venv.
-
-If in *inux environemnts:
-
-```
-$ python -m venv venv
-$ source venv/bin/activate
-
-...
-
-$ deactivate # exit
-```
-
-### Frontend
-
-```
-$ node -v
-v6.9.2
-
-$ npm i -g yarn
-$ yarn --version
-0.16.1
-
-$ yarn
-$ yarn start     # for development
-$ yarn run build # for production
-```
-
-## Public API
-Emoji Generator has public API for third-party applications.
-
-Please see API references.
-
-- http://docs.emojigeneratorapi.apiary.io/
+- [Server-side setup document](server/README.md)
+- [Frontend setup document](frontend/README.md)
 
 ## Other platforms
 
-- [Emoji-CLI](https://github.com/emoji-gen/Emoji-CLI) (for Console)
+- [cli](https://github.com/emoji-gen/cli) - Console application
 
 ## License
 GPLv3 &copy; [Emoji Generator](https://emoji-gen.ninja)

@@ -21,18 +21,20 @@ jobs:
           command: |
             $PIP_BIN install -q slackweb
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              $PYTHON_BIN script/notify.py started
+              $PYTHON_BIN common/script/notify.py started
             fi
       - restore_cache:
-          key: emoji-gen/web-main/{{ arch }}/{{ checksum "yarn.lock" }}/{{ checksum "requirements.txt" }}
+          key: emoji-gen/web-main/{{ arch }}/{{ checksum "frontend/yarn.lock" }}/{{ checksum "server/requirements.txt" }}
       - run:
           name: Install dependencies (Python)
           command: |
             $PIP_BIN install -q -r requirements.txt \
               --index-url https://repo.fury.io/emoji-gen/ --extra-index-url https://pypi.org/simple
+          working_directory: server
       - run:
           name: Install dependencies (Node)
           command: yarn
+          working_directory: frontend
       - run:
           name: Test (Node)
           command: |
@@ -40,19 +42,20 @@ jobs:
             yarn run build
 
             if [ $CIRCLE_BRANCH = 'master' ]; then
-              script/is-git-dirty.sh
+              common/script/is-git-dirty.sh
             fi
+          working_directory: frontend
       - save_cache:
-          key: emoji-gen/web-main/{{ arch }}/{{ checksum "yarn.lock" }}/{{ checksum "requirements.txt" }}
+          key: emoji-gen/web-main/{{ arch }}/{{ checksum "frontend/yarn.lock" }}/{{ checksum "server/requirements.txt" }}
           paths:
-            - ~/workspace/node_modules
+            - ~/workspace/frontend/node_modules
             - ~/.cache/yarn/
             - ~/.cache/pip/
       - run:
           name: Notify test successful
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              $PYTHON_BIN script/notify.py successful
+              $PYTHON_BIN common/script/notify.py successful
             fi
       - deploy:
           name: Deploy to Production
