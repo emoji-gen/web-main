@@ -42,7 +42,7 @@ jobs:
             yarn run build
 
             if [ $CIRCLE_BRANCH = 'master' ]; then
-              common/script/is-git-dirty.sh
+              ./common/script/is-git-dirty.sh
             fi
           working_directory: frontend
       - save_cache:
