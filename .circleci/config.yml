@@ -40,11 +40,13 @@ jobs:
           command: |
             yarn test
             yarn run build
-
+          working_directory: frontend
+      - run:
+          name: Check git dirty
+          command: |
             if [ $CIRCLE_BRANCH = 'master' ]; then
               ./common/script/is-git-dirty.sh
             fi
-          working_directory: frontend
       - save_cache:
           key: emoji-gen/web-main/{{ arch }}/{{ checksum "frontend/yarn.lock" }}/{{ checksum "server/requirements.txt" }}
           paths:
