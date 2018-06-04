@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <title>{{ title }} - {{ subtitle }}</title>
 
+    {% if js_url %}
+    <link rel="preload" href="{{ js_url }}" as="script">
+    {% endif %}
+
     <meta name="description" content="{{ description }}">
     <meta name="twitter:card" content="summary_large_image">
     <meta property="fb:app_id" content="1668136526839121">
@@ -28,7 +32,9 @@
     {% block body %}
       <div class="v-cloak eg-root"></div>
 
-      {% if debug %}
+      {% if js_url %}
+        <script src="{{ js_url }}"></script>
+      {% elif debug %}
         <script src="{{ assets_path('/js/bundle.js') }}"></script>
       {% else %}
         <script src="{{ assets_path('/js/bundle.min.js') }}"></script>
