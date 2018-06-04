@@ -24,6 +24,15 @@ def load_config():
     if isinstance(local_config, dict):
         config.update(local_config)
 
+    # config/assets.yml
+    assets_config_path = str(Path(config_path).joinpath('assets.yml'))
+    try:
+        assets_config = yaml.load(open(assets_config_path, 'r', encoding='utf-8'))
+    except FileNotFoundError:
+        assets_config = None
+    if isinstance(assets_config, dict):
+        config.update(assets_config)
+
     config['project_path'] = project_path
     config['assets_path'] = assets_path
     config['templates_path'] = templates_path

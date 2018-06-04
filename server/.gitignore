@@ -5,3 +5,6 @@ __pycache__/
 
 # virtualenv
 venv
+
+# project
+config/assets.yml

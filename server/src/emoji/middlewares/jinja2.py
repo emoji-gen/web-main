@@ -36,6 +36,7 @@ def config_processor(config):
         return {
             'title': config['templates']['title'],
             'base_url': config['base_url'],
+            'js_url': config['assets']['js_url'] if 'assets' in config else None,
         }
     return processor
 
