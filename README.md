@@ -1,5 +1,6 @@
 ## Emoji Generator
 [![CircleCI](https://circleci.com/gh/emoji-gen/web-main/tree/master.svg?style=shield)](https://circleci.com/gh/emoji-gen/web-main/tree/master)
+[![Requirements Status](https://requires.io/github/emoji-gen/web-main/requirements.svg?branch=feature%2Fvue-2.0)](https://requires.io/github/emoji-gen/web-main/requirements/?branch=feature%2Fvue-2.0)
 [![dependencies Status](https://david-dm.org/emoji-gen/web-main/status.svg?path=frontend)](https://david-dm.org/emoji-gen/web-main?path=frontend)
 [![devDependencies Status](https://david-dm.org/emoji-gen/web-main/dev-status.svg?path=frontend)](https://david-dm.org/emoji-gen/web-main?path=frontend&type=dev)
 [![Osushi](https://img.shields.io/badge/donate-osushi-EA2F57.svg)](https://osushi.love/intent/post/9ad90add99954e62ac79251606c10eec)
