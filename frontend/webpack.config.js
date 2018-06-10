@@ -62,6 +62,9 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
     }),
+    new webpack.DefinePlugin({
+      DEBUG: isDev,
+    }),
     new VueLoaderPlugin()
   ],
 

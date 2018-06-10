@@ -6,18 +6,22 @@
 export default {
   created() {
     this.$ptero.on('CE_ATTACH', e => {
-      if (meta.env.debug) {
-        console.log('attached by Chrome Extension', e.detail)
+      if (DEBUG) {
+        console.log('Attached by Chrome Extension', e.detail)
       }
-      this.$broadcast('CE_ATTACH', e.detail)
+      //this.$broadcast('CE_ATTACH', e.detail)
     })
     this.$ptero.on('CE_SEARCH_JOINED_TEAMS_DONE', e => {
-      if (meta.env.debug) { console.log('CE_SEARCH_JOINED_TEAMS_DONE', e.detail) }
-      this.$broadcast('CE_SEARCH_JOINED_TEAMS_DONE', e.detail)
+      if (DEBUG) {
+        console.log('CE_SEARCH_JOINED_TEAMS_DONE', e.detail)
+      }
+      //this.$broadcast('CE_SEARCH_JOINED_TEAMS_DONE', e.detail)
     })
     this.$ptero.on('CE_REGISTER_EMOJI_DONE', e => {
-      if (meta.env.debug) { console.log('CE_REGISTER_EMOJI_DONE', e.detail) }
-      this.$broadcast('CE_REGISTER_EMOJI_DONE', e.detail)
+      if (DEBUG) {
+        console.log('CE_REGISTER_EMOJI_DONE', e.detail)
+      }
+      //this.$broadcast('CE_REGISTER_EMOJI_DONE', e.detail)
     })
   },
 }
