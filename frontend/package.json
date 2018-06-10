@@ -1,6 +1,21 @@
 {
   "name": "@emoji-gen/web-main",
+  "description": "Ultimate Emoji Generator",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emoji-gen/web-main.git"
+  },
+  "bugs": {
+    "url": "https://github.com/emoji-gen/web-main/issues"
+  },
+  "homepage": "https://github.com/emoji-gen/web-main",
+  "author": {
+    "name": "Emoji Generator",
+    "email": "ultimate.emoji.gen@gmail.com",
+    "url": "https://github.com/emoji-gen"
+  },
+  "license": "MIT",
+  "private": true
 }
