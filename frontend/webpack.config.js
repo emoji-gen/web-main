@@ -39,11 +39,17 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          // 'vue-style-loader',
           MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader',
-          'sass-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              includePath: [
+                join(__dirname, 'src'),
+              ],
+            },
+          },
         ],
       }
     ]
@@ -51,6 +57,7 @@ module.exports = {
 
   // Resolve
   resolve: {
+    extensions: ['.js', '.vue', '.scss'],
     modules: [
       join(__dirname, 'src'),
       'node_modules',

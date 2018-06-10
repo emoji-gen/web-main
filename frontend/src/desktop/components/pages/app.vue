@@ -1,15 +1,20 @@
 <template>
-  <div class=eg-app>Hello</div>
+  <div class="v-cloak eg-app">
+    <Header></Header>
+  </div>
 </template>
 
 <script>
+
+import Header from 'desktop/components/organisms/header.vue'
+
 export default {
   created() {
     this.$ptero.on('CE_ATTACH', e => {
       if (DEBUG) {
         console.log('Attached by Chrome Extension', e.detail)
       }
-      //this.$broadcast('CE_ATTACH', e.detail)
+      this.$store.dispatch('attachExtension')
     })
     this.$ptero.on('CE_SEARCH_JOINED_TEAMS_DONE', e => {
       if (DEBUG) {
@@ -23,6 +28,10 @@ export default {
       }
       //this.$broadcast('CE_REGISTER_EMOJI_DONE', e.detail)
     })
+  },
+
+  components: {
+    Header,
   },
 }
 </script>
