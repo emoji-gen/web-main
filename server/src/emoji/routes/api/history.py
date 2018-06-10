@@ -55,7 +55,7 @@ def _parse_v1_parameters(request):
         limit = 20
 
     try:
-        offset = int(request.query.get('limit', None))
+        offset = int(request.query.get('offset', None))
     except (TypeError, ValueError):
         offset = 0
 
