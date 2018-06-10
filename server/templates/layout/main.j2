@@ -5,8 +5,17 @@
     <title>{{ title }} - {{ subtitle }}</title>
 
     {% if js_url %}
-    <link rel="preload" href="{{ js_url }}" as="script">
+      <link rel="preload" href="{{ js_url }}" as="script">
+    {% else %}
+      <link rel="preload" href="/assets/js/desktop.js?{{ time }}" as="script">
     {% endif %}
+
+    {% if css_url %}
+      <link rel="stylesheet" href="{{ css_url }}">
+    {% else %}
+      <link rel="stylesheet" href="/assets/css/desktop.css?{{ time }}">
+    {% endif %}
+    <style> [v-cloak] { display: none } </style>
 
     <meta name="description" content="{{ description }}">
     <meta name="twitter:card" content="summary_large_image">
@@ -16,28 +25,19 @@
     <meta property="og:title" content="{{ title }} - {{ subtitle }}">
     <meta property="og:description" content="{{ description }}">
     <meta property="og:url" content="{{ base_url }}">
-    <meta property="og:image" content="{{ base_url }}{{ assets_path('/img/ogp_summary.png', resolve=True) }}">
+    <meta property="og:image" content="{{ base_url }}/assets/img/ogp_summary.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-
-    <meta name="app:env:debug" content="{% if debug %}true{% else %}false{% endif %}">
-    <meta name="app:env:domain" content="emoji-gen.ninja">
-    <meta name="app:feature:history" content="true">
-
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
     <link rel="canonical" href="{{ base_url }}{{ path }}">
-    <style> [v-cloak] { display: none } </style>
   </head>
   <body data-app-id="j1g3xUDxVmwWCCKqibVQCZOHNpvnSMBY">
     {% block body %}
-      <div class="v-cloak eg-root"></div>
+      <div class="v-cloak eg-app"></div>
 
       {% if js_url %}
         <script src="{{ js_url }}"></script>
-      {% elif debug %}
-        <script src="{{ assets_path('/js/bundle.js') }}"></script>
       {% else %}
-        <script src="{{ assets_path('/js/bundle.min.js') }}"></script>
+        <script src="/assets/js/desktop.js?{{ time }}"></script>
       {% endif %}
     {% endblock %}
   </body>

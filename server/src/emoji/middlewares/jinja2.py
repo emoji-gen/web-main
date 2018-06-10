@@ -17,9 +17,6 @@ def setup_jinja2_middleware(app):
         default_helpers=False,
         loader=jinja2.FileSystemLoader(templates_path)
     )
-    env.globals.update({
-        'assets_path': assets_path,
-    })
 
 
 def computed_processor(debug):
@@ -39,10 +36,4 @@ def config_processor(config):
             'js_url': config['assets']['js_url'] if 'assets' in config else None,
         }
     return processor
-
-
-@jinja2.contextfunction
-def assets_path(context, path, *, resolve=False):
-    # TODO: resolve のサポート
-    return context['app'].router['static'].url_for(filename=path)
 
