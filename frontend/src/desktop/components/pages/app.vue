@@ -4,6 +4,7 @@
   </div>
 </template>
 
+
 <script>
 
 import Header from 'desktop/components/organisms/header.vue'
@@ -36,12 +37,13 @@ export default {
 }
 </script>
 
+
 <style lang="scss" scoped>
 
-.eg-app {
-  position: relative;
-  margin: 0;
-  padding: 0;
-}
+  .eg-app {
+    position: relative;
+    margin: 0;
+    padding: 0;
+  }
 
 </style>

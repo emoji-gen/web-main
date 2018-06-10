@@ -12,6 +12,7 @@
           data-url="https://emoji-gen.ninja"
           title="Twitter でシェアする"
           v-sharer>
+
         <input
           type="button"
           class="facebook sharer button"
@@ -19,8 +20,9 @@
           data-url="https://emoji-gen.ninja"
           title="Facebook でシェアする"
           v-sharer>
+
         <input type="button" class="google sharer button" data-sharer="googleplus" data-url="https://emoji.pine.moe/" title="Google+ でシェアする" v-sharer>
-        <a href="https://github.com/emoji-gen/Emoji-Web" class="github" target="_blank">GitHub</a>
+        <a href="https://github.com/emoji-gen/web-main" class="github" target="_blank">GitHub</a>
       </div>
     </header>
   </div>
@@ -38,11 +40,63 @@
 <style lang="scss" scoped>
   @import "desktop/style/_variables";
 
+  $_height: $dimen-header-height;
+  $_width: $dimen-content-width;
+  $_margin-left-right: 20px;
+  $_color: rgb(80, 80, 80);
+  $_logo-size: 40px;
+
   .eg-header {
     z-index: 1;
-    //height: $_height;
-   // background-color: $background-color-white;
-    //box-shadow: 0px 0px 3px 1px $bar-box-shadow-color;
+    height: $_height;
+    background-color: $background-color-white;
+    box-shadow: 0px 0px 3px 1px $bar-box-shadow-color;
+
+    &, * {
+      box-sizing: border-box;
+    }
+    header {
+      display: flex;
+      margin: 0 auto;
+      padding: 0;
+      width: $_width;
+      height: $_height;
+
+      h1 {
+        position: relative;
+        display: block;
+        margin: 0;
+        padding: 0;
+
+        a {
+          display: block;
+          margin: 0;
+          padding: 0 0 0 calc($_margin-left-right + 60px);
+          line-height: $_height;
+          letter-spacing: 6px;
+          color: $_color;
+          text-decoration: none;
+          font-size: $font-size-xlarge;
+          font-weight: bold;
+
+          &::before {
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: $_margin-left-right;
+            right: 0;
+            width: $_logo-size;
+            transform: rotate($slack-rotate-left);
+            background-image: url('/static/img/logo.png');
+            background-size: $_logo-size auto;
+            background-repeat: no-repeat;
+            background-position: 0px center;
+            content: '';
+          }
+        }
+      }
+    }
   }
 
 

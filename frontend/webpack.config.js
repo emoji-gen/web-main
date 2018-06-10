@@ -33,8 +33,20 @@ module.exports = {
         },
       },
       {
+        test: /\.html$/,
+        loader: 'vue-template-loader',
+      },
+      {
         test: /\.js$/,
         loader: 'babel-loader'
+      },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+        ],
       },
       {
         test: /\.scss$/,
@@ -57,6 +69,9 @@ module.exports = {
 
   // Resolve
   resolve: {
+    alias: {
+      purecss: 'purecss/build/pure-min.css',
+    },
     extensions: ['.js', '.vue', '.scss'],
     modules: [
       join(__dirname, 'src'),

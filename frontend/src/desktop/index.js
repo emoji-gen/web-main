@@ -5,6 +5,9 @@ import Vuex from 'vuex'
 import VuePtero from 'vue-ptero'
 import VueRouter from 'vue-router'
 
+import 'purecss'
+import './index.scss'
+
 import App from 'desktop/components/pages/app'
 
 // -----------------------------------------------------------------------------

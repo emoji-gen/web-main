@@ -1,6 +1,39 @@
-// Fonts
+// ----- [ Fonts ] -------------------------------------------------------------
+
 $font-size-xlarge: 19px;
 $font-size-large: 17px;
 $font-size-medium: 15px;
 $font-size-small: 13px;
 $font-size-xsmall: 11px;
+
+/* colors */
+$color-blue: #6FCBDD;
+$color-blue-dark: #3AB0C7;
+$color-red: #E11665;
+$color-red-dark: #BE1C60;
+$color-green: #38BA91;
+$color-green-dark: #1EBAA0;
+$color-yellow: #EAA822;
+$color-yellow-dark: #AD780C;
+$color-gray: #8C8C8C;
+
+$background-color-white: rgba(255, 255, 255, 0.7);
+
+$bar-box-shadow-color: rgba(0, 0, 0, 0.2);
+
+/* degree */
+$slack-rotate-left: -18deg;
+$slack-rotate-right: 18deg;
+
+/* z-index */
+$z-index-overlay: 100;
+
+// ----- [ Dimensions ] --------------------------------------------------------
+
+$dimen-content-width: 900px;
+
+$dimen-root-height: 1135px;
+$dimen-header-height: 74px;
+$dimen-footer-height: 50px;
+
+$dimen-emoji-size: 128px;
