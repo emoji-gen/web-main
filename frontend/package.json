@@ -5,7 +5,8 @@
   "main": "src/main.js",
   "scripts": {
     "build": "webpack",
-    "start": "webpack --watch"
+    "start": "webpack --watch",
+    "test": "true"
   },
   "devDependencies": {
     "autoprefixer": "^8.6.2",
