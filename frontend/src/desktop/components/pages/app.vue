@@ -1,5 +1,5 @@
 <template>
-  <div class="v-cloak eg-app">
+  <div class="v-cloak App">
     <Header></Header>
   </div>
 </template>
@@ -40,7 +40,7 @@ export default {
 
 <style lang="scss" scoped>
 
-  .eg-app {
+  .App {
     position: relative;
     margin: 0;
     padding: 0;

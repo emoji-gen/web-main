@@ -9,6 +9,8 @@ import 'purecss'
 import './index.scss'
 
 import App from 'desktop/components/pages/app'
+import * as supportsWebP from 'supports-webp'
+
 
 // -----------------------------------------------------------------------------
 
@@ -30,6 +32,9 @@ const router = new VueRouter({
 })
 const store = new Vuex.Store({
   state: {
+    browser: {
+      supportsWebP,
+    },
     extension: {
       attached: false,
     },

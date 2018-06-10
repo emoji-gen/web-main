@@ -1,5 +1,5 @@
 <template>
-  <div class="v-cloak container">
+  <div class="v-cloak Header" :class="{ webp: supportsWebP }">
     <header>
       <h1><a href="/">絵文字 ジェネレーター</a></h1>
       <div class="icons">
@@ -21,21 +21,38 @@
           title="Facebook でシェアする"
           v-sharer>
 
-        <input type="button" class="google sharer button" data-sharer="googleplus" data-url="https://emoji.pine.moe/" title="Google+ でシェアする" v-sharer>
-        <a href="https://github.com/emoji-gen/web-main" class="github" target="_blank">GitHub</a>
+        <input
+          type="button"
+          class="google sharer button"
+          data-sharer="googleplus"
+          data-url="https://emoji-gen.ninja"
+          title="Google+ でシェアする"
+          v-sharer>
+
+        <a href="https://github.com/emoji-gen/web-main" class="github" target="_blank" rel=noopener>GitHub</a>
       </div>
     </header>
   </div>
 </template>
 
+
 <script>
   import VueSharer from 'vue-sharer'
+  import { mapState } from 'vuex'
+
   export default {
+    computed: {
+      supportsWebP() {
+        return this.$store.state.browser.supportsWebP
+      },
+    },
+
     directives: {
       sharer: VueSharer,
     },
   }
 </script>
+
 
 <style lang="scss" scoped>
   @import "desktop/style/_variables";
@@ -46,7 +63,7 @@
   $_color: rgb(80, 80, 80);
   $_logo-size: 40px;
 
-  .container {
+  .Header {
     z-index: 1;
     height: $_height;
     background-color: $background-color-white;
@@ -96,6 +113,12 @@
             content: '';
           }
         }
+      }
+    }
+
+    &.webp header h1 a {
+      &::before {
+        background-image: url('/assets/img/logo.webp');
       }
     }
   }

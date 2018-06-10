@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "purecss": "^1.0.0",
+    "supports-webp": "^1.0.5",
     "vue": "^2.5.16",
     "vue-ptero": "^0.1.1",
     "vue-router": "^3.0.1",
