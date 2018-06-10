@@ -1,5 +1,5 @@
 <template>
-  <div class="v-cloak eg-header">
+  <div class="v-cloak container">
     <header>
       <h1><a href="/">絵文字 ジェネレーター</a></h1>
       <div class="icons">
@@ -46,7 +46,7 @@
   $_color: rgb(80, 80, 80);
   $_logo-size: 40px;
 
-  .eg-header {
+  .container {
     z-index: 1;
     height: $_height;
     background-color: $background-color-white;
@@ -55,6 +55,7 @@
     &, * {
       box-sizing: border-box;
     }
+
     header {
       display: flex;
       margin: 0 auto;
@@ -71,7 +72,7 @@
         a {
           display: block;
           margin: 0;
-          padding: 0 0 0 calc($_margin-left-right + 60px);
+          padding: 0 0 0 ($_margin-left-right + 60px);
           line-height: $_height;
           letter-spacing: 6px;
           color: $_color;
@@ -88,7 +89,7 @@
             right: 0;
             width: $_logo-size;
             transform: rotate($slack-rotate-left);
-            background-image: url('/static/img/logo.png');
+            background-image: url('/assets/img/logo.png');
             background-size: $_logo-size auto;
             background-repeat: no-repeat;
             background-position: 0px center;
@@ -98,6 +99,5 @@
       }
     }
   }
-
 
 </style>
