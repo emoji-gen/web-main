@@ -94,7 +94,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n//\n//\n//\n//\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({});\n\n//# sourceURL=webpack:///./src/desktop/components/pages/app.vue?./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options");
+eval("__webpack_require__.r(__webpack_exports__);\n//\n//\n//\n//\n\n/* harmony default export */ __webpack_exports__[\"default\"] = ({\n  created: function created() {\n    var _this = this;\n\n    this.$ptero.on('CE_ATTACH', function (e) {\n      if (meta.env.debug) {\n        console.log('attached by Chrome Extension', e.detail);\n      }\n      _this.$broadcast('CE_ATTACH', e.detail);\n    });\n    this.$ptero.on('CE_SEARCH_JOINED_TEAMS_DONE', function (e) {\n      if (meta.env.debug) {\n        console.log('CE_SEARCH_JOINED_TEAMS_DONE', e.detail);\n      }\n      _this.$broadcast('CE_SEARCH_JOINED_TEAMS_DONE', e.detail);\n    });\n    this.$ptero.on('CE_REGISTER_EMOJI_DONE', function (e) {\n      if (meta.env.debug) {\n        console.log('CE_REGISTER_EMOJI_DONE', e.detail);\n      }\n      _this.$broadcast('CE_REGISTER_EMOJI_DONE', e.detail);\n    });\n  }\n});\n\n//# sourceURL=webpack:///./src/desktop/components/pages/app.vue?./node_modules/babel-loader/lib!./node_modules/vue-loader/lib??vue-loader-options");
 
 /***/ }),
 
@@ -162,7 +162,7 @@ eval("/* WEBPACK VAR INJECTION */(function(global) {var scope = typeof global !=
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return render; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return staticRenderFns; });\nvar render = function() {\n  var _vm = this\n  var _h = _vm.$createElement\n  var _c = _vm._self._c || _h\n  return _c(\"div\", [_vm._v(\"Hello\")])\n}\nvar staticRenderFns = []\nrender._withStripped = true\n\n\n\n//# sourceURL=webpack:///./src/desktop/components/pages/app.vue?./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return render; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"staticRenderFns\", function() { return staticRenderFns; });\nvar render = function() {\n  var _vm = this\n  var _h = _vm.$createElement\n  var _c = _vm._self._c || _h\n  return _c(\"div\", { staticClass: \"eg-app\" }, [_vm._v(\"Hello\")])\n}\nvar staticRenderFns = []\nrender._withStripped = true\n\n\n\n//# sourceURL=webpack:///./src/desktop/components/pages/app.vue?./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options");
 
 /***/ }),
 
