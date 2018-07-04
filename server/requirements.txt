@@ -16,7 +16,7 @@ idna-ssl==1.0.1
 Jinja2==2.10
 MarkupSafe==1.0
 multidict==4.3.1
-protobuf==3.5.2.post1
+protobuf==3.6.0
 pycparser==2.18
 PyMySQL==0.8.1
 PyYAML==3.12
