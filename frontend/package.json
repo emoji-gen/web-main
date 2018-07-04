@@ -50,7 +50,7 @@
     "lodash.pick": "^4.4.0",
     "query-string": "^4.2.2",
     "sprintf-js": "^1.0.3",
-    "sweet-scroll": "^1.0.3",
+    "sweet-scroll": "h6ah4i/sweet-scroll#feature\/stop-using-temporary-div-to-detect-scrollable",
     "vue": "^1.0.26",
     "vue-color": "0.0.7",
     "vue-multiselect": "^1.1.4",
