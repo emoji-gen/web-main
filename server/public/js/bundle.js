@@ -15242,1673 +15242,687 @@
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	/*!
-	 * sweet-scroll
-	 * Modern and the sweet smooth scroll library.
-	 * @author tsuyoshiwada
-	 * @license MIT
-	 * @version 1.1.0
-	 */
-
+	/*! @preserve sweet-scroll v3.0.1 - tsuyoshiwada | MIT License */
 	(function (global, factory) {
-	   true ? module.exports = factory() :
-	  typeof define === 'function' && define.amd ? define(factory) :
-	  (global.SweetScroll = factory());
+	     true ? module.exports = factory() :
+	    typeof define === 'function' && define.amd ? define(factory) :
+	    (global.SweetScroll = factory());
 	}(this, (function () { 'use strict';
 
-	var cos = Math.cos;
-	var sin = Math.sin;
-	var pow = Math.pow;
-	var abs = Math.abs;
-	var sqrt = Math.sqrt;
-	var asin = Math.asin;
-	var PI = Math.PI;
-	var max = Math.max;
-	var min = Math.min;
-	var round = Math.round;
+	    /*! *****************************************************************************
+	    Copyright (c) Microsoft Corporation. All rights reserved.
+	    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+	    this file except in compliance with the License. You may obtain a copy of the
+	    License at http://www.apache.org/licenses/LICENSE-2.0
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-	  return typeof obj;
-	} : function (obj) {
-	  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-	};
+	    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+	    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+	    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+	    MERCHANTABLITY OR NON-INFRINGEMENT.
 
+	    See the Apache Version 2.0 License for specific language governing permissions
+	    and limitations under the License.
+	    ***************************************************************************** */
 
-
-
-
-	var asyncGenerator = function () {
-	  function AwaitValue(value) {
-	    this.value = value;
-	  }
-
-	  function AsyncGenerator(gen) {
-	    var front, back;
-
-	    function send(key, arg) {
-	      return new Promise(function (resolve, reject) {
-	        var request = {
-	          key: key,
-	          arg: arg,
-	          resolve: resolve,
-	          reject: reject,
-	          next: null
-	        };
-
-	        if (back) {
-	          back = back.next = request;
-	        } else {
-	          front = back = request;
-	          resume(key, arg);
+	    var __assign = Object.assign || function __assign(t) {
+	        for (var s, i = 1, n = arguments.length; i < n; i++) {
+	            s = arguments[i];
+	            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
 	        }
-	      });
-	    }
+	        return t;
+	    };
 
-	    function resume(key, arg) {
-	      try {
-	        var result = gen[key](arg);
-	        var value = result.value;
-
-	        if (value instanceof AwaitValue) {
-	          Promise.resolve(value.value).then(function (arg) {
-	            resume("next", arg);
-	          }, function (arg) {
-	            resume("throw", arg);
-	          });
-	        } else {
-	          settle(result.done ? "return" : "normal", result.value);
+	    // @link https://github.com/JedWatson/exenv/blob/master/index.js
+	    var canUseDOM = !!(typeof window !== 'undefined' &&
+	        window.document &&
+	        window.document.createElement);
+	    var canUseHistory = !canUseDOM
+	        ? false
+	        : (window.history &&
+	            'pushState' in window.history &&
+	            window.location.protocol !== 'file:');
+	    var canUsePassiveOption = (function () {
+	        var support = false;
+	        if (!canUseDOM) {
+	            return support;
 	        }
-	      } catch (err) {
-	        settle("throw", err);
-	      }
-	    }
-
-	    function settle(type, value) {
-	      switch (type) {
-	        case "return":
-	          front.resolve({
-	            value: value,
-	            done: true
-	          });
-	          break;
-
-	        case "throw":
-	          front.reject(value);
-	          break;
-
-	        default:
-	          front.resolve({
-	            value: value,
-	            done: false
-	          });
-	          break;
-	      }
-
-	      front = front.next;
-
-	      if (front) {
-	        resume(front.key, front.arg);
-	      } else {
-	        back = null;
-	      }
-	    }
-
-	    this._invoke = send;
-
-	    if (typeof gen.return !== "function") {
-	      this.return = undefined;
-	    }
-	  }
-
-	  if (typeof Symbol === "function" && Symbol.asyncIterator) {
-	    AsyncGenerator.prototype[Symbol.asyncIterator] = function () {
-	      return this;
-	    };
-	  }
-
-	  AsyncGenerator.prototype.next = function (arg) {
-	    return this._invoke("next", arg);
-	  };
-
-	  AsyncGenerator.prototype.throw = function (arg) {
-	    return this._invoke("throw", arg);
-	  };
-
-	  AsyncGenerator.prototype.return = function (arg) {
-	    return this._invoke("return", arg);
-	  };
-
-	  return {
-	    wrap: function (fn) {
-	      return function () {
-	        return new AsyncGenerator(fn.apply(this, arguments));
-	      };
-	    },
-	    await: function (value) {
-	      return new AwaitValue(value);
-	    }
-	  };
-	}();
-
-
-
-
-
-	var classCallCheck = function (instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	};
-
-	var createClass = function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];
-	      descriptor.enumerable = descriptor.enumerable || false;
-	      descriptor.configurable = true;
-	      if ("value" in descriptor) descriptor.writable = true;
-	      Object.defineProperty(target, descriptor.key, descriptor);
-	    }
-	  }
-
-	  return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-	    if (staticProps) defineProperties(Constructor, staticProps);
-	    return Constructor;
-	  };
-	}();
-
-
-
-
-
-
-
-	var get = function get(object, property, receiver) {
-	  if (object === null) object = Function.prototype;
-	  var desc = Object.getOwnPropertyDescriptor(object, property);
-
-	  if (desc === undefined) {
-	    var parent = Object.getPrototypeOf(object);
-
-	    if (parent === null) {
-	      return undefined;
-	    } else {
-	      return get(parent, property, receiver);
-	    }
-	  } else if ("value" in desc) {
-	    return desc.value;
-	  } else {
-	    var getter = desc.get;
-
-	    if (getter === undefined) {
-	      return undefined;
-	    }
-
-	    return getter.call(receiver);
-	  }
-	};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	var set = function set(object, property, value, receiver) {
-	  var desc = Object.getOwnPropertyDescriptor(object, property);
-
-	  if (desc === undefined) {
-	    var parent = Object.getPrototypeOf(object);
-
-	    if (parent !== null) {
-	      set(parent, property, value, receiver);
-	    }
-	  } else if ("value" in desc && desc.writable) {
-	    desc.value = value;
-	  } else {
-	    var setter = desc.set;
-
-	    if (setter !== undefined) {
-	      setter.call(receiver, value);
-	    }
-	  }
-
-	  return value;
-	};
-
-	var MAX_ARRAY_INDEX = pow(2, 53) - 1;
-	var classTypeList = ["Boolean", "Number", "String", "Function", "Array", "Object"];
-	var classTypes = {};
-
-	classTypeList.forEach(function (name) {
-	  classTypes["[object " + name + "]"] = name.toLowerCase();
-	});
-
-	function getType(obj) {
-	  if (obj == null) {
-	    return "";
-	  }
-
-	  return (typeof obj === "undefined" ? "undefined" : _typeof(obj)) === "object" || typeof obj === "function" ? classTypes[Object.prototype.toString.call(obj)] || "object" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
-	}
-
-	function isNumber(obj) {
-	  return getType(obj) === "number";
-	}
-
-	function isString(obj) {
-	  return getType(obj) === "string";
-	}
-
-
-
-	function isFunction(obj) {
-	  return getType(obj) === "function";
-	}
-
-	function isArray(obj) {
-	  return Array.isArray(obj);
-	}
-
-	function isArrayLike(obj) {
-	  var length = obj == null ? null : obj.length;
-
-	  return isNumber(length) && length >= 0 && length <= MAX_ARRAY_INDEX;
-	}
-
-	function isNumeric(obj) {
-	  return !isArray(obj) && obj - parseFloat(obj) + 1 >= 0;
-	}
-
-	function isObject(obj) {
-	  return !isArray(obj) && getType(obj) === "object";
-	}
-
-	function hasProp(obj, key) {
-	  return obj && obj.hasOwnProperty(key);
-	}
-
-
-
-	function each(obj, iterate, context) {
-	  if (obj == null) return obj;
-
-	  var ctx = context || obj;
-
-	  if (isObject(obj)) {
-	    for (var key in obj) {
-	      if (!hasProp(obj, key)) continue;
-	      if (iterate.call(ctx, obj[key], key) === false) break;
-	    }
-	  } else if (isArrayLike(obj)) {
-	    for (var i = 0; i < obj.length; i++) {
-	      if (iterate.call(ctx, obj[i], i) === false) break;
-	    }
-	  }
-
-	  return obj;
-	}
-
-	function merge(obj) {
-	  for (var _len = arguments.length, sources = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	    sources[_key - 1] = arguments[_key];
-	  }
-
-	  each(sources, function (source) {
-	    each(source, function (value, key) {
-	      obj[key] = value;
-	    });
-	  });
-
-	  return obj;
-	}
-
-	function removeSpaces(str) {
-	  return str.replace(/\s*/g, "") || "";
-	}
-
-	function warning(message) {
-	  /* eslint-disable no-console */
-	  if (typeof console !== "undefined" && typeof console.error === "function") {
-	    console.error(message);
-	  }
-	  /* eslint-enable no-console */
-
-	  /* eslint-disable no-empty */
-	  try {
-	    throw new Error(message);
-	  } catch (e) {}
-	  /* eslint-enable no-empty */
-	}
-
-	var win = window;
-	var doc = document;
-
-	function $(selector) {
-	  var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-	  if (!selector) return;
-
-	  return (context == null ? doc : context).querySelector(selector);
-	}
-
-	function $$(selector) {
-	  var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-	  if (!selector) return;
-
-	  return (context == null ? doc : context).querySelectorAll(selector);
-	}
-
-	function matches(el, selector) {
-	  var results = (el.document || el.ownerDocument).querySelectorAll(selector);
-	  var i = results.length;
-	  while (--i >= 0 && results.item(i) !== el) {}
-
-	  return i > -1;
-	}
-
-	var directionMethodMap = {
-	  y: "scrollTop",
-	  x: "scrollLeft"
-	};
-
-	var directionPropMap = {
-	  y: "pageYOffset",
-	  x: "pageXOffset"
-	};
-
-	function isRootContainer(el) {
-	  return el === doc.documentElement || el === doc.body;
-	}
-
-	function getZoomLevel() {
-	  var outerWidth = win.outerWidth;
-	  var innerWidth = win.innerWidth;
-
-
-	  return outerWidth ? outerWidth / innerWidth : 1;
-	}
-
-	function getScrollable(selectors) {
-	  var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "y";
-	  var all = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-
-	  var method = directionMethodMap[direction];
-	  var elements = selectors instanceof Element ? [selectors] : $$(selectors);
-	  var scrollables = [];
-	  var $div = doc.createElement("div");
-
-	  for (var i = 0; i < elements.length; i++) {
-	    var el = elements[i];
-
-	    if (el[method] > 0) {
-	      scrollables.push(el);
-	    } else {
-	      $div.style.width = el.clientWidth + 1 + "px";
-	      $div.style.height = el.clientHeight + 1 + "px";
-	      el.appendChild($div);
-
-	      el[method] = 1.5 / getZoomLevel();
-	      if (el[method] > 0) {
-	        scrollables.push(el);
-	      }
-	      el[method] = 0;
-
-	      el.removeChild($div);
-	    }
-
-	    if (!all && scrollables.length > 0) break;
-	  }
-
-	  return scrollables;
-	}
-
-	function scrollableFind(selectors, direction) {
-	  var scrollables = getScrollable(selectors, direction, false);
-
-	  return scrollables.length >= 1 ? scrollables[0] : null;
-	}
-
-	function getWindow(el) {
-	  return el != null && el === el.window ? el : el.nodeType === 9 && el.defaultView;
-	}
-
-	function getHeight(el) {
-	  return max(el.scrollHeight, el.clientHeight, el.offsetHeight);
-	}
-
-	function getWidth(el) {
-	  return max(el.scrollWidth, el.clientWidth, el.offsetWidth);
-	}
-
-	function getSize(el) {
-	  return {
-	    width: getWidth(el),
-	    height: getHeight(el)
-	  };
-	}
-
-	function getDocumentSize() {
-	  return {
-	    width: max(getWidth(doc.body), getWidth(doc.documentElement)),
-	    height: max(getHeight(doc.body), getHeight(doc.documentElement))
-	  };
-	}
-
-	function getViewportAndElementSizes(el) {
-	  if (isRootContainer(el)) {
-	    return {
-	      viewport: {
-	        width: min(win.innerWidth, doc.documentElement.clientWidth),
-	        height: win.innerHeight
-	      },
-	      size: getDocumentSize()
-	    };
-	  }
-
-	  return {
-	    viewport: {
-	      width: el.clientWidth,
-	      height: el.clientHeight
-	    },
-	    size: getSize(el)
-	  };
-	}
-
-	function getScroll(el) {
-	  var direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "y";
-
-	  var currentWindow = getWindow(el);
-
-	  return currentWindow ? currentWindow[directionPropMap[direction]] : el[directionMethodMap[direction]];
-	}
-
-	function setScroll(el, offset) {
-	  var direction = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "y";
-
-	  var currentWindow = getWindow(el);
-	  var top = direction === "y";
-	  if (currentWindow) {
-	    currentWindow.scrollTo(!top ? offset : currentWindow[directionPropMap.x], top ? offset : currentWindow[directionPropMap.y]);
-	  } else {
-	    el[directionMethodMap[direction]] = offset;
-	  }
-	}
-
-	function getOffset(el) {
-	  var context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-	  if (!el || el && !el.getClientRects().length) {
-	    return { top: 0, left: 0 };
-	  }
-
-	  var rect = el.getBoundingClientRect();
-
-	  if (rect.width || rect.height) {
-	    var scroll = {};
-	    var ctx = null;
-	    if (context == null || isRootContainer(context)) {
-	      ctx = el.ownerDocument.documentElement;
-	      scroll.top = win.pageYOffset;
-	      scroll.left = win.pageXOffset;
-	    } else {
-	      ctx = context;
-	      var ctxRect = ctx.getBoundingClientRect();
-	      scroll.top = ctxRect.top * -1 + ctx.scrollTop;
-	      scroll.left = ctxRect.left * -1 + ctx.scrollLeft;
-	    }
-
-	    return {
-	      top: rect.top + scroll.top - ctx.clientTop,
-	      left: rect.left + scroll.left - ctx.clientLeft
-	    };
-	  }
-
-	  return rect;
-	}
-
-	// @link https://github.com/Modernizr/Modernizr
-	var history = function () {
-	  var ua = navigator.userAgent;
-	  if ((ua.indexOf("Android 2.") !== -1 || ua.indexOf("Android 4.0") !== -1) && ua.indexOf("Mobile Safari") !== -1 && ua.indexOf("Chrome") === -1 && ua.indexOf("Windows Phone") === -1) {
-	    return false;
-	  }
-
-	  return win.history && "pushState" in win.history && win.location.protocol !== "file:";
-	}();
-
-	function addEvent(el, event, listener) {
-	  var events = event.split(",");
-	  events.forEach(function (eventName) {
-	    el.addEventListener(eventName.trim(), listener, false);
-	  });
-	}
-
-	function removeEvent(el, event, listener) {
-	  var events = event.split(",");
-	  events.forEach(function (eventName) {
-	    el.removeEventListener(eventName.trim(), listener, false);
-	  });
-	}
-
-	var vendors = ["ms", "moz", "webkit"];
-	var lastTime = 0;
-
-	var raf = win.requestAnimationFrame;
-	var caf = win.cancelAnimationFrame;
-
-	for (var x = 0; x < vendors.length && !raf; ++x) {
-	  raf = win[vendors[x] + "RequestAnimationFrame"];
-	  caf = win[vendors[x] + "CancelAnimationFrame"] || win[vendors[x] + "CancelRequestAnimationFrame"];
-	}
-
-	if (!raf) {
-	  raf = function raf(callback) {
-	    var currentTime = Date.now();
-	    var timeToCall = max(0, 16 - (currentTime - lastTime));
-	    var id = setTimeout(function () {
-	      callback(currentTime + timeToCall);
-	    }, timeToCall);
-
-	    lastTime = currentTime + timeToCall;
-
-	    return id;
-	  };
-	}
-
-	if (!caf) {
-	  caf = function caf(id) {
-	    clearTimeout(id);
-	  };
-	}
-
-	/* eslint-disable no-param-reassign, newline-before-return, max-params, new-cap */
-	function linear(p) {
-	  return p;
-	}
-
-	function InQuad(x, t, b, c, d) {
-	  return c * (t /= d) * t + b;
-	}
-
-	function OutQuad(x, t, b, c, d) {
-	  return -c * (t /= d) * (t - 2) + b;
-	}
-
-	function InOutQuad(x, t, b, c, d) {
-	  if ((t /= d / 2) < 1) {
-	    return c / 2 * t * t + b;
-	  }
-	  return -c / 2 * (--t * (t - 2) - 1) + b;
-	}
-
-	function InCubic(x, t, b, c, d) {
-	  return c * (t /= d) * t * t + b;
-	}
-
-	function OutCubic(x, t, b, c, d) {
-	  return c * ((t = t / d - 1) * t * t + 1) + b;
-	}
-
-	function InOutCubic(x, t, b, c, d) {
-	  if ((t /= d / 2) < 1) {
-	    return c / 2 * t * t * t + b;
-	  }
-	  return c / 2 * ((t -= 2) * t * t + 2) + b;
-	}
-
-	function InQuart(x, t, b, c, d) {
-	  return c * (t /= d) * t * t * t + b;
-	}
-
-	function OutQuart(x, t, b, c, d) {
-	  return -c * ((t = t / d - 1) * t * t * t - 1) + b;
-	}
-
-	function InOutQuart(x, t, b, c, d) {
-	  if ((t /= d / 2) < 1) {
-	    return c / 2 * t * t * t * t + b;
-	  }
-	  return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
-	}
-
-	function InQuint(x, t, b, c, d) {
-	  return c * (t /= d) * t * t * t * t + b;
-	}
-
-	function OutQuint(x, t, b, c, d) {
-	  return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
-	}
-
-	function InOutQuint(x, t, b, c, d) {
-	  if ((t /= d / 2) < 1) {
-	    return c / 2 * t * t * t * t * t + b;
-	  }
-	  return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
-	}
-
-	function InSine(x, t, b, c, d) {
-	  return -c * cos(t / d * (PI / 2)) + c + b;
-	}
-
-	function OutSine(x, t, b, c, d) {
-	  return c * sin(t / d * (PI / 2)) + b;
-	}
-
-	function InOutSine(x, t, b, c, d) {
-	  return -c / 2 * (cos(PI * t / d) - 1) + b;
-	}
-
-	function InExpo(x, t, b, c, d) {
-	  return t === 0 ? b : c * pow(2, 10 * (t / d - 1)) + b;
-	}
-
-	function OutExpo(x, t, b, c, d) {
-	  return t === d ? b + c : c * (-pow(2, -10 * t / d) + 1) + b;
-	}
-
-	function InOutExpo(x, t, b, c, d) {
-	  if (t === 0) return b;
-	  if (t === d) return b + c;
-	  if ((t /= d / 2) < 1) return c / 2 * pow(2, 10 * (t - 1)) + b;
-	  return c / 2 * (-pow(2, -10 * --t) + 2) + b;
-	}
-
-	function InCirc(x, t, b, c, d) {
-	  return -c * (sqrt(1 - (t /= d) * t) - 1) + b;
-	}
-
-	function OutCirc(x, t, b, c, d) {
-	  return c * sqrt(1 - (t = t / d - 1) * t) + b;
-	}
-
-	function InOutCirc(x, t, b, c, d) {
-	  if ((t /= d / 2) < 1) {
-	    return -c / 2 * (sqrt(1 - t * t) - 1) + b;
-	  }
-	  return c / 2 * (sqrt(1 - (t -= 2) * t) + 1) + b;
-	}
-
-	function InElastic(x, t, b, c, d) {
-	  var s = 1.70158;
-	  var p = 0;
-	  var a = c;
-	  if (t === 0) return b;
-	  if ((t /= d) === 1) return b + c;
-	  if (!p) p = d * .3;
-	  if (a < abs(c)) {
-	    a = c;
-	    s = p / 4;
-	  } else {
-	    s = p / (2 * PI) * asin(c / a);
-	  }
-	  return -(a * pow(2, 10 * (t -= 1)) * sin((t * d - s) * (2 * PI) / p)) + b;
-	}
-
-	function OutElastic(x, t, b, c, d) {
-	  var s = 1.70158;
-	  var p = 0;
-	  var a = c;
-	  if (t === 0) return b;
-	  if ((t /= d) === 1) return b + c;
-	  if (!p) p = d * .3;
-	  if (a < abs(c)) {
-	    a = c;
-	    s = p / 4;
-	  } else {
-	    s = p / (2 * PI) * asin(c / a);
-	  }
-	  return a * pow(2, -10 * t) * sin((t * d - s) * (2 * PI) / p) + c + b;
-	}
-
-	function InOutElastic(x, t, b, c, d) {
-	  var s = 1.70158;
-	  var p = 0;
-	  var a = c;
-	  if (t === 0) return b;
-	  if ((t /= d / 2) === 2) return b + c;
-	  if (!p) p = d * (.3 * 1.5);
-	  if (a < abs(c)) {
-	    a = c;
-	    s = p / 4;
-	  } else {
-	    s = p / (2 * PI) * asin(c / a);
-	  }
-	  if (t < 1) {
-	    return -.5 * (a * pow(2, 10 * (t -= 1)) * sin((t * d - s) * (2 * PI) / p)) + b;
-	  }
-	  return a * pow(2, -10 * (t -= 1)) * sin((t * d - s) * (2 * PI) / p) * .5 + c + b;
-	}
-
-	function InBack(x, t, b, c, d) {
-	  var s = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 1.70158;
-
-	  return c * (t /= d) * t * ((s + 1) * t - s) + b;
-	}
-
-	function OutBack(x, t, b, c, d) {
-	  var s = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 1.70158;
-
-	  return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
-	}
-
-	function InOutBack(x, t, b, c, d) {
-	  var s = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 1.70158;
-
-	  if ((t /= d / 2) < 1) {
-	    return c / 2 * (t * t * (((s *= 1.525) + 1) * t - s)) + b;
-	  }
-	  return c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
-	}
-
-	function OutBounce(x, t, b, c, d) {
-	  if ((t /= d) < 1 / 2.75) {
-	    return c * (7.5625 * t * t) + b;
-	  } else if (t < 2 / 2.75) {
-	    return c * (7.5625 * (t -= 1.5 / 2.75) * t + .75) + b;
-	  } else if (t < 2.5 / 2.75) {
-	    return c * (7.5625 * (t -= 2.25 / 2.75) * t + .9375) + b;
-	  } else {
-	    return c * (7.5625 * (t -= 2.625 / 2.75) * t + .984375) + b;
-	  }
-	}
-
-	function InBounce(x, t, b, c, d) {
-	  return c - OutBounce(x, d - t, 0, c, d) + b;
-	}
-
-	function InOutBounce(x, t, b, c, d) {
-	  if (t < d / 2) {
-	    return InBounce(x, t * 2, 0, c, d) * .5 + b;
-	  }
-	  return OutBounce(x, t * 2 - d, 0, c, d) * .5 + c * .5 + b;
-	}
-
-	var Easing = Object.freeze({
-		linear: linear,
-		InQuad: InQuad,
-		OutQuad: OutQuad,
-		InOutQuad: InOutQuad,
-		InCubic: InCubic,
-		OutCubic: OutCubic,
-		InOutCubic: InOutCubic,
-		InQuart: InQuart,
-		OutQuart: OutQuart,
-		InOutQuart: InOutQuart,
-		InQuint: InQuint,
-		OutQuint: OutQuint,
-		InOutQuint: InOutQuint,
-		InSine: InSine,
-		OutSine: OutSine,
-		InOutSine: InOutSine,
-		InExpo: InExpo,
-		OutExpo: OutExpo,
-		InOutExpo: InOutExpo,
-		InCirc: InCirc,
-		OutCirc: OutCirc,
-		InOutCirc: InOutCirc,
-		InElastic: InElastic,
-		OutElastic: OutElastic,
-		InOutElastic: InOutElastic,
-		InBack: InBack,
-		OutBack: OutBack,
-		InOutBack: InOutBack,
-		OutBounce: OutBounce,
-		InBounce: InBounce,
-		InOutBounce: InOutBounce
-	});
-
-	var ScrollTween = function () {
-	  function ScrollTween(el) {
-	    classCallCheck(this, ScrollTween);
-
-	    this.el = el;
-	    this.props = {};
-	    this.options = {};
-	    this.progress = false;
-	    this.easing = null;
-	    this.startTime = null;
-	    this.rafId = null;
-	  }
-
-	  createClass(ScrollTween, [{
-	    key: "run",
-	    value: function run(x, y, options) {
-	      var _this = this;
-
-	      if (this.progress) return;
-	      this.props = { x: x, y: y };
-	      this.options = options;
-	      this.easing = isFunction(options.easing) ? options.easing : Easing[options.easing.replace("ease", "")];
-	      this.progress = true;
-
-	      setTimeout(function () {
-	        _this.startProps = {
-	          x: getScroll(_this.el, "x"),
-	          y: getScroll(_this.el, "y")
-	        };
-	        _this.rafId = raf(function (time) {
-	          return _this._loop(time);
-	        });
-	      }, this.options.delay);
-	    }
-	  }, {
-	    key: "stop",
-	    value: function stop() {
-	      var gotoEnd = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-	      var complete = this.options.complete;
-
-	      this.startTime = null;
-	      this.progress = false;
-	      caf(this.rafId);
-
-	      if (gotoEnd) {
-	        setScroll(this.el, this.props.x, "x");
-	        setScroll(this.el, this.props.y, "y");
-	      }
-
-	      if (isFunction(complete)) {
-	        complete.call(this);
-	        this.options.complete = null;
-	      }
-	    }
-	  }, {
-	    key: "_loop",
-	    value: function _loop(time) {
-	      var _this2 = this;
-
-	      if (!this.startTime) {
-	        this.startTime = time;
-	      }
-
-	      if (!this.progress) {
-	        this.stop(false);
-
-	        return;
-	      }
-
-	      var el = this.el;
-	      var props = this.props;
-	      var options = this.options;
-	      var startTime = this.startTime;
-	      var startProps = this.startProps;
-	      var easing = this.easing;
-	      var duration = options.duration;
-	      var step = options.step;
-
-	      var toProps = {};
-	      var timeElapsed = time - startTime;
-	      var t = min(1, max(timeElapsed / duration, 0));
-
-	      each(props, function (value, key) {
-	        var initialValue = startProps[key];
-	        var delta = value - initialValue;
-	        if (delta === 0) return true;
-
-	        var val = easing(t, duration * t, 0, 1, duration);
-	        toProps[key] = round(initialValue + delta * val);
-	      });
-
-	      each(toProps, function (value, key) {
-	        setScroll(el, value, key);
-	      });
-
-	      if (timeElapsed <= duration) {
-	        step.call(this, t, toProps);
-	        this.rafId = raf(function (currentTime) {
-	          return _this2._loop(currentTime);
-	        });
-	      } else {
-	        this.stop(true);
-	      }
-	    }
-	  }]);
-	  return ScrollTween;
-	}();
-
-	var WHEEL_EVENT = function () {
-	  if ("onwheel" in doc) {
-	    return "wheel";
-	  } else if ("onmousewheel" in doc) {
-	    return "mousewheel";
-	  } else {
-	    return "DOMMouseScroll";
-	  }
-	}();
-
-	var CONTAINER_STOP_EVENTS = WHEEL_EVENT + ", touchstart, touchmove";
-	var DOM_CONTENT_LOADED = "DOMContentLoaded";
-	var LOAD = "load";
-
-	var SweetScroll = function () {
-	  /* eslint-enable max-len */
-
-	  /**
-	   * SweetScroll constructor
-	   * @constructor
-	   * @param {Object} options
-	   * @param {String | Element} container
-	   */
-	  function SweetScroll() {
-	    var _this = this;
-
-	    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	    var container = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "body, html";
-	    classCallCheck(this, SweetScroll);
-
-	    this.createAt = new Date();
-	    this.options = merge({}, SweetScroll.defaults, options);
-
-	    this.getContainer(container, function (target) {
-	      if (target == null) {
-	        _this.log("Not found scrollable container. => \"" + container + "\"");
-	      }
-
-	      _this.container = target;
-	      _this.header = $(_this.options.header);
-	      _this.tween = new ScrollTween(target);
-	      _this._trigger = null;
-	      _this._shouldCallCancelScroll = false;
-	      _this.bindContainerClick();
-	      _this.hook(_this.options, "initialized");
-	    });
-	  }
-
-	  /**
-	   * Output log
-	   * @param {String} message
-	   * @return {void}
-	   */
-
-
-	  // Default options
-	  /* eslint-disable max-len */
-
-
-	  createClass(SweetScroll, [{
-	    key: "log",
-	    value: function log(message) {
-	      if (this.options.outputLog) {
-	        warning("[SweetScroll] " + message);
-	      }
-	    }
-
-	    /**
-	     * Scroll animation to the specified position
-	     * @param {*} distance
-	     * @param {Object} options
-	     * @return {void}
-	     */
-
-	  }, {
-	    key: "to",
-	    value: function to(distance) {
-	      var _this2 = this;
-
-	      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-	      var container = this.container;
-	      var header = this.header;
-
-	      var params = merge({}, this.options, options);
-
-	      // Temporary options
-	      this._options = params;
-
-	      var offset = this.parseCoodinate(params.offset);
-	      var trigger = this._trigger;
-	      var scroll = this.parseCoodinate(distance);
-	      var hash = null;
-
-	      // Remove the triggering elements which has been temporarily retained
-	      this._trigger = null;
-
-	      // Disable the call flag of `cancelScroll`
-	      this._shouldCallCancelScroll = false;
-
-	      // Stop current animation
-	      this.stop();
-
-	      // Does not move if the container is not found
-	      if (!container) {
-	        return this.log("Not found container element.");
-	      }
-
-	      // Using the coordinates in the case of CSS Selector
-	      if (!scroll && isString(distance)) {
-	        hash = /^#/.test(distance) ? distance : null;
-
-	        if (distance === "#") {
-	          scroll = {
-	            top: 0,
-	            left: 0
-	          };
-	        } else {
-	          var target = $(distance);
-	          var targetOffset = getOffset(target, container);
-	          if (!targetOffset) return;
-	          scroll = targetOffset;
+	        /* tslint:disable:no-empty */
+	        try {
+	            window.addEventListener('test', null, Object.defineProperty({}, 'passive', {
+	                get: function () {
+	                    support = true;
+	                },
+	            }));
 	        }
-	      }
+	        catch (e) { }
+	        /* tslint:enable */
+	        return support;
+	    })();
 
-	      if (!scroll) {
-	        return this.log("Invalid parameter of distance. => " + distance);
-	      }
+	    var isString = function (obj) { return typeof obj === 'string'; };
+	    var isFunction = function (obj) { return typeof obj === 'function'; };
+	    var isArray = function (obj) { return Array.isArray(obj); };
+	    var isNumeric = function (obj) { return !isArray(obj) && ((obj - parseFloat(obj)) + 1) >= 0; };
+	    var isElement = function (obj) { return obj instanceof Element; };
+	    var hasProp = function (obj, key) { return (obj && obj.hasOwnProperty(key)); };
 
-	      // Apply `offset` value
-	      if (offset) {
-	        scroll.top += offset.top;
-	        scroll.left += offset.left;
-	      }
+	    var raf = canUseDOM ? window.requestAnimationFrame.bind(window) : null;
+	    var caf = canUseDOM ? window.cancelAnimationFrame.bind(window) : null;
 
-	      // If the header is present apply the height
-	      if (header) {
-	        scroll.top = max(0, scroll.top - getSize(header).height);
-	      }
-
-	      // Determine the final scroll coordinates
-
-	      var _Dom$getViewportAndEl = getViewportAndElementSizes(container);
-
-	      var viewport = _Dom$getViewportAndEl.viewport;
-	      var size = _Dom$getViewportAndEl.size;
-
-	      // Call `beforeScroll`
-	      // Stop scrolling when it returns false
-
-	      if (this.hook(params, "beforeScroll", scroll, trigger) === false) {
-	        return;
-	      }
-
-	      // Adjustment of the maximum value
-	      scroll.top = params.verticalScroll ? max(0, min(size.height - viewport.height, scroll.top)) : getScroll(container, "y");
-	      scroll.left = params.horizontalScroll ? max(0, min(size.width - viewport.width, scroll.left)) : getScroll(container, "x");
-
-	      // Run the animation!!
-	      this.tween.run(scroll.left, scroll.top, {
-	        duration: params.duration,
-	        delay: params.delay,
-	        easing: params.easing,
-	        complete: function complete() {
-	          // Update URL
-	          if (hash != null && hash !== win.location.hash) {
-	            _this2.updateURLHash(hash, params.updateURL);
-	          }
-
-	          // Unbind the scroll stop events, And call `afterScroll` or `cancelScroll`
-	          _this2.unbindContainerStop();
-
-	          // Remove the temporary options
-	          _this2._options = null;
-
-	          // Call `cancelScroll` or `afterScroll`
-	          if (_this2._shouldCallCancelScroll) {
-	            _this2.hook(params, "cancelScroll");
-	          } else {
-	            _this2.hook(params, "afterScroll", scroll, trigger);
-	          }
-
-	          // Call `completeScroll`
-	          _this2.hook(params, "completeScroll", _this2._shouldCallCancelScroll);
+	    /* tslint:disable:curly */
+	    /* tslint:disable:no-conditional-assignment */
+	    var cos = Math.cos, sin = Math.sin, pow = Math.pow, sqrt = Math.sqrt, PI = Math.PI;
+	    var easings = {
+	        linear: function (p) { return p; },
+	        easeInQuad: function (_, t, b, c, d) { return (c * (t /= d) * t + b); },
+	        easeOutQuad: function (_, t, b, c, d) { return (-c * (t /= d) * (t - 2) + b); },
+	        easeInOutQuad: function (_, t, b, c, d) { return ((t /= d / 2) < 1 ? c / 2 * t * t + b : -c / 2 * ((--t) * (t - 2) - 1) + b); },
+	        easeInCubic: function (_, t, b, c, d) { return (c * (t /= d) * t * t + b); },
+	        easeOutCubic: function (_, t, b, c, d) { return (c * ((t = t / d - 1) * t * t + 1) + b); },
+	        easeInOutCubic: function (_, t, b, c, d) { return ((t /= d / 2) < 1 ? c / 2 * t * t * t + b : c / 2 * ((t -= 2) * t * t + 2) + b); },
+	        easeInQuart: function (_, t, b, c, d) { return (c * (t /= d) * t * t * t + b); },
+	        easeOutQuart: function (_, t, b, c, d) { return (-c * ((t = t / d - 1) * t * t * t - 1) + b); },
+	        easeInOutQuart: function (_, t, b, c, d) { return ((t /= d / 2) < 1 ? c / 2 * t * t * t * t + b : -c / 2 * ((t -= 2) * t * t * t - 2) + b); },
+	        easeInQuint: function (_, t, b, c, d) { return (c * (t /= d) * t * t * t * t + b); },
+	        easeOutQuint: function (_, t, b, c, d) { return (c * ((t = t / d - 1) * t * t * t * t + 1) + b); },
+	        easeInOutQuint: function (_, t, b, c, d) { return ((t /= d / 2) < 1 ? c / 2 * t * t * t * t * t + b : c / 2 * ((t -= 2) * t * t * t * t + 2) + b); },
+	        easeInSine: function (_, t, b, c, d) { return (-c * cos(t / d * (PI / 2)) + c + b); },
+	        easeOutSine: function (_, t, b, c, d) { return (c * sin(t / d * (PI / 2)) + b); },
+	        easeInOutSine: function (_, t, b, c, d) { return (-c / 2 * (cos(PI * t / d) - 1) + b); },
+	        easeInExpo: function (_, t, b, c, d) { return ((t === 0) ? b : c * pow(2, 10 * (t / d - 1)) + b); },
+	        easeOutExpo: function (_, t, b, c, d) { return ((t === d) ? b + c : c * (-pow(2, -10 * t / d) + 1) + b); },
+	        easeInOutExpo: function (_, t, b, c, d) {
+	            if (t === 0)
+	                return b;
+	            if (t === d)
+	                return b + c;
+	            if ((t /= d / 2) < 1)
+	                return c / 2 * pow(2, 10 * (t - 1)) + b;
+	            return c / 2 * (-pow(2, -10 * --t) + 2) + b;
 	        },
-	        step: function step(currentTime, props) {
-	          _this2.hook(params, "stepScroll", currentTime, props);
+	        easeInCirc: function (_, t, b, c, d) { return (-c * (sqrt(1 - (t /= d) * t) - 1) + b); },
+	        easeOutCirc: function (_, t, b, c, d) { return (c * sqrt(1 - (t = t / d - 1) * t) + b); },
+	        easeInOutCirc: function (_, t, b, c, d) { return ((t /= d / 2) < 1 ? -c / 2 * (sqrt(1 - t * t) - 1) + b : c / 2 * (sqrt(1 - (t -= 2) * t) + 1) + b); },
+	    };
+
+	    var $$ = function (selector) { return (Array.prototype.slice.call((!selector ? [] : document.querySelectorAll(selector)))); };
+	    var $ = function (selector) { return ($$(selector).shift() || null); };
+	    var matches = function ($el, selector) {
+	        if (isElement(selector)) {
+	            return $el === selector;
 	        }
-	      });
-
-	      // Bind the scroll stop events
-	      this.bindContainerStop();
-	    }
-
-	    /**
-	     * Scroll animation to the specified top position
-	     * @param {*} distance
-	     * @param {Object} options
-	     * @return {void}
-	     */
-
-	  }, {
-	    key: "toTop",
-	    value: function toTop(distance) {
-	      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-	      this.to(distance, merge({}, options, {
-	        verticalScroll: true,
-	        horizontalScroll: false
-	      }));
-	    }
-
-	    /**
-	     * Scroll animation to the specified left position
-	     * @param {*} distance
-	     * @param {Object} options
-	     * @return {void}
-	     */
-
-	  }, {
-	    key: "toLeft",
-	    value: function toLeft(distance) {
-	      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-	      this.to(distance, merge({}, options, {
-	        verticalScroll: false,
-	        horizontalScroll: true
-	      }));
-	    }
-
-	    /**
-	     * Scroll animation to the specified element
-	     * @param {Element} el
-	     * @param {Object} options
-	     * @return {void}
-	     */
-
-	  }, {
-	    key: "toElement",
-	    value: function toElement(el) {
-	      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-	      if (el instanceof Element) {
-	        var offset = getOffset(el, this.container);
-	        this.to(offset, merge({}, options));
-	      } else {
-	        this.log("Invalid parameter. in toElement()");
-	      }
-	    }
-
-	    /**
-	     * Stop the current animation
-	     * @param {Boolean} gotoEnd
-	     * @return {void}
-	     */
-
-	  }, {
-	    key: "stop",
-	    value: function stop() {
-	      var gotoEnd = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-	      if (!this.container) {
-	        this.log("Not found scrollable container.");
-	      }
-
-	      if (this._stopScrollListener) {
-	        this._shouldCallCancelScroll = true;
-	      }
-	      this.tween.stop(gotoEnd);
-	    }
-
-	    /**
-	     * Update the instance
-	     * @param {Object} options
-	     * @return {void}
-	     */
-
-	  }, {
-	    key: "update",
-	    value: function update() {
-	      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-	      if (!this.container) {
-	        this.log("Not found scrollable container.");
-	      }
-
-	      this.stop();
-	      this.unbindContainerClick();
-	      this.unbindContainerStop();
-	      this.options = merge({}, this.options, options);
-	      this.header = $(this.options.header);
-	      this.bindContainerClick();
-	    }
-
-	    /**
-	     * Destroy SweetScroll instance
-	     * @return {void}
-	     */
-
-	  }, {
-	    key: "destroy",
-	    value: function destroy() {
-	      if (!this.container) {
-	        this.log("Not found scrollable container.");
-	      }
-
-	      this.stop();
-	      this.unbindContainerClick();
-	      this.unbindContainerStop();
-	      this.container = null;
-	      this.header = null;
-	      this.tween = null;
-	    }
-
-	    /* eslint-disable no-unused-vars */
-	    /**
-	     * Called at after of the initialize.
-	     * @return {void}
-	     */
-
-	  }, {
-	    key: "initialized",
-	    value: function initialized() {}
-
-	    /**
-	     * Called at before of the scroll.
-	     * @param {Object} toScroll
-	     * @param {Element} trigger
-	     * @return {Boolean}
-	     */
-
-	  }, {
-	    key: "beforeScroll",
-	    value: function beforeScroll(toScroll, trigger) {
-	      return true;
-	    }
-
-	    /**
-	     * Called at cancel of the scroll.
-	     * @return {void}
-	     */
-
-	  }, {
-	    key: "cancelScroll",
-	    value: function cancelScroll() {}
-
-	    /**
-	     * Called at after of the scroll.
-	     * @param {Object} toScroll
-	     * @param {Element} trigger
-	     * @return {void}
-	     */
-
-	  }, {
-	    key: "afterScroll",
-	    value: function afterScroll(toScroll, trigger) {}
-
-	    /**
-	     * Called at complete of the scroll.
-	     * @param {Boolean} isCancel
-	     * @return {void}
-	     */
-
-	  }, {
-	    key: "completeScroll",
-	    value: function completeScroll(isCancel) {}
-
-	    /**
-	     * Called at each animation frame of the scroll.
-	     * @param {Float} currentTime
-	     * @param {Object} props
-	     * @return {void}
-	     */
-
-	  }, {
-	    key: "stepScroll",
-	    value: function stepScroll(currentTime, props) {}
-	    /* eslint-enable no-unused-vars */
-
-	    /**
-	     * Parse the value of coordinate
-	     * @param {*} coodinate
-	     * @return {Object}
-	     */
-
-	  }, {
-	    key: "parseCoodinate",
-	    value: function parseCoodinate(coodinate) {
-	      var enableTop = this._options ? this._options.verticalScroll : this.options.verticalScroll;
-	      var scroll = { top: 0, left: 0 };
-
-	      // Object
-	      if (hasProp(coodinate, "top") || hasProp(coodinate, "left")) {
-	        scroll = merge(scroll, coodinate);
-
-	        // Array
-	      } else if (isArray(coodinate)) {
-	        if (coodinate.length === 2) {
-	          scroll.top = coodinate[0];
-	          scroll.left = coodinate[1];
-	        } else {
-	          scroll.top = enableTop ? coodinate[0] : 0;
-	          scroll.left = !enableTop ? coodinate[0] : 0;
-	        }
-
-	        // Number
-	      } else if (isNumeric(coodinate)) {
-	        scroll.top = enableTop ? coodinate : 0;
-	        scroll.left = !enableTop ? coodinate : 0;
-
-	        // String
-	      } else if (isString(coodinate)) {
-	        var trimedCoodinate = removeSpaces(coodinate);
-
-	        // "{n},{n}" (Array like syntax)
-	        if (/^\d+,\d+$/.test(trimedCoodinate)) {
-	          trimedCoodinate = trimedCoodinate.split(",");
-	          scroll.top = trimedCoodinate[0];
-	          scroll.left = trimedCoodinate[1];
-
-	          // "top:{n}, left:{n}" (Object like syntax)
-	        } else if (/^(top|left):\d+,?(?:(top|left):\d+)?$/.test(trimedCoodinate)) {
-	          var top = trimedCoodinate.match(/top:(\d+)/);
-	          var left = trimedCoodinate.match(/left:(\d+)/);
-	          scroll.top = top ? top[1] : 0;
-	          scroll.left = left ? left[1] : 0;
-
-	          // "+={n}", "-={n}" (Relative position)
-	        } else if (this.container && /^(\+|-)=(\d+)$/.test(trimedCoodinate)) {
-	          var current = getScroll(this.container, enableTop ? "y" : "x");
-	          var results = trimedCoodinate.match(/^(\+|-)=(\d+)$/);
-	          var op = results[1];
-	          var value = parseInt(results[2], 10);
-	          if (op === "+") {
-	            scroll.top = enableTop ? current + value : 0;
-	            scroll.left = !enableTop ? current + value : 0;
-	          } else {
-	            scroll.top = enableTop ? current - value : 0;
-	            scroll.left = !enableTop ? current - value : 0;
-	          }
-	        } else {
-	          return null;
-	        }
-	      } else {
-	        return null;
-	      }
-
-	      scroll.top = parseInt(scroll.top, 10);
-	      scroll.left = parseInt(scroll.left, 10);
-
-	      return scroll;
-	    }
-
-	    /**
-	     * Update the Hash of the URL.
-	     * @param {String} hash
-	     * @param {Boolean | String} historyType
-	     * @return {void}
-	     */
-
-	  }, {
-	    key: "updateURLHash",
-	    value: function updateURLHash(hash, historyType) {
-	      if (!history || !historyType) return;
-	      win.history[historyType === "replace" ? "replaceState" : "pushState"](null, null, hash);
-	    }
-
-	    /**
-	     * Get the container for the scroll, depending on the options.
-	     * @param {String | Element} selector
-	     * @param {Function} callback
-	     * @return {void}
-	     * @private
-	     */
-
-	  }, {
-	    key: "getContainer",
-	    value: function getContainer(selector, callback) {
-	      var _this3 = this;
-
-	      var _options = this.options;
-	      var verticalScroll = _options.verticalScroll;
-	      var horizontalScroll = _options.horizontalScroll;
-
-	      var finalCallback = callback.bind(this);
-	      var container = null;
-
-	      if (verticalScroll) {
-	        container = scrollableFind(selector, "y");
-	      }
-
-	      if (!container && horizontalScroll) {
-	        container = scrollableFind(selector, "x");
-	      }
-
-	      if (container) {
-	        finalCallback(container);
-	      } else if (!/comp|inter|loaded/.test(doc.readyState)) {
-	        (function () {
-	          var isCompleted = false;
-
-	          var handleDomContentLoaded = function handleDomContentLoaded() {
-	            removeHandlers(); // eslint-disable-line no-use-before-define
-	            isCompleted = true;
-	            _this3.getContainer(selector, callback);
-	          };
-
-	          var handleLoad = function handleLoad() {
-	            removeHandlers(); // eslint-disable-line no-use-before-define
-	            if (!isCompleted) {
-	              _this3.getContainer(selector, callback);
+	        var results = $$(selector);
+	        var i = results.length;
+	        // tslint:disable-next-line no-empty
+	        while (--i >= 0 && results[i] !== $el) { }
+	        return i > -1;
+	    };
+	    var isRootContainer = function ($el) { return ($el === document.documentElement || $el === document.body); };
+	    var findScrollable = function (selectors, direction) {
+	        var $elements = isElement(selectors) ? [selectors] : $$(selectors);
+	        var overflowStyleName = "overflow-" + direction;
+	        for (var i = 0; i < $elements.length; i += 1) {
+	            var $el = $elements[i];
+	            var $result = null;
+	            if (isRootContainer($el)) {
+	                $result = $el;
 	            }
-	          };
-
-	          /* eslint-disable func-style */
-	          var removeHandlers = function removeHandlers() {
-	            removeEvent(doc, DOM_CONTENT_LOADED, handleDomContentLoaded);
-	            removeEvent(win, LOAD, handleLoad);
-	          };
-	          /* eslint-enable func-style */
-
-	          addEvent(doc, DOM_CONTENT_LOADED, handleDomContentLoaded);
-	          addEvent(win, LOAD, handleLoad);
-	        })();
-	      } else {
-	        raf(function () {
-	          if (Date.now() - _this3.createAt.getTime() > _this3.options.searchContainerTimeout) {
-	            finalCallback(null);
-	          } else {
-	            _this3.getContainer(selector, callback);
-	          }
-	        });
-	      }
-	    }
-
-	    /**
-	     * Bind a click event to the container
-	     * @return {void}
-	     * @private
-	     */
-
-	  }, {
-	    key: "bindContainerClick",
-	    value: function bindContainerClick() {
-	      var container = this.container;
-
-	      if (!container) return;
-	      this._containerClickListener = this.handleContainerClick.bind(this);
-	      addEvent(container, "click", this._containerClickListener);
-	    }
-
-	    /**
-	     * Unbind a click event to the container
-	     * @return {void}
-	     * @private
-	     */
-
-	  }, {
-	    key: "unbindContainerClick",
-	    value: function unbindContainerClick() {
-	      var container = this.container;
-
-	      if (!container || !this._containerClickListener) return;
-	      removeEvent(container, "click", this._containerClickListener);
-	      this._containerClickListener = null;
-	    }
-
-	    /**
-	     * Bind the scroll stop of events
-	     * @return {void}
-	     * @private
-	     */
-
-	  }, {
-	    key: "bindContainerStop",
-	    value: function bindContainerStop() {
-	      var container = this.container;
-
-	      if (!container) return;
-	      this._stopScrollListener = this.handleStopScroll.bind(this);
-	      addEvent(container, CONTAINER_STOP_EVENTS, this._stopScrollListener);
-	    }
-
-	    /**
-	     * Unbind the scroll stop of events
-	     * @return {void}
-	     * @private
-	     */
-
-	  }, {
-	    key: "unbindContainerStop",
-	    value: function unbindContainerStop() {
-	      var container = this.container;
-
-	      if (!container || !this._stopScrollListener) return;
-	      removeEvent(container, CONTAINER_STOP_EVENTS, this._stopScrollListener);
-	      this._stopScrollListener = null;
-	    }
-
-	    /**
-	     * Call the specified callback
-	     * @param {Object} options
-	     * @param {String} type
-	     * @param {...*} args
-	     * @return {void}
-	     * @private
-	     */
-
-	  }, {
-	    key: "hook",
-	    value: function hook(options, type) {
-	      var callback = options[type];
-
-	      // callback
-
-	      for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-	        args[_key - 2] = arguments[_key];
-	      }
-
-	      if (isFunction(callback)) {
-	        var result = callback.apply(this, args);
-	        if (typeof result === "undefined") return result;
-	      }
-
-	      // method
-	      return this[type].apply(this, args);
-	    }
-
-	    /**
-	     * Handling of scroll stop event
-	     * @param {Event} e
-	     * @return {void}
-	     * @private
-	     */
-
-	  }, {
-	    key: "handleStopScroll",
-	    value: function handleStopScroll(e) {
-	      var stopScroll = this._options ? this._options.stopScroll : this.options.stopScroll;
-	      if (stopScroll) {
-	        this.stop();
-	      } else {
-	        e.preventDefault();
-	      }
-	    }
-
-	    /**
-	     * Handling of container click event
-	     * @param {Event} e
-	     * @return {void}
-	     * @private
-	     */
-
-	  }, {
-	    key: "handleContainerClick",
-	    value: function handleContainerClick(e) {
-	      var options = this.options;
-
-	      var el = e.target;
-
-	      // Explore parent element until the trigger selector matches
-	      for (; el && el !== doc; el = el.parentNode) {
-	        if (!matches(el, options.trigger)) continue;
-	        var data = el.getAttribute("data-scroll");
-	        var dataOptions = this.parseDataOptions(el);
-	        var href = data || el.getAttribute("href");
-
-	        options = merge({}, options, dataOptions);
-
-	        if (options.preventDefault) e.preventDefault();
-	        if (options.stopPropagation) e.stopPropagation();
-
-	        // Passes the trigger elements to callback
-	        this._trigger = el;
-
-	        if (options.horizontalScroll && options.verticalScroll) {
-	          this.to(href, options);
-	        } else if (options.verticalScroll) {
-	          this.toTop(href, options);
-	        } else if (options.horizontalScroll) {
-	          this.toLeft(href, options);
+	            else {
+	                var computedStyle = window.getComputedStyle($el);
+	                var canScroll = (computedStyle[overflowStyleName] === 'auto' ||
+	                    computedStyle[overflowStyleName] === 'scroll');
+	                if (canScroll) {
+	                    $result = $el;
+	                }
+	            }
+	            if ($result) {
+	                return $result;
+	            }
 	        }
-	      }
-	    }
+	        return null;
+	    };
 
-	    /**
-	     * Parse the data-scroll-options attribute
-	     * @param {Element} el
-	     * @return {Object}
-	     * @private
-	     */
+	    var getHeight = function ($el) { return (Math.max($el.scrollHeight, $el.clientHeight, $el.offsetHeight)); };
+	    var getWidth = function ($el) { return (Math.max($el.scrollWidth, $el.clientWidth, $el.offsetWidth)); };
+	    var getSize = function ($el) { return ({
+	        width: getWidth($el),
+	        height: getHeight($el),
+	    }); };
+	    var getViewportAndElementSizes = function ($el) {
+	        var isRoot = isRootContainer($el);
+	        return {
+	            viewport: {
+	                width: isRoot
+	                    ? Math.min(window.innerWidth, document.documentElement.clientWidth)
+	                    : $el.clientWidth,
+	                height: isRoot ? window.innerHeight : $el.clientHeight,
+	            },
+	            size: isRoot
+	                ? {
+	                    width: Math.max(getWidth(document.body), getWidth(document.documentElement)),
+	                    height: Math.max(getHeight(document.body), getHeight(document.documentElement)),
+	                }
+	                : getSize($el),
+	        };
+	    };
 
-	  }, {
-	    key: "parseDataOptions",
-	    value: function parseDataOptions(el) {
-	      var options = el.getAttribute("data-scroll-options");
+	    var directionMethodMap = {
+	        y: 'scrollTop',
+	        x: 'scrollLeft',
+	    };
+	    var directionPropMap = {
+	        y: 'pageYOffset',
+	        x: 'pageXOffset',
+	    };
+	    var getScroll = function ($el, direction) { return ($el[directionMethodMap[direction]]); };
+	    var setScroll = function ($el, offset, direction) {
+	        $el[directionMethodMap[direction]] = offset;
+	    };
+	    var getOffset = function ($el, $context) {
+	        var rect = $el.getBoundingClientRect();
+	        if (rect.width || rect.height) {
+	            var scroll_1 = { top: 0, left: 0 };
+	            var $ctx = void 0;
+	            if (isRootContainer($context)) {
+	                $ctx = document.documentElement;
+	                scroll_1.top = window[directionPropMap.y];
+	                scroll_1.left = window[directionPropMap.x];
+	            }
+	            else {
+	                $ctx = $context;
+	                var cRect = $ctx.getBoundingClientRect();
+	                scroll_1.top = (cRect.top * -1) + $ctx[directionMethodMap.y];
+	                scroll_1.left = (cRect.left * -1) + $ctx[directionMethodMap.x];
+	            }
+	            return {
+	                top: (rect.top + scroll_1.top) - $ctx.clientTop,
+	                left: (rect.left + scroll_1.left) - $ctx.clientLeft,
+	            };
+	        }
+	        return rect;
+	    };
 
-	      return options ? JSON.parse(options) : {};
-	    }
-	  }]);
-	  return SweetScroll;
-	}();
+	    var wheelEventName = (function () {
+	        if (!canUseDOM) {
+	            return 'wheel';
+	        }
+	        return 'onwheel' in document ? 'wheel' : 'mousewheel';
+	    })();
+	    var eventName = function (name) { return (name === 'wheel' ? wheelEventName : name); };
+	    var apply = function ($el, method, event, listener, passive) {
+	        event.split(' ').forEach(function (name) {
+	            $el[method](eventName(name), listener, canUsePassiveOption ? { passive: passive } : false);
+	        });
+	    };
+	    var addEvent = function ($el, event, listener, passive) {
+	        apply($el, 'addEventListener', event, listener, passive);
+	    };
+	    var removeEvent = function ($el, event, listener, passive) {
+	        apply($el, 'removeEventListener', event, listener, passive);
+	    };
 
-	// Export SweetScroll class
+	    var reRelativeToken = /^(\+|-)=(\d+(?:\.\d+)?)$/;
+	    var parseCoordinate = function (coordinate, enableVertical) {
+	        var res = { top: 0, left: 0, relative: false };
+	        // Object ({ top: {n}, left: {n} })
+	        if (hasProp(coordinate, 'top') || hasProp(coordinate, 'left')) {
+	            res = __assign({}, res, coordinate);
+	            // Array ([{n}, [{n}])
+	        }
+	        else if (isArray(coordinate)) {
+	            if (coordinate.length > 1) {
+	                res.top = coordinate[0];
+	                res.left = coordinate[1];
+	            }
+	            else if (coordinate.length === 1) {
+	                res.top = enableVertical ? coordinate[0] : 0;
+	                res.left = !enableVertical ? coordinate[0] : 0;
+	            }
+	            else {
+	                return null;
+	            }
+	            // Number
+	        }
+	        else if (isNumeric(coordinate)) {
+	            if (enableVertical) {
+	                res.top = coordinate;
+	            }
+	            else {
+	                res.left = coordinate;
+	            }
+	            // String ('+={n}', '-={n}')
+	        }
+	        else if (isString(coordinate)) {
+	            var m = coordinate.trim().match(reRelativeToken);
+	            if (!m) {
+	                return null;
+	            }
+	            var op = m[1];
+	            var val = parseInt(m[2], 10);
+	            if (op === '+') {
+	                res.top = enableVertical ? val : 0;
+	                res.left = !enableVertical ? val : 0;
+	            }
+	            else {
+	                res.top = enableVertical ? -val : 0;
+	                res.left = !enableVertical ? -val : 0;
+	            }
+	            res.relative = true;
+	        }
+	        else {
+	            return null;
+	        }
+	        return res;
+	    };
 
+	    var defaultOptions = {
+	        trigger: '[data-scroll]',
+	        header: '[data-scroll-header]',
+	        duration: 1000,
+	        easing: 'easeOutQuint',
+	        offset: 0,
+	        vertical: true,
+	        horizontal: false,
+	        cancellable: true,
+	        updateURL: false,
+	        preventDefault: true,
+	        stopPropagation: true,
+	        quickMode: false,
+	        // Callbacks
+	        before: null,
+	        after: null,
+	        cancel: null,
+	        complete: null,
+	        step: null,
+	    };
 
-	SweetScroll.defaults = {
-	  trigger: "[data-scroll]", // Selector for trigger (must be a valid css selector)
-	  header: "[data-scroll-header]", // Selector for fixed header (must be a valid css selector)
-	  duration: 1000, // Specifies animation duration in integer
-	  delay: 0, // Specifies timer for delaying the execution of the scroll in milliseconds
-	  easing: "easeOutQuint", // Specifies the pattern of easing
-	  offset: 0, // Specifies the value to offset the scroll position in pixels
-	  verticalScroll: true, // Enable the vertical scroll
-	  horizontalScroll: false, // Enable the horizontal scroll
-	  stopScroll: true, // When fired wheel or touchstart events to stop scrolling
-	  updateURL: false, // Update the URL hash on after scroll (true | false | "push" | "replace")
-	  preventDefault: true, // Cancels the container element click event
-	  stopPropagation: true, // Prevents further propagation of the container element click event in the bubbling phase
-	  searchContainerTimeout: 4000, // Specifies the maximum search time of Scrollabe Container
-	  outputLog: false, // Specify level of output to log
+	    var CONTAINER_CLICK_EVENT = 'click';
+	    var CONTAINER_STOP_EVENT = 'wheel touchstart touchmove';
+	    var SweetScroll = /** @class */ (function () {
+	        /**
+	         * Constructor
+	         */
+	        function SweetScroll(options, container) {
+	            var _this = this;
+	            this.ctx = {
+	                $trigger: null,
+	                opts: null,
+	                progress: false,
+	                pos: null,
+	                startPos: null,
+	                easing: null,
+	                start: 0,
+	                id: 0,
+	                cancel: false,
+	                hash: null,
+	            };
+	            /**
+	             * Handle each frame of the animation.
+	             */
+	            this.loop = function (time) {
+	                var _a = _this, $el = _a.$el, ctx = _a.ctx;
+	                if (!ctx.start) {
+	                    ctx.start = time;
+	                }
+	                if (!ctx.progress || !$el) {
+	                    _this.stop();
+	                    return;
+	                }
+	                var options = ctx.opts;
+	                var offset = ctx.pos;
+	                var start = ctx.start;
+	                var startOffset = ctx.startPos;
+	                var easing = ctx.easing;
+	                var duration = options.duration;
+	                var directionMap = { top: 'y', left: 'x' };
+	                var timeElapsed = time - start;
+	                var t = Math.min(1, Math.max(timeElapsed / duration, 0));
+	                Object.keys(offset).forEach(function (key) {
+	                    var value = offset[key];
+	                    var initial = startOffset[key];
+	                    var delta = value - initial;
+	                    if (delta !== 0) {
+	                        var val = easing(t, duration * t, 0, 1, duration);
+	                        setScroll($el, Math.round(initial + delta * val), directionMap[key]);
+	                    }
+	                });
+	                if (timeElapsed <= duration) {
+	                    _this.hook(options, 'step', t);
+	                    ctx.id = SweetScroll.raf(_this.loop);
+	                }
+	                else {
+	                    _this.stop(true);
+	                }
+	            };
+	            /**
+	             * Handling of container click event.
+	             */
+	            this.handleClick = function (e) {
+	                var opts = _this.opts;
+	                var $el = e.target;
+	                for (; $el && $el !== document; $el = $el.parentNode) {
+	                    if (!matches($el, opts.trigger)) {
+	                        continue;
+	                    }
+	                    var dataOptions = JSON.parse($el.getAttribute('data-scroll-options') || '{}');
+	                    var data = $el.getAttribute('data-scroll');
+	                    var to = data || $el.getAttribute('href');
+	                    var options = __assign({}, opts, dataOptions);
+	                    var preventDefault = options.preventDefault, stopPropagation = options.stopPropagation, vertical = options.vertical, horizontal = options.horizontal;
+	                    if (preventDefault) {
+	                        e.preventDefault();
+	                    }
+	                    if (stopPropagation) {
+	                        e.stopPropagation();
+	                    }
+	                    // Passes the trigger element to callback
+	                    _this.ctx.$trigger = $el;
+	                    if (horizontal && vertical) {
+	                        _this.to(to, options);
+	                    }
+	                    else if (vertical) {
+	                        _this.toTop(to, options);
+	                    }
+	                    else if (horizontal) {
+	                        _this.toLeft(to, options);
+	                    }
+	                }
+	            };
+	            /**
+	             * Handling of container stop events.
+	             */
+	            this.handleStop = function (e) {
+	                var ctx = _this.ctx;
+	                var opts = ctx.opts;
+	                if (opts && opts.cancellable) {
+	                    ctx.cancel = true;
+	                    _this.stop();
+	                }
+	                else {
+	                    e.preventDefault();
+	                }
+	            };
+	            var opts = __assign({}, defaultOptions, (options || {}));
+	            var vertical = opts.vertical, horizontal = opts.horizontal;
+	            var selector = container === undefined ? 'body,html' : container;
+	            var $container = null;
+	            if (canUseDOM) {
+	                if (vertical) {
+	                    $container = findScrollable(selector, 'y');
+	                }
+	                if (!$container && horizontal) {
+	                    $container = findScrollable(selector, 'x');
+	                }
+	            }
+	            if ($container) {
+	                this.opts = opts;
+	                this.$el = $container;
+	                this.bind(true, false);
+	            }
+	        }
+	        /**
+	         * SweetScroll instance factory.
+	         */
+	        SweetScroll.create = function (options, container) {
+	            return new SweetScroll(options, container);
+	        };
+	        /**
+	         * Scroll animation to the specified position.
+	         */
+	        SweetScroll.prototype.to = function (distance, options) {
+	            if (!canUseDOM) {
+	                return;
+	            }
+	            var _a = this, $el = _a.$el, ctx = _a.ctx, currentOptions = _a.opts;
+	            var $trigger = ctx.$trigger;
+	            var opts = __assign({}, currentOptions, options || {});
+	            var optOffset = opts.offset, vertical = opts.vertical, horizontal = opts.horizontal;
+	            var $header = isElement(opts.header) ? opts.header : $(opts.header);
+	            var hash = isString(distance) && /^#/.test(distance) ? distance : null;
+	            ctx.opts = opts; // Temporary options
+	            ctx.cancel = false; // Disable the call flag of `cancel`
+	            ctx.hash = hash;
+	            // Stop current animation
+	            this.stop();
+	            // Does not move if the container is not found
+	            if (!$el) {
+	                return;
+	            }
+	            // Get scroll offset
+	            var offset = parseCoordinate(optOffset, vertical);
+	            var coordinate = parseCoordinate(distance, vertical);
+	            var scroll = { top: 0, left: 0 };
+	            if (coordinate) {
+	                if (coordinate.relative) {
+	                    var current = getScroll($el, vertical ? 'y' : 'x');
+	                    scroll.top = vertical ? current + coordinate.top : coordinate.top;
+	                    scroll.left = !vertical ? current + coordinate.left : coordinate.left;
+	                }
+	                else {
+	                    scroll = coordinate;
+	                }
+	            }
+	            else if (isString(distance) && distance !== '#') {
+	                var $target = $(distance);
+	                if (!$target) {
+	                    return;
+	                }
+	                scroll = getOffset($target, $el);
+	            }
+	            if (offset) {
+	                scroll.top += offset.top;
+	                scroll.left += offset.left;
+	            }
+	            if ($header) {
+	                scroll.top = Math.max(0, scroll.top - getSize($header).height);
+	            }
+	            // Normalize scroll offset
+	            var _b = getViewportAndElementSizes($el), viewport = _b.viewport, size = _b.size;
+	            scroll.top = vertical
+	                ? Math.max(0, Math.min(size.height - viewport.height, scroll.top))
+	                : getScroll($el, 'y');
+	            scroll.left = horizontal
+	                ? Math.max(0, Math.min(size.width - viewport.width, scroll.left))
+	                : getScroll($el, 'x');
+	            // Call `before`
+	            // Stop scrolling when it returns false
+	            if (this.hook(opts, 'before', scroll, $trigger) === false) {
+	                ctx.opts = null;
+	                return;
+	            }
+	            // Set offset
+	            ctx.pos = scroll;
+	            // Run animation!!
+	            this.start(opts);
+	            // Bind stop events
+	            this.bind(false, true);
+	        };
+	        /**
+	         * Scroll animation to specified left position.
+	         */
+	        SweetScroll.prototype.toTop = function (distance, options) {
+	            this.to(distance, __assign({}, options || {}, { vertical: true, horizontal: false }));
+	        };
+	        /**
+	         * Scroll animation to specified top position.
+	         */
+	        SweetScroll.prototype.toLeft = function (distance, options) {
+	            this.to(distance, __assign({}, options || {}, { vertical: false, horizontal: true }));
+	        };
+	        /**
+	         * Scroll animation to specified element.
+	         */
+	        SweetScroll.prototype.toElement = function ($element, options) {
+	            var $el = this.$el;
+	            if (!canUseDOM || !$el) {
+	                return;
+	            }
+	            this.to(getOffset($element, $el), options || {});
+	        };
+	        /**
+	         * Stop the current scroll animation.
+	         */
+	        SweetScroll.prototype.stop = function (gotoEnd) {
+	            if (gotoEnd === void 0) { gotoEnd = false; }
+	            var _a = this, $el = _a.$el, ctx = _a.ctx;
+	            var pos = ctx.pos;
+	            if (!$el || !ctx.progress) {
+	                return;
+	            }
+	            SweetScroll.caf(ctx.id);
+	            ctx.progress = false;
+	            ctx.start = 0;
+	            ctx.id = 0;
+	            if (gotoEnd && pos) {
+	                setScroll($el, pos.left, 'x');
+	                setScroll($el, pos.top, 'y');
+	            }
+	            this.complete();
+	        };
+	        /**
+	         * Update options.
+	         */
+	        SweetScroll.prototype.update = function (options) {
+	            if (this.$el) {
+	                var opts = __assign({}, this.opts, options);
+	                this.stop();
+	                this.unbind(true, true);
+	                this.opts = opts;
+	                this.bind(true, false);
+	            }
+	        };
+	        /**
+	         * Destroy instance.
+	         */
+	        SweetScroll.prototype.destroy = function () {
+	            if (this.$el) {
+	                this.stop();
+	                this.unbind(true, true);
+	                this.$el = null;
+	            }
+	        };
+	        /**
+	         * Callback methods.
+	         */
+	        /* tslint:disable:no-empty */
+	        SweetScroll.prototype.onBefore = function (_, __) { return true; };
+	        SweetScroll.prototype.onStep = function (_) { };
+	        SweetScroll.prototype.onAfter = function (_, __) { };
+	        SweetScroll.prototype.onCancel = function () { };
+	        SweetScroll.prototype.onComplete = function (_) { };
+	        /* tslint:enable */
+	        /**
+	         * Start scrolling animation.
+	         */
+	        SweetScroll.prototype.start = function (opts) {
+	            var ctx = this.ctx;
+	            ctx.opts = opts;
+	            ctx.progress = true;
+	            ctx.easing = isFunction(opts.easing)
+	                ? opts.easing
+	                : easings[opts.easing];
+	            // Update start offset.
+	            var $container = this.$el;
+	            var offset = ctx.pos;
+	            var start = {
+	                top: getScroll($container, 'y'),
+	                left: getScroll($container, 'x'),
+	            };
+	            if (opts.quickMode) {
+	                var _a = getViewportAndElementSizes($container).viewport, width = _a.width, height = _a.height;
+	                if (Math.abs(start.top - offset.top) > height) {
+	                    start.top = start.top > offset.top ? offset.top + height : offset.top - height;
+	                }
+	                if (Math.abs(start.left - offset.left) > width) {
+	                    start.left = start.left > offset.left ? offset.left + width : offset.left - width;
+	                }
+	            }
+	            ctx.startPos = start;
+	            // Loop
+	            ctx.id = SweetScroll.raf(this.loop);
+	        };
+	        /**
+	         * Handle the completion of scrolling animation.
+	         */
+	        SweetScroll.prototype.complete = function () {
+	            var _a = this, $el = _a.$el, ctx = _a.ctx;
+	            var hash = ctx.hash, cancel = ctx.cancel, opts = ctx.opts, pos = ctx.pos, $trigger = ctx.$trigger;
+	            if (!$el || !opts) {
+	                return;
+	            }
+	            if (hash != null && hash !== window.location.hash) {
+	                var updateURL = opts.updateURL;
+	                if (canUseDOM && canUseHistory && updateURL !== false) {
+	                    window.history[updateURL === 'replace' ? 'replaceState' : 'pushState'](null, '', hash);
+	                }
+	            }
+	            this.unbind(false, true);
+	            ctx.opts = null;
+	            ctx.$trigger = null;
+	            if (cancel) {
+	                this.hook(opts, 'cancel');
+	            }
+	            else {
+	                this.hook(opts, 'after', pos, $trigger);
+	            }
+	            this.hook(opts, 'complete', cancel);
+	        };
+	        /**
+	         * Callback function and method call.
+	         */
+	        SweetScroll.prototype.hook = function (options, type) {
+	            var args = [];
+	            for (var _i = 2; _i < arguments.length; _i++) {
+	                args[_i - 2] = arguments[_i];
+	            }
+	            var callback = options[type];
+	            var callbackResult;
+	            var methodResult;
+	            // callback
+	            if (isFunction(callback)) {
+	                callbackResult = callback.apply(this, args.concat([this]));
+	            }
+	            // method
+	            methodResult = this["on" + (type[0].toUpperCase() + type.slice(1))].apply(this, args);
+	            return callbackResult !== undefined ? callbackResult : methodResult;
+	        };
+	        /**
+	         * Bind events of container element.
+	         */
+	        SweetScroll.prototype.bind = function (click, stop) {
+	            var _a = this, $el = _a.$el, opts = _a.ctx.opts;
+	            if ($el) {
+	                if (click) {
+	                    addEvent($el, CONTAINER_CLICK_EVENT, this.handleClick, false);
+	                }
+	                if (stop) {
+	                    addEvent($el, CONTAINER_STOP_EVENT, this.handleStop, opts ? opts.cancellable : true);
+	                }
+	            }
+	        };
+	        /**
+	         * Unbind events of container element.
+	         */
+	        SweetScroll.prototype.unbind = function (click, stop) {
+	            var _a = this, $el = _a.$el, opts = _a.ctx.opts;
+	            if ($el) {
+	                if (click) {
+	                    removeEvent($el, CONTAINER_CLICK_EVENT, this.handleClick, false);
+	                }
+	                if (stop) {
+	                    removeEvent($el, CONTAINER_STOP_EVENT, this.handleStop, opts ? opts.cancellable : true);
+	                }
+	            }
+	        };
+	        /**
+	         * You can set Polyfill (or Ponyfill) for browsers that do not support requestAnimationFrame.
+	         */
+	        SweetScroll.raf = raf;
+	        SweetScroll.caf = caf;
+	        return SweetScroll;
+	    }());
 
-	  // Callbacks
-	  initialized: null,
-	  beforeScroll: null,
-	  afterScroll: null,
-	  cancelScroll: null,
-	  completeScroll: null,
-	  stepScroll: null
-	};
-
-	return SweetScroll;
+	    return SweetScroll;
 
 	})));
 
