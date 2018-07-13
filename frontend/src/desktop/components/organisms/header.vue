@@ -1,5 +1,5 @@
 <template>
-  <div class="v-cloak Header" :class="{ webp: supportsWebP }">
+  <div class="v-cloak Header" :class="[ $style.Header, { [$style.webp]: supportsWebP } ]">
     <header>
       <h1><a href="/">絵文字 ジェネレーター</a></h1>
       <div class="icons">
@@ -54,7 +54,7 @@
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss" module>
   @import "desktop/style/_variables";
 
   $_height: $dimen-header-height;
@@ -115,11 +115,11 @@
         }
       }
     }
+  }
 
-    &.webp header h1 a {
-      &::before {
-        background-image: url('/assets/img/logo.webp');
-      }
+  .webp header h1 a {
+    &::before {
+      background-image: url('/assets/img/logo.webp');
     }
   }
 

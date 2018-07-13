@@ -1,5 +1,5 @@
 <template>
-  <div class="v-cloak App">
+  <div class="v-cloak" :class="$style.App">
     <Header></Header>
   </div>
 </template>
@@ -38,7 +38,7 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss" module>
 
   .App {
     position: relative;
