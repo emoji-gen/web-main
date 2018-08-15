@@ -20,7 +20,7 @@ jobs:
           name: Notify test started
           command: |
             $PIP_BIN install -q slackweb
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "$CIRCLE_BRANCH" = "master" ]; then
               $PYTHON_BIN common/script/notify.py started
             fi
       - restore_cache:
@@ -44,7 +44,7 @@ jobs:
       - run:
           name: Check git dirty
           command: |
-            if [ $CIRCLE_BRANCH = 'master' ]; then
+            if [ "$CIRCLE_BRANCH" = "master" ]; then
               ./common/script/is-git-dirty.sh
             fi
       - save_cache:
@@ -56,12 +56,12 @@ jobs:
       - run:
           name: Notify test successful
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "$CIRCLE_BRANCH" = "master" ]; then
               $PYTHON_BIN common/script/notify.py successful
             fi
       - deploy:
           name: Deploy to Production
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "$CIRCLE_BRANCH" = "master" ]; then
               curl -X POST "https://circleci.com/api/v1.1/project/github/pine/eg-fabric/tree/master?circle-token=$CIRCLE_TOKEN"
             fi
