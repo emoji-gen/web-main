@@ -8,7 +8,7 @@ attrs==18.1.0
 cffi==1.11.5
 chardet==3.0.4
 cryptography==2.2.2
-emojilib==0.1.6
+emojilib==0.1.7
 funcy==1.10.3
 htmlmin==0.1.12
 idna==2.7
