@@ -40,18 +40,23 @@ async def _execute(request, download_fg=False):
     # TODO: Slack 通知
 
     # 絵文字を生成
-    img_data = emojilib.generate(
-        text=text,
-        width=128,
-        height=128,
-        color=color,
-        background_color=background_color,
-        size_fixed=size_fixed,
-        disable_stretch=disable_stretch,
-        align=align,
-        typeface_file=font_path,
-        format='png'
-    )
+    try:
+        img_data = emojilib.generate(
+            text=text,
+            width=128,
+            height=128,
+            color=color,
+            background_color=background_color,
+            size_fixed=size_fixed,
+            disable_stretch=disable_stretch,
+            align=align,
+            typeface_file=font_path,
+            format='png'
+        )
+    except Exception as err:
+        print(err)
+        print('color:{}\tbackground_color:{}'.format(color, background_color))
+        return HTTPBadRequest()
 
     # 生成ログを記録
     if download_fg:
