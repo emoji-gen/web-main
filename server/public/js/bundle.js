@@ -40,7 +40,30 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
+/******/ ((function(modules) {
+	// Check all modules for deduplicated modules
+	for(var i in modules) {
+		if(Object.prototype.hasOwnProperty.call(modules, i)) {
+			switch(typeof modules[i]) {
+			case "function": break;
+			case "object":
+				// Module can be created from a template
+				modules[i] = (function(_m) {
+					var args = _m.slice(1), fn = modules[_m[0]];
+					return function (a,b,c) {
+						fn.apply(this, [a,b,c].concat(args));
+					};
+				}(modules[i]));
+				break;
+			default:
+				// Module is a copy of another module
+				modules[i] = modules[modules[i]];
+				break;
+			}
+		}
+	}
+	return modules;
+}([
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14665,7 +14688,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset 'utf-8';\n/* fonts */\n/* colors */\n/* degree */\n/* z-index */\n/* dimensions */\nhtml, body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;\n}\n", ""]);
+	exports.push([module.id, "body,html{margin:0;padding:0;font-family:Hiragino Kaku Gothic ProN,Yu Gothic,sans-serif}", ""]);
 
 	// exports
 
@@ -15094,31 +15117,7 @@
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(16);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
+[107, 16],
 /* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15127,7 +15126,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset 'utf-8';\n/* fonts */\n/* colors */\n/* degree */\n/* z-index */\n/* dimensions */\n.eg-root {\n  position: relative;\n  margin: 0;\n  padding: 0;\n}\n", ""]);
+	exports.push([module.id, ".eg-root{position:relative;margin:0;padding:0}", ""]);
 
 	// exports
 
@@ -15136,7 +15135,7 @@
 /* 17 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-root\">\n  <eg-header></eg-header>\n  <router-view></router-view>\n  <eg-background></eg-background>\n  <eg-footer></eg-footer>\n</div>\n";
+	module.exports = "<div class=\"v-cloak eg-root\"> <eg-header></eg-header> <router-view></router-view> <eg-background></eg-background> <eg-footer></eg-footer> </div> ";
 
 /***/ }),
 /* 18 */
@@ -15153,31 +15152,7 @@
 
 /***/ }),
 /* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(20);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
+[107, 20],
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15186,7 +15161,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset 'utf-8';\n/* fonts */\n/* colors */\n/* degree */\n/* z-index */\n/* dimensions */\n.eg-background {\n  position: fixed;\n  top: 0;\n  right: 0;\n  left: 0;\n  box-sizing: border-box;\n  height: 1135px;\n  overflow: hidden;\n  z-index: -1;\n}\n.eg-background .blue {\n  position: absolute;\n  top: 100px;\n  left: -30px;\n  width: 800px;\n  height: 10px;\n  background-color: #6FCBDD;\n  opacity: 0.4;\n  -webkit-transform: rotate(-18deg);\n          transform: rotate(-18deg);\n}\n.eg-background .red {\n  position: absolute;\n  top: 170px;\n  left: -50px;\n  width: 1250px;\n  height: 10px;\n  background-color: #E11665;\n  opacity: 0.4;\n  -webkit-transform: rotate(-18deg);\n          transform: rotate(-18deg);\n}\n.eg-background .green {\n  position: absolute;\n  top: -30px;\n  left: 200px;\n  width: 10px;\n  height: 1200px;\n  background-color: #38BA91;\n  opacity: 0.4;\n  -webkit-transform: rotate(-18deg);\n          transform: rotate(-18deg);\n}\n.eg-background .yellow {\n  position: absolute;\n  top: -30px;\n  left: 330px;\n  width: 10px;\n  height: 1200px;\n  background-color: #EAA822;\n  opacity: 0.4;\n  -webkit-transform: rotate(-18deg);\n          transform: rotate(-18deg);\n}\n", ""]);
+	exports.push([module.id, ".eg-background{position:fixed;top:0;right:0;left:0;box-sizing:border-box;height:1135px;overflow:hidden;z-index:-1}.eg-background .blue{top:100px;left:-30px;width:800px;background-color:#6fcbdd}.eg-background .blue,.eg-background .red{position:absolute;height:10px;opacity:.4;-webkit-transform:rotate(-18deg);transform:rotate(-18deg)}.eg-background .red{top:170px;left:-50px;width:1250px;background-color:#e11665}.eg-background .green{left:200px;background-color:#38ba91}.eg-background .green,.eg-background .yellow{position:absolute;top:-30px;width:10px;height:1200px;opacity:.4;-webkit-transform:rotate(-18deg);transform:rotate(-18deg)}.eg-background .yellow{left:330px;background-color:#eaa822}", ""]);
 
 	// exports
 
@@ -15195,7 +15170,7 @@
 /* 21 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-background\">\n  <div class=\"blue\"></div>\n  <div class=\"red\"></div>\n  <div class=\"green\"></div>\n  <div class=\"yellow\"></div>\n</div>\n";
+	module.exports = "<div class=\"v-cloak eg-background\"> <div class=blue></div> <div class=red></div> <div class=green></div> <div class=yellow></div> </div> ";
 
 /***/ }),
 /* 22 */
@@ -15216,31 +15191,7 @@
 
 /***/ }),
 /* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(24);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
+[107, 24],
 /* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15249,7 +15200,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset 'utf-8';\n/* fonts */\n/* colors */\n/* degree */\n/* z-index */\n/* dimensions */\n.eg-footer {\n  width: 100%;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);\n}\n.eg-footer, .eg-footer * {\n  box-sizing: border-box;\n}\n.eg-footer footer {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  margin: 0 auto;\n  padding: 8px 15px 10px;\n  width: 900px;\n}\n.eg-footer footer .banner {\n  display: inline-block;\n}\n.eg-footer footer .menus {\n  margin: 0 20px 15px 0;\n  padding: 0;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n  -ms-flex-item-align: end;\n      align-self: flex-end;\n  color: #8C8C8C;\n  text-align: right;\n  font-size: 11px;\n}\n.eg-footer footer .menus li {\n  display: inline-block;\n  margin: 0;\n  list-style-position: inside;\n  list-style-type: none;\n  line-height: $_height;\n  color: #8C8C8C\n}\n.eg-footer footer .menus li::before{\n  display: inline;\n  margin: 0 6px 0 4px;\n  content: '|';\n}\n.eg-footer footer .menus li:first-child{}\n.eg-footer footer .menus li:first-child::before{\n  display: none;\n}\n.eg-footer footer .copyright {\n  margin: 0 0 15px;\n  font-size: 11px;\n  -ms-flex-item-align: end;\n      align-self: flex-end;\n}\n", ""]);
+	exports.push([module.id, ".eg-footer{width:100%;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 3px 1px rgba(0,0,0,.2)}.eg-footer,.eg-footer *{box-sizing:border-box}.eg-footer footer{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;margin:0 auto;padding:8px 15px 10px;width:900px}.eg-footer footer .banner{display:inline-block}.eg-footer footer .menus{margin:0 20px 15px 0;padding:0;-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;-ms-flex-item-align:end;align-self:flex-end;color:#8c8c8c;text-align:right;font-size:11px}.eg-footer footer .menus li{display:inline-block;margin:0;list-style-position:inside;list-style-type:none;line-height:$_height;color:#8c8c8c}.eg-footer footer .menus li:before{display:inline;margin:0 6px 0 4px;content:\"|\"}.eg-footer footer .menus li:first-child:before{display:none}.eg-footer footer .copyright{margin:0 0 15px;font-size:11px;-ms-flex-item-align:end;align-self:flex-end}", ""]);
 
 	// exports
 
@@ -15258,7 +15209,7 @@
 /* 25 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-footer\">\n  <footer>\n    <div class=\"banner\">\n      <a href=\"https://play.google.com/store/apps/details?id=moe.pine.emoji&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1\" target=\"_blank\">\n        <img src=\"/static/img/playstore.png\" width=\"162\" height=\"63\" alt=\"Google Play で手に入れよう\">\n      </a>\n    </div>\n    <ul class=\"menus\">\n      <li><a href=\"/blog/\" target=\"_blank\">開発者ブログ</a></li>\n      <li><a v-link=\"'/contact'\" v-eg-scroll>お問い合わせ</a></li>\n    </ul>\n    <p class=\"copyright\">(C) 2016-2018 絵文字 ジェネレーター</p>\n  </footer>\n</div>\n";
+	module.exports = "<div class=\"v-cloak eg-footer\"> <footer> <div class=banner> <a href=\"https://play.google.com/store/apps/details?id=moe.pine.emoji&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1\" target=_blank> <img src=/static/img/playstore.png width=162 height=63 alt=\"Google Play で手に入れよう\"> </a> </div> <ul class=menus> <li><a href=/blog/ target=_blank>開発者ブログ</a></li> <li><a v-link=\"'/contact'\" v-eg-scroll>お問い合わせ</a></li> </ul> <p class=copyright>(C) 2016-2018 絵文字 ジェネレーター</p> </footer> </div> ";
 
 /***/ }),
 /* 26 */
@@ -16302,31 +16253,7 @@
 
 /***/ }),
 /* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(32);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
+[107, 32],
 /* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16335,7 +16262,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset 'utf-8';\n/* fonts */\n/* colors */\n/* degree */\n/* z-index */\n/* dimensions */\n.eg-header {\n  z-index: 1;\n  height: 74px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);\n}\n.eg-header, .eg-header * {\n  box-sizing: border-box;\n}\n.eg-header header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  margin: 0 auto;\n  padding: 0;\n  width: 900px;\n  height: 74px;\n}\n.eg-header header h1 {\n  position: relative;\n  display: block;\n  margin: 0;\n  padding: 0;\n}\n.eg-header header h1 a {\n  display: block;\n  margin: 0;\n  padding: 0 0 0 80px;\n  line-height: 74px;\n  letter-spacing: 6px;\n  color: rgb(80, 80, 80);\n  text-decoration: none;\n  font-size: 19px;\n  font-weight: bold\n}\n.eg-header header h1 a::before{\n  display: block;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 20px;\n  right: 0;\n  width: 40px;\n  -webkit-transform: rotate(-18deg);\n          transform: rotate(-18deg);\n  background-image: url('/static/img/logo.png');\n  background-size: 40px auto;\n  background-repeat: no-repeat;\n  background-position: 0px center;\n  content: '';\n}\n.eg-header header .icons {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin: 0 20px 0 0;\n}\n.eg-header header .icons input, .eg-header header .icons a {\n  display: block;\n  margin: 0;\n  border: 0;\n  width: 40px;\n  height: 40px;\n  background-color: transparent;\n  background-size: 40px;\n  background-repeat: no-repeat;\n  background-position: 0px center;\n  overflow: hidden;\n  text-indent: 100%;\n  white-space: nowrap;\n  margin: 0 0 0 12px\n}\n.eg-header header .icons input.twitter, .eg-header header .icons a.twitter{\n  background-image: url('/static/img/twitter.png');\n  opacity: .88;\n}\n.eg-header header .icons input.facebook, .eg-header header .icons a.facebook{\n  background-image: url('/static/img/facebook.png');\n  opacity: .80;\n}\n.eg-header header .icons input.google, .eg-header header .icons a.google{\n  background-image: url('/static/img/google.png');\n  opacity: .80;\n}\n.eg-header header .icons input.github, .eg-header header .icons a.github{\n  background-image: url('/static/img/github.png');\n  opacity: .70;\n}\n", ""]);
+	exports.push([module.id, ".eg-header{z-index:1;height:74px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 3px 1px rgba(0,0,0,.2)}.eg-header,.eg-header *{box-sizing:border-box}.eg-header header{display:-webkit-box;display:-ms-flexbox;display:flex;margin:0 auto;padding:0;width:900px;height:74px}.eg-header header h1{position:relative;display:block;margin:0;padding:0}.eg-header header h1 a{display:block;margin:0;padding:0 0 0 80px;line-height:74px;letter-spacing:6px;color:#505050;text-decoration:none;font-size:19px;font-weight:700}.eg-header header h1 a:before{display:block;position:absolute;top:0;bottom:0;left:20px;right:0;width:40px;-webkit-transform:rotate(-18deg);transform:rotate(-18deg);background-image:url(\"/static/img/logo.png\");background-size:40px auto;background-repeat:no-repeat;background-position:0;content:\"\"}.eg-header header .icons{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin:0 20px 0 0}.eg-header header .icons a,.eg-header header .icons input{display:block;margin:0;border:0;width:40px;height:40px;background-color:transparent;background-size:40px;background-repeat:no-repeat;background-position:0;overflow:hidden;text-indent:100%;white-space:nowrap;margin:0 0 0 12px}.eg-header header .icons a.twitter,.eg-header header .icons input.twitter{background-image:url(\"/static/img/twitter.png\");opacity:.88}.eg-header header .icons a.facebook,.eg-header header .icons input.facebook{background-image:url(\"/static/img/facebook.png\");opacity:.8}.eg-header header .icons a.google,.eg-header header .icons input.google{background-image:url(\"/static/img/google.png\");opacity:.8}.eg-header header .icons a.github,.eg-header header .icons input.github{background-image:url(\"/static/img/github.png\");opacity:.7}", ""]);
 
 	// exports
 
@@ -16344,7 +16271,7 @@
 /* 33 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-header\">\n  <header>\n    <h1><a href=\"/\">絵文字 ジェネレーター</a></h1>\n    <div class=\"icons\">\n      <input type=\"button\" class=\"twitter sharer button\" data-sharer=\"twitter\" data-title=\"絵文字ジェネレーター使ってます&#9834;\" data-hashtags=\"絵文字ジェネレーター\" data-url=\"https://emoji.pine.moe/\" title=\"Twitter でシェアする\" v-eg-sharer>\n      <input type=\"button\" class=\"facebook sharer button\" data-sharer=\"facebook\" data-url=\"https://emoji.pine.moe/\" title=\"Facebook でシェアする\" v-eg-sharer>\n      <input type=\"button\" class=\"google sharer button\" data-sharer=\"googleplus\" data-url=\"https://emoji.pine.moe/\" title=\"Google+ でシェアする\" v-eg-sharer>\n      <a href=\"https://github.com/emoji-gen/Emoji-Web\" class=\"github\" target=\"_blank\">GitHub</a>\n    </div>\n  </header>\n</div>\n";
+	module.exports = "<div class=\"v-cloak eg-header\"> <header> <h1><a href=/ >絵文字 ジェネレーター</a></h1> <div class=icons> <input type=button class=\"twitter sharer button\" data-sharer=twitter data-title=絵文字ジェネレーター使ってます&#9834; data-hashtags=絵文字ジェネレーター data-url=https://emoji.pine.moe/ title=\"Twitter でシェアする\" v-eg-sharer> <input type=button class=\"facebook sharer button\" data-sharer=facebook data-url=https://emoji.pine.moe/ title=\"Facebook でシェアする\" v-eg-sharer> <input type=button class=\"google sharer button\" data-sharer=googleplus data-url=https://emoji.pine.moe/ title=\"Google+ でシェアする\" v-eg-sharer> <a href=https://github.com/emoji-gen/Emoji-Web class=github target=_blank>GitHub</a> </div> </header> </div> ";
 
 /***/ }),
 /* 34 */
@@ -16405,31 +16332,7 @@
 
 /***/ }),
 /* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(37);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
+[107, 37],
 /* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16438,7 +16341,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset 'utf-8';\n/* fonts */\n/* colors */\n/* degree */\n/* z-index */\n/* dimensions */\n.eg-emoji {\n  margin-bottom: 180px;\n  min-height: 600px;\n}\n", ""]);
+	exports.push([module.id, ".eg-emoji{margin-bottom:180px;min-height:600px}", ""]);
 
 	// exports
 
@@ -16447,7 +16350,7 @@
 /* 38 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-emoji\">\n  <eg-result></eg-result>\n  <eg-generator></eg-generator>\n  <eg-recently v-if=\"historyEnabled\"></eg-recently>\n</div>\n";
+	module.exports = "<div class=\"v-cloak eg-emoji\"> <eg-result></eg-result> <eg-generator></eg-generator> <eg-recently v-if=historyEnabled></eg-recently> </div> ";
 
 /***/ }),
 /* 39 */
@@ -16791,31 +16694,7 @@
 
 /***/ }),
 /* 42 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(43);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
+[107, 43],
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16824,7 +16703,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset 'utf-8';\n/* fonts */\n/* colors */\n/* degree */\n/* z-index */\n/* dimensions */\n.eg-generator {\n  margin: 30px auto 30px auto;\n  width: 900px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);\n  padding: 20px 0 35px;\n}\n.eg-generator, .eg-generator * {\n  box-sizing: border-box;\n}\n.eg-generator h2 {\n  margin: 18px 0 28px;\n  font-size: 17px;\n  font-weight: bold;\n  letter-spacing: 1.8px;\n  text-align: center;\n  color: #1EBAA0;\n}\n.eg-generator h3 {\n  display: block;\n  margin: 0 0 16px;\n  font-size: 15px;\n  font-weight: bold;\n  letter-spacing: 1px;\n  text-align: center;\n}\n.eg-generator h4 {\n  display: block;\n  margin: 0 0 10px;\n  font-size: 13px;\n  font-weight: bold;\n  letter-spacing: 1px;\n  text-align: center;\n}\n.eg-generator .buttons {\n  margin: 40px 0 0 0;\n  text-align: center;\n}\n.eg-generator .buttons button {\n  padding: 12px 60px;\n  border-radius: 12px;\n  background-color: rgba(225, 22, 101, 0.5);\n  background-image: none !important;\n  color: white;\n  font-weight: bold\n}\n.eg-generator .buttons button:hover, .eg-generator .buttons button:focus{\n  background-color: rgba(225, 22, 101, 0.75);\n}\n.eg-generator .buttons > .history {\n  color: #8C8C8C;\n  letter-spacing: .4px;\n  font-size: 11px;\n}\n.eg-generator .buttons > .history label {\n  padding: 0 3px;\n}\n.eg-generator .buttons > .history label input {\n  margin-right: 3px;\n}\n.eg-generator .parameters {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  margin: 38px 0 0;\n}\n.eg-generator .parameters .parameter {\n  margin: 0 30px 0;\n  text-align: center;\n}\n.eg-generator .parameters .parameter h3 {\n  color: #3AB0C7;\n}\n.eg-generator .parameters .parameter h4 {\n  color: #8C8C8C;\n}\n.eg-generator .parameters .parameter.text{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.eg-generator .parameters .parameter.text textarea{\n  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .15);\n  border-radius: 2px;\n  margin: 0 0 24px 0;\n  padding: 10px;\n  border: 0;\n  width: 140px;\n  height: 100px;\n  text-align: center;\n  -webkit-appearance: none;\n}\n.eg-generator .parameters .parameter.text .aligns{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  width: 98px;\n  margin: -1px 0 24px;\n}\n.eg-generator .parameters .parameter.text .aligns .align{\n  display: inline-block;\n  position: relative;\n  width: 20px;\n  height: 20px;\n}\n.eg-generator .parameters .parameter.text .aligns .align label{\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  overflow: hidden;\n  padding-top: 20px;\n  background-size: 20px, 0;\n  background-repeat: no-repeat;\n  cursor: pointer;\n}\n.eg-generator .parameters .parameter.text .aligns .align input:checked + label{\n  background-size: 0, 20px;\n}\n.eg-generator .parameters .parameter.text .aligns .align input{\n  display: none;\n}\n.eg-generator .parameters .parameter.text .aligns .align.left label{\n  background-image: url('/static/img/align_left.png'),\n                  url('/static/img/align_left_active.png');\n}\n.eg-generator .parameters .parameter.text .aligns .align.center label{\n  background-image: url('/static/img/align_center.png'),\n                  url('/static/img/align_center_active.png');\n}\n.eg-generator .parameters .parameter.text .aligns .align.right label{\n  background-image: url('/static/img/align_right.png'),\n                  url('/static/img/align_right_active.png');\n}\n.eg-generator .parameters .parameter.text .sizes{\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  line-height: 1;\n  color: #8C8C8C;\n  text-align: left;\n  font-size: 11px;\n}\n.eg-generator .parameters .parameter.text .sizes label{\n  display: block;\n  cursor: pointer;\n}\n.eg-generator .parameters .parameter.text .sizes label input{\n  margin-right: 2px;\n}\n.eg-generator .parameters .parameter.text .sizes label:first-of-type{\n  margin-bottom: 6px;\n}\n.eg-generator .parameters .parameter.color{\n  margin-right: 32px;\n}\n.eg-generator .parameters .parameter.color .picker-wrapper > div{\n  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .15);\n  border-radius: 2px;\n  margin-bottom: 8px;\n}\n.eg-generator .parameters .parameter.font ul{\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n  list-style-position: inside;\n}\n.eg-generator .parameters .parameter.font input{\n  display: none;\n}\n.eg-generator .parameters .parameter.font input:checked + label{\n  border: 1px solid rgba(112, 167, 179, 0.8);\n  background-image: url(/static/img/checked.png);\n  background-repeat: no-repeat;\n  background-position: 14px center;\n  background-size: 20px auto;\n  color: rgb(112, 157, 166);\n}\n.eg-generator .parameters .parameter.font label{\n  display: block;\n  margin: 0 0 5px;\n  padding: 8px 23px 8px 46px;\n  border-radius: 16px;\n  border: 1px solid rgba(0, 0, 0, .2);\n  color: rgba(0, 0, 0, .32);\n  font-size: 15px;\n  text-align: left;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  cursor: pointer;\n}\n\n", ""]);
+	exports.push([module.id, ".eg-generator{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:20px 0 35px}.eg-generator,.eg-generator *{box-sizing:border-box}.eg-generator h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-generator h3{margin:0 0 16px;font-size:15px}.eg-generator h3,.eg-generator h4{display:block;font-weight:700;letter-spacing:1px;text-align:center}.eg-generator h4{margin:0 0 10px;font-size:13px}.eg-generator .buttons{margin:40px 0 0;text-align:center}.eg-generator .buttons button{padding:12px 60px;border-radius:12px;background-color:rgba(225,22,101,.5);background-image:none!important;color:#fff;font-weight:700}.eg-generator .buttons button:focus,.eg-generator .buttons button:hover{background-color:rgba(225,22,101,.75)}.eg-generator .buttons>.history{color:#8c8c8c;letter-spacing:.4px;font-size:11px}.eg-generator .buttons>.history label{padding:0 3px}.eg-generator .buttons>.history label input{margin-right:3px}.eg-generator .parameters{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:38px 0 0}.eg-generator .parameters .parameter{margin:0 30px;text-align:center}.eg-generator .parameters .parameter h3{color:#3ab0c7}.eg-generator .parameters .parameter h4{color:#8c8c8c}.eg-generator .parameters .parameter.text{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-align:center;-ms-flex-align:center;align-items:center}.eg-generator .parameters .parameter.text textarea{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px;margin:0 0 24px;padding:10px;border:0;width:140px;height:100px;text-align:center;-webkit-appearance:none}.eg-generator .parameters .parameter.text .aligns{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;width:98px;margin:-1px 0 24px}.eg-generator .parameters .parameter.text .aligns .align{display:inline-block;position:relative;width:20px;height:20px}.eg-generator .parameters .parameter.text .aligns .align label{position:absolute;top:0;right:0;bottom:0;left:0;overflow:hidden;padding-top:20px;background-size:20px,0;background-repeat:no-repeat;cursor:pointer}.eg-generator .parameters .parameter.text .aligns .align input:checked+label{background-size:0,20px}.eg-generator .parameters .parameter.text .aligns .align input{display:none}.eg-generator .parameters .parameter.text .aligns .align.left label{background-image:url(\"/static/img/align_left.png\"),url(\"/static/img/align_left_active.png\")}.eg-generator .parameters .parameter.text .aligns .align.center label{background-image:url(\"/static/img/align_center.png\"),url(\"/static/img/align_center_active.png\")}.eg-generator .parameters .parameter.text .aligns .align.right label{background-image:url(\"/static/img/align_right.png\"),url(\"/static/img/align_right_active.png\")}.eg-generator .parameters .parameter.text .sizes{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;line-height:1;color:#8c8c8c;text-align:left;font-size:11px}.eg-generator .parameters .parameter.text .sizes label{display:block;cursor:pointer}.eg-generator .parameters .parameter.text .sizes label input{margin-right:2px}.eg-generator .parameters .parameter.text .sizes label:first-of-type{margin-bottom:6px}.eg-generator .parameters .parameter.color{margin-right:32px}.eg-generator .parameters .parameter.color .picker-wrapper>div{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px;margin-bottom:8px}.eg-generator .parameters .parameter.font ul{margin:0;padding:0;list-style-type:none;list-style-position:inside}.eg-generator .parameters .parameter.font input{display:none}.eg-generator .parameters .parameter.font input:checked+label{border:1px solid rgba(112,167,179,.8);background-image:url(/static/img/checked.png);background-repeat:no-repeat;background-position:14px;background-size:20px auto;color:#709da6}.eg-generator .parameters .parameter.font label{display:block;margin:0 0 5px;padding:8px 23px 8px 46px;border-radius:16px;border:1px solid rgba(0,0,0,.2);color:rgba(0,0,0,.32);font-size:15px;text-align:left;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer}", ""]);
 
 	// exports
 
@@ -16833,7 +16712,7 @@
 /* 44 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-generator\">\n  <h2>絵文字にしたい文字を入力してください！</h2>\n\n  <div class=\"buttons\">\n    <button type=\"button\" class=\"pure-button\" v-on:click=\"generate\" v-eg-scroll>生成する&#9834;</button>\n\n    <p class=\"history\" v-if=\"historyEnabled\"\n       title=\"チェックマークを外すと、絵文字が生成履歴に残りません。\">\n      <label class=\"pure-checkbox\">\n        <input type=\"checkbox\" v-model=\"publicFg\"/>\n        生成履歴に絵文字を表示する\n      </label>\n    </p>\n  </div>\n\n  <div class=\"parameters\">\n    <div class=\"parameter text\">\n      <h3>テキスト</h3>\n      <textarea rows=\"2\" cols=\"10\" v-model=\"text\"></textarea>\n\n      <h4>文字揃え</h4>\n      <div class=\"aligns\">\n        <span class=\"align left\">\n          <input type=\"radio\" name=\"eg_generator__text_align_key\"\n                 id=\"eg_generator__text_align_left\" value=\"left\" v-model=\"textAlign\">\n          <label for=\"eg_generator__text_align_left\">左</label>\n        </span>\n        <span class=\"align center\">\n          <input type=\"radio\" name=\"eg_generator__text_align_key\"\n                 id=\"eg_generator__text_align_center\" value=\"center\" v-model=\"textAlign\">\n          <label for=\"eg_generator__text_align_center\">中央</label>\n        </span>\n        <span class=\"align right\">\n          <input type=\"radio\" name=\"eg_generator__text_align_key\"\n                 id=\"eg_generator__text_align_right\" value=\"right\" v-model=\"textAlign\">\n          <label for=\"eg_generator__text_align_right\">右</label>\n        </span>\n      </div>\n\n      <h4>サイズ調整</h4>\n      <div class=\"sizes\">\n        <label>\n          <input type=\"checkbox\" v-model=\"sizeFixed\">\n          文字サイズを固定する\n        </label>\n        <label>\n          <input type=\"checkbox\" v-model=\"nonStretch\">\n          自動で伸縮しない\n        </label>\n      </div>\n    </div>\n\n    <div class=\"parameter font\">\n      <h3>フォント</h3>\n      <ul>\n        <li v-for=\"font in fonts\" track-by=\"$index\">\n          <input type=\"radio\" name=\"eg_generator__font_key\" :value=\"font.key\"\n            id=\"eg_generator__font_{{font.key}}\" v-model=\"fontKey\">\n          <label for=\"eg_generator__font_{{font.key}}\">{{font.name}}</label>\n        </li>\n      </ul>\n    </div>\n\n    <div class=\"parameter color\">\n      <h3>カラー</h3>\n      <div class=\"pickers\">\n        <div class=\"picker-wrapper\" v-show=\"colorKind == 'foreground'\">\n          <chrome-picker :colors.sync=\"colors\"></chrome-picker>\n        </div>\n        <div class=\"picker-wrapper\" v-else>\n          <chrome-picker :colors.sync=\"backgroundColors\"></chrome-picker>\n        </div>\n      </div>\n      <eg-color-kind :color-kind.sync=\"colorKind\"></eg-color-kind>\n    </div>\n  </div>\n</div>\n";
+	module.exports = "<div class=\"v-cloak eg-generator\"> <h2>絵文字にしたい文字を入力してください！</h2> <div class=buttons> <button type=button class=pure-button v-on:click=generate v-eg-scroll>生成する&#9834;</button> <p class=history v-if=historyEnabled title=チェックマークを外すと、絵文字が生成履歴に残りません。> <label class=pure-checkbox> <input type=checkbox v-model=publicFg /> 生成履歴に絵文字を表示する </label> </p> </div> <div class=parameters> <div class=\"parameter text\"> <h3>テキスト</h3> <textarea rows=2 cols=10 v-model=text></textarea> <h4>文字揃え</h4> <div class=aligns> <span class=\"align left\"> <input type=radio name=eg_generator__text_align_key id=eg_generator__text_align_left value=left v-model=textAlign> <label for=eg_generator__text_align_left>左</label> </span> <span class=\"align center\"> <input type=radio name=eg_generator__text_align_key id=eg_generator__text_align_center value=center v-model=textAlign> <label for=eg_generator__text_align_center>中央</label> </span> <span class=\"align right\"> <input type=radio name=eg_generator__text_align_key id=eg_generator__text_align_right value=right v-model=textAlign> <label for=eg_generator__text_align_right>右</label> </span> </div> <h4>サイズ調整</h4> <div class=sizes> <label> <input type=checkbox v-model=sizeFixed> 文字サイズを固定する </label> <label> <input type=checkbox v-model=nonStretch> 自動で伸縮しない </label> </div> </div> <div class=\"parameter font\"> <h3>フォント</h3> <ul> <li v-for=\"font in fonts\" track-by=$index> <input type=radio name=eg_generator__font_key :value=font.key id=eg_generator__font_{{font.key}} v-model=fontKey> <label for=eg_generator__font_{{font.key}}>{{font.name}}</label> </li> </ul> </div> <div class=\"parameter color\"> <h3>カラー</h3> <div class=pickers> <div class=picker-wrapper v-show=\"colorKind == 'foreground'\"> <chrome-picker :colors.sync=colors></chrome-picker> </div> <div class=picker-wrapper v-else> <chrome-picker :colors.sync=backgroundColors></chrome-picker> </div> </div> <eg-color-kind :color-kind.sync=colorKind></eg-color-kind> </div> </div> </div> ";
 
 /***/ }),
 /* 45 */
@@ -16854,31 +16733,7 @@
 
 /***/ }),
 /* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(47);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
+[107, 47],
 /* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16887,7 +16742,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset 'utf-8';\n/* fonts */\n/* colors */\n/* degree */\n/* z-index */\n/* dimensions */\n.eg-color-kind ul {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: end;\n        -ms-flex-pack: end;\n            justify-content: flex-end;\n    list-style-type: none;\n    list-style-position: inside;\n    margin: 0;\n}\n.eg-color-kind ul li {\n    display: block;\n}\n.eg-color-kind ul li label {\n    display: block;\n    padding: 2.7px 10px;\n    border: 1px solid rgba(0, 0, 0, .18);\n    color: rgba(0, 0, 0, .32);\n    font-size: 13px;\n    cursor: pointer;\n}\n.eg-color-kind ul li input {\n    display: none\n}\n.eg-color-kind ul li input:checked + label{\n    border-color: rgba(112, 167, 179, 0.8);\n    color: rgb(112, 157, 166);\n}\n.eg-color-kind ul li:first-of-type input:checked + label{\n    border-right-width: 1px;\n}\n.eg-color-kind ul li:first-of-type label{\n    border-right-width: 0;\n    border-radius: 6px 0 0 6px;\n}\n.eg-color-kind ul li:last-of-type input:checked + label{\n    border-left-width: 1px;\n}\n.eg-color-kind ul li:last-of-type label{\n    border-left-width: 0;\n    border-radius: 0 6px 6px 0;\n}\n", ""]);
+	exports.push([module.id, ".eg-color-kind ul{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;list-style-type:none;list-style-position:inside;margin:0}.eg-color-kind ul li{display:block}.eg-color-kind ul li label{display:block;padding:2.7px 10px;border:1px solid rgba(0,0,0,.18);color:rgba(0,0,0,.32);font-size:13px;cursor:pointer}.eg-color-kind ul li input{display:none}.eg-color-kind ul li input:checked+label{border-color:rgba(112,167,179,.8);color:#709da6}.eg-color-kind ul li:first-of-type input:checked+label{border-right-width:1px}.eg-color-kind ul li:first-of-type label{border-right-width:0;border-radius:6px 0 0 6px}.eg-color-kind ul li:last-of-type input:checked+label{border-left-width:1px}.eg-color-kind ul li:last-of-type label{border-left-width:0;border-radius:0 6px 6px 0}", ""]);
 
 	// exports
 
@@ -16896,7 +16751,7 @@
 /* 48 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-color-kind\">\n  <ul>\n    <li>\n      <input type=\"radio\" name=\"eg_generator__color_kind\" value=\"foreground\"\n        id=\"eg_generator__color_kind_foreground\" v-model=\"colorKind\">\n      <label for=\"eg_generator__color_kind_foreground\">表</label>\n    </li>\n    <li>\n      <input type=\"radio\" name=\"eg_generator__color_kind\" value=\"background\"\n        id=\"eg_generator__color_kind_background\" v-model=\"colorKind\">\n      <label for=\"eg_generator__color_kind_background\">裏</label>\n    </li>\n  </ul>\n</div>\n";
+	module.exports = "<div class=\"v-cloak eg-color-kind\"> <ul> <li> <input type=radio name=eg_generator__color_kind value=foreground id=eg_generator__color_kind_foreground v-model=colorKind> <label for=eg_generator__color_kind_foreground>表</label> </li> <li> <input type=radio name=eg_generator__color_kind value=background id=eg_generator__color_kind_background v-model=colorKind> <label for=eg_generator__color_kind_background>裏</label> </li> </ul> </div> ";
 
 /***/ }),
 /* 49 */
@@ -17867,7 +17722,7 @@
 
 
 	// module
-	exports.push([module.id, "/*! Flickity v2.0.5\nhttp://flickity.metafizzy.co\n---------------------------------------------- */\n\n.flickity-enabled {\n  position: relative;\n}\n\n.flickity-enabled:focus { outline: none; }\n\n.flickity-viewport {\n  overflow: hidden;\n  position: relative;\n  height: 100%;\n}\n\n.flickity-slider {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n}\n\n/* draggable */\n\n.flickity-enabled.is-draggable {\n  -webkit-tap-highlight-color: transparent;\n          tap-highlight-color: transparent;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.flickity-enabled.is-draggable .flickity-viewport {\n  cursor: move;\n  cursor: -webkit-grab;\n  cursor: grab;\n}\n\n.flickity-enabled.is-draggable .flickity-viewport.is-pointer-down {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n\n/* ---- previous/next buttons ---- */\n\n.flickity-prev-next-button {\n  position: absolute;\n  top: 50%;\n  width: 44px;\n  height: 44px;\n  border: none;\n  border-radius: 50%;\n  background: white;\n  background: hsla(0, 0%, 100%, 0.75);\n  cursor: pointer;\n  /* vertically center */\n  -webkit-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\n\n.flickity-prev-next-button:hover { background: white; }\n\n.flickity-prev-next-button:focus {\n  outline: none;\n  box-shadow: 0 0 0 5px #09F;\n}\n\n.flickity-prev-next-button:active {\n  opacity: 0.6;\n}\n\n.flickity-prev-next-button.previous { left: 10px; }\n\n.flickity-prev-next-button.next { right: 10px; }\n\n/* right to left */\n\n.flickity-rtl .flickity-prev-next-button.previous {\n  left: auto;\n  right: 10px;\n}\n\n.flickity-rtl .flickity-prev-next-button.next {\n  right: auto;\n  left: 10px;\n}\n\n.flickity-prev-next-button:disabled {\n  opacity: 0.3;\n  cursor: auto;\n}\n\n.flickity-prev-next-button svg {\n  position: absolute;\n  left: 20%;\n  top: 20%;\n  width: 60%;\n  height: 60%;\n}\n\n.flickity-prev-next-button .arrow {\n  fill: #333;\n}\n\n/* ---- page dots ---- */\n\n.flickity-page-dots {\n  position: absolute;\n  width: 100%;\n  bottom: -25px;\n  padding: 0;\n  margin: 0;\n  list-style: none;\n  text-align: center;\n  line-height: 1;\n}\n\n.flickity-rtl .flickity-page-dots { direction: rtl; }\n\n.flickity-page-dots .dot {\n  display: inline-block;\n  width: 10px;\n  height: 10px;\n  margin: 0 8px;\n  background: #333;\n  border-radius: 50%;\n  opacity: 0.25;\n  cursor: pointer;\n}\n\n.flickity-page-dots .dot.is-selected {\n  opacity: 1;\n}\n", ""]);
+	exports.push([module.id, "/*! Flickity v2.0.5\nhttp://flickity.metafizzy.co\n---------------------------------------------- */.flickity-enabled{position:relative}.flickity-enabled:focus{outline:none}.flickity-viewport{overflow:hidden;position:relative;height:100%}.flickity-slider{position:absolute;width:100%;height:100%}.flickity-enabled.is-draggable{-webkit-tap-highlight-color:transparent;tap-highlight-color:transparent;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.flickity-enabled.is-draggable .flickity-viewport{cursor:move;cursor:-webkit-grab;cursor:grab}.flickity-enabled.is-draggable .flickity-viewport.is-pointer-down{cursor:-webkit-grabbing;cursor:grabbing}.flickity-prev-next-button{position:absolute;top:50%;width:44px;height:44px;border:none;border-radius:50%;background:#fff;background:hsla(0,0%,100%,.75);cursor:pointer;-webkit-transform:translateY(-50%);transform:translateY(-50%)}.flickity-prev-next-button:hover{background:#fff}.flickity-prev-next-button:focus{outline:none;box-shadow:0 0 0 5px #09f}.flickity-prev-next-button:active{opacity:.6}.flickity-prev-next-button.previous{left:10px}.flickity-prev-next-button.next{right:10px}.flickity-rtl .flickity-prev-next-button.previous{left:auto;right:10px}.flickity-rtl .flickity-prev-next-button.next{right:auto;left:10px}.flickity-prev-next-button:disabled{opacity:.3;cursor:auto}.flickity-prev-next-button svg{position:absolute;left:20%;top:20%;width:60%;height:60%}.flickity-prev-next-button .arrow{fill:#333}.flickity-page-dots{position:absolute;width:100%;bottom:-25px;padding:0;margin:0;list-style:none;text-align:center;line-height:1}.flickity-rtl .flickity-page-dots{direction:rtl}.flickity-page-dots .dot{display:inline-block;width:10px;height:10px;margin:0 8px;background:#333;border-radius:50%;opacity:.25;cursor:pointer}.flickity-page-dots .dot.is-selected{opacity:1}", ""]);
 
 	// exports
 
@@ -22165,31 +22020,7 @@
 
 /***/ }),
 /* 75 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(76);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
+[107, 76],
 /* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22198,7 +22029,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset 'utf-8';\n/* fonts */\n/* colors */\n/* degree */\n/* z-index */\n/* dimensions */\n.eg-recently {\n  margin: 30px auto 30px auto;\n  width: 900px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);\n\n  padding: 32px 32px 60px 32px;\n}\n.eg-recently, .eg-recently * {\n  box-sizing: border-box;\n}\n.eg-recently h2 {\n  margin: 18px 0 28px;\n  font-size: 17px;\n  font-weight: bold;\n  letter-spacing: 1.8px;\n  text-align: center;\n  color: #1EBAA0;\n}\n.eg-recently .carousel {\n  height: 130px;\n}\n.eg-recently .carousel .carousel-cell {\n  box-sizing: content-box;\n  width: 128px;\n  height: 128px;\n  margin-right: 10px;\n  border: 1px solid rgba(0, 0, 0, 0.18);\n  border-radius: 5px;\n  background-repeat: no-repeat;\n  background-position: center center;\n}\n", ""]);
+	exports.push([module.id, ".eg-recently{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:32px 32px 60px}.eg-recently,.eg-recently *{box-sizing:border-box}.eg-recently h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-recently .carousel{height:130px}.eg-recently .carousel .carousel-cell{box-sizing:content-box;width:128px;height:128px;margin-right:10px;border:1px solid rgba(0,0,0,.18);border-radius:5px;background-repeat:no-repeat;background-position:50%}", ""]);
 
 	// exports
 
@@ -22207,13 +22038,13 @@
 /* 77 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-recently\">\n  <h2>最近生成された絵文字</h2>\n\n  <div v-el:carousel class=\"carousel\">\n  </div>\n</div>\n";
+	module.exports = "<div class=\"v-cloak eg-recently\"> <h2>最近生成された絵文字</h2> <div v-el:carousel class=carousel> </div> </div> ";
 
 /***/ }),
 /* 78 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"carousel-cell\"></div>\n";
+	module.exports = "<div class=carousel-cell></div> ";
 
 /***/ }),
 /* 79 */
@@ -22420,31 +22251,7 @@
 
 /***/ }),
 /* 82 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(83);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
+[107, 83],
 /* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22453,7 +22260,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset 'utf-8';\n/* fonts */\n/* colors */\n/* degree */\n/* z-index */\n/* dimensions */\n.eg-result {\n  margin: 30px auto 30px auto;\n  width: 900px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);\n\n  padding: 20px;\n\n}\n.eg-result, .eg-result * {\n  box-sizing: border-box;\n\n}\n.eg-result h2 {\n  margin: 18px 0 28px;\n  font-size: 17px;\n  font-weight: bold;\n  letter-spacing: 1.8px;\n  text-align: center;\n  color: #1EBAA0;\n\n}\n.eg-result .preview {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  margin: 30px auto 0;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n.eg-result .preview > .inner {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n\n}\n.eg-result .preview > .inner .image {\n  display: block;\n  width: 129px;\n  height: 129px;\n  border-radius: 5px;\n  background-color: rgba(255, 255, 255, .38);\n\n}\n.eg-result .preview > .inner .image img {\n  box-sizing: content-box;\n  width: 128px;\n  height: 128px;\n  border: 1px solid rgba(0, 0, 0, .18);\n  border-radius: 5px;\n\n}\n.eg-result .preview > .inner .detail {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  margin: 0 0 0 50px;\n\n}\n.eg-result .preview > .inner .detail ul {\n  margin: 0;\n  padding: 0;\n  list-style-type: none;\n  list-style-position: inside;\n\n}\n.eg-result .preview > .inner .detail ul li {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  line-height: 40px;\n\n}\n.eg-result .preview > .inner .detail ul li h3 {\n  margin: 0;\n  width: 68px;\n  color: #3AB0C7;\n  font-weight: bold;\n  font-size: 15px;\n\n}\n.eg-result .preview > .inner .detail ul li .user-input {\n  display: block;\n  margin: 0 0 0 12px;\n  color: rgba(0, 0, 0, .75);\n  font-size: 13px;\n\n}\n.eg-result .preview > .inner .detail ul li .user-input > .color-square {\n  display: inline-block;\n  margin: 1px 4px 0 0;\n  border: 1px solid rgba(0, 0, 0, .18);\n  width: 10px;\n  height: 10px;\n\n}\n.eg-result .preview > .inner .detail ul li::before{\n  display: block;\n  float: left;\n  margin-right: 10px;\n  width: 30px;\n  height: 40px;\n  background-repeat: no-repeat;\n  background-position: center center;\n  content: '';\n  opacity: .8;\n\n}\n.eg-result .preview > .inner .detail ul li.text{}\n.eg-result .preview > .inner .detail ul li.text::before{\n  background-image: url('/static/img/text.png');\n  background-size: 28px auto;\n  opacity: .80;\n\n}\n.eg-result .preview > .inner .detail ul li.color{}\n.eg-result .preview > .inner .detail ul li.color::before{\n  background-image: url('/static/img/color.png');\n  background-size: 19px auto;\n  opacity: .80;\n\n}\n.eg-result .preview > .inner .detail ul li.font{}\n.eg-result .preview > .inner .detail ul li.font::before{\n  background-image: url('/static/img/font.png');\n  background-size: 25px auto;\n  opacity: .80;\n\n}\n.eg-result .links {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  margin: 30px auto 15px;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n\n}\n.eg-result .links .inner {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n\n}\n.eg-result .links .inner > div {\n  margin-left: 40px;\n  padding: 0;\n  height: 40px;\n  line-height: 40px;\n  font-size: 15px;\n\n}\n.eg-result .links .inner > div a {\n  display: block;\n  text-decoration: none;\n\n}\n.eg-result .links .inner > div:first-child{\n  margin-left: 0;\n\n}\n.eg-result .links .inner > div.download a{\n  padding: 0 0 0 34px;\n  color: #BE1C60;\n  height: 100%;\n  background-image: url('/static/img/download.png');\n  background-repeat: no-repeat;\n  background-position: 0 center;\n  background-size: 22px auto;\n  cursor: pointer;\n\n}\n.eg-result .links .inner > div.register{\n  padding: 0 0 0 34px;\n  color: #BE1C60;\n  height: 100%;\n  background-image: url('/static/img/register.png');\n  background-repeat: no-repeat;\n  background-position: 0 center;\n  background-size: 22px auto;\n  cursor: pointer;\n\n}\n.eg-result .links .inner > div.share{\n  padding: 0 0 0 34px;\n  color: #AD780C;\n  background-image: url('/static/img/share.png');\n  background-repeat: no-repeat;\n  background-position: 0 center;\n  background-size: 22px auto;\n  cursor: pointer;\n\n}\n.eg-result.expand-transition{\n  height: auto;\n  transition: opacity .8s ease-in-out;\n  opacity: 1;\n\n}\n.eg-result.expand-enter, .eg-result.expand-leave{\n  padding: 0;\n  height: 0;\n  overflow: hidden;\n  opacity: 0;\n\n}\n", ""]);
+	exports.push([module.id, ".eg-result{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:20px}.eg-result,.eg-result *{box-sizing:border-box}.eg-result h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-result .preview{margin:30px auto 0;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.eg-result .preview,.eg-result .preview>.inner{display:-webkit-box;display:-ms-flexbox;display:flex}.eg-result .preview>.inner{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.eg-result .preview>.inner .image{display:block;width:129px;height:129px;border-radius:5px;background-color:hsla(0,0%,100%,.38)}.eg-result .preview>.inner .image img{box-sizing:content-box;width:128px;height:128px;border:1px solid rgba(0,0,0,.18);border-radius:5px}.eg-result .preview>.inner .detail{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;margin:0 0 0 50px}.eg-result .preview>.inner .detail ul{margin:0;padding:0;list-style-type:none;list-style-position:inside}.eg-result .preview>.inner .detail ul li{display:-webkit-box;display:-ms-flexbox;display:flex;line-height:40px}.eg-result .preview>.inner .detail ul li h3{margin:0;width:68px;color:#3ab0c7;font-weight:700;font-size:15px}.eg-result .preview>.inner .detail ul li .user-input{display:block;margin:0 0 0 12px;color:rgba(0,0,0,.75);font-size:13px}.eg-result .preview>.inner .detail ul li .user-input>.color-square{display:inline-block;margin:1px 4px 0 0;border:1px solid rgba(0,0,0,.18);width:10px;height:10px}.eg-result .preview>.inner .detail ul li:before{display:block;float:left;margin-right:10px;width:30px;height:40px;background-repeat:no-repeat;background-position:50%;content:\"\";opacity:.8}.eg-result .preview>.inner .detail ul li.text:before{background-image:url(\"/static/img/text.png\");background-size:28px auto;opacity:.8}.eg-result .preview>.inner .detail ul li.color:before{background-image:url(\"/static/img/color.png\");background-size:19px auto;opacity:.8}.eg-result .preview>.inner .detail ul li.font:before{background-image:url(\"/static/img/font.png\");background-size:25px auto;opacity:.8}.eg-result .links{margin:30px auto 15px;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.eg-result .links,.eg-result .links .inner{display:-webkit-box;display:-ms-flexbox;display:flex}.eg-result .links .inner>div{margin-left:40px;padding:0;height:40px;line-height:40px;font-size:15px}.eg-result .links .inner>div a{display:block;text-decoration:none}.eg-result .links .inner>div:first-child{margin-left:0}.eg-result .links .inner>div.download a{background-image:url(\"/static/img/download.png\")}.eg-result .links .inner>div.download a,.eg-result .links .inner>div.register{padding:0 0 0 34px;color:#be1c60;height:100%;background-repeat:no-repeat;background-position:0;background-size:22px auto;cursor:pointer}.eg-result .links .inner>div.register{background-image:url(\"/static/img/register.png\")}.eg-result .links .inner>div.share{padding:0 0 0 34px;color:#ad780c;background-image:url(\"/static/img/share.png\");background-repeat:no-repeat;background-position:0;background-size:22px auto;cursor:pointer}.eg-result.expand-transition{height:auto;transition:opacity .8s ease-in-out;opacity:1}.eg-result.expand-enter,.eg-result.expand-leave{padding:0;height:0;overflow:hidden;opacity:0}", ""]);
 
 	// exports
 
@@ -22462,7 +22269,7 @@
 /* 84 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-result\" v-show=\"visibleResult\" transition=\"expand\">\n  <h2>生成された絵文字</h2>\n\n  <div class=\"preview\">\n    <div class=\"inner\">\n      <div class=\"image\">\n        <img :src=\"emojiUrl\" alt=\"\" v-if=\"emojiUrl\">\n      </div>\n      <div class=\"detail\">\n        <ul>\n          <li class=\"text\">\n            <h3>テキスト</h3>\n            <span class=\"user-input\">{{ text }}</span>\n          </li>\n          <li class=\"font\">\n            <h3>フォント</h3>\n            <span class=\"user-input\">{{ fontName }}</span>\n          </li>\n          <li class=\"color\">\n            <h3>カラー</h3>\n            <span class=\"user-input\">\n              <span class=\"color-square\" v-bind:style=\"{ backgroundColor: cssColor }\"></span>\n              {{ color }}\n            </span>\n          </li>\n        </ul>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"links\">\n    <div class=\"inner\">\n      <div class=\"download\">\n        <a :href=\"emojiDownloadUrl\" @click=\"download\">ダウンロード</a>\n      </div>\n      <div class=\"register\" @click=\"toggleRegister\" v-show=\"visibleRegisterButton\">\n        登録する\n      </div>\n      <div class=\"share\" @click=\"toggleShare\">\n        シェアする\n      </div>\n    </div>\n  </div>\n\n  <eg-share\n    v-show=\"visibleShare\"\n    transition=\"expand\"\n    :visible=\"visibleShare\"\n  ></eg-share>\n\n  <eg-register\n    v-show=\"visibleRegister\"\n    transition=\"expand\"\n    :visible=\"visibleRegister\"\n    :emoji-url=\"emojiDownloadUrl\"\n  ></eg-share>\n</div>\n";
+	module.exports = "<div class=\"v-cloak eg-result\" v-show=visibleResult transition=expand> <h2>生成された絵文字</h2> <div class=preview> <div class=inner> <div class=image> <img :src=emojiUrl alt=\"\" v-if=emojiUrl> </div> <div class=detail> <ul> <li class=text> <h3>テキスト</h3> <span class=user-input>{{ text }}</span> </li> <li class=font> <h3>フォント</h3> <span class=user-input>{{ fontName }}</span> </li> <li class=color> <h3>カラー</h3> <span class=user-input> <span class=color-square v-bind:style=\"{ backgroundColor: cssColor }\"></span> {{ color }} </span> </li> </ul> </div> </div> </div> <div class=links> <div class=inner> <div class=download> <a :href=emojiDownloadUrl @click=download>ダウンロード</a> </div> <div class=register @click=toggleRegister v-show=visibleRegisterButton> 登録する </div> <div class=share @click=toggleShare> シェアする </div> </div> </div> <eg-share v-show=visibleShare transition=expand :visible=visibleShare></eg-share> <eg-register v-show=visibleRegister transition=expand :visible=visibleRegister :emoji-url=emojiDownloadUrl> </eg-register></div> ";
 
 /***/ }),
 /* 85 */
@@ -23051,31 +22858,7 @@
 
 /***/ }),
 /* 88 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(89);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
+[107, 89],
 /* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23084,7 +22867,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset 'utf-8';\n/* fonts */\n/* colors */\n/* degree */\n/* z-index */\n/* dimensions */\n.eg-share {\n  display: block;\n}\n.eg-share .inner {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  transition: opacity .8s ease-in-out;\n  opacity: 1;\n}\n.eg-share .inner input, .eg-share .inner a {\n  display: block;\n  margin: 0;\n  border: 0;\n  width: 40px;\n  height: 40px;\n  background-color: transparent;\n  background-size: 40px;\n  background-repeat: no-repeat;\n  background-position: 0px center;\n  overflow: hidden;\n  text-indent: 100%;\n  white-space: nowrap;\n  margin: 0 0 0 14px\n}\n.eg-share .inner input.twitter, .eg-share .inner a.twitter{\n  background-image: url('/static/img/twitter.png');\n  opacity: .88;\n  margin-left: 0;\n}\n.eg-share .inner input.facebook, .eg-share .inner a.facebook{\n  background-image: url('/static/img/facebook.png');\n  opacity: .80;\n}\n.eg-share .inner input.google, .eg-share .inner a.google{\n  background-image: url('/static/img/google.png');\n  opacity: .80;\n}\n.eg-share.expand-transition{\n  padding: 20px 0 15px;\n  transition: opacity .8s ease-in-out;\n  opacity: 1;\n}\n.eg-share.expand-enter, .eg-share.expand-leave{\n  height: auto;\n  padding: 0;\n  height: 0;\n  overflow: hidden;\n  opacity: 0;\n}\n.eg-share.progress{\n  background-image: url('/static/img/loading.gif');\n  background-position: center 10px;\n  background-size: 40px auto;\n  background-repeat: no-repeat;\n}\n.eg-share.progress .inner{\n  opacity: 0;\n}\n", ""]);
+	exports.push([module.id, ".eg-share{display:block}.eg-share .inner{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;transition:opacity .8s ease-in-out;opacity:1}.eg-share .inner a,.eg-share .inner input{display:block;margin:0;border:0;width:40px;height:40px;background-color:transparent;background-size:40px;background-repeat:no-repeat;background-position:0;overflow:hidden;text-indent:100%;white-space:nowrap;margin:0 0 0 14px}.eg-share .inner a.twitter,.eg-share .inner input.twitter{background-image:url(\"/static/img/twitter.png\");opacity:.88;margin-left:0}.eg-share .inner a.facebook,.eg-share .inner input.facebook{background-image:url(\"/static/img/facebook.png\");opacity:.8}.eg-share .inner a.google,.eg-share .inner input.google{background-image:url(\"/static/img/google.png\");opacity:.8}.eg-share.expand-transition{padding:20px 0 15px;transition:opacity .8s ease-in-out;opacity:1}.eg-share.expand-enter,.eg-share.expand-leave{height:auto;padding:0;height:0;overflow:hidden;opacity:0}.eg-share.progress{background-image:url(\"/static/img/loading.gif\");background-position:center 10px;background-size:40px auto;background-repeat:no-repeat}.eg-share.progress .inner{opacity:0}", ""]);
 
 	// exports
 
@@ -23093,7 +22876,7 @@
 /* 90 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-share\" :class=\"{ 'progress': progress }\">\n  <div class=\"inner\">\n    <input type=\"button\" class=\"twitter sharer button\" data-sharer=\"twitter\" data-title=\"絵文字ジェネレーター使って絵文字を生成しました&#9834; {{shortenUrl}} #絵文字ジェネレーター\" title=\"Twitter でシェアする\" v-sharer>\n    <input type=\"button\" class=\"facebook sharer button\" data-sharer=\"facebook\" :data-url=\"shortenUrl\" title=\"Facebook でシェアする\" v-sharer>\n    <input type=\"button\" class=\"google sharer button\" data-sharer=\"googleplus\" :data-url=\"shortenUrl\" title=\"Google+ でシェアする\" v-sharer>\n  </div>\n</div>\n";
+	module.exports = "<div class=\"v-cloak eg-share\" :class=\"{ 'progress': progress }\"> <div class=inner> <input type=button class=\"twitter sharer button\" data-sharer=twitter data-title=\"絵文字ジェネレーター使って絵文字を生成しました&#9834; {{shortenUrl}} #絵文字ジェネレーター\" title=\"Twitter でシェアする\" v-sharer> <input type=button class=\"facebook sharer button\" data-sharer=facebook :data-url=shortenUrl title=\"Facebook でシェアする\" v-sharer> <input type=button class=\"google sharer button\" data-sharer=googleplus :data-url=shortenUrl title=\"Google+ でシェアする\" v-sharer> </div> </div> ";
 
 /***/ }),
 /* 91 */
@@ -24734,31 +24517,7 @@
 
 /***/ }),
 /* 100 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(101);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css", function() {
-				var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/postcss-loader/index.js!./index.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
+[107, 101],
 /* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24767,7 +24526,7 @@
 
 
 	// module
-	exports.push([module.id, "@charset 'utf-8';\n/* fonts */\n/* colors */\n/* degree */\n/* z-index */\n/* dimensions */\n.eg-register {\n  display: block;\n  position: relative;\n}\n.eg-register h3 {\n  display: block;\n  margin: 0 0 8px 0;\n  text-align: center;\n  font-size: 15px;\n  font-weight: bold;\n  color: #3AB0C7;\n}\n.eg-register .inner {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -ms-flex-line-pack: start;\n      align-content: flex-start;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin: 0 auto;\n  padding: 10px 0 10px 0;\n  transition: opacity .8s ease-in-out;\n  opacity: 1;\n}\n.eg-register .overlay {\n  display: none;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  background-image: url('/static/img/loading_red.gif');\n  background-position: center center;\n  background-size: 40px auto;\n  background-repeat: no-repeat;\n  background-color: rgba(255, 255, 255, .6);\n}\n.eg-register .groups label {\n  display: block;\n  margin: 0 0 8px 0;\n  text-align: center;\n  font-size: 15px;\n  font-weight: bold;\n  color: #3AB0C7;\n}\n.eg-register .groups .group {\n  margin: 0 0 35px 0\n}\n.eg-register .groups .group.teams{\n  width: 400px;\n}\n.eg-register .groups .group.name input{\n  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .15);\n  border-radius: 2px;\n  padding: 7px 9px;\n  border: 0;\n  font-size: 15px;\n  width: 400px;\n}\n.eg-register .messages {\n  margin: 8px 0 30px;\n  font-size: 13px;\n  color: #8C8C8C;\n}\n.eg-register .messages label {\n  display: block;\n  margin: 0 0 8px 0;\n  text-align: center;\n  font-size: 15px;\n  font-weight: bold;\n  color: #3AB0C7;\n}\n.eg-register .messages p {\n  margin: 0 0 5px;\n}\n.eg-register .messages.error{\n  color: #BE1C60;\n}\n.eg-register .messages.error label{\n  color: #BE1C60;\n}\n.eg-register .buttons {\n  margin: 8px 0 0;\n  text-align: center;\n}\n.eg-register .buttons button {\n  padding: 12px 60px;\n  border-radius: 12px;\n  background-color: rgba(225, 22, 101, 0.5);\n  background-image: none !important;\n  color: white;\n  font-weight: bold\n}\n.eg-register .buttons button:hover, .eg-register .buttons button:focus{\n  background-color: rgba(225, 22, 101, 0.75);\n}\n.eg-register .help {\n  margin: 45px 0 0;\n}\n.eg-register .help p {\n  color: #8C8C8C;\n  font-size: 13px;\n  letter-spacing: .5px;\n  margin: 0 0 5px 0\n}\n.eg-register .help p::before{\n  content: '\\203B   ';\n}\n.eg-register .description {\n  margin: 0;\n}\n.eg-register .description p {\n  color: #8C8C8C;\n  font-size: 13px;\n  letter-spacing: .5px;\n  line-height: 1.8;\n  text-align: center;\n}\n.eg-register .description p strong {\n  margin: 0 1.5px;\n}\n.eg-register .download {\n  margin: 30px 0 20px;\n}\n.eg-register.expand-transition{\n  padding: 20px 0 15px;\n  height: auto;\n  transition: opacity .8s ease-in-out;\n  opacity: 1;\n}\n.eg-register.expand-enter, .eg-register.expand-leave{\n  padding: 0;\n  height: 0;\n  overflow: hidden;\n  opacity: 0;\n}\n.eg-register.progress .overlay{\n  display: block;\n  z-index: 100;\n}\n", ""]);
+	exports.push([module.id, ".eg-register{display:block;position:relative}.eg-register h3{display:block;margin:0 0 8px;text-align:center;font-size:15px;font-weight:700;color:#3ab0c7}.eg-register .inner{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;-ms-flex-line-pack:start;align-content:flex-start;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin:0 auto;padding:10px 0;transition:opacity .8s ease-in-out;opacity:1}.eg-register .overlay{display:none;position:absolute;top:0;right:0;bottom:0;left:0;background-image:url(\"/static/img/loading_red.gif\");background-position:50%;background-size:40px auto;background-repeat:no-repeat;background-color:hsla(0,0%,100%,.6)}.eg-register .groups label{display:block;margin:0 0 8px;text-align:center;font-size:15px;font-weight:700;color:#3ab0c7}.eg-register .groups .group{margin:0 0 35px}.eg-register .groups .group.teams{width:400px}.eg-register .groups .group.name input{box-shadow:0 0 1px 1px rgba(0,0,0,.15);border-radius:2px;padding:7px 9px;border:0;font-size:15px;width:400px}.eg-register .messages{margin:8px 0 30px;font-size:13px;color:#8c8c8c}.eg-register .messages label{display:block;margin:0 0 8px;text-align:center;font-size:15px;font-weight:700;color:#3ab0c7}.eg-register .messages p{margin:0 0 5px}.eg-register .messages.error,.eg-register .messages.error label{color:#be1c60}.eg-register .buttons{margin:8px 0 0;text-align:center}.eg-register .buttons button{padding:12px 60px;border-radius:12px;background-color:rgba(225,22,101,.5);background-image:none!important;color:#fff;font-weight:700}.eg-register .buttons button:focus,.eg-register .buttons button:hover{background-color:rgba(225,22,101,.75)}.eg-register .help{margin:45px 0 0}.eg-register .help p{color:#8c8c8c;font-size:13px;letter-spacing:.5px;margin:0 0 5px}.eg-register .help p:before{content:\"\\203B   \"}.eg-register .description{margin:0}.eg-register .description p{color:#8c8c8c;font-size:13px;letter-spacing:.5px;line-height:1.8;text-align:center}.eg-register .description p strong{margin:0 1.5px}.eg-register .download{margin:30px 0 20px}.eg-register.expand-transition{padding:20px 0 15px;height:auto;transition:opacity .8s ease-in-out;opacity:1}.eg-register.expand-enter,.eg-register.expand-leave{padding:0;height:0;overflow:hidden;opacity:0}.eg-register.progress .overlay{display:block;z-index:100}", ""]);
 
 	// exports
 
@@ -24776,7 +24535,7 @@
 /* 102 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-register\" :class=\"{ 'progress': progress }\">\n  <div class=\"overlay\"></div>\n  <div class=\"inner\" v-if=\"hasBrowserExtension\">\n    <div class=\"groups\">\n      <div class=\"group teams\">\n        <label>登録するチーム</label>\n        <multiselect\n          :selected=\"selected\"\n          :options=\"teamsOrEmptyArray\"\n          :close-on-select=\"true\"\n          :show-labels=\"false\"\n          :loading=\"progressTeams\"\n          @update=\"updateSelectedTeam\"\n          label=\"name\"\n          placeholder=\"登録するチームを選んで下さい\"\n        ></multiselect>\n      </div>\n      <div class=\"group name\">\n        <label>絵文字の名前</label>\n        <input type=\"text\" placeholder=\"絵文字の名前を入れて下さい\"\n          v-model=\"text\" @keypress=\"registerByKeyPress\">\n      </div>\n    </div>\n\n    <div class=\"messages error\" v-if=\"visibleErrors && hasErrorMessages\">\n      <label>入力を確認してください</label>\n      <p v-for=\"errorMessage in errorMessages\">{{ errorMessage }}</p>\n    </div>\n\n    <div class=\"messages\" v-if=\"result.contents\">\n      <label>絵文字を登録しました！</label>\n      <p>{{ result.contents }}</p>\n    </div>\n\n    <div class=\"messages error\" v-if=\"result.err\">\n      <label>絵文字の登録に失敗しました</label>\n      <p>{{ result.err }}</p>\n    </div>\n\n    <div class=\"buttons\">\n      <button type=\"button\" class=\"pure-button\" @click=\"register\">登録する&#9834;</button>\n    </div>\n\n    <div class=\"help\">\n      <p>ブラウザでログイン中の Slack チームが一覧に表示されます</p>\n      <p>登録したいチームが表示されない場合、該当のチームへ<a href=\"https://slack.com/signin\" target=\"_blank\">ログイン</a>してください</p>\n    </div>\n  </div>\n\n  <div class=\"inner\" v-else>\n    <h3>ブラウザ拡張機能をインストールしてください</h3>\n\n    <div class=\"description\">\n      <p>\n        ブラウザ拡張機能をインストールすると、<br>\n        Slack チームへ絵文字を<strong>直接登録</strong>することができます。\n      </p>\n    </div>\n\n    <div class=\"download\">\n      <a href=\"https://chrome.google.com/webstore/detail/%E7%B5%B5%E6%96%87%E5%AD%97%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC/ghbhakkknnmocmiilhneahbkiaegdnmf?hl=ja&amp;gl=JP\" target=\"_blank\" v-if=\"browserName == 'chrome'\">\n        <img src=\"/static/img/chrome_web_store.png\" width=\"248\" height=\"75\" alt=\"available in the chrome web store\">\n      </a>\n      <a href=\"https://addons.mozilla.org/ja/firefox/addon/emoji-generator/\" target=\"_blank\" v-if=\"browserName == 'firefox'\">\n        <img src=\"/static/img/firefox_add_on.png\" width=\"172\" height=\"60\" alt=\"GET THE ADD-ON\">\n      </a>\n    </div>\n  </div>\n</div>\n";
+	module.exports = "<div class=\"v-cloak eg-register\" :class=\"{ 'progress': progress }\"> <div class=overlay></div> <div class=inner v-if=hasBrowserExtension> <div class=groups> <div class=\"group teams\"> <label>登録するチーム</label> <multiselect :selected=selected :options=teamsOrEmptyArray :close-on-select=true :show-labels=false :loading=progressTeams @update=updateSelectedTeam label=name placeholder=登録するチームを選んで下さい></multiselect> </div> <div class=\"group name\"> <label>絵文字の名前</label> <input type=text placeholder=絵文字の名前を入れて下さい v-model=text @keypress=registerByKeyPress> </div> </div> <div class=\"messages error\" v-if=\"visibleErrors && hasErrorMessages\"> <label>入力を確認してください</label> <p v-for=\"errorMessage in errorMessages\">{{ errorMessage }}</p> </div> <div class=messages v-if=result.contents> <label>絵文字を登録しました！</label> <p>{{ result.contents }}</p> </div> <div class=\"messages error\" v-if=result.err> <label>絵文字の登録に失敗しました</label> <p>{{ result.err }}</p> </div> <div class=buttons> <button type=button class=pure-button @click=register>登録する&#9834;</button> </div> <div class=help> <p>ブラウザでログイン中の Slack チームが一覧に表示されます</p> <p>登録したいチームが表示されない場合、該当のチームへ<a href=https://slack.com/signin target=_blank>ログイン</a>してください</p> </div> </div> <div class=inner v-else> <h3>ブラウザ拡張機能をインストールしてください</h3> <div class=description> <p> ブラウザ拡張機能をインストールすると、<br> Slack チームへ絵文字を<strong>直接登録</strong>することができます。 </p> </div> <div class=download> <a href=\"https://chrome.google.com/webstore/detail/%E7%B5%B5%E6%96%87%E5%AD%97%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC/ghbhakkknnmocmiilhneahbkiaegdnmf?hl=ja&amp;gl=JP\" target=_blank v-if=\"browserName == 'chrome'\"> <img src=/static/img/chrome_web_store.png width=248 height=75 alt=\"available in the chrome web store\"> </a> <a href=https://addons.mozilla.org/ja/firefox/addon/emoji-generator/ target=_blank v-if=\"browserName == 'firefox'\"> <img src=/static/img/firefox_add_on.png width=172 height=60 alt=\"GET THE ADD-ON\"> </a> </div> </div> </div> ";
 
 /***/ }),
 /* 103 */
@@ -24793,12 +24552,34 @@
 
 /***/ }),
 /* 104 */
+[107, 105],
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(9)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".eg-contact{margin:30px auto;width:900px;background-color:hsla(0,0%,100%,.7);box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:32px 32px 60px;margin-bottom:180px;min-height:600px}.eg-contact,.eg-contact *{box-sizing:border-box}.eg-contact h2{margin:18px 0 28px;font-size:17px;font-weight:700;letter-spacing:1.8px;text-align:center;color:#1ebaa0}.eg-contact .eg-contact--body{padding:30px}.eg-contact .eg-contact--body ul{margin:18px 0}.eg-contact .eg-contact--body ul li{margin:10px 0;padding:1px 0 0 42px;height:30px;line-height:30px;list-style-type:none;list-style-position:inside;background-size:26px auto;background-repeat:no-repeat;background-position:0;font-size:15px}.eg-contact .eg-contact--body ul li a{text-decoration:none}.eg-contact .eg-contact--body ul li a .owner{margin-right:2px}.eg-contact .eg-contact--body ul li a .username{margin-left:2.5px}.eg-contact .eg-contact--body ul li.twitter{background-image:url(\"/static/img/twitter.png\");opacity:.88}.eg-contact .eg-contact--body ul li.github{background-image:url(\"/static/img/github.png\");opacity:.7}.eg-contact .eg-contact--body p.break{margin-top:45px}", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 106 */
+/***/ (function(module, exports) {
+
+	module.exports = "<div class=\"v-cloak eg-contact\"> <h2>お問い合わせ</h2> <div class=eg-contact--body> <p>何かありましたら、GitHub の Issue へお願い致します。</p> <ul> <li class=github> <a href=https://github.com/emoji-gen/Emoji-Web/issues target=_blank> <span class=owner>emoji-gen</span>/<span class=username>Emoji-Web</span> </a> </li> </ul> <p class=break>もしくは、作者の Twitter まで直接お問い合わせ下さい。</p> <ul> <li class=twitter><a href=https://twitter.com/jiuya target=_blank>@jiuya</a></li> <li class=twitter><a href=https://twitter.com/pine613 target=_blank>@pine613</a></li> </ul> </div> </div> ";
+
+/***/ }),
+/* 107 */
+/***/ (function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(105);
+	var content = __webpack_require__(__webpack_module_template_argument_0__);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(10)(content, {});
@@ -24817,25 +24598,5 @@
 		module.hot.dispose(function() { update(); });
 	}
 
-/***/ }),
-/* 105 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(9)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "@charset 'utf-8';\n/* fonts */\n/* colors */\n/* degree */\n/* z-index */\n/* dimensions */\n.eg-contact {\n  margin: 30px auto 30px auto;\n  width: 900px;\n  background-color: rgba(255, 255, 255, 0.7);\n  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);\n\n  padding: 32px 32px 60px 32px;\n  margin-bottom: 180px;\n  min-height: 600px;\n}\n.eg-contact, .eg-contact * {\n  box-sizing: border-box;\n}\n.eg-contact h2 {\n  margin: 18px 0 28px;\n  font-size: 17px;\n  font-weight: bold;\n  letter-spacing: 1.8px;\n  text-align: center;\n  color: #1EBAA0;\n}\n.eg-contact .eg-contact--body {\n  padding: 30px;\n}\n.eg-contact .eg-contact--body ul {\n  margin: 18px 0;\n}\n.eg-contact .eg-contact--body ul li {\n  margin: 10px 0;\n  padding: 1px 0 0 42px;\n  height: 30px;\n  line-height: 30px;\n  list-style-type: none;\n  list-style-position: inside;\n  background-size: 26px auto;\n  background-repeat: no-repeat;\n  background-position: 0 center;\n  font-size: 15px;\n}\n.eg-contact .eg-contact--body ul li a {\n  text-decoration: none;\n}\n.eg-contact .eg-contact--body ul li a .owner {\n  margin-right: 2px;\n}\n.eg-contact .eg-contact--body ul li a .username {\n  margin-left: 2.5px;\n}\n.eg-contact .eg-contact--body ul li.twitter{\n  background-image: url('/static/img/twitter.png');\n  opacity: .88;\n}\n.eg-contact .eg-contact--body ul li.github{\n  background-image: url('/static/img/github.png');\n  opacity: .70;\n}\n.eg-contact .eg-contact--body p {}\n.eg-contact .eg-contact--body p.break{\n  margin-top: 45px;\n}\n", ""]);
-
-	// exports
-
-
-/***/ }),
-/* 106 */
-/***/ (function(module, exports) {
-
-	module.exports = "<div class=\"v-cloak eg-contact\">\n  <h2>お問い合わせ</h2>\n\n  <div class=\"eg-contact--body\">\n    <p>何かありましたら、GitHub の Issue へお願い致します。</p>\n\n    <ul>\n      <li class=\"github\">\n        <a href=\"https://github.com/emoji-gen/Emoji-Web/issues\" target=\"_blank\">\n          <span class=\"owner\">emoji-gen</span>/<span class=\"username\">Emoji-Web</span>\n        </a>\n      </li>\n    </ul>\n\n    <p class=\"break\">もしくは、作者の Twitter まで直接お問い合わせ下さい。</p>\n\n    <ul>\n      <li class=\"twitter\"><a href=\"https://twitter.com/jiuya\" target=\"_blank\">@jiuya</a></li>\n      <li class=\"twitter\"><a href=\"https://twitter.com/pine613\" target=\"_blank\">@pine613</a></li>\n    </ul>\n  </div>\n</div>\n";
-
 /***/ })
-/******/ ]);
+/******/ ])));
