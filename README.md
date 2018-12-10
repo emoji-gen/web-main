@@ -1,6 +1,6 @@
 ## Emoji Generator
 
-[![Beerpay](https://beerpay.io/emoji-gen/emoji-generator/badge.svg)](https://beerpay.io/emoji-gen/emoji-generator)
+[![Beerpay](https://beerpay.io/emoji-gen/web-main/badge.svg)](https://beerpay.io/emoji-gen/web-main)
 [![Osushi](https://img.shields.io/badge/donate-osushi-EA2F57.svg)](https://osushi.love/intent/post/9ad90add99954e62ac79251606c10eec)
 [![CircleCI](https://circleci.com/gh/emoji-gen/web-main/tree/master.svg?style=shield)](https://circleci.com/gh/emoji-gen/web-main/tree/master)
 [![Requirements Status](https://requires.io/github/emoji-gen/web-main/requirements.svg?branch=master)](https://requires.io/github/emoji-gen/web-main/requirements/?branch=master)
