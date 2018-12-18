@@ -8,7 +8,7 @@ import VueRouter from 'vue-router'
 import 'normalize.css'
 
 import './style.scss'
-import './components'
+import { App } from './components'
 
 // -------------------------------------------------------------------
 
@@ -17,4 +17,9 @@ Vue.use(VuePtero, { target: document.body })
 Vue.use(VueRouter)
 
 // -------------------------------------------------------------------
+
+new Vue({
+  el: '.App',
+  render: h => h(App),
+})
 

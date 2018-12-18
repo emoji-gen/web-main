@@ -23,7 +23,7 @@ def computed_processor(debug):
     async def processor(request):
         return {
             'debug': debug,
-            'time': time.time(),
+            'TS': time.time(),
         }
     return processor
 
@@ -33,7 +33,8 @@ def config_processor(config):
         return {
             'title': config['templates']['title'],
             'base_url': config['base_url'],
-            'js_url': config['assets']['js_url'] if 'assets' in config else None,
+            'CSS_URL': config['assets'].get('css_url') if 'assets' in config else None,
+            'JS_URL': config['assets'].get('js_url') if 'assets' in config else None,
         }
     return processor
 

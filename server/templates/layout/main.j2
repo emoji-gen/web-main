@@ -4,16 +4,16 @@
     <meta charset="utf-8">
     <title>{{ title }} - {{ subtitle }}</title>
 
-    {% if js_url %}
-      <link rel="preload" href="{{ js_url }}" as="script">
+    {% if JS_URL %}
+      <link rel="preload" href="{{ JS_URL }}" as="script">
     {% else %}
-      <link rel="preload" href="/assets/js/desktop.js?{{ time }}" as="script">
+      <link rel="preload" href="/assets/script.js?_ts={{ TS }}" as="script">
     {% endif %}
 
-    {% if css_url %}
-      <link rel="stylesheet" href="{{ css_url }}">
+    {% if CSS_URL %}
+      <link rel="stylesheet" href="{{ CSS_URL }}">
     {% else %}
-      <link rel="stylesheet" href="/assets/css/desktop.css?{{ time }}">
+      <link rel="stylesheet" href="/assets/style.css?_ts={{ TS }}">
     {% endif %}
     <style> [v-cloak] { display: none } </style>
 
@@ -32,12 +32,12 @@
   </head>
   <body data-app-id="j1g3xUDxVmwWCCKqibVQCZOHNpvnSMBY">
     {% block body %}
-      <div class="v-cloak eg-app"></div>
+      <div class="v-cloak App"></div>
 
-      {% if js_url %}
-        <script src="{{ js_url }}"></script>
+      {% if JS_URL %}
+        <script src="{{ JS_URL }}"></script>
       {% else %}
-        <script src="/assets/js/desktop.js?{{ time }}"></script>
+        <script src="/assets/script.js?_ts={{ TS }}"></script>
       {% endif %}
     {% endblock %}
   </body>

@@ -11,3 +11,5 @@ Vue.component('Background', Background)
 Vue.component('Header', Header)
 Vue.component('App', App)
 Vue.component('Home', Home)
+
+export { App }
