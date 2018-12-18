@@ -1,0 +1,10 @@
+aiohttp
+aiohttp-jinja2
+aiomysql
+chardet
+emojilib
+funcy
+htmlmin
+PyYAML
+SQLAlchemy
+yarl
