@@ -97,6 +97,7 @@ module.exports = {
       new UglifyJsPlugin(),
       new OptimizeCSSAssetsPlugin(),
     ],
+    noEmitOnErrors: true,
   },
   plugins: [
     new CleanWebpackPlugin(
