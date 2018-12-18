@@ -2,11 +2,18 @@
   "name": "@emoji-gen/web-main",
   "description": "Ultimate Emoji Generator",
   "version": "1.0.0",
-  "main": "src/main.js",
   "scripts": {
     "build": "webpack",
     "start": "webpack --watch",
     "test": "true"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1",
+    "vue": "^2.5.16",
+    "vue-ptero": "^0.1.1",
+    "vue-router": "^3.0.1",
+    "vue-sharer": "^0.2.4",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^8.6.2",
@@ -14,34 +21,21 @@
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "clean-webpack-plugin": "^1.0.0",
     "css-loader": "^0.28.11",
+    "event-hooks-webpack-plugin": "^2.1.1",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.9.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^2.1.5",
     "sass-loader": "^7.0.3",
+    "uglifyjs-webpack-plugin": "^2.0.1",
     "vue-loader": "^15.2.4",
     "vue-style-loader": "^4.1.0",
     "vue-template-compiler": "^2.5.16",
     "webpack": "^4.12.0",
     "webpack-cli": "^3.0.3"
   },
-  "dependencies": {
-    "purecss": "^1.0.0",
-    "supports-webp": "^1.0.5",
-    "vue": "^2.5.16",
-    "vue-ptero": "^0.1.1",
-    "vue-router": "^3.0.1",
-    "vue-sharer": "^0.2.4",
-    "vuex": "^3.0.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/emoji-gen/web-main.git"
-  },
-  "bugs": {
-    "url": "https://github.com/emoji-gen/web-main/issues"
-  },
-  "homepage": "https://github.com/emoji-gen/web-main",
   "author": {
     "name": "Emoji Generator",
     "email": "ultimate.emoji.gen@gmail.com",

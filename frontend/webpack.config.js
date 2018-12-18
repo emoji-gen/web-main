@@ -1,29 +1,38 @@
 'use strict'
 
 const { join } = require('path')
+
 const webpack = require('webpack')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const EventHooksPlugin = require('event-hooks-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
-const isDev = ~process.argv.indexOf('--watch')
+const isDev = process.argv.includes('--watch')
 const mode = isDev ? 'development' : 'production'
+
 
 module.exports = {
   mode,
 
   // Entry and Context
+  //~~~~~~~~~~~~~~~~~~~~
   context: __dirname,
-  entry: {
-    desktop: './src/desktop/index.js',
-  },
+  entry: './src/main.js',
+
 
   // Output
+  //~~~~~~~~~
   output: {
-    filename: 'js/[name].js',
-    path: join(__dirname, '../server/public'),
+    filename: 'script.js',
+    path: join(__dirname, '..', 'server/public'),
   },
 
+
   // Module
+  //~~~~~~~~~
   module: {
     rules: [
       {
@@ -38,14 +47,17 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader'
+        loader: 'babel-loader',
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader',
+          {
+            loader: 'css-loader',
+            options: { url: false },
+          },
         ],
       },
       {
@@ -54,40 +66,49 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
-            options: {
-              modules: true,
-            },
+            options: { url: false },
           },
-          'postcss-loader',
+          {
+            loader: 'postcss-loader',
+          },
           {
             loader: 'sass-loader',
             options: {
-              includePath: [
-                join(__dirname, 'src'),
-              ],
+              includePath: [ join(__dirname, 'src') ],
             },
           },
         ],
-      }
+      },
     ]
   },
 
+
   // Resolve
+  //~~~~~~~~~~
   resolve: {
-    alias: {
-      purecss: 'purecss/build/pure-min.css',
-    },
-    extensions: ['.js', '.vue', '.scss'],
-    modules: [
-      join(__dirname, 'src'),
-      'node_modules',
-    ],
+    extensions: ['.js', '.vue'],
   },
 
-  // Plugins
+
+  // Optimization and Plugins
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin(),
+      new OptimizeCSSAssetsPlugin(),
+    ],
+  },
   plugins: [
+    new CleanWebpackPlugin(
+      ['js', 'css'].map(v => join(__dirname, '..', `server/public/*.${v}`)),
+      { allowExternal: true },
+    ),
+    new EventHooksPlugin({
+      run() { console.log('Mode: ' + mode) },
+      watchRun() { console.log('Mode: ' + mode) },
+    }),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].css',
+      filename: 'style.css',
     }),
     new webpack.DefinePlugin({
       DEBUG: isDev,
@@ -95,8 +116,28 @@ module.exports = {
     new VueLoaderPlugin()
   ],
 
+
   // Watch and WatchOptions
+  //~~~~~~~~~~~~~~~~~~~~~~~~~
   watchOptions: {
     poll: true,
+    ignored: [ /node_modules/ ],
+  },
+
+
+  // Performance
+  //~~~~~~~~~~~~~~~
+  performance: {
+    hints: false,
+  },
+
+
+  // Stats
+  //~~~~~~~~
+  stats: {
+    entrypoints: true,
+    children: false,
+    colors: true,
+    modules: false,
   },
 }

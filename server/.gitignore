@@ -10,3 +10,7 @@ venv
 config/assets.yml
 public/css/desktop.css
 public/js/desktop.js
+public/js/*.js
+public/css/*.css
+public/*.js
+public/*.css

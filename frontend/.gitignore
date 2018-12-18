@@ -1,9 +1,0 @@
-# node
-node_modules
-
-# npm
-npm-debug.log*
-
-# yarn
-yarn-error.log
-
