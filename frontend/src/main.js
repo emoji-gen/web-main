@@ -6,9 +6,11 @@ import VuePtero from 'vue-ptero'
 import VueRouter from 'vue-router'
 
 import 'normalize.css'
-
 import './style.scss'
+
 import { App } from './components'
+import setupRouter from './router'
+import setupStore from './store'
 
 // -------------------------------------------------------------------
 
@@ -21,5 +23,7 @@ Vue.use(VueRouter)
 new Vue({
   el: '.App',
   render: h => h(App),
+  router: setupRouter(),
+  store: setupStore(),
 })
 

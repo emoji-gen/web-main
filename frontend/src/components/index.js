@@ -12,4 +12,9 @@ Vue.component('Header', Header)
 Vue.component('App', App)
 Vue.component('Home', Home)
 
-export { App }
+export {
+  Background,
+  Header,
+  App,
+  Home,
+}

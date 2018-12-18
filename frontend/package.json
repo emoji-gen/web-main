@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "webpack",
-    "start": "webpack --watch",
+    "start": "nf start",
     "test": "true"
   },
   "dependencies": {
@@ -21,9 +21,11 @@
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "browser-sync": "^2.26.3",
     "clean-webpack-plugin": "^1.0.0",
     "css-loader": "^0.28.11",
     "event-hooks-webpack-plugin": "^2.1.1",
+    "foreman": "^3.0.1",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.9.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
