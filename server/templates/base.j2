@@ -1,34 +1,40 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
-    <meta charset="utf-8">
-    <title>{{ title }} - {{ subtitle }}</title>
+    {% block head %}
+      <meta charset="utf-8">
+      <title>{{ title }} - {{ subtitle }}</title>
 
-    {% if JS_URL %}
-      <link rel="preload" href="{{ JS_URL }}" as="script">
-    {% else %}
-      <link rel="preload" href="/assets/script.js?_ts={{ TS }}" as="script">
-    {% endif %}
+      {# Google Analytics #}
+      {% include 'includes/base_gtag.html' %}
 
-    {% if CSS_URL %}
-      <link rel="stylesheet" href="{{ CSS_URL }}">
-    {% else %}
-      <link rel="stylesheet" href="/assets/style.css?_ts={{ TS }}">
-    {% endif %}
-    <style> [v-cloak] { display: none } </style>
+      {# CSS / JavaScript #}
+      <style> [v-cloak] { display: none } </style>
+      {% if JS_URL %}
+        <link rel="preload" href="{{ JS_URL }}" as="script">
+      {% else %}
+        <link rel="preload" href="/assets/script.js?_ts={{ TS }}" as="script">
+      {% endif %}
+      {% if CSS_URL %}
+        <link rel="stylesheet" href="{{ CSS_URL }}">
+      {% else %}
+        <link rel="stylesheet" href="/assets/style.css?_ts={{ TS }}">
+      {% endif %}
 
-    <meta name="description" content="{{ description }}">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta property="fb:app_id" content="1668136526839121">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="{{ title }}">
-    <meta property="og:title" content="{{ title }} - {{ subtitle }}">
-    <meta property="og:description" content="{{ description }}">
-    <meta property="og:url" content="{{ base_url }}">
-    <meta property="og:image" content="{{ base_url }}/assets/img/ogp_summary.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <link rel="canonical" href="{{ base_url }}{{ path }}">
+      {# OGP #}
+      <meta name="description" content="{{ description }}">
+      <meta name="twitter:card" content="summary_large_image">
+      <meta property="fb:app_id" content="1668136526839121">
+      <meta property="og:type" content="website">
+      <meta property="og:site_name" content="{{ title }}">
+      <meta property="og:title" content="{{ title }} - {{ subtitle }}">
+      <meta property="og:description" content="{{ description }}">
+      <meta property="og:url" content="{{ base_url }}">
+      <meta property="og:image" content="{{ base_url }}/assets/img/ogp_summary.png">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+      <link rel="canonical" href="{{ base_url }}{{ path }}">
+    {% endblock %}
   </head>
   <body data-app-id="j1g3xUDxVmwWCCKqibVQCZOHNpvnSMBY">
     {% block body %}
