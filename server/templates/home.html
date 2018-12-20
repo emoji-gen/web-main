@@ -14,7 +14,7 @@
   {# 初期状態 #}
   {% filter squash %}
     <script>
-      window.HOME_FONTS = {{ fonts|safe }};
+      var HOME_FONTS = {{ fonts|safe }};
     </script>
   {% endfilter %}
 {% endblock %}

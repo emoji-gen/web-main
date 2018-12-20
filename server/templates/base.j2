@@ -36,8 +36,8 @@
       <title>{% block title %}{% endblock %}</title>
       {% filter squash %}
         <script>
-          window.HOME_TITLE = '{{ SITE_NAME }} - {{ SITE_LEAD }}';
-          window.CONTACT_TITLE = 'お問い合わせ - {{ SITE_NAME }}';
+          var HOME_TITLE = '{{ SITE_NAME }} - {{ SITE_LEAD }}';
+          var CONTACT_TITLE = 'お問い合わせ - {{ SITE_NAME }}';
         </script>
       {% endfilter %}
     {% endblock %}
