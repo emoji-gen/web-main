@@ -19,7 +19,7 @@ const app = {
 const contact = {
   namespaced: true,
   state: {
-    title: window.CONTACT_TITLE,
+    title: CONTACT_TITLE,
   },
   actions: {
     mounted({ commit, state: { title } }) {
@@ -51,7 +51,7 @@ const home = {
   state: {
     fonts: window.HOME_FONTS,
     histories: window.HOME_HISTORIES,
-    title: window.HOME_TITLE,
+    title: HOME_TITLE,
   },
   actions: {
     mounted({ commit, state: { title } }) {
