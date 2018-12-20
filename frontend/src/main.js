@@ -13,7 +13,7 @@ import './style.scss'
 
 import { App } from './components'
 import setupRouter from './router'
-import setupStore from './store'
+import setupStore from './stores'
 
 // -------------------------------------------------------------------
 

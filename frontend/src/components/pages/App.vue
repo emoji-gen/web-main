@@ -24,7 +24,7 @@
     created() {
       this.$ptero.on('CE_ATTACH', e => {
         log.debug('Attached by Chrome Extension', e.detail)
-        this.$store.dispatch('extension/attach')
+        this.$store.dispatch('app/extensionAttached')
       })
       this.$ptero.on('CE_SEARCH_JOINED_TEAMS_DONE', e => {
         log.debug('CE_SEARCH_JOINED_TEAMS_DONE', e.detail)
