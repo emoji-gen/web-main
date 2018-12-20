@@ -3,3 +3,12 @@
 {% set path = '/' %}
 
 {% extends "base.j2" %}
+
+{% block head %}
+  {{ super() }}
+
+  <script>
+    window.HOME_FONTS = {{ fonts|safe }};
+  </script>
+
+{% endblock %}

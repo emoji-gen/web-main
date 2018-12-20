@@ -21,12 +21,21 @@ const extension = {
   },
 }
 
+const home = {
+  namespaced: true,
+  state: {
+    fonts: window.HOME_FONTS,
+    histories: window.HOME_HISTORIES,
+  },
+}
+
 // -------------------------------------------------------------------
 
 export default () => {
   return new Vuex.Store({
     modules: {
       extension,
+      home,
     },
   })
 }

@@ -29,7 +29,7 @@ def computed_processor(debug):
         return {
             'debug': debug,
             'DEBUG': debug,
-            'TS': int(time.time()),
+            'TS': int(time.time() * 1000),
         }
     return processor
 
