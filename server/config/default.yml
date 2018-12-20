@@ -1,6 +1,8 @@
 
 templates:
-  title: '絵文字ジェネレーター'
+  site_name: '絵文字ジェネレーター'
+  site_lead: 'Slack 向け絵文字を無料で簡単生成'
+  site_description: '絵文字ジェネレーターで、綺麗な絵文字を生成しよう! 好みのテキストと色を指定するだけで、便利なリアクション絵文字 (スタンプ) が無料で簡単生成できます! Slack などチャットツールでの利用に最適! 絵文字でコミュニケーションを活発化しましょう。'
 
 routes:
   default_font_key: 'notosans-mono-bold'

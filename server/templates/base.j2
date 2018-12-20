@@ -3,7 +3,6 @@
   <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
     {% block head %}
       <meta charset="utf-8">
-      <title>{{ title }} - {{ subtitle }}</title>
 
       {# Google Analytics #}
       {% include 'includes/base_gtag.html' %}
@@ -21,19 +20,26 @@
         <link rel="stylesheet" href="/assets/style.css?_ts={{ TS }}">
       {% endif %}
 
-      {# OGP #}
-      <meta name="description" content="{{ description }}">
+      {# Meta / OGP #}
+      <meta name="description" content="{% block description %}{% endblock %}">
       <meta name="twitter:card" content="summary_large_image">
       <meta property="fb:app_id" content="1668136526839121">
+      <meta property="og:description" content="{% block og_description %}{% endblock %}">
       <meta property="og:type" content="website">
-      <meta property="og:site_name" content="{{ title }}">
-      <meta property="og:title" content="{{ title }} - {{ subtitle }}">
-      <meta property="og:description" content="{{ description }}">
-      <meta property="og:url" content="{{ base_url }}">
-      <meta property="og:image" content="{{ base_url }}/assets/img/ogp_summary.png">
+      <meta property="og:site_name" content="{{ SITE_NAME }} - {{ SITE_LEAD }}">
+      <meta property="og:image" content="{{ BASE_URL }}/assets/img/ogp_summary.png">
       <meta property="og:image:width" content="1200">
       <meta property="og:image:height" content="630">
-      <link rel="canonical" href="{{ base_url }}{{ path }}">
+      <meta property="og:url" content="{% block og_url %}{% endblock %}">
+      <meta property="og:title" content="{% block og_title %}{% endblock %}">
+      <link rel="canonical" href="{% block canonical %}{% endblock %}">
+      <title>{% block title %}{% endblock %}</title>
+      {% filter squash %}
+        <script>
+          window.HOME_TITLE = '{{ SITE_NAME }} - {{ SITE_LEAD }}';
+          window.CONTACT_TITLE = 'お問い合わせ - {{ SITE_NAME }}';
+        </script>
+      {% endfilter %}
     {% endblock %}
   </head>
   <body data-app-id="j1g3xUDxVmwWCCKqibVQCZOHNpvnSMBY">

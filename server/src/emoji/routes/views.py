@@ -7,7 +7,7 @@ import aiohttp_jinja2
 
 async def index(request):
     fonts = json.dumps(request.app['repos']['font'].all())
-    response = aiohttp_jinja2.render_template('index.j2', request, { 'fonts': fonts })
+    response = aiohttp_jinja2.render_template('home.html', request, { 'fonts': fonts })
 
     if request.app.debug:
         response.headers['Cache-Control'] = 'private, no-store, no-cache, must-revalidate'
@@ -17,3 +17,5 @@ async def index(request):
     return response
 
 
+async def contact(request):
+    return aiohttp_jinja2.render_template('contact.html', request, {})

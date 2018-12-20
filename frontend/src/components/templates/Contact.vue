@@ -1,10 +1,10 @@
 <template>
-  <div class="Home">home</div>
+  <div class="Contact">Contact</div>
 </template>
 
 
 <style lang="scss">
-  .Home {
+  .Contact {
 
   }
 </style>
@@ -13,7 +13,7 @@
 <script>
   export default {
     mounted() {
-      this.$store.dispatch('home/mounted')
+      this.$store.dispatch('contact/mounted')
     }
   }
 </script>

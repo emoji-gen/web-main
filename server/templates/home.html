@@ -1,0 +1,20 @@
+{% extends "base.j2" %}
+
+{% block description %}{{ SITE_DESCRIPTION }}{% endblock %}
+{% block og_title %}{{ SITE_NAME }} - {{ SITE_LEAD }}{% endblock %}
+{% block og_description %}{{ SITE_DESCRIPTION }}{% endblock %}
+{% block og_url %}{{ SITE_URL }}/{% endblock %}
+{% block canonical %}{{ SITE_URL }}/{% endblock %}
+{% block title %}{{ SITE_NAME }} - {{ SITE_LEAD }}{% endblock %}
+
+
+{% block head %}
+  {{ super() }}
+
+  {# 初期状態 #}
+  {% filter squash %}
+    <script>
+      window.HOME_FONTS = {{ fonts|safe }};
+    </script>
+  {% endfilter %}
+{% endblock %}

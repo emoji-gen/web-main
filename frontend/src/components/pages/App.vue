@@ -3,34 +3,43 @@
     <Background/>
     <Header/>
     <router-view/>
+    <Footer/>
   </div>
 </template>
 
 
-<style scoped>
+<style lang="scss" scoped>
+  .App {
+    position: relative;
+  }
 </style>
 
 
 <script>
+  import log from 'loglevel'
+  import { mapState } from 'vuex'
 
-import log from 'loglevel'
-
-
-export default {
-
-  created() {
-    this.$ptero.on('CE_ATTACH', e => {
-      log.debug('Attached by Chrome Extension', e.detail)
-      this.$store.dispatch('extension/attach')
-    })
-    this.$ptero.on('CE_SEARCH_JOINED_TEAMS_DONE', e => {
-      log.debug('CE_SEARCH_JOINED_TEAMS_DONE', e.detail)
-      //this.$broadcast('CE_SEARCH_JOINED_TEAMS_DONE', e.detail)
-    })
-    this.$ptero.on('CE_REGISTER_EMOJI_DONE', e => {
-      log.debug('CE_REGISTER_EMOJI_DONE', e.detail)
-      //this.$broadcast('CE_REGISTER_EMOJI_DONE', e.detail)
-    })
+  export default {
+    computed: mapState('app', ['title']),
+    created() {
+      this.$ptero.on('CE_ATTACH', e => {
+        log.debug('Attached by Chrome Extension', e.detail)
+        this.$store.dispatch('extension/attach')
+      })
+      this.$ptero.on('CE_SEARCH_JOINED_TEAMS_DONE', e => {
+        log.debug('CE_SEARCH_JOINED_TEAMS_DONE', e.detail)
+        //this.$broadcast('CE_SEARCH_JOINED_TEAMS_DONE', e.detail)
+      })
+      this.$ptero.on('CE_REGISTER_EMOJI_DONE', e => {
+        log.debug('CE_REGISTER_EMOJI_DONE', e.detail)
+        //this.$broadcast('CE_REGISTER_EMOJI_DONE', e.detail)
+      })
+    },
+    watch: {
+      title(val, oldVal) {
+        console.log("#")
+        document.title = val
+      },
+    },
   }
-}
 </script>

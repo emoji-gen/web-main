@@ -2,7 +2,7 @@
 
 import VueRouter from 'vue-router'
 
-import { Home } from './components'
+import { Contact, Home } from './components'
 
 // -------------------------------------------------------------------
 
@@ -10,6 +10,10 @@ const routes = [
   {
     path: '/',
     component: Home,
+  },
+  {
+    path: '/contact',
+    component: Contact,
   },
 ]
 

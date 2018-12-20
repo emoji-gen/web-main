@@ -6,11 +6,12 @@ from emoji.routes import static, redirect
 from emoji.routes.emoji import download, generate
 from emoji.routes.api import font, history
 from emoji.routes.healthcheck import ok
-from emoji.routes.views import index
+from emoji.routes.views import contact, index
 
 
 def setup_routes(app):
     app.router.add_get('/', index)
+    app.router.add_get('/contact', contact)
     app.router.add_get('/healthcheck', ok)
     app.router.add_get('/emoji', generate)
     app.router.add_get('/emoji_download', download)

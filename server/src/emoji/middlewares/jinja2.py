@@ -37,7 +37,10 @@ def computed_processor(debug):
 def config_processor(config):
     async def processor(request):
         return {
-            'title': config['templates']['title'],
+            'SITE_NAME': config['templates']['site_name'],
+            'SITE_LEAD': config['templates']['site_lead'],
+            'SITE_DESCRIPTION': config['templates']['site_description'],
+            'SITE_URL': config['base_url'],
             'base_url': config['base_url'],
             'BASE_URL': config['base_url'],
             'CSS_URL': config['assets'].get('css_url') if 'assets' in config else None,
