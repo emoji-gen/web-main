@@ -6,6 +6,8 @@ import VuePtero from 'vue-ptero'
 import VueRouter from 'vue-router'
 import VueSharer from 'vue-sharer'
 
+import log from 'loglevel'
+
 import 'normalize.css'
 import './style.scss'
 
@@ -14,6 +16,12 @@ import setupRouter from './router'
 import setupStore from './store'
 
 // -------------------------------------------------------------------
+
+if (DEBUG) {
+  log.setLevel('trace')
+} else {
+  log.setLevel('warn')
+}
 
 Vue.use(Vuex)
 Vue.use(VuePtero, { target: document.body })

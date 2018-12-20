@@ -8,6 +8,7 @@
     "test": "eslint src"
   },
   "dependencies": {
+    "loglevel": "^1.6.1",
     "normalize.css": "^8.0.1",
     "vue": "^2.5.16",
     "vue-ptero": "^0.1.1",
