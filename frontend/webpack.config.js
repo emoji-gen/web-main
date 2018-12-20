@@ -74,7 +74,7 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              includePath: [ join(__dirname, 'src') ],
+              includePaths: [ join(__dirname, 'src') ],
             },
           },
         ],

@@ -6420,7 +6420,7 @@ vue-router@^3.0.1:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.2.tgz#dedc67afe6c4e2bc25682c8b1c2a8c0d7c7e56be"
 
-vue-sharer@^0.2.4:
+vue-sharer@^0.2.5:
   version "0.2.5"
   resolved "https://registry.yarnpkg.com/vue-sharer/-/vue-sharer-0.2.5.tgz#e6ec84bbb0401302638dce27d9e95354906c5c5c"
   dependencies:
