@@ -9,6 +9,6 @@ const state = {
 
 // -------------------------------------------------------------------
 
-export default function() {
+export default () => {
   return new Vuex.Store({ state })
 }

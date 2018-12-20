@@ -20,7 +20,7 @@ Vue.use(VueRouter)
 
 // -------------------------------------------------------------------
 
-new Vue({
+export default new Vue({
   el: '.App',
   render: h => h(App),
   router: setupRouter(),

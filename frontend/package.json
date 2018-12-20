@@ -5,7 +5,7 @@
   "scripts": {
     "build": "webpack",
     "start": "nf start",
-    "test": "true"
+    "test": "eslint src"
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
@@ -24,6 +24,12 @@
     "browser-sync": "^2.26.3",
     "clean-webpack-plugin": "^1.0.0",
     "css-loader": "^0.28.11",
+    "eslint": "^5.10.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
     "event-hooks-webpack-plugin": "^2.1.1",
     "foreman": "^3.0.1",
     "mini-css-extract-plugin": "^0.4.0",

@@ -15,7 +15,7 @@ const routes = [
 
 // -------------------------------------------------------------------
 
-export default function() {
+export default () => {
   return new VueRouter({
     mode: 'history',
     routes,
