@@ -15056,6 +15056,7 @@
 
 	ga('create', 'UA-82501423-1', 'auto');
 	ga('send', 'pageview');
+	ga('set', 'contentGroup1', 'home');
 
 /***/ }),
 /* 14 */
