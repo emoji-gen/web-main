@@ -2,3 +2,31 @@
  * includes/_mixins.scss
  */
 
+
+/**
+ * Icons
+ */
+%icon-40px {
+  display: block;
+  margin: 0;
+  border: 0;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+}
+
+%icon-40px-github {
+  background-image: url('/assets/img/github.png');
+  opacity: .70;
+}
+
+%icon-40px-twitter {
+  background-image: url('/assets/img/twitter.png');
+  opacity: .88;
+}
