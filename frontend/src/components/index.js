@@ -21,6 +21,7 @@ Vue.component('Home', Home)
 export {
   Background,
   Footer,
+  Generator,
   Header,
   App,
   Contact,
