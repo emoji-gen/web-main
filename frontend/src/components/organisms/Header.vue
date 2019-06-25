@@ -1,7 +1,10 @@
 <template>
   <div class="Header">
     <header>
+      <!-- Logo + Title -->
       <h1><a href="/">絵文字 ジェネレーター</a></h1>
+
+      <!-- Buttons -->
       <div class="buttons">
         <a href="https://twitter.com/emoji_gen" class="twitter" target="_blank" title="絵文字ジェネレーター 公式 Twitter" rel="noopener">Twitter</a>
         <a href="https://github.com/emoji-gen/web-main" class="github" target="_blank" rel="noopener">GitHub</a>
@@ -99,10 +102,3 @@
     }
   }
 </style>
-
-
-<script>
-  export default {
-  }
-</script>
-

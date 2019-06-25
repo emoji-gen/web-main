@@ -2,6 +2,27 @@
  * includes/_mixins.scss
  */
 
+@import 'includes/_variables';
+
+
+/**
+ * Layout
+ */
+%box {
+  margin: 30px auto 30px auto;
+  width: $dimen-content-width;
+  background-color: $color-background-white;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+%box-heading {
+  margin: 18px 0 28px;
+  font-size: $font-large;
+  font-weight: bold;
+  letter-spacing: 1.8px;
+  text-align: center;
+  color: $color-green-dark;
+}
 
 /**
  * Icons

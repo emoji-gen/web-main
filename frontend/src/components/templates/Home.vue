@@ -1,11 +1,14 @@
 <template>
-  <div class="Home">home</div>
+  <div class="Home">
+    <Generator />
+  </div>
 </template>
 
 
 <style lang="scss">
   .Home {
-
+    margin-bottom: 180px;
+    min-height: 600px;
   }
 </style>
 
