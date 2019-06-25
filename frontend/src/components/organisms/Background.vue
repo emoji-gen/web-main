@@ -16,8 +16,6 @@
   $_rotate: -18deg;
 
   .Background {
-    visibility: hidden;
-
     position: fixed;
     top: 0;
     right: 0;
