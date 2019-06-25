@@ -15056,6 +15056,7 @@
 
 	ga('create', 'UA-82501423-1', 'auto');
 	ga('send', 'pageview');
+	ga('set', 'contentGroup1', 'home');
 
 /***/ }),
 /* 14 */
@@ -15209,7 +15210,7 @@
 /* 25 */
 /***/ (function(module, exports) {
 
-	module.exports = "<div class=\"v-cloak eg-footer\"> <footer> <div class=banner> <a href=\"https://play.google.com/store/apps/details?id=moe.pine.emoji&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1\" target=_blank> <img src=/static/img/playstore.png width=162 height=63 alt=\"Google Play で手に入れよう\"> </a> </div> <ul class=menus> <li><a href=/blog/ target=_blank>開発者ブログ</a></li> <li><a v-link=\"'/contact'\" v-eg-scroll>お問い合わせ</a></li> </ul> <p class=copyright>(C) 2016-2018 絵文字 ジェネレーター</p> </footer> </div> ";
+	module.exports = "<div class=\"v-cloak eg-footer\"> <footer> <div class=banner> <a href=\"https://play.google.com/store/apps/details?id=moe.pine.emoji&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1\" target=_blank> <img src=/static/img/playstore.png width=162 height=63 alt=\"Google Play で手に入れよう\"> </a> </div> <ul class=menus> <li><a href=/blog/ target=_blank>開発者ブログ</a></li> <li><a v-link=\"'/contact'\" v-eg-scroll>お問い合わせ</a></li> </ul> <p class=copyright>(C) 2016-2019 絵文字 ジェネレーター</p> </footer> </div> ";
 
 /***/ }),
 /* 26 */
