@@ -5,7 +5,7 @@
 </template>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
   .Home {
     margin-bottom: 180px;
     min-height: 600px;

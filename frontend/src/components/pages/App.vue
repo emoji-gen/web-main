@@ -8,7 +8,7 @@
 </template>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
   .App {
     position: relative;
   }
