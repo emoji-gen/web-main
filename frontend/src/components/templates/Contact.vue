@@ -11,9 +11,11 @@
 
 
 <script>
+  const TITLE = window.CONTACT_TITLE || ''
+
   export default {
     mounted() {
-      this.$store.dispatch('contact/mounted')
+      document.title = TITLE
     }
   }
 </script>

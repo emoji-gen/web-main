@@ -14,8 +14,7 @@
     "vue-ptero": "^0.1.1",
     "vue-router": "^3.0.1",
     "vue-sharer": "^0.2.5",
-    "vue-color": "^2.7.0",
-    "vuex": "^3.0.1"
+    "vue-color": "^2.7.0"
   },
   "devDependencies": {
     "autoprefixer": "^9.6.0",
@@ -34,7 +33,6 @@
     "eslint-plugin-standard": "^4.0.0",
     "event-hooks-webpack-plugin": "^2.1.1",
     "foreman": "^3.0.1",
-    "lodash.get": "^4.4.2",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.9.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",

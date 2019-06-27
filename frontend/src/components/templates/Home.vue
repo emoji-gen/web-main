@@ -14,9 +14,11 @@
 
 
 <script>
+  const TITLE = window.HOME_TITLE || ''
+
   export default {
     mounted() {
-      this.$store.dispatch('home/mounted')
+      document.title = TITLE
     }
   }
 </script>

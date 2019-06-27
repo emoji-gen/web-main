@@ -311,8 +311,6 @@
 
 
 <script>
-  import get from 'lodash.get'
-  import { mapState } from 'vuex'
   import { Chrome } from 'vue-color'
 
   const DEFAULT_COLORS = {
@@ -326,13 +324,13 @@
     a: 1
   }
 
-  const FONTS = window.GENERATOR_FONTS || []
+  const FONTS = window.GENERATOR_FONTS || [{}]
 
   export default {
     data: () => ({
       publicFg: true,
       fonts: FONTS,
-      fontKey: get(FONTS, '[0].key'),
+      fontKey: FONTS[0].key,
       colors: DEFAULT_COLORS,
     }),
     methods: {

@@ -17,14 +17,11 @@
 
 <script>
   import log from 'loglevel'
-  import { mapState } from 'vuex'
 
   export default {
-    computed: mapState('app', ['title']),
     created() {
       this.$ptero.on('CE_ATTACH', e => {
         log.debug('Attached by Chrome Extension', e.detail)
-        this.$store.dispatch('app/extensionAttached')
       })
       this.$ptero.on('CE_SEARCH_JOINED_TEAMS_DONE', e => {
         log.debug('CE_SEARCH_JOINED_TEAMS_DONE', e.detail)
@@ -34,12 +31,6 @@
         log.debug('CE_REGISTER_EMOJI_DONE', e.detail)
         //this.$broadcast('CE_REGISTER_EMOJI_DONE', e.detail)
       })
-    },
-    watch: {
-      title(val, oldVal) {
-        console.log("#")
-        document.title = val
-      },
     },
   }
 </script>
