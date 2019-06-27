@@ -27,6 +27,7 @@
   .Header {
     z-index: 1;
     height: $_height;
+    line-height: 1.55;
     background-color: $color-background-white;
     box-shadow: 0px 0px 3px 1px $color-shadow-white;
 

@@ -51,7 +51,24 @@
           </label>
         </div>
       </div>
+
+      <!-- Parameter : Font -->
+      <div class="parameter font">
+        <h3>フォント</h3>
+        <ul>
+          <li v-for="font in fonts" track-by="$index">
+            <input type="radio" name="Generator__font" :value="font.key" :id="'Generator__font--' + font.key" v-model="fontKey">
+            <label :for="'Generator__font--' + font.key">{{font.name}}</label>
+          </li>
+        </ul>
+      </div>
+
+
+      <!-- Parameter : Color -->
+      <ColorPicker v-model="colors" />
     </div>
+
+
   </div>
 </template>
 
@@ -68,6 +85,7 @@
   .Generator {
     @extend %box;
     padding: 20px 0 35px;
+    line-height: 1.55;
 
     &, * {
       box-sizing: border-box;
@@ -125,6 +143,23 @@
       display: flex;
       justify-content: center;
       margin: 38px 0 0;
+
+      h3 {
+        display: block;
+        margin: 0 0 16px;
+        font-size: $font-medium;
+        font-weight: bold;
+        letter-spacing: 1px;
+        text-align: center;
+      }
+      h4 {
+        display: block;
+        margin: 0 0 10px;
+        font-size: $font-small;
+        font-weight: bold;
+        letter-spacing: 1px;
+        text-align: center;
+      }
 
       .parameter {
         margin: 0 30px 0;
@@ -235,8 +270,39 @@
         /**
          * Parameter : Font
          */
+        &.font {
+          ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            list-style-position: inside;
+          }
+          input {
+            display: none;
 
+            &:checked + label {
+              border: 1px solid rgba(darken($color-blue, 20%), .8);
+              background-image: url(/assets/img/checked.png);
+              background-repeat: no-repeat;
+              background-position: 14px center;
+              background-size: 20px auto;
+              color: darken($color-blue, 20%);
+            }
+          }
 
+          label {
+            display: block;
+            margin: 0 0 5px;
+            padding: 8px 23px 8px 46px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, .2);
+            color: rgba(0, 0, 0, .32);
+            font-size: $font-medium;
+            text-align: left;
+            user-select: none;
+            cursor: pointer;
+          }
+        }
       }
     }
   }
@@ -245,14 +311,37 @@
 
 
 <script>
+  import get from 'lodash.get'
+  import { mapState } from 'vuex'
+  import { Chrome } from 'vue-color'
+
+  const DEFAULT_COLORS = {
+    hex: '#EC71A1',
+    rgba: {
+      r: 236,
+      g: 113,
+      b: 161,
+      a: 1
+    },
+    a: 1
+  }
+
+  const FONTS = window.GENERATOR_FONTS || []
+
   export default {
     data: () => ({
       publicFg: true,
+      fonts: FONTS,
+      fontKey: get(FONTS, '[0].key'),
+      colors: DEFAULT_COLORS,
     }),
     methods: {
       generate() {
         console.log('generate')
       },
+    },
+    components: {
+      ColorPicker: Chrome,
     },
   }
 </script>
