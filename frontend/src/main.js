@@ -3,7 +3,6 @@
 import Vue from 'vue'
 import VuePtero from 'vue-ptero'
 import VueRouter from 'vue-router'
-import VueSharer from 'vue-sharer'
 
 import log from 'loglevel'
 
@@ -23,8 +22,6 @@ if (DEBUG) {
 
 Vue.use(VuePtero, { target: document.body })
 Vue.use(VueRouter)
-
-Vue.directive('sharer', VueSharer)
 
 // -------------------------------------------------------------------
 

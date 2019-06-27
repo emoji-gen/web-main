@@ -5,7 +5,7 @@
 </template>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import 'includes/_variables';
 
   .Footer {

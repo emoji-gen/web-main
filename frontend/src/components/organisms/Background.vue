@@ -8,7 +8,7 @@
 </template>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import 'includes/_variables';
 
   $_opacity: 0.4;

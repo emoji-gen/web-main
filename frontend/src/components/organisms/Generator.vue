@@ -73,7 +73,7 @@
 </template>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import 'includes/_variables';
   @import 'includes/_mixins';
 
@@ -311,7 +311,7 @@
 
 
 <script>
-  import { Chrome } from 'vue-color'
+  import Chrome from 'vue-color/src/components/Chrome'
 
   const DEFAULT_COLORS = {
     hex: '#EC71A1',
