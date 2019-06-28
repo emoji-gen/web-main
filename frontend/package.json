@@ -8,13 +8,13 @@
     "test": "eslint src"
   },
   "dependencies": {
-    "loglevel": "^1.6.1",
+    "loglevel": "^1.6.3",
     "normalize.css": "^8.0.1",
-    "vue": "^2.5.16",
+    "vue": "^2.6.10",
     "vue-color": "^2.7.0",
     "vue-i18n": "^8.11.2",
     "vue-ptero": "^0.1.1",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.6"
   },
   "devDependencies": {
     "autoprefixer": "^9.6.0",
