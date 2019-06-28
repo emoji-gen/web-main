@@ -108,7 +108,19 @@ module.exports = {
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~
   optimization: {
     minimizer: [
-      new UglifyJsPlugin(),
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          compress: {
+            unsafe: true,
+            unsafe_comps: true,
+            unsafe_Function: true,
+            unsafe_math: true,
+            unsafe_proto: true,
+            unsafe_regexp: true,
+            unsafe_undefined: true,
+          },
+        },
+      }),
       new OptimizeCSSAssetsPlugin(),
     ],
     noEmitOnErrors: true,
