@@ -87,6 +87,7 @@ module.exports = {
   //~~~~~~~~~~
   resolve: {
     alias: {
+      '@': join(__dirname, 'src'),
       vue: 'vue/dist/vue.runtime.esm.js',
     },
     extensions: ['.js', '.vue'],
