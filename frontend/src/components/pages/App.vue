@@ -17,7 +17,7 @@
 
 <script>
   import log from 'loglevel'
-  import eventbus from '@/eventbus'
+  import eventbus from '@/src/eventbus'
 
   export default {
     created() {
