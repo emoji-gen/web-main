@@ -3,7 +3,7 @@
 const { join } = require('path')
 
 const webpack = require('webpack')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const EventHooksPlugin = require('event-hooks-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
@@ -12,7 +12,6 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const isDev = process.argv.includes('--watch')
 const mode = isDev ? 'development' : 'production'
-
 
 module.exports = {
   mode,
@@ -115,20 +114,19 @@ module.exports = {
     noEmitOnErrors: true,
   },
   plugins: [
-    new CleanWebpackPlugin(
-      ['js', 'css'].map(v => join(__dirname, '..', `server/public/*.${v}`)),
-      { allowExternal: true },
-    ),
+    new CleanWebpackPlugin({
+      dry: false,
+      dangerouslyAllowCleanPatternsOutsideProject: true,
+      cleanOnceBeforeBuildPatterns:
+        ['js', 'css'].map(v => join(__dirname, '..', `server/public/*.${v}`)),
+      verbose: false,
+    }),
     new EventHooksPlugin({
       run() { console.log('Mode: ' + mode) },
       watchRun() { console.log('Mode: ' + mode) },
     }),
-    new MiniCssExtractPlugin({
-      filename: 'style.css',
-    }),
-    new webpack.DefinePlugin({
-      DEBUG: isDev,
-    }),
+    new MiniCssExtractPlugin({ filename: 'style.css' }),
+    new webpack.DefinePlugin({ DEBUG: isDev }),
     new VueLoaderPlugin()
   ],
 
