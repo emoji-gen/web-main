@@ -6,8 +6,20 @@
 
       <!-- Buttons -->
       <div class="buttons">
-        <a href="https://twitter.com/emoji_gen" class="twitter" target="_blank" title="絵文字ジェネレーター 公式 Twitter" rel="noopener">Twitter</a>
-        <a href="https://github.com/emoji-gen/web-main" class="github" target="_blank" rel="noopener">GitHub</a>
+        <!-- Buttons : Twitter -->
+        <a href="https://twitter.com/emoji_gen"
+          class="twitter"
+          target="_blank"
+          rel="noopener"
+          :title="$t('Generator.twitter.description')"
+          v-t="Generator.twitter.label"></a>
+
+        <!-- Buttons : GitHub -->
+        <a href="https://github.com/emoji-gen/web-main"
+          class="github"
+          target="_blank"
+          rel="noopener"
+          v-t="Generator.github.label"></a>
       </div>
     </header>
   </div>

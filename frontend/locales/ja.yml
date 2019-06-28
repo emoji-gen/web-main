@@ -1,4 +1,11 @@
 Header:
-  title: '絵文字 ジェネレーター'
-  buttons:
-    twitter: '絵文字ジェネレーター 公式 Twitter'
+  title: 絵文字 ジェネレーター
+  twitter:
+    label: Twitter
+    description: 絵文字ジェネレーター 公式 Twitter
+  github:
+    label: GitHub
+
+Generator:
+  title: 絵文字にしたい文字を入力してください！
+  generate: 生成する♪

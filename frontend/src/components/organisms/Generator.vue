@@ -1,7 +1,7 @@
 <template>
   <div class="Generator">
     <!-- Title -->
-    <h2>絵文字にしたい文字を入力してください！</h2>
+    <h2 v-t="Generator.title"></h2>
 
     <div class="execution">
       <!-- Button -->
