@@ -2,7 +2,7 @@
   <div class="Header">
     <header>
       <!-- Logo + Title -->
-      <h1><a href="/" v-t="Header.title"></a></h1>
+      <h1><a href="/" v-t="'Header.title'"></a></h1>
 
       <!-- Buttons -->
       <div class="buttons">
@@ -11,15 +11,15 @@
           class="twitter"
           target="_blank"
           rel="noopener"
-          :title="$t('Generator.twitter.description')"
-          v-t="Generator.twitter.label"></a>
+          :title="$t('Header.twitter_description')"
+          v-t="'Header.twitter_label'"></a>
 
         <!-- Buttons : GitHub -->
         <a href="https://github.com/emoji-gen/web-main"
           class="github"
           target="_blank"
           rel="noopener"
-          v-t="Generator.github.label"></a>
+          v-t="'Header.github_label'"></a>
       </div>
     </header>
   </div>

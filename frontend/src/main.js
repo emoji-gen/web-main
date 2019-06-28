@@ -28,6 +28,11 @@ Vue.use(VueI18n)
 
 // -------------------------------------------------------------------
 
+const i18n = new VueI18n({
+  locale: document.documentElement.lang || 'ja',
+  messages,
+})
+
 export default new Vue({
   el: '.App',
   render: h => h(App),
@@ -40,7 +45,6 @@ export default new Vue({
   /**
    * vue-i18n
    */
-  locale: document.documentElement.lang || 'ja',
-  messages,
+  i18n,
 })
 

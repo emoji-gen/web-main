@@ -1,17 +1,17 @@
 <template>
   <div class="Generator">
     <!-- Title -->
-    <h2 v-t="Generator.title"></h2>
+    <h2 v-t="'Generator.title'"></h2>
 
     <div class="execution">
       <!-- Button -->
-      <button type="button" @click="generate">生成する&#9834;</button>
+      <button type="button" @click="generate" v-t="'Generator.generate_button'"></button>
 
       <!-- Public flag -->
-      <p class="public-fg" title="チェックマークを外すと、絵文字が生成履歴に残りません。">
-        <label class="pure-checkbox">
+      <p class="public-fg" :title="$t('Generator.public_fg_description')">
+        <label>
           <input type="checkbox" v-model="publicFg">
-          生成履歴に絵文字を表示する
+          {{ $t('Generator.public_fg_label') }}
         </label>
       </p>
     </div>
@@ -20,41 +20,44 @@
     <div class="parameters">
       <!-- Parameter : Text -->
       <div class="parameter text">
-        <h3>テキスト</h3>
+        <h3 v-t="'Generator.parameter_text_label'"></h3>
         <textarea rows="2" cols="10"></textarea>
 
-        <h4>文字揃え</h4>
+        <h4 v-t="'Generator.parameter_text_align_label'"></h4>
         <div class="aligns">
           <span class="align left">
             <input type="radio" name="Generator__align" id="Generator__align--left" value="left">
-            <label for="Generator__align--left">左</label>
+            <label for="Generator__align--left"
+              v-t="'Generator.parameter_text_align_left_label'"></label>
           </span>
           <span class="align center">
             <input type="radio" name="Generator__align" id="Generator__align--center" value="center">
-            <label for="Generator__align--center">中央</label>
+            <label for="Generator__align--center"
+              v-t="'Generator.parameter_text_align_center_label'"></label>
           </span>
           <span class="align right">
             <input type="radio" name="Generator__align" id="Generator__align--right" value="right">
-            <label for="Generator__align--right">右</label>
+            <label for="Generator__align--right"
+              v-t="'Generator.parameter_text_align_right_label'"></label>
           </span>
         </div>
 
-        <h4>サイズ調整</h4>
+        <h4 v-t="'Generator.parameter_size_label'"></h4>
         <div class="sizes">
           <label>
             <input type="checkbox">
-            文字サイズを固定する
+            {{ $t('Generator.parameter_size_fixed_label') }}
           </label>
           <label>
             <input type="checkbox">
-            自動で伸縮しない
+            {{ $t('Generator.parameter_size_non_stretch_label') }}
           </label>
         </div>
       </div>
 
       <!-- Parameter : Font -->
       <div class="parameter font">
-        <h3>フォント</h3>
+        <h3 v-t="'Generator.parameter_font_label'"></h3>
         <ul>
           <li v-for="font in fonts" track-by="$index">
             <input type="radio" name="Generator__font" :value="font.key" :id="'Generator__font--' + font.key" v-model="fontKey">
@@ -62,7 +65,6 @@
           </li>
         </ul>
       </div>
-
 
       <!-- Parameter : Color -->
       <ColorPicker v-model="colors" />
