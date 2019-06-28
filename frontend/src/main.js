@@ -31,10 +31,16 @@ Vue.use(VueI18n)
 export default new Vue({
   el: '.App',
   render: h => h(App),
+
+  /**
+   * vue-router
+   */
   router: setupRouter(),
 
-  // i18n
-  locale: 'ja',
+  /**
+   * vue-i18n
+   */
+  locale: document.documentElement.lang || 'ja',
   messages,
 })
 
