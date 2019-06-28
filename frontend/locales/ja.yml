@@ -1,8 +1,6 @@
-Header:
-  title: 絵文字 ジェネレーター
-  twitter_label: Twitter
-  twitter_description: 絵文字ジェネレーター 公式 Twitter
-  github_label: GitHub
+ColorKind:
+  foreground_label: 表
+  background_label: 裏
 
 Generator:
   title: 絵文字にしたい文字を入力してください！
@@ -18,3 +16,11 @@ Generator:
   parameter_size_fixed_label: 文字サイズを固定する
   parameter_size_non_stretch_label: 自動で伸縮しない
   parameter_font_label: フォント
+  parameter_color_label: カラー
+
+Header:
+  title: 絵文字 ジェネレーター
+  twitter_label: Twitter
+  twitter_description: 絵文字ジェネレーター 公式 Twitter
+  github_label: GitHub
+

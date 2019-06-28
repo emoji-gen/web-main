@@ -67,10 +67,19 @@
       </div>
 
       <!-- Parameter : Color -->
-      <ColorPicker v-model="colors" />
+      <div class="parameter color">
+        <h3 v-t="'Generator.parameter_color_label'"></h3>
+        <div class="pickers">
+          <div class="picker-wrapper" v-show="colorForegroundFg">
+            <ColorPicker v-model="colors" />
+          </div>
+          <div class="picker-wrapper" v-show="!colorForegroundFg">
+            <ColorPicker v-model="backgroundColors" />
+          </div>
+        </div>
+        <ColorKind />
+      </div>
     </div>
-
-
   </div>
 </template>
 
@@ -270,6 +279,19 @@
         }
 
         /**
+         * Parameter : Color
+         */
+        &.color {
+          margin-right: 32px;
+          .picker-wrapper {
+            > div {
+              @extend %_parameter;
+              margin-bottom: 8px;
+            }
+          }
+        }
+
+        /**
          * Parameter : Font
          */
         &.font {
@@ -326,6 +348,17 @@
     a: 1
   }
 
+  const DEFAULT_BACKGROUND_COLORS = {
+    hex: '#FFFFFF',
+    rgba: {
+      r: 255,
+      g: 255,
+      b: 255,
+      a: 0
+    },
+    a: 0
+  }
+
   const FONTS = window.GENERATOR_FONTS || [{}]
 
   export default {
@@ -333,6 +366,7 @@
       publicFg: true,
       fonts: FONTS,
       fontKey: FONTS[0].key,
+      colorForegroundFg: true,
       colors: DEFAULT_COLORS,
     }),
     methods: {
