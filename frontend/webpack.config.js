@@ -79,6 +79,17 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.ya?ml$/,
+        use: [
+          {
+            loader: 'json-loader',
+          },
+          {
+            loader: 'yaml-loader',
+          },
+        ],
+      },
     ]
   },
 
@@ -87,10 +98,10 @@ module.exports = {
   //~~~~~~~~~~
   resolve: {
     alias: {
-      '@': join(__dirname, 'src'),
+      '@': __dirname,
       vue: 'vue/dist/vue.runtime.esm.js',
     },
-    extensions: ['.js', '.vue'],
+    extensions: ['.js', '.vue', '.yml'],
   },
 
 
