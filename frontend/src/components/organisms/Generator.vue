@@ -70,14 +70,14 @@
       <div class="parameter color">
         <h3 v-t="'Generator.parameter_color_label'"></h3>
         <div class="pickers">
-          <div class="picker-wrapper" v-show="colorForegroundFg">
+          <div class="picker-wrapper" v-show="colorKind == 'foreground'">
             <ColorPicker v-model="colors" />
           </div>
-          <div class="picker-wrapper" v-show="!colorForegroundFg">
+          <div class="picker-wrapper" v-show="colorKind != 'foreground'">
             <ColorPicker v-model="backgroundColors" />
           </div>
         </div>
-        <ColorKind />
+        <ColorKind @change="colorKindChanged" />
       </div>
     </div>
   </div>
@@ -366,12 +366,16 @@
       publicFg: true,
       fonts: FONTS,
       fontKey: FONTS[0].key,
-      colorForegroundFg: true,
+      colorKind: 'foreground',
       colors: DEFAULT_COLORS,
+      backgroundColors: DEFAULT_BACKGROUND_COLORS,
     }),
     methods: {
       generate() {
         console.log('generate')
+      },
+      colorKindChanged(value){
+        this.colorKind = value
       },
     },
     components: {
