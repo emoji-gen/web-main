@@ -42,3 +42,35 @@ def load_config():
 
     return config
 
+
+class Config():
+    def __init__(self):
+        self._mysql = MySQLConfig()
+
+    @property
+    def mysql(self):
+        return self._mysql
+
+
+class MySQLConfig():
+    def __init__(self):
+        config = load_config()
+        self._host = config['mysql']['host']
+        self._user = config['mysql']['user']
+        self._password = config['mysql']['password']
+
+    @property
+    def host(self):
+        return self._host
+
+    @property
+    def port(self):
+        return 3306
+
+    @property
+    def user(self):
+        return self._user
+
+    @property
+    def password(self):
+        return self._password
