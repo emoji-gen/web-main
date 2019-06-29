@@ -8,6 +8,7 @@
     "test": "eslint src"
   },
   "dependencies": {
+    "flickity": "^2.2.0",
     "loglevel": "^1.6.3",
     "normalize.css": "^8.0.1",
     "sweet-scroll": "^4.0.0",

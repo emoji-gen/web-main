@@ -1,6 +1,7 @@
 <template>
   <div class="Home">
     <Generator />
+    <RecentlyLog />
   </div>
 </template>
 
