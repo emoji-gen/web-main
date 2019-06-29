@@ -29,6 +29,7 @@
 
   .ColorKind {
     $_border-radius: 6px;
+    line-height: 1.55;
 
     ul {
       display: flex;

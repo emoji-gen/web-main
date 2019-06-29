@@ -18,4 +18,5 @@ async def index(request):
 
 
 async def contact(request):
-    return aiohttp_jinja2.render_template('contact.html', request, {})
+    fonts = json.dumps(request.app['repos']['font'].all())
+    return aiohttp_jinja2.render_template('contact.html', request, { 'fonts': fonts })

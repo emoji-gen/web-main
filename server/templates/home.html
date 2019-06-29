@@ -10,11 +10,4 @@
 
 {% block head %}
   {{ super() }}
-
-  {# 初期状態 #}
-  {% filter squash %}
-    <script>
-      var GENERATOR_FONTS = {{ fonts|safe }};
-    </script>
-  {% endfilter %}
 {% endblock %}

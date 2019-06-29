@@ -2,6 +2,11 @@ ColorKind:
   foreground_label: 表
   background_label: 裏
 
+Footer:
+  developer_blog_label: 開発者ブログ
+  contact_label: お問い合わせ
+  copyright_holder: 絵文字 ジェネレーター
+
 Generator:
   title: 絵文字にしたい文字を入力してください！
   generate_button: 生成する♪
