@@ -1,6 +1,6 @@
 aiohttp==3.4.4
 aiohttp-jinja2==1.1.0
-aiomysql==0.0.19
+aiomysql==0.0.20
 asn1crypto==0.24.0
 async-timeout==3.0.1
 attrs==18.2.0

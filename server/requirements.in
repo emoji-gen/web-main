@@ -1,6 +1,6 @@
 aiohttp
 aiohttp-jinja2
-aiomysql
+aiomysql>=0.0.20
 chardet
 emojilib
 funcy
