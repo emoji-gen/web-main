@@ -7,23 +7,10 @@ import aiohttp_jinja2
 from emoji.repositories import emoji_log
 
 async def index(request):
-    fonts = json.dumps(request.app['repos']['font'].all())
-
-    emoji_service = request.app['services']['emoji']
-    emoji_logs = json.dumps(await _fetch_emoji_logs(emoji_service))
-
-    response = aiohttp_jinja2.render_template('home.html', request, { 'fonts': fonts, 'emoji_logs': emoji_logs })
-    if request.app.debug:
-        response.headers['Cache-Control'] = 'private, no-store, no-cache, must-revalidate'
-    else:
-        response.headers['Cache-Control'] = 'public, max-age={}'.format(10) # 10 sec
-
-    return response
-
+    return await _render(request, 'home.html')
 
 async def contact(request):
-    fonts = json.dumps(request.app['repos']['font'].all())
-    return aiohttp_jinja2.render_template('contact.html', request, { 'fonts': fonts })
+    return await _render(request, 'contact.html')
 
 
 async def _fetch_emoji_logs(emoji_service):
@@ -42,3 +29,18 @@ async def _fetch_emoji_logs(emoji_service):
     } for v in emoji_logs_records ]
 
     return emoji_logs
+
+
+async def _render(request, template):
+    fonts = json.dumps(request.app['repos']['font'].all())
+
+    emoji_service = request.app['services']['emoji']
+    emoji_logs = json.dumps(await _fetch_emoji_logs(emoji_service))
+
+    response = aiohttp_jinja2.render_template(template, request, { 'fonts': fonts, 'emoji_logs': emoji_logs })
+    if request.app.debug:
+        response.headers['Cache-Control'] = 'private, no-store, no-cache, must-revalidate'
+    else:
+        response.headers['Cache-Control'] = 'public, max-age={}'.format(10) # 10 sec
+
+    return response
