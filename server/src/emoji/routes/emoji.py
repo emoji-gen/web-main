@@ -40,7 +40,6 @@ async def _execute(request, download_fg=False):
     # TODO: Slack 通知
 
     # 絵文字を生成
-    print(font_path)
     try:
         img_data = emojilib.generate(
             text=text,
