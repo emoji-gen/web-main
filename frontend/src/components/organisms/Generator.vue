@@ -336,6 +336,7 @@
 
 <script>
   import Chrome from 'vue-color/src/components/Chrome'
+  import { FONTS } from '@/src/initial_state'
 
   const DEFAULT_COLORS = {
     hex: '#EC71A1',
@@ -358,8 +359,6 @@
     },
     a: 0
   }
-
-  const FONTS = window.GENERATOR_FONTS || [{}]
 
   export default {
     data: () => ({

@@ -8,6 +8,7 @@ import Footer from './organisms/Footer'
 import Generator from './organisms/Generator'
 import Header from './organisms/Header'
 import RecentlyLog from './organisms/RecentlyLog'
+import Result from './organisms/Result'
 import App from './pages/App'
 import Contact from './templates/Contact'
 import Home from './templates/Home'
@@ -18,6 +19,7 @@ Vue.component('Footer', Footer)
 Vue.component('Generator', Generator)
 Vue.component('Header', Header)
 Vue.component('RecentlyLog', RecentlyLog)
+Vue.component('Result', Result)
 Vue.component('App', App)
 Vue.component('Contact', Contact)
 Vue.component('Home', Home)
@@ -29,6 +31,7 @@ export {
   Generator,
   Header,
   RecentlyLog,
+  Result,
   App,
   Contact,
   Home,

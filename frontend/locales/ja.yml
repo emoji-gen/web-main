@@ -31,3 +31,9 @@ Header:
 
 RecentlyLog:
   title: 最近生成された絵文字
+
+Result:
+  title: 生成された絵文字
+  preview_text_label: テキスト
+  preview_font_label: フォント
+  preview_color_label: カラー

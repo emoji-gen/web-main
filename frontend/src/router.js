@@ -12,6 +12,10 @@ const routes = [
     component: Home,
   },
   {
+    path: '/result',
+    component: Home,
+  },
+  {
     path: '/contact',
     component: Contact,
   },

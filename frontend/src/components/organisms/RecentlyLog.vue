@@ -12,10 +12,9 @@
   @import 'includes/_mixins';
 
   .RecentlyLog {
-    $_padding: 32px;
     @extend %box;
-
     padding: 32px 32px (32px + 28px) 32px;
+    line-height: 1.55;
 
     &, * {
       box-sizing: border-box;
@@ -46,13 +45,12 @@
 <script>
   import 'flickity/css/flickity.css'
   import Flickity from 'flickity'
-
-  const RECORDS = window.RECENTLY_LOG_RECORDS || []
+  import { RECENTLY_LOGS } from '@/src/initial_state'
 
   export default {
     data: () => ({
       flkty: null,
-      records: RECORDS,
+      recentlyLogs: RECENTLY_LOGS,
     }),
 
     mounted() {
@@ -68,10 +66,10 @@
         const baseNode = document.createElement('div')
         baseNode.className = 'carousel-cell'
 
-        for (const record of RECORDS) {
+        for (const recentlyLog of this.recentlyLogs) {
           const node = baseNode.cloneNode(true)
-          node.style.backgroundImage = `url('${record.url}')`
-          node.title = record.text.replace(/\n/g, '')
+          node.style.backgroundImage = `url('${recentlyLog.url}')`
+          node.title = recentlyLog.text.replace(/\n/g, '')
           this.flkty.append(node)
         }
       })
