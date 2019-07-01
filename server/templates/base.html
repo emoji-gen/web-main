@@ -32,6 +32,9 @@
       <meta property="og:image:height" content="630">
       <meta property="og:url" content="{% block og_url %}{% endblock %}">
       <meta property="og:title" content="{% block og_title %}{% endblock %}">
+      {% if DEBUG %}
+        <meta name="robots" value="noindex">
+      {% endif %}
       <link rel="canonical" href="{% block canonical %}{% endblock %}">
       <title>{% block title %}{% endblock %}</title>
       {% filter squash %}
