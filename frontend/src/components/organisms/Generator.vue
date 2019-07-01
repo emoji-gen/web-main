@@ -21,22 +21,25 @@
       <!-- Parameter : Text -->
       <div class="parameter text">
         <h3 v-t="'Generator.parameter_text_label'"></h3>
-        <textarea rows="2" cols="10"></textarea>
+        <textarea rows="2" cols="10" v-model="text"></textarea>
 
         <h4 v-t="'Generator.parameter_text_align_label'"></h4>
         <div class="aligns">
           <span class="align left">
-            <input type="radio" name="Generator__align" id="Generator__align--left" value="left">
+            <input type="radio" name="Generator__align" id="Generator__align--left"
+              value="left" v-model="align">
             <label for="Generator__align--left"
               v-t="'Generator.parameter_text_align_left_label'"></label>
           </span>
           <span class="align center">
-            <input type="radio" name="Generator__align" id="Generator__align--center" value="center">
+            <input type="radio" name="Generator__align" id="Generator__align--center"
+              value="center" v-model="align">
             <label for="Generator__align--center"
               v-t="'Generator.parameter_text_align_center_label'"></label>
           </span>
           <span class="align right">
-            <input type="radio" name="Generator__align" id="Generator__align--right" value="right">
+            <input type="radio" name="Generator__align" id="Generator__align--right"
+              value="right" v-model="align">
             <label for="Generator__align--right"
               v-t="'Generator.parameter_text_align_right_label'"></label>
           </span>
@@ -45,11 +48,11 @@
         <h4 v-t="'Generator.parameter_size_label'"></h4>
         <div class="sizes">
           <label>
-            <input type="checkbox">
+            <input type="checkbox" v-model="sizeFixed">
             {{ $t('Generator.parameter_size_fixed_label') }}
           </label>
           <label>
-            <input type="checkbox">
+            <input type="checkbox" v-model="nonStretch">
             {{ $t('Generator.parameter_size_non_stretch_label') }}
           </label>
         </div>
@@ -198,6 +201,7 @@
             border: 0;
             width: 140px;
             height: 100px;
+            line-height: 1.55;
             text-align: center;
             -webkit-appearance: none;
           }
@@ -336,6 +340,7 @@
 
 <script>
   import Chrome from 'vue-color/src/components/Chrome'
+  import eventbus from '@/src/eventbus'
   import { FONTS } from '@/src/initial_state'
 
   const DEFAULT_COLORS = {
@@ -362,21 +367,58 @@
 
   export default {
     data: () => ({
+      // Parameters
+      text: null,
+      align: 'center',
+      sizeFixed: false,
+      nonStretch: false,
       publicFg: true,
+
+      // Font
       fonts: FONTS,
       fontKey: FONTS[0].key,
+
+      // Colors
       colorKind: 'foreground',
       colors: DEFAULT_COLORS,
       backgroundColors: DEFAULT_BACKGROUND_COLORS,
     }),
+    created() {
+      this.text = this.$t('Generator.parameter_text_default_value')
+    },
     methods: {
       generate() {
-        console.log('generate')
+        const color = this.colorsToRgbaHex(this.colors)
+        const backgroundColors = this.colorsToRgbaHex(this.backgroundColors)
+
+        const query = {
+          text: this.text,
+          color,
+          back_color: backgroundColors,
+          font: this.fontKey,
+          size_fixed: this.sizeFixed,
+          align: this.align,
+          stretch: !this.nonStretch,
+          public_fg: this.publicFg,
+        }
+
+        eventbus.$emit('EG_EMOJI_GENERATE', query)
+        this.$router.replace({
+          path: '/result',
+          query,
+        })
+      },
+      colorsToRgbaHex(colors) {
+        const rgb = colors.hex.replace(/#/, '')
+        const alphaInt = Math.floor(colors.a * 0xff) & 0xff
+        const alpha = ('0' + alphaInt.toString(16)).slice(-2).toUpperCase()
+        return rgb + alpha
       },
       colorKindChanged(value){
         this.colorKind = value
       },
     },
+
     components: {
       ColorPicker: Chrome,
     },

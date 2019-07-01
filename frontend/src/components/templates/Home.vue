@@ -16,11 +16,11 @@
 
 
 <script>
-  const TITLE = window.HOME_TITLE || ''
+  import { HOME_TITLE } from '@/src/initial_state'
 
   export default {
     mounted() {
-      document.title = TITLE
-    }
+      document.title = HOME_TITLE
+    },
   }
 </script>

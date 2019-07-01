@@ -13,6 +13,7 @@ Generator:
   public_fg_label: 生成履歴に絵文字を表示する
   public_fg_description: チェックマークを外すと、絵文字が生成履歴に残りません。
   parameter_text_label: テキスト
+  parameter_text_default_value: "絵文\n字。"
   parameter_text_align_label: 文字揃え
   parameter_text_align_left_label: 左
   parameter_text_align_center_label: 中央

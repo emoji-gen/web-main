@@ -2,6 +2,10 @@
 
 import ja from '@/locales/ja'
 
-export default {
+export function getLocale() {
+  return document.documentElement.lang || 'ja'
+}
+
+export const messages = {
   ja,
 }

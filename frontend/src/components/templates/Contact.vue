@@ -11,11 +11,11 @@
 
 
 <script>
-  const TITLE = window.CONTACT_TITLE || ''
+  import { CONTACT_TITLE } from '@/src/initial_state'
 
   export default {
     mounted() {
-      document.title = TITLE
-    }
+      document.title = CONTACT_TITLE
+    },
   }
 </script>

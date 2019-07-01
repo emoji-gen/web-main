@@ -12,7 +12,7 @@ import './style.scss'
 
 import { App } from './components'
 import setupRouter from './router'
-import messages from './locales'
+import { messages, getLocale } from './locales'
 
 // -------------------------------------------------------------------
 
@@ -29,7 +29,7 @@ Vue.use(VueI18n)
 // -------------------------------------------------------------------
 
 const i18n = new VueI18n({
-  locale: document.documentElement.lang || 'ja',
+  locale: getLocale(),
   messages,
 })
 

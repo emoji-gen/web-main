@@ -12,6 +12,7 @@
     "flickity": "^2.2.0",
     "loglevel": "^1.6.3",
     "normalize.css": "^8.0.1",
+    "query-string": "^6.8.1",
     "sweet-scroll": "^4.0.0",
     "vue": "^2.6.10",
     "vue-color": "^2.7.0",

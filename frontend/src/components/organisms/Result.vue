@@ -23,7 +23,7 @@
               <h3 v-t="'Result.preview_color_label'"></h3>
               <span class="user-input">
                 <span class="color-square" v-bind:style="{ backgroundColor: cssColor }"></span>
-                {{ color }}
+                {{ cssColor }}
               </span>
             </li>
           </ul>
@@ -159,17 +159,83 @@
 
 
 <script>
+  import queryString from 'query-string'
+  import loglevel from 'loglevel'
+
+  import eventbus from '@/src/eventbus'
+  import { FONTS } from '@/src/initial_state'
+
   export default {
     data: () => ({
-      text: 'ああ ああ',
+      // URL
+      queryString: null,
+
+      // Parameters
+      color: null,
+      fonts: FONTS,
+      fontKey: null,
+      text: null,
+
+      // Browser extension
+      browserExtensionEnabled: false,
     }),
     computed: {
+      // URL
+      emojiUrl: function () {
+        if (this.queryString) {
+          return `/emoji?${this.queryString}`
+        }
+        return null
+      },
+      emojiDownloadUrl: function () {
+        if (this.queryString) {
+          return `/emoji_download?${this.queryString}`
+        }
+        return null
+      },
+
+      // Parameters
       formattedText() {
-        if (this.text) {
-          return this.text.replace(/\n/,' ')
+        if (!this.text) {
+          return ''
+        }
+        return this.text.replace(/\n/,' ')
+      },
+      fontName() {
+        if (!this.fontKey) {
+          return ''
+        }
+
+        const font = this.fonts.find(v => v.key === this.fontKey)
+        if (!font) {
+          return ''
+        }
+        return font.name
+      },
+      cssColor() {
+        if (this.color) {
+          return `#${this.color.slice(0, 6)}`
         }
         return ''
       },
+    },
+    created() {
+      // A new emoji generated
+      eventbus.$on('EG_EMOJI_GENERATE', query => {
+        loglevel.debug('A new emoji generated', query)
+
+        this.text = query.text
+        this.color = query.color
+        this.fontKey = query.font
+        this.queryString = queryString.stringify(query)
+        this.visibleResult = true
+        this.visibleRegister = false
+      })
+
+      // Browser extension attached
+      eventbus.$on('CE_ATTACH', () => {
+        this.browserExtensionEnabled = true
+      })
     },
   }
 </script>

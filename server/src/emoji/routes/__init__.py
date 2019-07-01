@@ -11,6 +11,7 @@ from emoji.routes.views import contact, index
 
 def setup_routes(app):
     app.router.add_get('/', index)
+    app.router.add_get('/result', index)
     app.router.add_get('/contact', contact)
     app.router.add_get('/healthcheck', ok)
     app.router.add_get('/emoji', generate)
