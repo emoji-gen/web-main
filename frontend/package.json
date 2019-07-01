@@ -8,6 +8,7 @@
     "test": "eslint src"
   },
   "dependencies": {
+    "detect-browser": "^4.5.1",
     "flickity": "^2.2.0",
     "loglevel": "^1.6.3",
     "normalize.css": "^8.0.1",
