@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "detect-browser": "^4.5.1",
-    "flickity": "^2.2.0",
+    "flickity": "^2.2.1",
     "loglevel": "^1.6.3",
     "normalize.css": "^8.0.1",
     "query-string": "^6.8.1",
@@ -17,7 +17,7 @@
     "vue": "^2.6.10",
     "vue-color": "^2.7.0",
     "vue-i18n": "^8.11.2",
-    "vue-ptero": "^0.1.1",
+    "vue-ptero": "^0.1.2",
     "vue-router": "^3.0.6"
   },
   "devDependencies": {
