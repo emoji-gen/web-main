@@ -3,6 +3,7 @@
 import Vue from 'vue'
 
 import ColorKind from './atomics/ColorKind'
+import Register from './molecules/Register'
 import Background from './organisms/Background'
 import Footer from './organisms/Footer'
 import Generator from './organisms/Generator'
@@ -14,6 +15,7 @@ import Contact from './templates/Contact'
 import Home from './templates/Home'
 
 Vue.component('ColorKind', ColorKind)
+Vue.component('Register', Register)
 Vue.component('Background', Background)
 Vue.component('Footer', Footer)
 Vue.component('Generator', Generator)
@@ -26,6 +28,7 @@ Vue.component('Home', Home)
 
 export {
   ColorKind,
+  Register,
   Background,
   Footer,
   Generator,

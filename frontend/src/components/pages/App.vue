@@ -33,6 +33,10 @@
         log.debug('CE_REGISTER_EMOJI_DONE', e.detail)
         eventbus.$emit('CE_REGISTER_EMOJI_DONE', e.detail)
       })
+
+      eventbus.$on('CE_SEARCH_JOINED_TEAMS', () => {
+        this.$ptero.emit('CE_SEARCH_JOINED_TEAMS')
+      })
     },
   }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="Result">
     <transition name="expand">
-      <div class="result-inner" v-show="visibleResult">
+      <div class="result-inner" v-if="visibleResult">
         <!-- Title -->
         <h2 v-t="'Result.title'"></h2>
 
@@ -32,6 +32,24 @@
             </div>
           </div>
         </div>
+
+        <!-- Menus -->
+        <div class="menus">
+          <div class="menus-inner">
+            <div class="download">
+              <a :href="emojiDownloadUrl" @click="download" v-t="'Result.menus_download_label'"></a>
+            </div>
+            <div class="register" @click="toggleRegister"
+              v-show="visibleRegisterButton" v-t="'Result.menus_register_label'"></div>
+            <div class="share" @click="toggleShare" v-t="'Result.menus_share_label'"></div>
+          </div>
+        </div>
+
+        <Register v-show="visibleRegister"
+          :visible="visibleRegister"
+          :browser="browser"
+          :browser-extension-enabled="browserExtensionEnabled"
+          :emoji-url="emojiDownloadUrl" />
       </div>
     </transition>
   </div>
@@ -57,7 +75,7 @@
       padding: 20px;
     }
     .expand-enter-active, .expand-leave-active {
-       height: auto;
+      height: auto;
       transition: opacity .8s ease-in-out;
       opacity: 1;
     }
@@ -186,12 +204,78 @@
         }
       }
     }
+
+    /**
+     * Menus
+     */
+    .menus {
+      $_height: 40px;
+      display: flex;
+      margin: 30px auto 15px;
+      justify-content: center;
+
+      .menus-inner {
+        display: flex;
+
+        > div {
+          margin-left: 40px;
+          padding: 0;
+          height: $_height;
+          line-height: $_height;
+          font-size: $font-medium;
+
+          &:first-child {
+            margin-left: 0;
+          }
+
+          a {
+            display: block;
+            text-decoration: none;
+          }
+
+          &.download {
+            a {
+              padding: 0 0 0 34px;
+              color: $color-red-dark;
+              height: 100%;
+              background-image: url('/assets/img/download.png');
+              background-repeat: no-repeat;
+              background-position: 0 center;
+              background-size: 22px auto;
+              cursor: pointer;
+            }
+          }
+
+          &.register {
+            padding: 0 0 0 34px;
+            color: $color-red-dark;
+            height: 100%;
+            background-image: url('/assets/img/register.png');
+            background-repeat: no-repeat;
+            background-position: 0 center;
+            background-size: 22px auto;
+            cursor: pointer;
+          }
+
+          &.share {
+            padding: 0 0 0 34px;
+            color: $color-yellow-dark;
+            background-image: url('/assets/img/share.png');
+            background-repeat: no-repeat;
+            background-position: 0 center;
+            background-size: 22px auto;
+            cursor: pointer;
+          }
+        }
+      }
+    }
   }
 </style>
 
 
 <script>
   import queryString from 'query-string'
+  import { detect } from 'detect-browser'
   import loglevel from 'loglevel'
 
   import eventbus from '@/src/eventbus'
@@ -209,10 +293,12 @@
       text: null,
 
       // Browser extension
+      browser: detect(),
       browserExtensionEnabled: false,
 
       visibleResult: false,
       visibleRegister: false,
+      visibleShare: false,
     }),
     computed: {
       // URL
@@ -253,16 +339,24 @@
         }
         return ''
       },
+
+      // Browser extension
+      isRegisterSupportedBrowser() {
+        return this.browser.name === 'chrome' || this.browser.name === 'firefox'
+      },
+      visibleRegisterButton() {
+        return this.browserExtensionEnabled || this.isRegisterSupportedBrowser
+      },
     },
     created() {
       // Initial state
       if (this.$route.path.indexOf('/result') === 0) {
-        this.draw(this.$route.query)
+        this._draw(this.$route.query)
       }
 
       // A new emoji generated
       eventbus.$on('EG_EMOJI_GENERATE', query => {
-        this.draw(query)
+        this._draw(query)
       })
 
       // Browser extension attached
@@ -271,7 +365,7 @@
       })
     },
     methods: {
-      draw(query) {
+      _draw(query) {
         loglevel.debug('A new emoji generated', query)
 
         this.text = query.text
@@ -280,6 +374,26 @@
         this.queryString = queryString.stringify(query)
         this.visibleResult = true
         this.visibleRegister = false
+      },
+
+      download() {
+        ga('send', 'event', 'Emoji', 'download')
+      },
+      toggleShare() {
+        if (this.visibleShare) {
+          this.visibleShare = false
+        } else {
+          this.visibleShare = true
+          this.visibleRegister = false
+        }
+      },
+      toggleRegister() {
+        if (this.visibleRegister) {
+          this.visibleRegister = false
+        } else {
+          this.visibleRegister = true
+          this.visibleShare = false
+        }
       },
     },
   }

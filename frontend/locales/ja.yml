@@ -38,3 +38,6 @@ Result:
   preview_text_label: テキスト
   preview_font_label: フォント
   preview_color_label: カラー
+  menus_download_label: ダウンロード
+  menus_register_label: 登録する
+  menus_share_label: シェアする

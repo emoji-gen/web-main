@@ -1,7 +1,13 @@
 {# Google Analytics #}
 
 {% filter squash %}
-  {% if not DEBUG %}
+  {% if DEBUG %}
+    <script>
+      function ga() {
+        console.log('ga', Array.from(arguments))
+      }
+    </script>
+  {% else %}
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-82501423-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
