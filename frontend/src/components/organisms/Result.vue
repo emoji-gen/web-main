@@ -1,50 +1,71 @@
 <template>
   <div class="Result">
-    <!-- Title -->
-    <h2 v-t="'Result.title'"></h2>
+    <transition name="expand">
+      <div class="result-inner" v-show="visibleResult">
+        <!-- Title -->
+        <h2 v-t="'Result.title'"></h2>
 
-    <!-- Preview -->
-    <div class="preview">
-      <div class="inner">
-        <div class="image">
-          <img :src="emojiUrl" alt="" v-if="emojiUrl">
-        </div>
-        <div class="detail">
-          <ul>
-            <li class="text">
-              <h3 v-t="'Result.preview_text_label'"></h3>
-              <span class="user-input">{{ formattedText }}</span>
-            </li>
-            <li class="font">
-              <h3 v-t="'Result.preview_font_label'"></h3>
-              <span class="user-input">{{ fontName }}</span>
-            </li>
-            <li class="color">
-              <h3 v-t="'Result.preview_color_label'"></h3>
-              <span class="user-input">
-                <span class="color-square" v-bind:style="{ backgroundColor: cssColor }"></span>
-                {{ cssColor }}
-              </span>
-            </li>
-          </ul>
+        <!-- Preview -->
+        <div class="preview">
+          <div class="preview-inner">
+            <div class="image">
+              <img :src="emojiUrl" alt="" v-if="emojiUrl">
+            </div>
+            <div class="detail">
+              <ul>
+                <li class="text">
+                  <h3 v-t="'Result.preview_text_label'"></h3>
+                  <span class="user-input">{{ formattedText }}</span>
+                </li>
+                <li class="font">
+                  <h3 v-t="'Result.preview_font_label'"></h3>
+                  <span class="user-input">{{ fontName }}</span>
+                </li>
+                <li class="color">
+                  <h3 v-t="'Result.preview_color_label'"></h3>
+                  <span class="user-input">
+                    <span class="color-square" v-bind:style="{ backgroundColor: cssColor }"></span>
+                    {{ cssColor }}
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import 'includes/_variables';
   @import 'includes/_mixins';
 
   .Result {
-    @extend %box;
-    padding: 20px;
     line-height: 1.55;
 
     &, * {
       box-sizing: border-box;
+    }
+
+    /**
+     * Transition
+     */
+    .result-inner {
+      @extend %box;
+      padding: 20px;
+    }
+    .expand-enter-active, .expand-leave-active {
+       height: auto;
+      transition: opacity .8s ease-in-out;
+      opacity: 1;
+    }
+    .expand-enter, .expand-leave-to {
+      padding: 0;
+      height: 0;
+      overflow: hidden;
+      opacity: 0;
     }
 
     /**
@@ -62,7 +83,7 @@
       margin: 30px auto 0;
       justify-content: center;
 
-      > .inner {
+      .preview-inner {
         display: flex;
         align-items: stretch;
 
@@ -189,6 +210,9 @@
 
       // Browser extension
       browserExtensionEnabled: false,
+
+      visibleResult: false,
+      visibleRegister: false,
     }),
     computed: {
       // URL
@@ -233,9 +257,7 @@
     created() {
       // Initial state
       if (this.$route.path.indexOf('/result') === 0) {
-        this.$nextTick(() => {
-          this.draw(this.$route.query)
-        })
+        this.draw(this.$route.query)
       }
 
       // A new emoji generated
