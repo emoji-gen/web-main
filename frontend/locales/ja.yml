@@ -2,6 +2,14 @@ ColorKind:
   foreground_label: 表
   background_label: 裏
 
+Register:
+  inputs_team_label: 登録するチーム
+  inputs_team_placeholder: 登録するチームを選んで下さい
+  inputs_name_label: 絵文字の名前
+  inputs_name_placeholder: 絵文字の名前を入れて下さい
+  messages_error: 入力を確認してください
+  register_button: 登録する♪
+
 Footer:
   developer_blog_label: 開発者ブログ
   contact_label: お問い合わせ

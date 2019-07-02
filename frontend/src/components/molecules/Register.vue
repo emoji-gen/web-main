@@ -4,27 +4,27 @@
     <div class="inner" v-if="browserExtensionEnabled">
       <div class="inputs">
         <div class="group teams">
-          <label>登録するチーム</label>
+          <label v-t="'Register.inputs_team_label'"></label>
           <multiselect
-            v-model="selected"
+            label="name"
             :options="teamsOrEmptyArray"
             :close-on-select="true"
             :show-labels="false"
             :loading="progressTeams"
+            :placeholder="$t('Register.inputs_team_placeholder')"
+            v-model="selected"
             @input="updateSelectedTeam"
-            label="name"
-            placeholder="登録するチームを選んで下さい"
           />
         </div>
         <div class="group name">
-          <label>絵文字の名前</label>
-          <input type="text" placeholder="絵文字の名前を入れて下さい"
+          <label v-t="'Register.inputs_name_label'"></label>
+          <input type="text" :placeholder="$t('Register.inputs_name_placeholder')"
             v-model="text" @keypress="registerByKeyPress">
         </div>
       </div>
 
       <div class="messages error" v-if="visibleErrors && hasErrorMessages">
-        <label>入力を確認してください</label>
+        <label v-t="'Register.messages_error'"></label>
         <p v-for="errorMessage in errorMessages">{{ errorMessage }}</p>
       </div>
 
@@ -39,7 +39,7 @@
       </div>
 
       <div class="buttons">
-        <button type="button" @click="register">登録する&#9834;</button>
+        <button type="button" @click="register" v-t="'Register.register_button'"></button>
       </div>
 
       <div class="help">
@@ -260,11 +260,13 @@
     },
     data: () => ({
       progress: false,
-      result: {},
       selected: null,
       teams: null,
       selectedTeam: null,
       text: '',
+
+      // Register
+      result: {},
       visibleErrors: false,
     }),
 
