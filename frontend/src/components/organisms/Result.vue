@@ -106,6 +106,14 @@
               display: flex;
               line-height: $_height;
 
+              h3 {
+                margin: 0;
+                width: 68px;
+                color: $color-blue-dark;
+                font-weight: bold;
+                font-size: $font-medium;
+              }
+
               &::before {
                 display: block;
                 float: left;
@@ -117,24 +125,27 @@
                 content: '';
                 opacity: .8;
               }
-
               &.text {
+                &::before {
+                  background-image: url('/assets/img/text.png');
+                  background-size: 28px auto;
+                  opacity: .80;
+                }
               }
-
-              &.color {
-              }
-
               &.font {
+                &::before {
+                  background-image: url('/assets/img/font.png');
+                  background-size: 25px auto;
+                  opacity: .80;
+                }
               }
-
-              h3 {
-                margin: 0;
-                width: 68px;
-                color: $color-blue-dark;
-                font-weight: bold;
-                font-size: $font-medium;
+              &.color {
+                &::before {
+                  background-image: url('/assets/img/color.png');
+                  background-size: 19px auto;
+                  opacity: .80;
+                }
               }
-
               .user-input {
                 display: block;
                 margin: 0 0 0 12px;
@@ -220,8 +231,25 @@
       },
     },
     created() {
+      // Initial state
+      if (this.$route.path.indexOf('/result') === 0) {
+        this.$nextTick(() => {
+          this.draw(this.$route.query)
+        })
+      }
+
       // A new emoji generated
       eventbus.$on('EG_EMOJI_GENERATE', query => {
+        this.draw(query)
+      })
+
+      // Browser extension attached
+      eventbus.$on('CE_ATTACH', () => {
+        this.browserExtensionEnabled = true
+      })
+    },
+    methods: {
+      draw(query) {
         loglevel.debug('A new emoji generated', query)
 
         this.text = query.text
@@ -230,12 +258,7 @@
         this.queryString = queryString.stringify(query)
         this.visibleResult = true
         this.visibleRegister = false
-      })
-
-      // Browser extension attached
-      eventbus.$on('CE_ATTACH', () => {
-        this.browserExtensionEnabled = true
-      })
+      },
     },
   }
 </script>
