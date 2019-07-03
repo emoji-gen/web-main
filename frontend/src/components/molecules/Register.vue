@@ -24,17 +24,17 @@
       </div>
 
       <div class="messages error" v-if="visibleErrors && hasErrorMessages">
-        <label v-t="'Register.messages_error'"></label>
+        <label v-t="'Register.messages_validation_error_label'"></label>
         <p v-for="errorMessage in errorMessages">{{ errorMessage }}</p>
       </div>
 
       <div class="messages" v-if="result.contents">
-        <label>絵文字を登録しました！</label>
+        <label v-t="'Register.messages_successful_label'"></label>
         <p>{{ result.contents }}</p>
       </div>
 
       <div class="messages error" v-if="result.err">
-        <label>絵文字の登録に失敗しました</label>
+        <label v-t="'Register.messages_failure_label'"></label>
         <p>{{ result.err }}</p>
       </div>
 
@@ -43,18 +43,18 @@
       </div>
 
       <div class="help">
-        <p>ブラウザでログイン中の Slack チームが一覧に表示されます</p>
-        <p>登録したいチームが表示されない場合、該当のチームへ<a href="https://slack.com/signin" target="_blank" rel="nofollow noopener">ログイン</a>してください</p>
+        <p v-t="'Register.help_about_teams'"></p>
+        <p>{{ $t('Register.help_login_head') }}
+          <a href="https://slack.com/signin" target="_blank" rel="nofollow noopener" v-t="'Register.help_login_link_label'"></a>
+          {{ $t('Register.help_login_tail') }}</p>
       </div>
     </div>
 
+    <!-- Install -->
     <div class="inner" v-else>
-      <h3>ブラウザ拡張機能をインストールしてください</h3>
+      <h3 v-t="'Register.install_label'"></h3>
       <div class="description">
-        <p>
-          ブラウザ拡張機能をインストールすると、<br>
-          Slack チームへ絵文字を<strong>直接登録</strong>することができます。
-        </p>
+        <p v-html="$t('Register.install_description')"></p>
       </div>
 
       <div class="download">

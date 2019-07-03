@@ -7,8 +7,16 @@ Register:
   inputs_team_placeholder: 登録するチームを選んで下さい
   inputs_name_label: 絵文字の名前
   inputs_name_placeholder: 絵文字の名前を入れて下さい
-  messages_error: 入力を確認してください
+  messages_validation_error_label: 入力を確認してください
+  messages_successful_label: 絵文字を登録しました！
+  messages_failure_label: 絵文字の登録に失敗しました
   register_button: 登録する♪
+  help_about_teams: ブラウザでログイン中の Slack チームが一覧に表示されます
+  help_login_head: 登録したいチームが表示されない場合、該当のチームへ
+  help_login_link_label: ログイン
+  help_login_tail: してください
+  install_label: ブラウザ拡張機能をインストールしてください
+  install_description: ブラウザ拡張機能をインストールすると、<br>Slack チームへ絵文字を<strong>直接登録</strong>することができます。
 
 Footer:
   developer_blog_label: 開発者ブログ
