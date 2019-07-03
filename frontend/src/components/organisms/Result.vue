@@ -1,7 +1,7 @@
 <template>
   <div class="Result">
     <transition name="expand">
-      <div class="result-inner" v-if="visibleResult">
+      <div class="result-inner" v-show="visibleResult">
         <!-- Title -->
         <h2 v-t="'Result.title'"></h2>
 
@@ -45,11 +45,13 @@
           </div>
         </div>
 
-        <Register v-show="visibleRegister"
-          :visible="visibleRegister"
-          :browser="browser"
-          :browser-extension-enabled="browserExtensionEnabled"
-          :emoji-url="emojiDownloadUrl" />
+        <transition name="register">
+          <Register v-show="visibleRegister"
+            :visible="visibleRegister"
+            :browser="browser"
+            :browser-extension-enabled="browserExtensionEnabled"
+            :emoji-url="emojiDownloadUrl" />
+        </transition>
       </div>
     </transition>
   </div>
@@ -74,16 +76,15 @@
       @extend %box;
       padding: 20px;
     }
-    .expand-enter-active, .expand-leave-active {
-      height: auto;
-      transition: opacity .8s ease-in-out;
-      opacity: 1;
-    }
-    .expand-enter, .expand-leave-to {
+    .expand-enter {
       padding: 0;
       height: 0;
       overflow: hidden;
       opacity: 0;
+    }
+    .expand-enter-to {
+      opacity: 1;
+      transition: opacity .8s ease-in-out;
     }
 
     /**
@@ -268,6 +269,20 @@
           }
         }
       }
+    }
+
+    /**
+     * Register
+     */
+    .register-enter {
+      padding: 0;
+      height: 0;
+      overflow: hidden;
+      opacity: 0;
+    }
+    .register-enter-to {
+      opacity: 1;
+      transition: opacity .8s ease-in-out;
     }
   }
 </style>

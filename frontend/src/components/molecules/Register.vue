@@ -58,10 +58,14 @@
       </div>
 
       <div class="download">
-        <a href="https://chrome.google.com/webstore/detail/%E7%B5%B5%E6%96%87%E5%AD%97%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC/ghbhakkknnmocmiilhneahbkiaegdnmf?hl=ja&amp;gl=JP" target="_blank" v-if="browser.name == 'chrome'">
+        <a href="https://chrome.google.com/webstore/detail/%E7%B5%B5%E6%96%87%E5%AD%97%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC/ghbhakkknnmocmiilhneahbkiaegdnmf?hl=ja&amp;gl=JP"
+          target="_blank" rel="noopener"
+          v-if="browser.name == 'chrome'">
           <img src="/assets/img/chrome_web_store.png" width="248" height="75" alt="available in the chrome web store">
         </a>
-        <a href="https://addons.mozilla.org/ja/firefox/addon/emoji-generator/" target="_blank" v-if="browser.name == 'firefox'">
+        <a href="https://addons.mozilla.org/ja/firefox/addon/emoji-generator/"
+          target="_blank" rel="noopener"
+          v-if="browser.name == 'firefox'">
           <img src="/assets/img/firefox_add_on.png" width="172" height="60" alt="GET THE ADD-ON">
         </a>
       </div>
@@ -248,6 +252,7 @@
 
 <script>
   import url from 'url'
+  import log from 'loglevel'
   import VueMultiselect from 'vue-multiselect/src/Multiselect.vue'
   import eventbus from '@/src/eventbus'
 
@@ -280,6 +285,21 @@
       progressTeams() {
         return !Array.isArray(this.teams)
       },
+
+      // Error
+      hasErrorMessages() {
+        return this.errorMessages.length > 0
+      },
+      errorMessages() {
+        const messages = []
+        if (!this.selectedTeam) {
+          messages.push('チームが選択されていません。')
+        }
+        if (this.text.length === 0) {
+          messages.push('絵文字の名前が入力されていません。')
+        }
+        return messages
+      },
     },
 
     watch: {
@@ -296,13 +316,31 @@
         this.text = ''
         this.visibleErrors = false
       })
-      eventbus.$on('CE_SEARCH_JOINED_TEAMS_DONE', detail => {
+
+      // Joined teams received
+      this.$ptero.on('CE_SEARCH_JOINED_TEAMS_DONE', ({ detail }) => {
+        log.debug('CE_SEARCH_JOINED_TEAMS_DONE', detail)
         if (detail.contents) {
           const teams = [].concat(detail.contents)
           teams.sort((a, b) =>
             a.name < b.name ? -1 :
             a.name > b.name ?  1 : 0) // alphabetical order
           this.teams = teams
+        }
+      })
+
+      // New emoji registered
+      this.$ptero.on('CE_REGISTER_EMOJI_DONE', ({ detail }) => {
+        log.debug('CE_REGISTER_EMOJI_DONE', detail)
+        this.progress = false
+        if (detail.err) {
+          if (typeof detail.err !== 'string') {
+            this.result = { err: '不明なエラーが発生しました' }
+          } else {
+            this.result = detail
+          }
+        } else {
+          this.result = { contents: '絵文字の新規登録に成功しました。' }
         }
       })
     },
@@ -315,13 +353,13 @@
       },
 
       updateSelectedTeam(newSelected) {
-        console.log(newSelected)
         this.selectedTeam = newSelected
       },
 
+      // Register
       register() {
         this.visibleErrors = true
-        if (this.hasErrorMessages > 0) {
+        if (this.hasErrorMessages) {
           return
         }
 
@@ -336,7 +374,6 @@
 
         ga('send', 'event', 'Emoji', 'register')
       },
-
       registerByKeyPress(e) {
         if (e.keyCode === 13) { // Enter
           if (this.selectedTeam && this.text.length > 0) {
