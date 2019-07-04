@@ -8,7 +8,7 @@ class MySQL():
         self._config = config
         self._pool = None
 
-    async def wait_until_complete(self):
+    async def startup(self):
         if self._pool is None:
             self._pool = await aiomysql.create_pool(
                 host=self._config.host,
@@ -16,8 +16,13 @@ class MySQL():
                 user=self._config.user,
                 password=self._config.password,
                 db='emoji',
+                charset='utf8mb4',
                 autocommit=True,
             )
+
+    def cleanup(self):
+        if self._pool is not None:
+            self._pool.terminate()
 
     def acquire(self):
         return self._pool.acquire()

@@ -14,7 +14,7 @@ import asyncio
 from emoji.context import Context
 
 loop = asyncio.get_event_loop()
-context = loop.run_until_complete(Context.bootstrap())
+context = loop.run_until_complete(Context.get_context())
 app = context.app
 
 if __name__ == '__main__':

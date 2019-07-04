@@ -4,7 +4,7 @@ import json
 
 import aiohttp_jinja2
 
-from emoji.repositories import emoji_log
+from emoji.repositories import emoji_log_repository
 
 async def index(request):
     return await _render(request, 'home.html')
@@ -14,7 +14,7 @@ async def contact(request):
 
 
 async def _fetch_emoji_logs(emoji_service):
-    emoji_logs_records = await emoji_log.filter_recently()
+    emoji_logs_records = await emoji_log_repository.filter_recently()
     emoji_logs = [ {
         'text': v['text'],
         'url': emoji_service.make_url(

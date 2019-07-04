@@ -5,7 +5,7 @@ import re
 from aiohttp.web import Response, HTTPBadRequest
 from pathlib import Path
 
-from emoji.repositories import emoji_log
+from emoji.repositories import emoji_log_repository
 
 async def generate(request):
     return await _execute(request)
@@ -16,7 +16,6 @@ async def download(request):
 
 
 async def _execute(request, download_fg=False):
-    emoji_log_repository = request.app['repos']['emoji_log']
     font_repository = request.app['repos']['font']
 
     default_font_key = request.app['config']['routes']['default_font_key']
@@ -61,7 +60,7 @@ async def _execute(request, download_fg=False):
 
     # 生成ログを記録
     if download_fg:
-        await emoji_log.add({
+        await emoji_log_repository.add({
             'text': text,
             'color': color,
             'back_color': background_color,
