@@ -15,7 +15,8 @@ class MySQL():
                 port=self._config.port,
                 user=self._config.user,
                 password=self._config.password,
-                db='emoji'
+                db='emoji',
+                autocommit=True,
             )
 
     def acquire(self):

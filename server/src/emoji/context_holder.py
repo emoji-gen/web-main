@@ -10,4 +10,3 @@ class ContextHolder():
     @classmethod
     def set_context(cls, context):
         cls._context = context
-

@@ -5,6 +5,7 @@ import re
 from aiohttp.web import Response, HTTPBadRequest
 from pathlib import Path
 
+from emoji.repositories import emoji_log
 
 async def generate(request):
     return await _execute(request)
@@ -60,16 +61,16 @@ async def _execute(request, download_fg=False):
 
     # 生成ログを記録
     if download_fg:
-        await emoji_log_repository.logging(
-            text=text,
-            color=color,
-            back_color=background_color,
-            font=font_key,
-            size_fixed=size_fixed,
-            align=align,
-            stretch=not disable_stretch,
-            public_fg=public_fg
-        )
+        await emoji_log.add({
+            'text': text,
+            'color': color,
+            'back_color': background_color,
+            'font': font_key,
+            'size_fixed': size_fixed,
+            'align': align,
+            'stretch': not disable_stretch,
+            'public_fg': public_fg,
+        })
 
     headers = {}
     if download_fg:
