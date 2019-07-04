@@ -2,7 +2,9 @@
   <div class="App">
     <Background/>
     <Header/>
-    <router-view/>
+    <div class="body">
+      <router-view/>
+    </div>
     <Footer/>
   </div>
 </template>
@@ -11,6 +13,11 @@
 <style lang="scss" scoped>
   .App {
     position: relative;
+
+    .body {
+      margin-bottom: 180px;
+      min-height: 600px;
+    }
   }
 </style>
 
@@ -24,9 +31,6 @@
       this.$ptero.on('CE_ATTACH', e => {
         log.debug('Attached by Chrome Extension', e.detail)
         eventbus.$emit('CE_ATTACH', e.detail)
-      })
-      eventbus.$on('CE_SEARCH_JOINED_TEAMS', () => {
-        this.$ptero.emit('CE_SEARCH_JOINED_TEAMS')
       })
     },
   }

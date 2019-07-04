@@ -5,7 +5,6 @@
 
 <style lang="scss" scoped>
   .Contact {
-
   }
 </style>
 

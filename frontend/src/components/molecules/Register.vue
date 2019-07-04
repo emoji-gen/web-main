@@ -186,6 +186,9 @@
         label {
           color: $color-red-dark;
         }
+        p {
+          text-align: center;
+        }
       }
 
       p {
