@@ -8,23 +8,6 @@ class EmojiLogRepository():
     def __init__(self, app):
         self._app = app
 
-    async def filter(self, limit=20, offset=0):
-        async with self._app['db'].acquire() as conn:
-            query = (EmojiLog.select()
-                .where(EmojiLog.columns.public_fg == 1)
-                .order_by(EmojiLog.columns.generated_at.desc())
-                .limit(limit)
-                .offset(offset))
-            itr = conn.execute(query)
-
-            rows = [ dict(v) async for v in itr ]
-            for row in rows:
-                row['size_fixed'] = bool(row['size_fixed'])
-                row['stretch'] = bool(row['stretch'])
-                row['public_fg'] = bool(row['public_fg'])
-            return rows
-
-
     async def logging(
         self,
         text,
