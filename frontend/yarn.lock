@@ -5878,6 +5878,11 @@ shallow-clone@^1.0.0:
     kind-of "^5.0.0"
     mixin-object "^2.0.1"
 
+sharer.npm.js@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/sharer.npm.js/-/sharer.npm.js-0.0.10.tgz#4aa8038cfc6c6a119bc8b9c4c9a9445a28b4645f"
+  integrity sha1-SqgDjPxsahGbyLnEyalEWii0ZF8=
+
 shebang-command@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/shebang-command/-/shebang-command-1.2.0.tgz#44aac65b695b03398968c39f363fee5deafdf1ea"
@@ -6736,6 +6741,13 @@ vue-router@^3.0.6:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.6.tgz#2e4f0f9cbb0b96d0205ab2690cfe588935136ac3"
   integrity sha512-Ox0ciFLswtSGRTHYhGvx2L44sVbTPNS+uD2kRISuo8B39Y79rOo0Kw0hzupTmiVtftQYCZl87mwldhh2L9Aquw==
+
+vue-sharer@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/vue-sharer/-/vue-sharer-1.0.0.tgz#dd299470c3ad3279b4606bb0c344a759f42d8cb8"
+  integrity sha512-vijOAbOmYQ3PDKa4wHzhlcBRQDFJwonT2Xnec3iudDhM7NLnD3tKZfdcnEIeqq6RAItLJc1bvoLEODeT7++h9w==
+  dependencies:
+    sharer.npm.js "^0.0.10"
 
 vue-style-loader@^4.1.0:
   version "4.1.2"

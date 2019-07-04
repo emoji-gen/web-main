@@ -93,6 +93,7 @@
 
   .Register {
     position: relative;
+    padding: 20px 0 20px;
     line-height: 1.55;
 
     .inner {

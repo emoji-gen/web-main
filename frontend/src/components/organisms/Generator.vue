@@ -26,22 +26,19 @@
         <h4 v-t="'Generator.parameter_text_align_label'"></h4>
         <div class="aligns">
           <span class="align left">
-            <input type="radio" name="Generator__align" id="Generator__align--left"
-              value="left" v-model="align">
-            <label for="Generator__align--left"
-              v-t="'Generator.parameter_text_align_left_label'"></label>
+            <input type="radio" name="Generator__align"
+              id="Generator__align--left" value="left" v-model="align">
+            <label for="Generator__align--left"></label>
           </span>
           <span class="align center">
-            <input type="radio" name="Generator__align" id="Generator__align--center"
-              value="center" v-model="align">
-            <label for="Generator__align--center"
-              v-t="'Generator.parameter_text_align_center_label'"></label>
+            <input type="radio" name="Generator__align"
+              id="Generator__align--center" value="center" v-model="align">
+            <label for="Generator__align--center"></label>
           </span>
           <span class="align right">
-            <input type="radio" name="Generator__align" id="Generator__align--right"
-              value="right" v-model="align">
-            <label for="Generator__align--right"
-              v-t="'Generator.parameter_text_align_right_label'"></label>
+            <input type="radio" name="Generator__align"
+              id="Generator__align--right" value="right" v-model="align">
+            <label for="Generator__align--right"></label>
           </span>
         </div>
 

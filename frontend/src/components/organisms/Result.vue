@@ -45,12 +45,22 @@
           </div>
         </div>
 
+        <!-- Register -->
         <transition name="register">
-          <Register v-show="visibleRegister"
+          <Register
             :visible="visibleRegister"
             :browser="browser"
             :browser-extension-enabled="browserExtensionEnabled"
-            :emoji-url="emojiDownloadUrl" />
+            :emoji-url="emojiDownloadUrl"
+            v-show="visibleRegister" />
+        </transition>
+
+        <!-- Share -->
+        <transition name="share">
+          <Share
+            :visible="visibleShare"
+            :emoji-url="emojiDownloadUrl"
+            v-show="visibleShare" />
         </transition>
       </div>
     </transition>
@@ -97,7 +107,7 @@
     /**
      * Preview
      */
-		.preview {
+    .preview {
       display: flex;
       margin: 30px auto 0;
       justify-content: center;
@@ -272,15 +282,15 @@
     }
 
     /**
-     * Register
+     * Register, Share
      */
-    .register-enter {
+    .register-enter, .share-enter {
       padding: 0;
       height: 0;
       overflow: hidden;
       opacity: 0;
     }
-    .register-enter-to {
+    .register-enter-to, .share-enter-to {
       opacity: 1;
       transition: opacity .8s ease-in-out;
     }
