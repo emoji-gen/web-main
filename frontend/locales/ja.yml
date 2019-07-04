@@ -8,8 +8,12 @@ Register:
   inputs_name_label: 絵文字の名前
   inputs_name_placeholder: 絵文字の名前を入れて下さい
   messages_validation_error_label: 入力を確認してください
+  messages_validation_team_not_selected_message: チームが選択されていません。
+  messages_validation_no_name_message: 絵文字の名前が入力されていません。
   messages_successful_label: 絵文字を登録しました！
+  messages_successful_description: 絵文字の新規登録に成功しました。
   messages_failure_label: 絵文字の登録に失敗しました
+  messages_failure_unknown_description: 不明なエラーが発生しました。
   register_button: 登録する♪
   help_about_teams: ブラウザでログイン中の Slack チームが一覧に表示されます
   help_login_head: 登録したいチームが表示されない場合、該当のチームへ
@@ -23,6 +27,7 @@ Share:
   twitter_hashtag: '#絵文字ジェネレーター'
   twitter_description: Twitter でシェアする
   facebook_description: Facebook でシェアする
+  line_message: 絵文字ジェネレーター使って絵文字を生成しました♪
 
 Footer:
   developer_blog_label: 開発者ブログ

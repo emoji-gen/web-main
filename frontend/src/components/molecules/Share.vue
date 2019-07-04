@@ -16,6 +16,15 @@
         :data-url="url"
         :title="$t('Share.facebook_description')"
         v-sharer>
+
+      <input
+        type="button"
+        class="line sharer button"
+        data-sharer="line"
+        :data-title="$t('Share.line_message')"
+        :data-url="url"
+        :title="$t('Share.facebook_description')"
+        v-sharer>
     </div>
   </div>
 </template>
@@ -48,6 +57,9 @@
         }
         &.facebook {
           @extend %icon-40px-facebook;
+        }
+        &.line {
+          @extend %icon-40px-line;
         }
       }
     }

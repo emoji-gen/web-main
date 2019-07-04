@@ -294,10 +294,10 @@
       errorMessages() {
         const messages = []
         if (!this.selectedTeam) {
-          messages.push('チームが選択されていません。')
+          messages.push(this.$t('Register.messages_validation_team_not_selected_message'))
         }
         if (this.text.length === 0) {
-          messages.push('絵文字の名前が入力されていません。')
+          messages.push(this.$t('Register.messages_validation_no_name_message'))
         }
         return messages
       },
@@ -336,12 +336,12 @@
         this.progress = false
         if (detail.err) {
           if (typeof detail.err !== 'string') {
-            this.result = { err: '不明なエラーが発生しました' }
+            this.result = { err: this.$t('Register.messages_failure_unknown_description') }
           } else {
             this.result = detail
           }
         } else {
-          this.result = { contents: '絵文字の新規登録に成功しました。' }
+          this.result = { contents: this.$t('Register.messages_successful_description') }
         }
       })
     },
