@@ -4,8 +4,10 @@ import asyncio
 from pathlib import Path
 from aiohttp.web import Application
 
+from context_holder import ContextHolder
+from locales import Locales
+
 from emoji.config import Config
-from emoji.context_holder import ContextHolder
 from emoji.mysql import MySQL
 
 from emoji.config import load_config
@@ -41,10 +43,12 @@ class Context():
 
         new_config = Config()
         self._mysql = MySQL(new_config.mysql)
+        self._locales = Locales(new_config.locales)
 
 
     async def startup(self):
         await self._mysql.startup()
+        await self._locales.startup()
 
 
     def cleanup(self, app):

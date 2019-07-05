@@ -11,7 +11,7 @@ sys.path.append(src_path)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 import asyncio
-from emoji.context import Context
+from context import Context
 
 loop = asyncio.get_event_loop()
 context = loop.run_until_complete(Context.get_context())

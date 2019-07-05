@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 from datetime import datetime
-from emoji.context_holder import ContextHolder
+from context_holder import ContextHolder
 
 
 async def filter_recently():
