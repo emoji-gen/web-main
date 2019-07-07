@@ -119,7 +119,7 @@
         padding: 12px 60px;
         border: 0;
         border-radius: 12px;
-        line-height: normal;
+        line-height: 1.55;
         background-color: rgba($color-red, .5);
         background-image: none !important;
         color: white;
@@ -346,6 +346,7 @@
   import SweetScroll from 'sweet-scroll'
   import eventbus from '@/src/eventbus'
   import { FONTS } from '@/src/initial_state'
+  import { toLocalizedPath } from '@/src/locales'
 
   const DEFAULT_COLORS = {
     hex: '#EC71A1',
@@ -408,7 +409,7 @@
 
         eventbus.$emit('EG_EMOJI_GENERATE', query)
         this.$router.replace({
-          path: '/result',
+          path: toLocalizedPath('/result'),
           query,
         })
 
