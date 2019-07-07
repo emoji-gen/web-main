@@ -10,8 +10,12 @@ sys.path.append(src_path)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-from emoji import app_provider
-app = app_provider()
+import asyncio
+from context import Context
+
+loop = asyncio.get_event_loop()
+context = loop.run_until_complete(Context.get_context())
+app = context.app
 
 if __name__ == '__main__':
     run_app(app, host='0.0.0.0', port=5000)

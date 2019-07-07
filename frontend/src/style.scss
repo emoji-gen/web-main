@@ -1,0 +1,24 @@
+@import 'includes/mixins';
+@import 'includes/variables';
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  body {
+    overflow-y: scroll;
+    background-color: #FFF;
+  }
+
+  /**
+   * Font family
+   */
+  &:lang(ja) {
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+    }
+  }
+}
+
