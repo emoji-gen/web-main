@@ -86,7 +86,7 @@
 
 
 <script>
-  import { getLocalePath } from '@/src/locales'
+  import { toLocalizedPath } from '@/src/locales'
   import SweetScroll from 'sweet-scroll'
 
   export default {
@@ -94,7 +94,7 @@
       contactPath: {
         cache: false,
         get() {
-          return getLocalePath() + '/contact'
+          return toLocalizedPath('/contact')
         },
       },
     },

@@ -117,14 +117,14 @@
 
 
 <script>
-  import { getLocalePath } from '@/src/locales'
+  import { toLocalizedPath } from '@/src/locales'
 
   export default {
     computed: {
       homePath: {
         cache: false,
         get() {
-          return getLocalePath() + '/'
+          return toLocalizedPath('/')
         },
       },
     },

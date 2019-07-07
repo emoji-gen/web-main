@@ -11,13 +11,17 @@ export function getLocales() {
   return ['ja', 'ko']
 }
 
-export function getLocalePath() {
+export function getLocalePrefix() {
   switch (getLocale()) {
     case 'ko':
       return '/ko'
     default:
       return ''
   }
+}
+
+export function toLocalizedPath(path) {
+  return getLocalePrefix() + path
 }
 
 export const messages = {
