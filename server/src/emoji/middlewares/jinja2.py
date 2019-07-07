@@ -1,9 +1,11 @@
 # -*- encoding: utf-8 -*-
 
-import aiohttp_jinja2
-import jinja2
+import re
 import time
 from pathlib import Path
+
+import aiohttp_jinja2
+import jinja2
 
 
 def setup_jinja2_middleware(app):
@@ -15,18 +17,19 @@ def setup_jinja2_middleware(app):
             config_processor(config=app['config']),
         ],
         default_helpers=False,
+        filters={
+            'squash': do_squash,
+        },
         loader=jinja2.FileSystemLoader(templates_path)
     )
-    env.globals.update({
-        'assets_path': assets_path,
-    })
 
 
 def computed_processor(debug):
     async def processor(request):
         return {
             'debug': debug,
-            'time': time.time(),
+            'DEBUG': debug,
+            'TS': int(time.time() * 1000),
         }
     return processor
 
@@ -34,15 +37,18 @@ def computed_processor(debug):
 def config_processor(config):
     async def processor(request):
         return {
-            'title': config['templates']['title'],
+            'SITE_NAME': config['templates']['site_name'],
+            'SITE_LEAD': config['templates']['site_lead'],
+            'SITE_DESCRIPTION': config['templates']['site_description'],
+            'SITE_URL': config['base_url'],
             'base_url': config['base_url'],
-            'js_url': config['assets']['js_url'] if 'assets' in config else None,
+            'BASE_URL': config['base_url'],
+            'CSS_URL': config['assets'].get('css_url') if 'assets' in config else None,
+            'JS_URL': config['assets'].get('js_url') if 'assets' in config else None,
         }
     return processor
 
 
-@jinja2.contextfunction
-def assets_path(context, path, *, resolve=False):
-    # TODO: resolve のサポート
-    return context['app'].router['static'].url_for(filename=path)
+def do_squash(value):
+    return re.sub(r'\s+', ' ', value)
 
