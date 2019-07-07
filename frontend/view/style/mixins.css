@@ -1,0 +1,78 @@
+@import "./variables";
+
+@define-mixin box {
+  margin: 30px auto 30px auto;
+  width: $dimen-content-width;
+  background-color: $background-color-white;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+@define-mixin box-heading {
+  margin: 18px 0 28px;
+  font-size: $font-size-large;
+  font-weight: bold;
+  letter-spacing: 1.8px;
+  text-align: center;
+  color: $color-green-dark;
+}
+
+@define-mixin icon-40px {
+  $_logo-size: 40px;
+  display: block;
+  margin: 0;
+  border: 0;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+}
+
+@define-mixin icon-twitter {
+  background-image: url('/static/img/twitter.png');
+  opacity: .88;
+}
+
+@define-mixin icon-facebook {
+  background-image: url('/static/img/facebook.png');
+  opacity: .80;
+}
+
+@define-mixin icon-google {
+  background-image: url('/static/img/google.png');
+  opacity: .80;
+}
+
+@define-mixin icon-github {
+  background-image: url('/static/img/github.png');
+  opacity: .70;
+}
+
+@define-mixin icon-text {
+  background-image: url('/static/img/text.png');
+  background-size: 28px auto;
+  opacity: .80;
+}
+
+@define-mixin icon-color {
+  background-image: url('/static/img/color.png');
+  background-size: 19px auto;
+  opacity: .80;
+}
+
+@define-mixin icon-font {
+  background-image: url('/static/img/font.png');
+  background-size: 25px auto;
+  opacity: .80;
+}
+
+@define-mixin plain-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  list-style-position: inside;
+}

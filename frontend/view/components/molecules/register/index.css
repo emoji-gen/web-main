@@ -1,0 +1,169 @@
+@import 'style/import';
+
+@define-mixin _block-label {
+  display: block;
+  margin: 0 0 8px 0;
+  text-align: center;
+  font-size: $font-size-medium;
+  font-weight: bold;
+}
+
+@define-mixin _help_text {
+  color: $color-gray;
+  font-size: $font-size-small;
+  letter-spacing: .5px;
+}
+
+.eg-register {
+  display: block;
+  position: relative;
+
+  h3 {
+    @mixin _block-label;
+    color: $color-blue-dark;
+  }
+
+  .inner {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-content: flex-start;
+    align-items: center;
+    margin: 0 auto;
+    padding: 10px 0 10px 0;
+    transition: opacity .8s ease-in-out;
+    opacity: 1;
+  }
+
+  &.expand-transition {
+    padding: 20px 0 15px;
+    height: auto;
+    transition: opacity .8s ease-in-out;
+    opacity: 1;
+  }
+
+  &.expand-enter, &.expand-leave {
+    padding: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+  }
+
+  &.progress {
+    .overlay {
+      display: block;
+      z-index: $z-index-overlay;
+    }
+  }
+
+  .overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url('/static/img/loading_red.gif');
+    background-position: center center;
+    background-size: 40px auto;
+    background-repeat: no-repeat;
+    background-color: rgba(255, 255, 255, .6);
+  }
+
+  .groups {
+    label {
+      @mixin _block-label;
+      color: $color-blue-dark;
+    }
+
+    .group {
+      margin: 0 0 35px 0;
+
+      &.teams {
+        width: 400px;
+      }
+
+      &.name {
+        input {
+          box-shadow: 0 0 1px 1px rgba(0, 0, 0, .15);
+          border-radius: 2px;
+          padding: 7px 9px;
+          border: 0;
+          font-size: $font-size-medium;
+          width: 400px;
+        }
+      }
+    }
+  }
+
+  .messages {
+    margin: 8px 0 30px;
+    font-size: $font-size-small;
+    color: $color-gray;
+
+    label {
+      @mixin _block-label;
+      color: $color-blue-dark;
+    }
+
+    &.error {
+      color: $color-red-dark;
+      label {
+        color: $color-red-dark;
+      }
+    }
+
+    p {
+      margin: 0 0 5px;
+    }
+  }
+
+  .buttons {
+    margin: 8px 0 0;
+    text-align: center;
+
+    button {
+      padding: 12px 60px;
+      border-radius: 12px;
+      background-color: color($color-red a(.50));
+      background-image: none !important;
+      color: white;
+      font-weight: bold;
+
+      &:hover, &:focus {
+        background-color: color($color-red a(.75));
+      }
+    }
+  }
+
+  .help {
+    margin: 45px 0 0;
+
+    p {
+      @mixin _help_text;
+      margin: 0 0 5px 0;
+
+      &::before {
+        content: '\00203b ';
+      }
+    }
+  }
+
+  .description {
+    margin: 0;
+
+    p {
+      @mixin _help_text;
+      line-height: 1.8;
+      text-align: center;
+
+      strong {
+        margin: 0 1.5px;
+      }
+    }
+  }
+
+  .download {
+    margin: 30px 0 20px;
+  }
+}
