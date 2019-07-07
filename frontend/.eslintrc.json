@@ -2,7 +2,8 @@
   "extends": "standard",
   "rules": {
     "comma-dangle": ["error", "always-multiline"],
-    "no-multiple-empty-lines": ["off"]
+    "no-multiple-empty-lines": ["off"],
+    "space-before-function-paren": ["error", "never"]
   },
   "env": {
     "browser": true
