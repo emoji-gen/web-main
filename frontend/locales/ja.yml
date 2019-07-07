@@ -7,6 +7,7 @@ Register:
   inputs_team_placeholder: 登録するチームを選んで下さい
   inputs_name_label: 絵文字の名前
   inputs_name_placeholder: 絵文字の名前を入れて下さい
+  inputs_team_no_options: 選択できるチームがありません
   messages_validation_error_label: 入力を確認してください
   messages_validation_team_not_selected_message: チームが選択されていません。
   messages_validation_no_name_message: 絵文字の名前が入力されていません。

@@ -14,7 +14,11 @@
             :placeholder="$t('Register.inputs_team_placeholder')"
             v-model="selected"
             @input="updateSelectedTeam"
-          />
+          >
+            <template slot="noOptions">
+              {{ $t('Register.inputs_team_no_options') }}
+            </template>
+          </multiselect>
         </div>
         <div class="group name">
           <label v-t="'Register.inputs_name_label'"></label>
