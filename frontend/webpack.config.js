@@ -10,8 +10,14 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
+// Detect mode
+//~~~~~~~~~~~~~~~
 const isDev = process.argv.includes('--watch')
 const mode = isDev ? 'development' : 'production'
+
+// Set SASS variables
+//~~~~~~~~~~~~~~~~~~~~~~
+const siteUrl = isDev ? '' : '//emoji-gen.ninja';
 
 module.exports = {
   mode,
@@ -72,6 +78,9 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
+              data: `
+                $site-url: '${siteUrl}';
+              `,
               includePaths: [ join(__dirname, 'src') ],
             },
           },

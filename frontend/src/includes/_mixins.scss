@@ -46,25 +46,25 @@
  * Icons : 40x40
  */
 %icon-40px-github {
-  background-image: url('/assets/img/github-40x40@1x.png');
+  background-image: url($site-url + '/assets/img/github-40x40@1x.png');
   background-image:
-    image-set('/assets/img/github-40x40@1x.png' 1x, '/assets/img/github-40x40@2x.png' 2x);
+    image-set($site-url + '/assets/img/github-40x40@1x.png' 1x, $site-url + '/assets/img/github-40x40@2x.png' 2x);
   opacity: .70;
 }
 %icon-40px-twitter {
-  background-image: url('/assets/img/twitter-40x40@1x.png');
+  background-image: url($site-url + '/assets/img/twitter-40x40@1x.png');
   background-image:
-    image-set('/assets/img/twitter-40x40@1x.png' 1x, '/assets/img/twitter-40x40@2x.png' 2x);
+    image-set($site-url + '/assets/img/twitter-40x40@1x.png' 1x, $site-url + '/assets/img/twitter-40x40@2x.png' 2x);
   opacity: .88;
 }
 %icon-40px-facebook {
-  background-image: url('/assets/img/facebook.png');
+  background-image: url($site-url + '/assets/img/facebook.png');
   opacity: .80;
 }
 %icon-40px-line {
-  background-image: url('/assets/img/line-40x40@1x.png');
+  background-image: url($site-url + '/assets/img/line-40x40@1x.png');
   background-image:
-    image-set('/assets/img/line-40x40@1x.png' 1x, '/assets/img/line-40x40@2x.png' 2x);
+    image-set($site-url + '/assets/img/line-40x40@1x.png' 1x, $site-url + '/assets/img/line-40x40@2x.png' 2x);
   opacity: .80;
 }
 
@@ -72,14 +72,14 @@
  * Icons : 26x26
  */
 %icon-26px-twitter {
-  background-image: url('/assets/img/twitter-26x26@1x.png');
+  background-image: url($site-url + '/assets/img/twitter-26x26@1x.png');
   background-image:
-    image-set('/assets/img/twitter-26x26@1x.png' 1x, '/assets/img/twitter-26x26@2x.png' 2x);
+    image-set($site-url + '/assets/img/twitter-26x26@1x.png' 1x, $site-url + '/assets/img/twitter-26x26@2x.png' 2x);
   opacity: .88;
 }
 %icon-26px-github {
-  background-image: url('/assets/img/github-26x26@1x.png');
+  background-image: url($site-url + '/assets/img/github-26x26@1x.png');
   background-image:
-    image-set('/assets/img/github-26x26@1x.png' 1x, '/assets/img/github-26x26@2x.png' 2x);
+    image-set($site-url + '/assets/img/github-26x26@1x.png' 1x, $site-url + '/assets/img/github-26x26@2x.png' 2x);
   opacity: .70;
 }
