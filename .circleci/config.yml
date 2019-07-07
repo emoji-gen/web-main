@@ -3,30 +3,32 @@ jobs:
   build:
     working_directory: ~/workspace
     docker:
-      - image: emojigen/node-py23:node12.6.0-py2.7.16-py3.7.3
+      - image: emojigen/docker-web-main
     environment:
+      PYTHON_BIN: /usr/local/python/bin/python
+      PIP_BIN: /usr/local/python/bin/pip
     steps:
       - checkout
       - run:
           name: System information
           command: |
-            python3 --version
-            pip3 --version
+            $PYTHON_BIN --version
+            $PIP_BIN --version
             echo "Node $(node -v)"
             echo "Yarn v$(yarn --version)"
       - run:
           name: Notify test started
           command: |
-            pip3 install -q slackweb
+            $PIP_BIN install -q slackweb
             if [ "$CIRCLE_BRANCH" = "master" ]; then
-              python3 common/script/notify.py started
+              $PYTHON_BIN common/script/notify.py started
             fi
       - restore_cache:
           key: emoji-gen/web-main/{{ arch }}/{{ checksum "frontend/yarn.lock" }}/{{ checksum "server/requirements.txt" }}
       - run:
           name: Install dependencies (Python)
           command: |
-            pip3 install -q -r requirements.txt \
+            $PIP_BIN install -q -r requirements.txt \
               --index-url https://repo.fury.io/emoji-gen/ --extra-index-url https://pypi.org/simple
           working_directory: server
       - run:
@@ -55,12 +57,11 @@ jobs:
           name: Notify test successful
           command: |
             if [ "$CIRCLE_BRANCH" = "master" ]; then
-              python3 common/script/notify.py successful
+              $PYTHON_BIN common/script/notify.py successful
             fi
       - deploy:
           name: Deploy to Production
           command: |
             if [ "$CIRCLE_BRANCH" = "master" ]; then
-              :
-              # curl -X POST "https://circleci.com/api/v1.1/project/github/pine/eg-fabric/tree/master?circle-token=$CIRCLE_TOKEN"
+              curl -X POST "https://circleci.com/api/v1.1/project/github/pine/eg-fabric/tree/master?circle-token=$CIRCLE_TOKEN"
             fi
