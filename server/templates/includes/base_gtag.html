@@ -1,0 +1,20 @@
+{# Google Analytics #}
+
+{% filter squash %}
+  {% if DEBUG %}
+    <script>
+      function ga() {
+        console.log('ga', Array.from(arguments))
+      }
+    </script>
+  {% else %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-82501423-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-82501423-1');
+    </script>
+  {% endif %}
+{% endfilter %}
+
