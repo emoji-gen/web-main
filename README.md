@@ -5,7 +5,6 @@
 [![dependencies Status](https://david-dm.org/emoji-gen/web-main/status.svg?path=frontend)](https://david-dm.org/emoji-gen/web-main?path=frontend)
 [![devDependencies Status](https://david-dm.org/emoji-gen/web-main/dev-status.svg?path=frontend)](https://david-dm.org/emoji-gen/web-main?path=frontend&type=dev)
 [![Beerpay](https://beerpay.io/emoji-gen/web-main/badge.svg?style=flat)](https://beerpay.io/emoji-gen/web-main)
-[![Osushi](https://img.shields.io/badge/donate-osushi-EA2F57.svg)](https://osushi.love/intent/post/9ad90add99954e62ac79251606c10eec)
 
 :tada: Ultimate Emoji Generator
 
