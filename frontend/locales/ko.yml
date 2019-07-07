@@ -43,7 +43,7 @@ Generator:
   parameter_text_label: 텍스트
   parameter_text_default_value: "이모\n티콘"
   parameter_text_align_label: 텍스트의 정렬 방향
-  parameter_size_label: サイズ調整
+  parameter_size_label: 크기 조절
   parameter_size_fixed_label: 폰트의 크기를 고정
   parameter_size_non_stretch_label: 자동으로 신축시키지 않다
   parameter_font_label: 폰트
