@@ -10,6 +10,7 @@ async def filter_recently():
             await cur.execute('''
                 SELECT *
                 FROM `emoji_log`
+                ORDER BY `generated_at` DESC
                 LIMIT 20
             ''')
             return [ _to_dict(v) for v in await cur.fetchall() ]
