@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+    <meta charset="utf-8">
+    <title>{{ title }} - {{ subtitle }}</title>
+
+    {% if js_url %}
+    <link rel="preload" href="{{ js_url }}" as="script">
+    {% endif %}
+
+    <meta name="description" content="{{ description }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="fb:app_id" content="1668136526839121">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ title }}">
+    <meta property="og:title" content="{{ title }} - {{ subtitle }}">
+    <meta property="og:description" content="{{ description }}">
+    <meta property="og:url" content="{{ base_url }}">
+    <meta property="og:image" content="{{ base_url }}{{ assets_path('/img/ogp_summary.png', resolve=True) }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <meta name="app:env:debug" content="{% if debug %}true{% else %}false{% endif %}">
+    <meta name="app:env:domain" content="emoji-gen.ninja">
+    <meta name="app:feature:history" content="true">
+    <meta name="msvalidate.01" content="DE778F287AD6C9A5540CF739A2F7A060">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    <link rel="canonical" href="{{ base_url }}{{ path }}">
+    <style> [v-cloak] { display: none } </style>
+  </head>
+  <body data-app-id="j1g3xUDxVmwWCCKqibVQCZOHNpvnSMBY">
+    {% block body %}
+      <div class="v-cloak eg-root"></div>
+
+      {% if js_url %}
+        <script src="{{ js_url }}"></script>
+      {% elif debug %}
+        <script src="{{ assets_path('/js/bundle.js') }}"></script>
+      {% else %}
+        <script src="{{ assets_path('/js/bundle.min.js') }}"></script>
+      {% endif %}
+    {% endblock %}
+  </body>
+</html>
