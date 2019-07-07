@@ -48,7 +48,9 @@
 }
 
 %icon-40px-twitter {
-  background-image: url('/assets/img/twitter.png');
+  background-image: url('/assets/img/twitter-40x40@1x.png');
+  background-image:
+    image-set('/assets/img/twitter-40x40@1x.png' 1x, '/assets/img/twitter-40x40@2x.png' 2x);
   opacity: .88;
 }
 
