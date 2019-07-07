@@ -30,7 +30,6 @@
     created() {
       this.$ptero.on('CE_ATTACH', e => {
         log.debug('Attached by Chrome Extension', e.detail)
-        eventbus.$emit('CE_ATTACH', e.detail)
       })
     },
   }

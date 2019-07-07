@@ -385,7 +385,7 @@
       })
 
       // Browser extension attached
-      eventbus.$on('CE_ATTACH', () => {
+      this.$ptero.on('CE_ATTACH', () => {
         this.browserExtensionEnabled = true
       })
     },
