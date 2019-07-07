@@ -337,6 +337,7 @@
 
 <script>
   import Chrome from 'vue-color/src/components/Chrome'
+  import SweetScroll from 'sweet-scroll'
   import eventbus from '@/src/eventbus'
   import { FONTS } from '@/src/initial_state'
 
@@ -404,6 +405,9 @@
           path: '/result',
           query,
         })
+
+        const scroller = new SweetScroll({ easing: 'easeOutQuad' })
+        scroller.toTop(0)
       },
       colorsToRgbaHex(colors) {
         const rgb = colors.hex.replace(/#/, '')

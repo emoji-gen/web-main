@@ -4,7 +4,7 @@
       <!-- Menus-->
       <ul class="menus">
         <li><a href="/blog/" target="_blank" v-t="'Footer.developer_blog_label'"></a></li>
-        <li><router-link to="/contact" v-t="'Footer.contact_label'" /></li>
+        <li><router-link to="/contact" @click.native="scroll" v-t="'Footer.contact_label'" /></li>
       </ul>
 
       <!-- Copyright -->
@@ -86,6 +86,14 @@
 
 
 <script>
+  import SweetScroll from 'sweet-scroll'
+
   export default {
+    methods: {
+      scroll() {
+        const scroller = new SweetScroll({ easing: 'easeOutQuad' })
+        scroller.toTop(0)
+      },
+    },
   }
 </script>
