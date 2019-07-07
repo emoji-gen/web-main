@@ -41,7 +41,7 @@ export default () => {
       return
     }
     if (to.fullPath.startsWith('/#!/emoji')) {
-      next({ path: to.fullPath.replace(/^\/\#\!\/emoji/, '/result') })
+      next({ path: to.fullPath.replace(/^\/#!\/emoji/, '/result') })
       return
     }
 
