@@ -5,7 +5,7 @@
       <p>要望・不具合報告などは、GitHub で新規に Issue を作成してください。</p>
       <ul>
         <li class="github">
-          <a href="https://github.com/emoji-gen/web-main/issues" target="_blank">
+          <a href="https://github.com/emoji-gen/web-main/issues" target="_blank" rel="noopener">
             <span class="owner">emoji-gen</span>/<span class="username">web-main</span>
           </a>
         </li>
@@ -41,6 +41,7 @@
 
     .body {
       padding: 30px;
+      font-size: $font-medium;
 
       ul {
         margin: 18px 0;
@@ -55,7 +56,6 @@
           background-size: 26px auto;
           background-repeat: no-repeat;
           background-position: 0 center;
-          font-size: $font-medium;
 
           a {
             text-decoration: none;
@@ -70,7 +70,12 @@
           }
 
           &.twitter { @extend %icon-26px-twitter }
-          &.github { @extend %icon-40px-github }
+          &.github { @extend %icon-26px-github }
+        }
+      }
+      p {
+        &.break {
+          margin-top: 45px;
         }
       }
     }
