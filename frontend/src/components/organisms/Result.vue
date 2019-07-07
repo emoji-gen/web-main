@@ -375,7 +375,7 @@
     },
     created() {
       // Initial state
-      if (this.$route.path.indexOf('/result') === 0) {
+      if (this.$route.path.match(/^(?:\/[a-zA-Z-]+)?\/result/)) {
         this._draw(this.$route.query)
       }
 

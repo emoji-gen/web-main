@@ -18,6 +18,7 @@ def setup_routes(app):
     # Views :ko
     app.router.add_get('/ko', views.redirect_index_ko)
     app.router.add_get('/ko/', views.index_ko)
+    app.router.add_get('/ko/result', views.index_ko)
 
     app.router.add_get('/healthcheck', ok)
     app.router.add_get('/emoji', generate)

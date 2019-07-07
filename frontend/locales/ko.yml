@@ -1,6 +1,6 @@
 ColorKind:
-  foreground_label: 表
-  background_label: 裏
+  foreground_label: 앞면
+  background_label: 뒷면
 
 Register:
   inputs_team_label: 登録するチーム
@@ -15,7 +15,7 @@ Register:
   messages_successful_description: 絵文字の新規登録に成功しました。
   messages_failure_label: 絵文字の登録に失敗しました
   messages_failure_unknown_description: 不明なエラーが発生しました。
-  register_button: 登録する♪
+  register_button: 추가한다♪
   help_about_teams: ブラウザでログイン中の Slack チームが一覧に表示されます
   help_login_head: 登録したいチームが表示されない場合、該当のチームへ
   help_login_link_label: ログイン
@@ -31,37 +31,37 @@ Share:
   line_message: 絵文字ジェネレーター使って絵文字を生成しました♪
 
 Footer:
-  developer_blog_label: 開発者ブログ
-  contact_label: お問い合わせ
-  copyright_holder: 絵文字 ジェネレーター
+  developer_blog_label: 개발자블로그
+  contact_label: 문의하기
+  copyright_holder: 이모티콘 생성기
 
 Generator:
-  title: 絵文字にしたい文字を入力してください！
-  generate_button: 生成する♪
-  public_fg_label: 生成履歴に絵文字を表示する
-  public_fg_description: チェックマークを外すと、絵文字が生成履歴に残りません。
-  parameter_text_label: テキスト
-  parameter_text_default_value: "絵文\n字。"
-  parameter_text_align_label: 文字揃え
+  title: 이모티콘으로 변환하고 싶은 문자를 입력하십시오!
+  generate_button: 생성하다♪
+  public_fg_label: 생성 이력에 이모티콘 를 남기다
+  public_fg_description: 체크 마크를 제외하면, 이모티콘 가 생성 이력에 남지 않습니다.
+  parameter_text_label: 텍스트
+  parameter_text_default_value: "이모\n티콘"
+  parameter_text_align_label: 텍스트의 정렬 방향
   parameter_size_label: サイズ調整
-  parameter_size_fixed_label: 文字サイズを固定する
-  parameter_size_non_stretch_label: 自動で伸縮しない
-  parameter_font_label: フォント
-  parameter_color_label: カラー
+  parameter_size_fixed_label: 폰트의 크기를 고정
+  parameter_size_non_stretch_label: 자동으로 신축시키지 않다
+  parameter_font_label: 폰트
+  parameter_color_label: 색
 
 Header:
-  title: 絵文字 ジェネレーター
+  title: 이모티콘 생성기
   twitter_label: Twitter
   github_label: GitHub
 
 RecentlyLog:
-  title: 最近生成された絵文字
+  title: 최근에 생성된 이모티콘
 
 Result:
-  title: 生成された絵文字
-  preview_text_label: テキスト
-  preview_font_label: フォント
-  preview_color_label: カラー
-  menus_download_label: ダウンロード
-  menus_register_label: 登録する
-  menus_share_label: シェアする
+  title: 생성 된 이모티콘
+  preview_text_label: 텍스트
+  preview_font_label: 폰트
+  preview_color_label: 색
+  menus_download_label: 다운로드
+  menus_register_label: 추가한다
+  menus_share_label: 공유

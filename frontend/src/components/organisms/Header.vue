@@ -2,7 +2,7 @@
   <div class="Header">
     <header>
       <!-- Logo + Title -->
-      <h1><a href="/" v-t="'Header.title'"></a></h1>
+      <h1><a :href="homePath" v-t="'Header.title'"></a></h1>
 
       <!-- Buttons -->
       <div class="buttons">
@@ -11,7 +11,6 @@
           class="twitter"
           target="_blank"
           rel="noopener"
-          :title="$t('Header.twitter_description')"
           v-t="'Header.twitter_label'"></a>
 
         <!-- Buttons : GitHub -->
@@ -115,3 +114,19 @@
     }
   }
 </style>
+
+
+<script>
+  import { getLocalePath } from '@/src/locales'
+
+  export default {
+    computed: {
+      homePath: {
+        cache: false,
+        get() {
+          return getLocalePath() + '/'
+        },
+      },
+    },
+  }
+</script>
