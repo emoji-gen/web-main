@@ -18,7 +18,7 @@ const { join } = require('path')
 module.exports = {
     "ui": false,
     "files": [
-      join(__dirname, '..', 'server/public'),
+      join(__dirname, '..', 'server/assets'),
     ],
     "watchEvents": [
         "change"

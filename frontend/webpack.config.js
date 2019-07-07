@@ -32,7 +32,7 @@ module.exports = {
   //~~~~~~~~~
   output: {
     filename: 'script.js',
-    path: join(__dirname, '..', 'server/public'),
+    path: join(__dirname, '..', 'server/assets'),
   },
 
 
@@ -138,7 +138,7 @@ module.exports = {
       dry: false,
       dangerouslyAllowCleanPatternsOutsideProject: true,
       cleanOnceBeforeBuildPatterns:
-        ['js', 'css'].map(v => join(__dirname, '..', `server/public/*.${v}`)),
+        ['js', 'css'].map(v => join(__dirname, '..', `server/assets/*.${v}`)),
       verbose: false,
     }),
     new EventHooksPlugin({

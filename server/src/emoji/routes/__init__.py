@@ -27,7 +27,7 @@ def setup_routes(app):
 def _setup_static_routes(app):
     app.router.add_static(
         '/assets',
-        str(Path(app['config']['project_path']).joinpath('public')),
+        str(Path(app['config']['project_path']).joinpath('assets')),
         name='static',
         append_version=True,
     )
