@@ -82,7 +82,7 @@
             right: 0;
             width: $_logo-size;
             transform: rotate($_rotate);
-            background-image: url('/assets/img/logo.png');
+            background-image: url($site-url + '/assets/img/logo.png');
             background-size: $_logo-size auto;
             background-repeat: no-repeat;
             background-position: 0px center;

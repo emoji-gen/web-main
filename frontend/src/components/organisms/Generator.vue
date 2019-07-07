@@ -238,17 +238,23 @@
               }
               &.left {
                 label {
-                  background-image: url('/assets/img/align_left.png'), url('/assets/img/align_left_active.png');
+                  background-image:
+                    url($site-url + '/assets/img/align_left.png'),
+                    url($site-url + '/assets/img/align_left_active.png');
                 }
               }
               &.center {
                 label {
-                  background-image: url('/assets/img/align_center.png'), url('/assets/img/align_center_active.png');
+                  background-image:
+                    url($site-url + '/assets/img/align_center.png'),
+                    url($site-url + '/assets/img/align_center_active.png');
                 }
               }
               &.right {
                 label {
-                  background-image: url('/assets/img/align_right.png'), url('/assets/img/align_right_active.png');
+                  background-image:
+                    url($site-url + '/assets/img/align_right.png'),
+                    url($site-url + '/assets/img/align_right_active.png');
                 }
               }
             }
@@ -307,7 +313,7 @@
 
             &:checked + label {
               border: 1px solid rgba(darken($color-blue, 20%), .8);
-              background-image: url(/assets/img/checked.png);
+              background-image: url($site-url + '/assets/img/checked.png');
               background-repeat: no-repeat;
               background-position: 14px center;
               background-size: 20px auto;

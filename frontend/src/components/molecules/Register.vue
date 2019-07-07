@@ -125,7 +125,7 @@
       right: 0;
       bottom: 0;
       left: 0;
-      background-image: url('/assets/img/loading_red.gif');
+      background-image: url($site-url + '/assets/img/loading_red.gif');
       background-position: center center;
       background-size: 40px auto;
       background-repeat: no-repeat;

@@ -177,21 +177,21 @@
               }
               &.text {
                 &::before {
-                  background-image: url('/assets/img/text.png');
+                  background-image: url($site-url + '/assets/img/text.png');
                   background-size: 28px auto;
                   opacity: .80;
                 }
               }
               &.font {
                 &::before {
-                  background-image: url('/assets/img/font.png');
+                  background-image: url($site-url + '/assets/img/font.png');
                   background-size: 25px auto;
                   opacity: .80;
                 }
               }
               &.color {
                 &::before {
-                  background-image: url('/assets/img/color.png');
+                  background-image: url($site-url + '/assets/img/color.png');
                   background-size: 19px auto;
                   opacity: .80;
                 }
@@ -249,7 +249,7 @@
               padding: 0 0 0 34px;
               color: $color-red-dark;
               height: 100%;
-              background-image: url('/assets/img/download.png');
+              background-image: url($site-url + '/assets/img/download.png');
               background-repeat: no-repeat;
               background-position: 0 center;
               background-size: 22px auto;
@@ -261,7 +261,7 @@
             padding: 0 0 0 34px;
             color: $color-red-dark;
             height: 100%;
-            background-image: url('/assets/img/register.png');
+            background-image: url($site-url + '/assets/img/register.png');
             background-repeat: no-repeat;
             background-position: 0 center;
             background-size: 22px auto;
@@ -271,7 +271,7 @@
           &.share {
             padding: 0 0 0 34px;
             color: $color-yellow-dark;
-            background-image: url('/assets/img/share.png');
+            background-image: url($site-url + '/assets/img/share.png');
             background-repeat: no-repeat;
             background-position: 0 center;
             background-size: 22px auto;
