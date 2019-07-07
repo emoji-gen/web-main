@@ -6,5 +6,8 @@
   },
   "env": {
     "browser": true
+  },
+  "globals" :{
+    "DEBUG": true
   }
 }
