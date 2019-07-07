@@ -1,0 +1,67 @@
+ColorKind:
+  foreground_label: 表
+  background_label: 裏
+
+Register:
+  inputs_team_label: 登録するチーム
+  inputs_team_placeholder: 登録するチームを選んで下さい
+  inputs_name_label: 絵文字の名前
+  inputs_name_placeholder: 絵文字の名前を入れて下さい
+  messages_validation_error_label: 入力を確認してください
+  messages_validation_team_not_selected_message: チームが選択されていません。
+  messages_validation_no_name_message: 絵文字の名前が入力されていません。
+  messages_successful_label: 絵文字を登録しました！
+  messages_successful_description: 絵文字の新規登録に成功しました。
+  messages_failure_label: 絵文字の登録に失敗しました
+  messages_failure_unknown_description: 不明なエラーが発生しました。
+  register_button: 登録する♪
+  help_about_teams: ブラウザでログイン中の Slack チームが一覧に表示されます
+  help_login_head: 登録したいチームが表示されない場合、該当のチームへ
+  help_login_link_label: ログイン
+  help_login_tail: してください
+  install_label: ブラウザ拡張機能をインストールしてください
+  install_description: ブラウザ拡張機能をインストールすると、<br>Slack チームへ絵文字を<strong>直接登録</strong>することができます。
+
+Share:
+  twitter_tweet: 絵文字ジェネレーター使って絵文字を生成しました♪
+  twitter_hashtag: '#絵文字ジェネレーター'
+  twitter_description: Twitter でシェアする
+  facebook_description: Facebook でシェアする
+  line_message: 絵文字ジェネレーター使って絵文字を生成しました♪
+
+Footer:
+  developer_blog_label: 開発者ブログ
+  contact_label: お問い合わせ
+  copyright_holder: 絵文字 ジェネレーター
+
+Generator:
+  title: 絵文字にしたい文字を入力してください！
+  generate_button: 生成する♪
+  public_fg_label: 生成履歴に絵文字を表示する
+  public_fg_description: チェックマークを外すと、絵文字が生成履歴に残りません。
+  parameter_text_label: テキスト
+  parameter_text_default_value: "絵文\n字。"
+  parameter_text_align_label: 文字揃え
+  parameter_size_label: サイズ調整
+  parameter_size_fixed_label: 文字サイズを固定する
+  parameter_size_non_stretch_label: 自動で伸縮しない
+  parameter_font_label: フォント
+  parameter_color_label: カラー
+
+Header:
+  title: 絵文字 ジェネレーター
+  twitter_label: Twitter
+  twitter_description: 絵文字ジェネレーター 公式 Twitter
+  github_label: GitHub
+
+RecentlyLog:
+  title: 最近生成された絵文字
+
+Result:
+  title: 生成された絵文字
+  preview_text_label: テキスト
+  preview_font_label: フォント
+  preview_color_label: カラー
+  menus_download_label: ダウンロード
+  menus_register_label: 登録する
+  menus_share_label: シェアする

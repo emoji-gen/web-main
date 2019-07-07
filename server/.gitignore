@@ -8,3 +8,5 @@ venv
 
 # project
 config/assets.yml
+public/**/*.js
+public/**/*.css

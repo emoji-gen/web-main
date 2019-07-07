@@ -1,0 +1,85 @@
+/**
+ * includes/_mixins.scss
+ */
+
+@import 'includes/_variables';
+
+
+/**
+ * Layout
+ */
+%box {
+  margin: 30px auto 30px auto;
+  width: $dimen-content-width;
+  background-color: $color-background-white;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+}
+
+%box-heading {
+  margin: 18px 0 28px;
+  font-size: $font-large;
+  font-weight: bold;
+  letter-spacing: 1.8px;
+  text-align: center;
+  color: $color-green-dark;
+}
+
+/**
+ * Icons
+ */
+%icon-40px {
+  display: block;
+  margin: 0;
+  border: 0;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position: 0px center;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+}
+
+/**
+ * Icons : 40x40
+ */
+%icon-40px-github {
+  background-image: url('/assets/img/github-40x40@1x.png');
+  background-image:
+    image-set('/assets/img/github-40x40@1x.png' 1x, '/assets/img/github-40x40@2x.png' 2x);
+  opacity: .70;
+}
+%icon-40px-twitter {
+  background-image: url('/assets/img/twitter-40x40@1x.png');
+  background-image:
+    image-set('/assets/img/twitter-40x40@1x.png' 1x, '/assets/img/twitter-40x40@2x.png' 2x);
+  opacity: .88;
+}
+%icon-40px-facebook {
+  background-image: url('/assets/img/facebook.png');
+  opacity: .80;
+}
+%icon-40px-line {
+  background-image: url('/assets/img/line-40x40@1x.png');
+  background-image:
+    image-set('/assets/img/line-40x40@1x.png' 1x, '/assets/img/line-40x40@2x.png' 2x);
+  opacity: .80;
+}
+
+/**
+ * Icons : 26x26
+ */
+%icon-26px-twitter {
+  background-image: url('/assets/img/twitter-26x26@1x.png');
+  background-image:
+    image-set('/assets/img/twitter-26x26@1x.png' 1x, '/assets/img/twitter-26x26@2x.png' 2x);
+  opacity: .88;
+}
+%icon-26px-github {
+  background-image: url('/assets/img/github-26x26@1x.png');
+  background-image:
+    image-set('/assets/img/github-26x26@1x.png' 1x, '/assets/img/github-26x26@2x.png' 2x);
+  opacity: .70;
+}

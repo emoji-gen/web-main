@@ -11,10 +11,10 @@ def load_config():
     config_path = str(Path(project_path).joinpath('config'))
 
     default_config_path = str(Path(config_path).joinpath('default.yml'))
-    default_config = yaml.load(open(default_config_path, 'r', encoding='utf-8'))
+    default_config = yaml.full_load(open(default_config_path, 'r', encoding='utf-8'))
     local_config_path = str(Path(config_path).joinpath('local.yml'))
     try:
-        local_config = yaml.load(open(local_config_path, 'r', encoding='utf-8'))
+        local_config = yaml.full_load(open(local_config_path, 'r', encoding='utf-8'))
     except FileNotFoundError:
         local_config = {}
 
@@ -27,7 +27,7 @@ def load_config():
     # config/assets.yml
     assets_config_path = str(Path(config_path).joinpath('assets.yml'))
     try:
-        assets_config = yaml.load(open(assets_config_path, 'r', encoding='utf-8'))
+        assets_config = yaml.full_load(open(assets_config_path, 'r', encoding='utf-8'))
     except FileNotFoundError:
         assets_config = None
     if isinstance(assets_config, dict):
@@ -42,3 +42,54 @@ def load_config():
 
     return config
 
+
+class Config():
+    def __init__(self):
+        self._mysql = MySQLConfig()
+        self._locales = LocalesConfig()
+
+    @property
+    def mysql(self):
+        return self._mysql
+
+    @property
+    def locales(self):
+        return self._locales
+
+
+class MySQLConfig():
+    def __init__(self):
+        config = load_config()
+        self._host = config['mysql']['host']
+        self._user = config['mysql']['user']
+        self._password = config['mysql']['password']
+
+    @property
+    def host(self):
+        return self._host
+
+    @property
+    def port(self):
+        return 3306
+
+    @property
+    def user(self):
+        return self._user
+
+    @property
+    def password(self):
+        return self._password
+
+
+class LocalesConfig():
+    def __init__(self):
+        project_path = str(Path(__file__).resolve().parents[2])
+        self._locales_path = str(Path(project_path).joinpath('locales'))
+
+    @property
+    def locales(self):
+        return ['ja']
+
+    @property
+    def locales_path(self):
+        return self._locales_path
