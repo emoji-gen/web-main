@@ -11,10 +11,10 @@ def load_config():
     config_path = str(Path(project_path).joinpath('config'))
 
     default_config_path = str(Path(config_path).joinpath('default.yml'))
-    default_config = yaml.load(open(default_config_path, 'r', encoding='utf-8'))
+    default_config = yaml.full_load(open(default_config_path, 'r', encoding='utf-8'))
     local_config_path = str(Path(config_path).joinpath('local.yml'))
     try:
-        local_config = yaml.load(open(local_config_path, 'r', encoding='utf-8'))
+        local_config = yaml.full_load(open(local_config_path, 'r', encoding='utf-8'))
     except FileNotFoundError:
         local_config = {}
 
@@ -27,7 +27,7 @@ def load_config():
     # config/assets.yml
     assets_config_path = str(Path(config_path).joinpath('assets.yml'))
     try:
-        assets_config = yaml.load(open(assets_config_path, 'r', encoding='utf-8'))
+        assets_config = yaml.full_load(open(assets_config_path, 'r', encoding='utf-8'))
     except FileNotFoundError:
         assets_config = None
     if isinstance(assets_config, dict):
