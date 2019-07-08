@@ -81,11 +81,26 @@
             right: 0;
             width: $_logo-size;
             transform: rotate($_rotate);
-            background-image: url($site-url + '/assets/img/logo.png');
             background-size: $_logo-size auto;
             background-repeat: no-repeat;
             background-position: 0px center;
             content: '';
+          }
+          &:lang(ja) {
+            &::before {
+              background-image: url($site-url + '/assets/img/logo_ja-40x40@1x.png');
+              background-image: image-set(
+                $site-url + '/assets/img/logo_ja-40x40@1x.png' 1x,
+                $site-url + '/assets/img/logo_ja-40x40@2x.png' 2x);
+            }
+          }
+          &:lang(ko) {
+            &::before {
+              background-image: url($site-url + '/assets/img/logo_ko-40x40@1x.png');
+              background-image: image-set(
+                $site-url + '/assets/img/logo_ko-40x40@1x.png' 1x,
+                $site-url + '/assets/img/logo_ko-40x40@2x.png' 2x);
+            }
           }
         }
       }
