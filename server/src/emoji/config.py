@@ -97,7 +97,7 @@ class LocalesConfig():
 
     @property
     def locales(self):
-        return ['ja']
+        return ['ja', 'ko']
 
     @property
     def locales_path(self):
