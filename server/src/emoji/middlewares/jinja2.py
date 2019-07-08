@@ -8,6 +8,7 @@ import aiohttp_jinja2
 import jinja2
 
 
+
 def setup_jinja2_middleware(app):
     templates_path = app['config']['templates_path']
     env = aiohttp_jinja2.setup(
@@ -45,6 +46,7 @@ def config_processor(config):
             'BASE_URL': config['base_url'],
             'CSS_URL': config['assets'].get('css_url') if 'assets' in config else None,
             'JS_URL': config['assets'].get('js_url') if 'assets' in config else None,
+            'localized': lambda key: do_localized(request['locale'], key),
         }
     return processor
 
@@ -52,3 +54,6 @@ def config_processor(config):
 def do_squash(value):
     return re.sub(r'\s+', ' ', value)
 
+def do_localized(locale, key):
+    print(locale,key)
+    return ''
