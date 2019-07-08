@@ -5,6 +5,7 @@ from pathlib import Path
 from aiohttp.web import Application
 
 from context_holder import ContextHolder
+from controllers import Controllers
 from locales import Locales
 
 from emoji.config import Config
@@ -13,7 +14,6 @@ from emoji.mysql import MySQL
 from emoji.config import load_config
 from emoji.middlewares import setup_middlewares
 from emoji.repos import setup_repos
-from emoji.routes import setup_routes
 from emoji.services import setup_services
 
 
@@ -32,7 +32,7 @@ class Context():
         app = Application(debug=self._config['debug'])
         app['config'] = self._config
 
-        setup_routes(app)
+        # setup_routes(app)
         setup_middlewares(app)
         setup_repos(app)
         setup_services(app)
@@ -44,11 +44,13 @@ class Context():
         new_config = Config()
         self._mysql = MySQL(new_config.mysql)
         self._locales = Locales(new_config.locales)
+        self._controllers = Controllers(self)
 
 
     async def startup(self):
         await self._mysql.startup()
         await self._locales.startup()
+        await self._controllers.startup()
 
 
     def cleanup(self, app):

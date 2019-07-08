@@ -29,6 +29,9 @@ async def redirect_index_ko(request):
 async def index_ko(request):
     return await _render(request, 'home.html', locale='ko')
 
+async def contact_ko(request):
+    return await _render(request, 'contact.html', locale='ko')
+
 
 async def _fetch_emoji_logs(emoji_service):
     emoji_logs_records = await emoji_log_repository.filter_recently()
