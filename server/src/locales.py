@@ -7,7 +7,7 @@ from pathlib import Path
 class Locales():
     def __init__(self, config):
         self._locales = config.locales
-        self._locales_path = Path(config.locales_path).resolve()
+        self._locales_path = config.locales_path.resolve()
         self._messages = {}
 
 

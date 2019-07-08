@@ -6,13 +6,12 @@ from aiohttp.web import Application
 
 from context_holder import ContextHolder
 from locales import Locales
-from web import controllers, jinja2
+from mysql import MySQL
+from web import controllers, htmlmin, jinja2
 
 from emoji.config import Config
-from emoji.mysql import MySQL
 
 from emoji.config import load_config
-from emoji.middlewares import setup_middlewares
 from emoji.repos import setup_repos
 from emoji.services import setup_services
 
@@ -32,7 +31,6 @@ class Context():
         app = Application(debug=self._config['debug'])
         app['config'] = self._config
 
-        setup_middlewares(app)
         setup_repos(app)
         setup_services(app)
 
@@ -48,6 +46,8 @@ class Context():
     async def startup(self):
         controllers.startup(self._app)
         jinja2.startup(self._app)
+        htmlmin.startup(self._app)
+
         await self._mysql.startup()
         await self._locales.startup()
 

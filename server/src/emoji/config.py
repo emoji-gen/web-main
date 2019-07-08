@@ -45,8 +45,9 @@ def load_config():
 
 class Config():
     def __init__(self):
+        self._path_config = PathConfig()
         self._mysql = MySQLConfig()
-        self._locales = LocalesConfig()
+        self._locales = LocalesConfig(self._path_config)
 
     @property
     def mysql(self):
@@ -55,6 +56,15 @@ class Config():
     @property
     def locales(self):
         return self._locales
+
+
+class PathConfig():
+    def __init__(self):
+        self._project_path = Path(__file__).resolve().parents[2]
+
+    @property
+    def project_path(self):
+        return self._project_path
 
 
 class MySQLConfig():
@@ -82,9 +92,8 @@ class MySQLConfig():
 
 
 class LocalesConfig():
-    def __init__(self):
-        project_path = str(Path(__file__).resolve().parents[2])
-        self._locales_path = str(Path(project_path).joinpath('locales'))
+    def __init__(self, path_config):
+        self._locales_path = path_config.project_path.joinpath('locales')
 
     @property
     def locales(self):

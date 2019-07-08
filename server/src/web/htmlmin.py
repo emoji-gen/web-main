@@ -1,15 +1,15 @@
 # -*- encoding: utf-8 -*-
 
 import htmlmin
-from aiohttp import web
+import aiohttp.web
 
 
-def setup_htmlmin_middleware(app):
-    app.middlewares.append(htmlmin_middleware())
+def startup(app):
+    app.middlewares.append(_htmlmin())
 
 
-def htmlmin_middleware():
-    @web.middleware
+def _htmlmin():
+    @aiohttp.web.middleware
     async def middleware(request, handler):
         response = await handler(request)
         if response.content_type == 'text/html':
