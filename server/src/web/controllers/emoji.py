@@ -5,7 +5,7 @@ import re
 from aiohttp.web import Response, HTTPBadRequest
 from pathlib import Path
 
-from emoji.repositories import emoji_log_repository
+from repositories import emoji_log_repository
 
 async def generate(request):
     return await _execute(request)

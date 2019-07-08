@@ -38,9 +38,12 @@ class Locales():
                         format(locale, message_keys - set(messages.keys())))
 
 
-    def get_message(*, locale, key):
-        if key not in self._messages:
-            raise RuntimeError(
-                'Illegal message key. :: locale={}, key={}'.format(locale, key))
+    def get_message(self, key, locale):
+        if locale not in self._messages:
+            raise RuntimeError('Not supported locale. :: locale={}'.format(locale))
 
-        return self._messages[key]
+        messages = self._messages[locale]
+        if key not in messages:
+            raise RuntimeError('Message not found. :: locale={}, key={}'.format(locale, key))
+
+        return messages[key]
