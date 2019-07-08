@@ -10,7 +10,6 @@ sys.path.append(src_path)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-import asyncio
 from context import Context
 
 async def app_factory():
