@@ -65,3 +65,8 @@ Result:
   menus_download_label: ダウンロード
   menus_register_label: 登録する
   menus_share_label: シェアする
+
+Contact:
+  heading: お問い合わせ
+  github_issue_description: 要望・不具合報告などは、GitHub で新規に Issue を作成してください。
+  twitter_description: その他のお問い合わせは、公式 Twitter までお願いします。

@@ -1,8 +1,8 @@
 <template>
   <div class="Contact">
-    <h2>お問い合わせ</h2>
+    <h2 v-t="'Contact.heading'"></h2>
     <div class="body">
-      <p>要望・不具合報告などは、GitHub で新規に Issue を作成してください。</p>
+      <p v-t="'Contact.github_issue_description'"></p>
       <ul>
         <li class="github">
           <a href="https://github.com/emoji-gen/web-main/issues" target="_blank" rel="noopener">
@@ -11,7 +11,7 @@
         </li>
       </ul>
 
-      <p class="break">その他のお問い合わせは、公式 Twitter までお願いします。</p>
+      <p class="break" v-t="'Contact.twitter_description'"></p>
       <ul>
         <li class="twitter">
           <a href="https://twitter.com/emoji_gen" target="_blank" rel="noopener">@emoji_gen</a>
