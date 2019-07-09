@@ -25,7 +25,9 @@ def startup(app, config):
         filters={
             'squash': _squash,
         },
-        loader=jinja2.FileSystemLoader(templates_path)
+        loader=jinja2.FileSystemLoader(templates_path),
+        auto_reload=False,
+        bytecode_cache=jinja2.FileSystemBytecodeCache()
     )
 
 
