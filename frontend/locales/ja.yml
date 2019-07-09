@@ -51,8 +51,6 @@ Generator:
 
 Header:
   title: 絵文字 ジェネレーター
-  twitter_label: Twitter
-  github_label: GitHub
 
 RecentlyLog:
   title: 最近生成された絵文字

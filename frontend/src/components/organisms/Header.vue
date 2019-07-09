@@ -10,15 +10,13 @@
         <a href="https://twitter.com/emoji_gen"
           class="twitter"
           target="_blank"
-          rel="noopener"
-          v-t="'Header.twitter_label'"></a>
+          rel="noopener"></a>
 
         <!-- Buttons : GitHub -->
         <a href="https://github.com/emoji-gen/web-main"
           class="github"
           target="_blank"
-          rel="noopener"
-          v-t="'Header.github_label'"></a>
+          rel="noopener"></a>
       </div>
     </header>
   </div>

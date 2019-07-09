@@ -51,8 +51,6 @@ Generator:
 
 Header:
   title: 이모티콘 생성기
-  twitter_label: Twitter
-  github_label: GitHub
 
 RecentlyLog:
   title: 최근에 생성된 이모티콘
