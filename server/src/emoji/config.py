@@ -47,15 +47,15 @@ class Config():
     def __init__(self):
         self._path_config = PathConfig()
         self._mysql = MySQLConfig()
-        self._locales = LocalesConfig(self._path_config)
+        self._locales_config = LocalesConfig(self._path_config)
 
     @property
     def mysql(self):
         return self._mysql
 
     @property
-    def locales(self):
-        return self._locales
+    def locales_config(self):
+        return self._locales_config
 
 
 class PathConfig():
@@ -93,12 +93,8 @@ class MySQLConfig():
 
 class LocalesConfig():
     def __init__(self, path_config):
-        self._locales_path = path_config.project_path.joinpath('locales')
+        self.locales_path = path_config.project_path.joinpath('locales')
 
     @property
     def locales(self):
         return ['ja', 'ko']
-
-    @property
-    def locales_path(self):
-        return self._locales_path

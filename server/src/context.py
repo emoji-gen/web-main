@@ -19,11 +19,11 @@ from emoji.services import setup_services
 class Context():
     @classmethod
     async def get_context(cls):
-        if ContextHolder.context() is None:
+        if ContextHolder.context is None:
             context = Context()
             await context.startup()
             ContextHolder.set_context(context)
-        return ContextHolder.context()
+        return ContextHolder.context
 
 
     def __init__(self):
@@ -38,14 +38,14 @@ class Context():
 
         self._app = app
 
-        new_config = Config()
-        self._mysql = MySQL(new_config.mysql)
-        self._locales = Locales(new_config.locales)
+        self._new_config = Config()
+        self._mysql = MySQL(self._new_config.mysql)
+        self._locales = Locales(self._new_config.locales_config)
 
 
     async def startup(self):
         controllers.startup(self._app)
-        jinja2.startup(self._app)
+        jinja2.startup(self._app, self._new_config)
         htmlmin.startup(self._app)
 
         await self._mysql.startup()
@@ -61,7 +61,7 @@ class Context():
 
     @property
     def config(self):
-        return self._config
+        return self._new_config
 
     @property
     def locales(self):
