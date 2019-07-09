@@ -8,27 +8,27 @@ Register:
   inputs_name_label: 이모티콘 이름
   inputs_name_placeholder: 이모티콘 이름을 넣어주세요
   inputs_team_no_options: 선택할 수 있는 팀이 없습니다
-  messages_validation_error_label: 入力を確認してください
-  messages_validation_team_not_selected_message: チームが選択されていません。
-  messages_validation_no_name_message: 絵文字の名前が入力されていません。
-  messages_successful_label: 絵文字を登録しました！
-  messages_successful_description: 絵文字の新規登録に成功しました。
-  messages_failure_label: 絵文字の登録に失敗しました
-  messages_failure_unknown_description: 不明なエラーが発生しました。
+  messages_validation_error_label: 입력을 확인해 주세요
+  messages_validation_team_not_selected_message: 팀을 선택해 주세요.
+  messages_validation_no_name_message: 그림문자 이름이 입력되지 않았습니다.
+  messages_successful_label: 이모티콘 를 등록했습니다!
+  messages_successful_description: 이모티콘 의 신규 등록에 성공했습니다.
+  messages_failure_label: 이모티콘 등록에 실패했습니다.
+  messages_failure_unknown_description: 불명한 에러가 발생했습니다.
   register_button: 추가한다♪
-  help_about_teams: ブラウザでログイン中の Slack チームが一覧に表示されます
-  help_login_head: 登録したいチームが表示されない場合、該当のチームへ
-  help_login_link_label: ログイン
-  help_login_tail: してください
-  install_label: ブラウザ拡張機能をインストールしてください
-  install_description: ブラウザ拡張機能をインストールすると、<br>Slack チームへ絵文字を<strong>直接登録</strong>することができます。
+  help_about_teams: 브라우저로 로그인 중인 Slack 팀이 일람으로 나타납니다.
+  help_login_head: 등록하고 싶은 팀이 보이지 않을 경우 해당팀에
+  help_login_link_label: 로그인
+  help_login_tail: 해주세요.
+  install_label: 브라우저 확장 기능을 인스톨해주세요.
+  install_description: 브라우저 확장 기능을 설치하면<br>Slack팀에 그림문자를 <strong>직접 등록<strong> 할 수 있습니다.
 
 Share:
-  twitter_tweet: 絵文字ジェネレーター使って絵文字を生成しました♪
+  twitter_tweet: 이모티콘 생성기 를 사용해 이모티콘 를 생성했습니다♪
   twitter_hashtag: '#이모티콘생성기'
-  twitter_description: Twitter でシェアする
-  facebook_description: Facebook でシェアする
-  line_message: 絵文字ジェネレーター使って絵文字を生成しました♪
+  twitter_description: Twitter에서 공유
+  facebook_description: Facebook에서 공유
+  line_message: 이모티콘 생성기 를 사용해 이모티콘 를 생성했습니다♪
 
 Footer:
   developer_blog_label: 개발자블로그
