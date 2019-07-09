@@ -9,17 +9,12 @@ class Config():
     def __init__(self, *, is_dev):
         self.path_config = PathConfig()
         self.fonts_config = FontsConfig(path_config=self.path_config)
-        self._mysql_config = MySQLConfig(path_config=self.path_config, is_dev=is_dev)
-        self._locales_config = LocalesConfig(self.path_config)
+        self.mysql_config = MySQLConfig(path_config=self.path_config, is_dev=is_dev)
+        self.locales_config = LocalesConfig(path_config=self.path_config)
 
-    @property
-    def mysql_config(self):
-        return self._mysql_config
 
-    @property
-    def locales_config(self):
-        return self._locales_config
-
+# ---------------------------------------------------------
+# Fonts
 # ---------------------------------------------------------
 
 class FontsConfig():
@@ -37,6 +32,8 @@ class FontsConfig():
 
 
 # ---------------------------------------------------------
+# Path
+# ---------------------------------------------------------
 
 class PathConfig():
     def __init__(self):
@@ -45,6 +42,9 @@ class PathConfig():
         self.project_path = Path(__file__).resolve().parents[1]
         self.config_path = self.project_path.joinpath('config').resolve()
 
+
+# ---------------------------------------------------------
+# MySQL
 # ---------------------------------------------------------
 
 class MySQLConfig():
@@ -62,10 +62,13 @@ class MySQLConfig():
         self.password = config['password']
         self.db = config['db']
 
+
+# ---------------------------------------------------------
+# Locales
 # ---------------------------------------------------------
 
 class LocalesConfig():
-    def __init__(self, path_config):
+    def __init__(self, *, path_config):
         self.locales_path = path_config.project_path.joinpath('locales')
 
     @property
