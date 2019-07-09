@@ -50,12 +50,13 @@ class Context():
 
 
     async def startup(self):
-        controllers.startup(self.app)
-        jinja2.startup(self.app, self._config)
-        htmlmin.startup(self.app)
-
         await self._mysql.startup()
         await self._locales.startup()
+
+        controllers.startup(self.app)
+        jinja2.startup(self.app, self._config, self._locales)
+        htmlmin.startup(self.app)
+
 
 
     def cleanup(self, app):

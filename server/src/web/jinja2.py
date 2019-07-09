@@ -12,14 +12,17 @@ from context_holder import ContextHolder
 from web.request_utils import get_locale
 
 
-def startup(app, config):
+def startup(app, config, locales):
     templates_path = app['config']['templates_path']
     env = aiohttp_jinja2.setup(
         app,
         context_processors=[
             computed_processor(debug=app.debug),
             config_processor(config=app['config']),
-            locales_processor(),
+            locales_processor(locales_config=config.locales_config, locales=locales),
+            fonts_processor(
+                locales_config=config.locales_config,
+                fonts_config=config.fonts_config),
         ],
         default_helpers=False,
         filters={
@@ -29,6 +32,11 @@ def startup(app, config):
         auto_reload=False,
         bytecode_cache=jinja2.FileSystemBytecodeCache()
     )
+
+def _squash(value):
+    return re.sub(r'\s+', ' ', value)
+
+
 
 
 def computed_processor(debug):
@@ -40,6 +48,7 @@ def computed_processor(debug):
         }
     return processor
 
+# ---------------------------------------------------------
 
 def config_processor(config):
     async def processor(request):
@@ -53,37 +62,34 @@ def config_processor(config):
     return processor
 
 
-def locales_processor():
+# ---------------------------------------------------------
+# Locales
+# ---------------------------------------------------------
+
+def locales_processor(*, locales_config, locales):
+    # Make JSON for each locale
+    messages = {}
+    for locale in locales_config.locales:
+        messages[locale] = {
+            'Home': {
+                'title': '{} - {}'.format(
+                    locales.get_message('site_name', locale),
+                    locales.get_message('site_lead', locale)),
+            },
+            'Contact': {
+                'title': '{} - {}'.format(
+                    locales.get_message('contact_title', locale),
+                    locales.get_message('site_name', locale)),
+            },
+        }
+    messages_json = json.dumps(messages, ensure_ascii=False, separators=(',',':'))
+
     async def processor(request):
-        locales = ContextHolder.context.locales
-        locales_config = ContextHolder.context.config.locales_config
-
-        # Make JSON messages for each locale
-        messages = {}
-        for locale in locales_config.locales:
-            messages[locale] = {
-                'Home': {
-                    'title': '{} - {}'.format(
-                        locales.get_message('site_name', locale),
-                        locales.get_message('site_lead', locale)),
-                },
-                'Contact': {
-                    'title': '{} - {}'.format(
-                        locales.get_message('contact_title', locale),
-                        locales.get_message('site_name', locale)),
-                },
-            }
-
         return {
-            'messages': json.dumps(messages, ensure_ascii=False, separators=(',', ':')),
+            'messages': messages_json,
             'localized': _localized(request),
         }
     return processor
-
-
-def _squash(value):
-    return re.sub(r'\s+', ' ', value)
-
 
 def _localized(request):
     def do_localized(key, locale=None):
@@ -92,3 +98,25 @@ def _localized(request):
             return locales.get_message(key, get_locale(request))
         return locales.get_message(key, locale)
     return do_localized
+
+
+# ---------------------------------------------------------
+# Fonts
+# ---------------------------------------------------------
+
+def fonts_processor(*, locales_config, fonts_config):
+    # Make JSON for each locale
+    fonts = {}
+    for locale in locales_config.locales:
+        fonts[locale] = [{
+            'key': v['key'],
+            'name': v['name'],
+        } for v in fonts_config.fonts[locale] ]
+
+    fonts_json = json.dumps(fonts, ensure_ascii=False, separators=(',',':'))
+
+    async def processor(request):
+        return {
+            'fonts': fonts_json,
+        }
+    return processor

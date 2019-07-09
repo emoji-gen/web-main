@@ -313,9 +313,9 @@
 
       // Parameters
       color: null,
-      fonts: FONTS,
       fontKey: null,
       text: null,
+      locale: null,
 
       // Browser extension
       browser: detect(),
@@ -352,7 +352,7 @@
           return ''
         }
 
-        const font = this.fonts.find(v => v.key === this.fontKey)
+        const font = FONTS[this.locale].find(v => v.key === this.fontKey)
         if (!font) {
           return ''
         }
@@ -396,6 +396,7 @@
         this.text = query.text
         this.color = query.color
         this.fontKey = query.font
+        this.locale = query.locale
         this.queryString = queryString.stringify(query)
         this.visibleResult = true
         this.visibleRegister = false

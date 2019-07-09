@@ -7,9 +7,10 @@ import yaml
 
 class Config():
     def __init__(self, *, is_dev):
-        self._path_config = PathConfig()
-        self._mysql_config = MySQLConfig(path_config=self._path_config, is_dev=is_dev)
-        self._locales_config = LocalesConfig(self._path_config)
+        self.path_config = PathConfig()
+        self.fonts_config = FontsConfig(path_config=self.path_config)
+        self._mysql_config = MySQLConfig(path_config=self.path_config, is_dev=is_dev)
+        self._locales_config = LocalesConfig(self.path_config)
 
     @property
     def mysql_config(self):
@@ -19,12 +20,23 @@ class Config():
     def locales_config(self):
         return self._locales_config
 
+# ---------------------------------------------------------
+
+class FontsConfig():
+    def __init__(self, *, path_config):
+        config_path = path_config.config_path.joinpath('fonts.yml')
+
+        with open(config_path, 'r', encoding='utf-8') as fp:
+            self.fonts = yaml.full_load(fp)
+
+# ---------------------------------------------------------
 
 class PathConfig():
     def __init__(self):
         self.project_path = Path(__file__).resolve().parents[1]
         self.config_path = self.project_path.joinpath('config').resolve()
 
+# ---------------------------------------------------------
 
 class MySQLConfig():
     def __init__(self, *, path_config, is_dev):
@@ -41,6 +53,7 @@ class MySQLConfig():
         self.password = config['password']
         self.db = config['db']
 
+# ---------------------------------------------------------
 
 class LocalesConfig():
     def __init__(self, path_config):

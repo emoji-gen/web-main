@@ -5,6 +5,7 @@ import json
 import aiohttp_jinja2
 from aiohttp.web_exceptions import HTTPMovedPermanently
 
+from context_holder import ContextHolder
 from repositories import emoji_log_repository
 from web import request_utils
 
@@ -52,16 +53,16 @@ async def _fetch_emoji_logs(emoji_service):
     return emoji_logs
 
 
+
 async def _render(request, template, *, locale='ja'):
     request_utils.set_locale(request, locale)
 
-    fonts = json.dumps(request.app['repos']['font'].all(), ensure_ascii=False, separators=(',', ':'))
+
 
     emoji_service = request.app['services']['emoji']
     emoji_logs = json.dumps(await _fetch_emoji_logs(emoji_service), ensure_ascii=False, separators=(',',':'))
 
     response = aiohttp_jinja2.render_template(template, request, {
-        'fonts': fonts,
         'emoji_logs': emoji_logs,
         'locale': locale,
     })
