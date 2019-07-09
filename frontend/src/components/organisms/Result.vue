@@ -249,7 +249,10 @@
               padding: 0 0 0 34px;
               color: $color-red-dark;
               height: 100%;
-              background-image: url($site-url + '/assets/img/download.png');
+              background-image: url($site-url + '/assets/img/download-22x22@1x.png');
+              background-image: image-set(
+                $site-url + '/assets/img/download-22x22@1x.png' 1x,
+                $site-url + '/assets/img/download-22x22@2x.png' 2x);
               background-repeat: no-repeat;
               background-position: 0 center;
               background-size: 22px auto;
