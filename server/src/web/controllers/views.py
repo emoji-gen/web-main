@@ -55,7 +55,7 @@ async def _fetch_emoji_logs(emoji_service):
 async def _render(request, template, *, locale='ja'):
     set_locale(request, locale)
 
-    fonts = json.dumps(request.app['repos']['font'].all())
+    fonts = json.dumps(request.app['repos']['font'].all(), ensure_ascii=False, separators=(',', ':'))
 
     emoji_service = request.app['services']['emoji']
     emoji_logs = json.dumps(await _fetch_emoji_logs(emoji_service))

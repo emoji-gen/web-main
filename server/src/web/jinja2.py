@@ -75,7 +75,7 @@ def locales_processor():
             }
 
         return {
-            'messages': json.dumps(messages, separators=(',', ':')),
+            'messages': json.dumps(messages, ensure_ascii=False, separators=(',', ':')),
             'localized': _localized(request),
         }
     return processor
