@@ -46,6 +46,9 @@
       {% if DEBUG %}
         <meta name="robots" value="noindex">
       {% endif %}
+      {% if locale == 'ko' %}
+        <meta name="robots" value="noindex">
+      {% endif %}
       <link rel="canonical" href="{% block canonical %}{% endblock %}">
       <title>{% block title %}{% endblock %}</title>
     {% endblock %}
