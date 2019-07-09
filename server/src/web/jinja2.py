@@ -111,7 +111,7 @@ def fonts_processor(*, locales_config, fonts_config):
         fonts[locale] = [{
             'key': v['key'],
             'name': v['name'],
-        } for v in fonts_config.fonts[locale] ]
+        } for v in fonts_config.by_locale(locale) ]
 
     fonts_json = json.dumps(fonts, ensure_ascii=False, separators=(',',':'))
 
