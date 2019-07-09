@@ -36,9 +36,7 @@ def load_config():
     config['project_path'] = project_path
     config['assets_path'] = assets_path
     config['templates_path'] = templates_path
-    config['fonts_path'] = fonts_path
     config['config_path'] = config_path
-    config['htmlmin_enabled'] = True
 
     return config
 
