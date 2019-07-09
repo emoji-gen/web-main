@@ -1,15 +1,16 @@
 # -*- encoding: utf-8 -*-
 
 import asyncio
+import os
 from pathlib import Path
 from aiohttp.web import Application
 
+from config import Config
 from context_holder import ContextHolder
 from locales import Locales
 from mysql import MySQL
 from web import controllers, htmlmin, jinja2
 
-from emoji.config import Config
 
 from emoji.config import load_config
 from emoji.repos import setup_repos
@@ -27,26 +28,31 @@ class Context():
 
 
     def __init__(self):
-        self._config = load_config()
-        app = Application(debug=self._config['debug'])
-        app['config'] = self._config
+        is_dev = os.getenv('PYTHON_ENV') != 'production'
+
+        app = Application(debug=is_dev)
+        app.on_cleanup.append(self.cleanup)
+
+        old_config = load_config()
+        app['config'] = old_config
 
         setup_repos(app)
         setup_services(app)
 
-        app.on_cleanup.append(self.cleanup)
 
-        self._app = app
 
-        self._new_config = Config()
-        self._mysql = MySQL(self._new_config.mysql)
-        self._locales = Locales(self._new_config.locales_config)
+        self._config = Config(is_dev=is_dev)
+        self._mysql = MySQL(self._config.mysql_config)
+        self._locales = Locales(self._config.locales_config)
+
+        self.is_dev = is_dev
+        self.app = app
 
 
     async def startup(self):
-        controllers.startup(self._app)
-        jinja2.startup(self._app, self._new_config)
-        htmlmin.startup(self._app)
+        controllers.startup(self.app)
+        jinja2.startup(self.app, self._config)
+        htmlmin.startup(self.app)
 
         await self._mysql.startup()
         await self._locales.startup()
@@ -56,12 +62,12 @@ class Context():
         self._mysql.cleanup()
 
     @property
-    def app(self):
-        return self._app
+    def is_prod(self):
+        return not self.is_dev
 
     @property
     def config(self):
-        return self._new_config
+        return self._config
 
     @property
     def locales(self):
