@@ -24,9 +24,10 @@
 
       {% filter squash %}
         <script>
-          var MESSAGES = JSON.parse('{{ messages|safe }}');
-          var FONTS = JSON.parse('{{ fonts|safe }}');
-          var RECENTLY_LOGS = {{ emoji_logs|safe }};
+          var _v = JSON.parse;
+          var MESSAGES = _v('{{ messages|safe }}');
+          var FONTS = _v('{{ fonts|safe }}');
+          var RECENTLY_LOGS = _v('{{ emoji_logs|safe }}');
         </script>
       {% endfilter %}
 
