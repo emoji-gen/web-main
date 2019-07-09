@@ -5,7 +5,7 @@ from context_holder import ContextHolder
 
 
 async def filter_recently():
-    async with ContextHolder.context().mysql.acquire() as conn:
+    async with ContextHolder.context.mysql.acquire() as conn:
         async with conn.cursor() as cur:
             await cur.execute('''
                 SELECT *
@@ -17,7 +17,7 @@ async def filter_recently():
 
 
 async def add(data):
-    async with ContextHolder.context().mysql.acquire() as conn:
+    async with ContextHolder.context.mysql.acquire() as conn:
         async with conn.cursor() as cur:
             await cur.execute('''
                 INSERT INTO `emoji_log`

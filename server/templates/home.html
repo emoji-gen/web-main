@@ -1,14 +1,13 @@
 {% extends "base.html" %}
 
-{% block description %}{{ SITE_DESCRIPTION }}{% endblock %}
-{% block og_title %}{{ SITE_NAME }} - {{ SITE_LEAD }}{% endblock %}
-{% block og_description %}{{ SITE_DESCRIPTION }}{% endblock %}
+{% block og_title %}{{ localized('site_name') }} - {{ localized('site_lead') }}{% endblock %}
+{% block og_description %}{{ localized('site_description') }}{% endblock %}
 {% block og_url %}{{ SITE_URL }}/{% endblock %}
 {% block canonical %}{{ SITE_URL }}/{% endblock %}
-{% block title %}{{ SITE_NAME }} - {{ SITE_LEAD }}{% endblock %}
+{% block title %}{{ localized('site_name') }} - {{ localized('site_lead') }}{% endblock %}
 
 
 {% block head %}
   {{ super() }}
-  <meta name="description" content="{{ SITE_DESCRIPTION }}">
+  <meta name="description" content="{{ localized('site_description') }}">
 {% endblock %}

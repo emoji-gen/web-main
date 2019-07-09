@@ -14,11 +14,9 @@
 
 
 <script>
-  import { HOME_TITLE } from '@/src/initial_state'
-
   export default {
     mounted() {
-      document.title = HOME_TITLE
+      document.title = this.$t('Home.title')
     },
   }
 </script>

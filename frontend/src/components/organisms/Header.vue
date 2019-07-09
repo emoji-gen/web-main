@@ -2,7 +2,7 @@
   <div class="Header">
     <header>
       <!-- Logo + Title -->
-      <h1><a href="/" v-t="'Header.title'"></a></h1>
+      <h1><a :href="homePath" v-t="'Header.title'"></a></h1>
 
       <!-- Buttons -->
       <div class="buttons">
@@ -10,16 +10,13 @@
         <a href="https://twitter.com/emoji_gen"
           class="twitter"
           target="_blank"
-          rel="noopener"
-          :title="$t('Header.twitter_description')"
-          v-t="'Header.twitter_label'"></a>
+          rel="noopener"></a>
 
         <!-- Buttons : GitHub -->
         <a href="https://github.com/emoji-gen/web-main"
           class="github"
           target="_blank"
-          rel="noopener"
-          v-t="'Header.github_label'"></a>
+          rel="noopener"></a>
       </div>
     </header>
   </div>
@@ -82,11 +79,26 @@
             right: 0;
             width: $_logo-size;
             transform: rotate($_rotate);
-            background-image: url($site-url + '/assets/img/logo.png');
             background-size: $_logo-size auto;
             background-repeat: no-repeat;
             background-position: 0px center;
             content: '';
+          }
+          &:lang(ja) {
+            &::before {
+              background-image: url($site-url + '/assets/img/logo_ja-40x40@1x.png');
+              background-image: image-set(
+                $site-url + '/assets/img/logo_ja-40x40@1x.png' 1x,
+                $site-url + '/assets/img/logo_ja-40x40@2x.png' 2x);
+            }
+          }
+          &:lang(ko) {
+            &::before {
+              background-image: url($site-url + '/assets/img/logo_ko-40x40@1x.png');
+              background-image: image-set(
+                $site-url + '/assets/img/logo_ko-40x40@1x.png' 1x,
+                $site-url + '/assets/img/logo_ko-40x40@2x.png' 2x);
+            }
           }
         }
       }
@@ -115,3 +127,19 @@
     }
   }
 </style>
+
+
+<script>
+  import { toLocalizedPath } from '@/src/locales'
+
+  export default {
+    computed: {
+      homePath: {
+        cache: false,
+        get() {
+          return toLocalizedPath('/')
+        },
+      },
+    },
+  }
+</script>

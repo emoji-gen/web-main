@@ -5,7 +5,8 @@ import re
 from aiohttp.web import Response, HTTPBadRequest
 from pathlib import Path
 
-from emoji.repositories import emoji_log_repository
+from context_holder import ContextHolder
+from repositories import emoji_log_repository
 
 async def generate(request):
     return await _execute(request)
@@ -16,18 +17,29 @@ async def download(request):
 
 
 async def _execute(request, download_fg=False):
-    font_repository = request.app['repos']['font']
+    fonts_config = ContextHolder.context.config.fonts_config
+    locales_config = ContextHolder.context.config.locales_config
 
-    default_font_key = request.app['config']['routes']['default_font_key']
+    # Locales
+    locale = request.query.get('locale', 'ja')
+    if locale not in locales_config.locales:
+        return HTTPBadRequest()
+
+    # Fonts
+    font_key = request.query.get('font')
+    fonts = fonts_config.by_locale(locale)
+    font = fonts[0]
+    if font_key:
+        font = next(filter(lambda f: f['key'] == font_key, fonts), None)
+        if font is None:
+            return HTTPBadRequest()
+
+    font_path = str(fonts_config.fonts_path.joinpath(font['path']))
+
     default_text = request.app['config']['routes']['default_text']
     default_color = request.app['config']['routes']['default_color']
     default_background_color = request.app['config']['routes']['default_background_color']
 
-    fonts = font_repository.all_as_dict()
-    font_key = request.query.get('font', default_font_key)
-    font_file = fonts.get(font_key, default_font_key).get('file')
-    fonts_path = request.app['config']['fonts_path']
-    font_path = str(Path(fonts_path).joinpath(font_file))
 
     text = request.query.get('text', default_text)
     color = request.query.get('color', default_color).upper()

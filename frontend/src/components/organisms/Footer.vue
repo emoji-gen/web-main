@@ -4,7 +4,7 @@
       <!-- Menus-->
       <ul class="menus">
         <li><a href="/blog/" target="_blank" v-t="'Footer.developer_blog_label'"></a></li>
-        <li><router-link to="/contact" @click.native="scroll" v-t="'Footer.contact_label'" /></li>
+        <li><router-link :to="contactPath" @click.native="scroll" v-t="'Footer.contact_label'" /></li>
       </ul>
 
       <!-- Copyright -->
@@ -86,9 +86,18 @@
 
 
 <script>
+  import { toLocalizedPath } from '@/src/locales'
   import SweetScroll from 'sweet-scroll'
 
   export default {
+    computed: {
+      contactPath: {
+        cache: false,
+        get() {
+          return toLocalizedPath('/contact')
+        },
+      },
+    },
     methods: {
       scroll() {
         const scroller = new SweetScroll({ easing: 'easeOutQuad' })

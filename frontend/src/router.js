@@ -7,6 +7,7 @@ import { Contact, Home } from './components'
 // -------------------------------------------------------------------
 
 const routes = [
+  // Japanese
   {
     path: '/',
     component: Home,
@@ -17,6 +18,20 @@ const routes = [
   },
   {
     path: '/contact',
+    component: Contact,
+  },
+
+  // Korean
+  {
+    path: '/ko/',
+    component: Home,
+  },
+  {
+    path: '/ko/result',
+    component: Home,
+  },
+  {
+    path: '/ko/contact',
     component: Contact,
   },
 ]

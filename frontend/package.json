@@ -10,6 +10,7 @@
   "dependencies": {
     "detect-browser": "^4.5.1",
     "flickity": "^2.2.1",
+    "lodash.merge": "^4.6.1",
     "loglevel": "^1.6.3",
     "normalize.css": "^8.0.1",
     "query-string": "^6.8.1",

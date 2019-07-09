@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="{{ locale }}">
   <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
     {% block head %}
       <meta charset="utf-8">
@@ -9,23 +9,35 @@
 
       {# CSS / JavaScript #}
       <style> [v-cloak] { display: none } </style>
+
       {% if JS_URL %}
         <link rel="preload" href="{{ JS_URL }}" as="script">
       {% else %}
         <link rel="preload" href="/assets/script.js?_ts={{ TS }}" as="script">
       {% endif %}
+
       {% if CSS_URL %}
         <link rel="stylesheet" href="{{ CSS_URL }}">
       {% else %}
         <link rel="stylesheet" href="/assets/style.css?_ts={{ TS }}">
       {% endif %}
 
+      {% filter squash %}
+        <script>
+          var _v = JSON.parse;
+          var FONTS = _v('{{ fonts|safe }}');
+          var LOCALE = '{{ locale }}';
+          var MESSAGES = _v('{{ messages|safe }}');
+          var RECENTLY_LOGS = _v('{{ emoji_logs|safe }}');
+        </script>
+      {% endfilter %}
+
       {# Meta / OGP #}
       <meta name="twitter:card" content="summary_large_image">
       <meta property="fb:app_id" content="1668136526839121">
       <meta property="og:description" content="{% block og_description %}{% endblock %}">
       <meta property="og:type" content="website">
-      <meta property="og:site_name" content="{{ SITE_NAME }} - {{ SITE_LEAD }}">
+      <meta property="og:site_name" content="{{ localized('site_name') }} - {{ localized('site_lead') }}">
       <meta property="og:image" content="{{ BASE_URL }}/assets/img/ogp_summary.png">
       <meta property="og:image:width" content="1200">
       <meta property="og:image:height" content="630">
@@ -36,14 +48,6 @@
       {% endif %}
       <link rel="canonical" href="{% block canonical %}{% endblock %}">
       <title>{% block title %}{% endblock %}</title>
-      {% filter squash %}
-        <script>
-          var HOME_TITLE = '{{ SITE_NAME }} - {{ SITE_LEAD }}';
-          var CONTACT_TITLE = 'お問い合わせ - {{ SITE_NAME }}';
-          var FONTS = {{ fonts|safe }};
-          var RECENTLY_LOGS = {{ emoji_logs|safe }};
-        </script>
-      {% endfilter %}
     {% endblock %}
   </head>
   <body data-app-id="j1g3xUDxVmwWCCKqibVQCZOHNpvnSMBY">
