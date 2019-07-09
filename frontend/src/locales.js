@@ -1,7 +1,12 @@
 'use strict'
 
+import merge from 'lodash.merge'
+
 import ja from '@/locales/ja'
 import ko from '@/locales/ko'
+
+import { MESSAGES } from '@/src/initial_state'
+
 
 export function getLocale() {
   return document.documentElement.lang || 'ja'
@@ -25,6 +30,6 @@ export function toLocalizedPath(path) {
 }
 
 export const messages = {
-  ja,
-  ko,
+  ja: merge(ja, MESSAGES.ja),
+  ko: merge(ko, MESSAGES.ko),
 }

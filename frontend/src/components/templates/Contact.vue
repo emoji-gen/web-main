@@ -84,11 +84,9 @@
 
 
 <script>
-  import { CONTACT_TITLE } from '@/src/initial_state'
-
   export default {
     mounted() {
-      document.title = CONTACT_TITLE
+      document.title = this.$t('Contact.title')
     },
   }
 </script>
