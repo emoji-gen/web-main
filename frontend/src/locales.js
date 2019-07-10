@@ -8,6 +8,8 @@ import ko from '@/locales/ko'
 
 import { MESSAGES } from '@/src/initial_state'
 
+// --------------------------------------------------------
+
 export const DEFAULT_LOCALE = 'ja'
 export const LOCALES = ['en', 'ja', 'ko']
 
