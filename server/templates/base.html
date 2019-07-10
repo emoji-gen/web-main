@@ -46,7 +46,7 @@
       {% if DEBUG %}
         <meta name="robots" value="noindex">
       {% endif %}
-      {% if locale == 'ko' %}
+      {% if locale != 'ja' %}
         <meta name="robots" value="noindex">
       {% endif %}
       <link rel="canonical" href="{% block canonical %}{% endblock %}">

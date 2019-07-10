@@ -20,6 +20,21 @@ async def contact_ja(request):
     return await _render(request, 'contact.html', locale='ja')
 
 
+# Views : en
+#~~~~~~~~~~~~~~~~~~
+
+async def redirect_index_en(request):
+    return HTTPMovedPermanently('/en/', headers={
+        'Cache-Control': 'public, immutable, max-age=31536000', # 1 year
+    })
+
+async def index_en(request):
+    return await _render(request, 'home.html', locale='en')
+
+async def contact_en(request):
+    return await _render(request, 'contact.html', locale='en')
+
+
 # Views : ko
 #~~~~~~~~~~~~~~~~~~
 
