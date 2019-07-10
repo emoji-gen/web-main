@@ -25,7 +25,7 @@ export function getLocales() {
 
 export function getLocalePrefix(locale) {
   const _locale = locale || getLocale()
-  if (LOCALES.includes(_locale)) {
+  if (_locale !== DEFAULT_LOCALE && LOCALES.includes(_locale)) {
     return '/' + _locale
   }
   return ''
