@@ -23,7 +23,7 @@
         data-sharer="line"
         :data-title="$t('Share.line_message')"
         :data-url="url"
-        :title="$t('Share.line_description')"
+        :title="$t('Share.facebook_description')"
         v-sharer>
     </div>
   </div>

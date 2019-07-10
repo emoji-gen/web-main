@@ -69,10 +69,6 @@
           font-size: $font-xlarge;
           font-weight: bold;
 
-          &:lang(en) {
-            padding: 0 0 0 88px;
-          }
-
           /* Logo */
           &::before {
             display: block;
@@ -87,14 +83,6 @@
             background-repeat: no-repeat;
             background-position: 0px center;
             content: '';
-          }
-          &:lang(en) {
-            &::before {
-              background-image: url($site-url + '/assets/img/logo_en-40x40@1x.png');
-              background-image: image-set(
-                $site-url + '/assets/img/logo_en-40x40@1x.png' 1x,
-                $site-url + '/assets/img/logo_en-40x40@2x.png' 2x);
-            }
           }
           &:lang(ja) {
             &::before {

@@ -73,4 +73,4 @@ class LocalesConfig():
 
     @property
     def locales(self):
-        return ['en', 'ja', 'ko']
+        return ['ja', 'ko']
