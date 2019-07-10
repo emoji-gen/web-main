@@ -1,0 +1,71 @@
+ColorKind:
+  foreground_label: Foreground
+  background_label: Background
+
+Register:
+  inputs_team_label: Target Team
+  inputs_team_placeholder: Please select target team
+  inputs_name_label: Emoji Name
+  inputs_name_placeholder: Please enter emoji name
+  inputs_team_no_options: 'No team detected :('
+  messages_validation_error_label: Please check your input
+  messages_validation_team_not_selected_message: No team has been selected.
+  messages_validation_no_name_message: The emoji name has not been entered.
+  messages_successful_label: New emoji has been registered!
+  messages_successful_description: You have successfully registered a new emoji.
+  messages_failure_label: Failed to register emoji
+  messages_failure_unknown_description: An unknown error has occurred.
+  register_button: Register!
+  help_about_teams: The Slack teams logged in with the browser are displayed in the list.
+  help_login_head: If you don't see the team you want to register, please try to
+  help_login_link_label: sign in
+  help_login_tail: the team.
+  install_label: Please install a browser extension
+  install_description: By installing a browser extension,<br>you can register emojis <strong>directly</strong> to the Slack team.
+
+Share:
+  twitter_tweet:  I've generated a new emoji by Emoji Generator XD.
+  twitter_hashtag: '#emoji_generator'
+  twitter_description: Share on Twitter
+  facebook_description: Share on Facebook
+  line_description: Share on LINE
+  line_message:  I've generated a new emoji by Emoji Generator XD.
+
+Footer:
+  developer_blog_label: Technical Blog
+  contact_label: Contact
+  copyright_holder: Emoji Generator
+
+Generator:
+  title: Let's generate emoji for your team!
+  generate_button: Generate!
+  public_fg_label: Display your emoji in the generation history
+  public_fg_description: If you uncheck, your emoji does not remain in the generation history.
+  parameter_text_label: Text
+  parameter_text_default_value: "EMO\nJI!!"
+  parameter_text_align_label: Text Alignment
+  parameter_size_label: Size Adjustment
+  parameter_size_fixed_label: Fix the font size
+  parameter_size_non_stretch_label: Don't stretch automatically
+  parameter_font_label: Font
+  parameter_color_label: Color
+
+Header:
+  title: Emoji Generator
+
+RecentlyLog:
+  title: Recently Generated Emoji
+
+Result:
+  title: Generated Emoji
+  preview_text_label: Text
+  preview_font_label: Font
+  preview_color_label: Color
+  menus_download_label: Download
+  menus_register_label: Register
+  menus_share_label: Share
+
+Contact:
+  heading: Contact
+  github_issue_description: Please create a new issue on GitHub for requests and bug reports.
+  twitter_description: For other inquiries, please contact the official Twitter.

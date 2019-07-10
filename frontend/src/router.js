@@ -2,39 +2,32 @@
 
 import VueRouter from 'vue-router'
 
+import { toLocalizedPath, LOCALES } from '@/src/locales'
 import { Contact, Home } from './components'
 
+
+// -------------------------------------------------------------------
+// Routes
 // -------------------------------------------------------------------
 
-const routes = [
-  // Japanese
-  {
-    path: '/',
-    component: Home,
-  },
-  {
-    path: '/result',
-    component: Home,
-  },
-  {
-    path: '/contact',
-    component: Contact,
-  },
+const routes = []
+for (const locale of LOCALES) {
+  routes.push(
+    {
+      path: toLocalizedPath('/', locale),
+      component: Home,
+    },
+    {
+      path: toLocalizedPath('/result', locale),
+      component: Home,
+    },
+    {
+      path: toLocalizedPath('/contact', locale),
+      component: Contact,
+    }
+  )
+}
 
-  // Korean
-  {
-    path: '/ko/',
-    component: Home,
-  },
-  {
-    path: '/ko/result',
-    component: Home,
-  },
-  {
-    path: '/ko/contact',
-    component: Contact,
-  },
-]
 
 // -------------------------------------------------------------------
 

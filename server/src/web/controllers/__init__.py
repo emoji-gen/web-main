@@ -20,7 +20,13 @@ def _setup_routes(app):
     app.router.add_get('/result', views.index_ja)
     app.router.add_get('/contact', views.contact_ja)
 
-    # Views :ko
+    # Views : en
+    app.router.add_get('/en', views.redirect_index_en)
+    app.router.add_get('/en/', views.index_en)
+    app.router.add_get('/en/result', views.index_en)
+    app.router.add_get('/en/contact', views.contact_en)
+
+    # Views : ko
     app.router.add_get('/ko', views.redirect_index_ko)
     app.router.add_get('/ko/', views.index_ko)
     app.router.add_get('/ko/result', views.index_ko)
