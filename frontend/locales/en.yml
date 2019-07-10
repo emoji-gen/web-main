@@ -5,7 +5,7 @@ ColorKind:
 Register:
   inputs_team_label: Target Team
   inputs_team_placeholder: Please select target team
-  inputs_name_label: Emoji name
+  inputs_name_label: Emoji Name
   inputs_name_placeholder: Please enter emoji name
   inputs_team_no_options: 'No team detected :('
   messages_validation_error_label: Please check your input
@@ -18,7 +18,7 @@ Register:
   register_button: Register!
   help_about_teams: The Slack teams logged in with the browser are displayed in the list.
   help_login_head: If you don't see the team you want to register, please try to
-  help_login_link_label: login
+  help_login_link_label: sign in
   help_login_tail: the team.
   install_label: Please install a browser extension
   install_description: By installing a browser extension,<br>you can register emojis <strong>directly</strong> to the Slack team.
@@ -37,11 +37,11 @@ Footer:
 
 Generator:
   title: Let's generate emoji for your team!
-  generate_button: Generate
+  generate_button: Generate!
   public_fg_label: Display your emoji in the generation history
   public_fg_description: If you uncheck, your emoji does not remain in the generation history.
   parameter_text_label: Text
-  parameter_text_default_value: "EMO\nJI!"
+  parameter_text_default_value: "EMO\nJI!!"
   parameter_text_align_label: Text Alignment
   parameter_size_label: Size Adjustment
   parameter_size_fixed_label: Fix the font size
