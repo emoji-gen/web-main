@@ -28,6 +28,7 @@ Share:
   twitter_hashtag: '#emoji_generator'
   twitter_description: Share on Twitter
   facebook_description: Share on Facebook
+  line_description: Share on LINE
   line_message:  I've generated a new emoji by Emoji Generator XD.
 
 Footer:

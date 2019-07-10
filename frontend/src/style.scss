@@ -15,6 +15,11 @@ html {
   /**
    * Font family
    */
+  &:lang(en) {
+    body {
+      font-family: 'Avenir', 'Arial', sans-serif;
+    }
+  }
   &:lang(ja) {
     body {
       font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
