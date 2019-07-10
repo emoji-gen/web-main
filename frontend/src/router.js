@@ -11,18 +11,18 @@ import { Contact, Home } from './components'
 // -------------------------------------------------------------------
 
 const routes = []
-for (const locale in LOCALES) {
+for (const locale of LOCALES) {
   routes.push(
     {
-      path: toLocalizedPath('/'),
+      path: toLocalizedPath('/', locale),
       component: Home,
     },
     {
-      path: toLocalizedPath('/result'),
+      path: toLocalizedPath('/result', locale),
       component: Home,
     },
     {
-      path: toLocalizedPath('/contact'),
+      path: toLocalizedPath('/contact', locale),
       component: Contact,
     }
   )

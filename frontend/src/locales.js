@@ -23,16 +23,16 @@ export function getLocales() {
   return LOCALES
 }
 
-export function getLocalePrefix() {
-  const locale = getLocale()
-  if (locale === DEFAULT_LOCALE) {
-    return ''
+export function getLocalePrefix(locale) {
+  const _locale = locale || getLocale()
+  if (LOCALES.includes(_locale)) {
+    return '/' + _locale
   }
-  return '/' + locale
+  return ''
 }
 
-export function toLocalizedPath(path) {
-  return getLocalePrefix() + path
+export function toLocalizedPath(path, locale) {
+  return getLocalePrefix(locale) + path
 }
 
 export const messages = {
