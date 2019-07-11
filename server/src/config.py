@@ -8,9 +8,26 @@ import yaml
 class Config():
     def __init__(self, *, is_dev):
         self.path_config = PathConfig()
+        self.app_config = AppConfig(path_config=self.path_config, is_dev=is_dev)
         self.fonts_config = FontsConfig(path_config=self.path_config)
         self.mysql_config = MySQLConfig(path_config=self.path_config, is_dev=is_dev)
         self.locales_config = LocalesConfig(path_config=self.path_config)
+
+
+# ---------------------------------------------------------
+# App
+# ---------------------------------------------------------
+
+class AppConfig():
+    def __init__(self, *, path_config, is_dev):
+        dev_config_path = path_config.config_path.joinpath('app-dev.yml')
+        prod_config_path = path_config.config_path.joinpath('app-prod.yml')
+        config_path = dev_config_path if is_dev else prod_config_path
+
+        with open(config_path, 'r', encoding='utf-8') as fp:
+            config = yaml.full_load(fp)
+
+        self.site_url = config['site_url']
 
 
 # ---------------------------------------------------------

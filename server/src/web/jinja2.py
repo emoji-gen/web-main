@@ -86,8 +86,8 @@ def locales_processor(*, locales_config, locales):
 
     async def processor(request):
         return {
-            'messages': messages_json,
             'localized': _localized(request),
+            'messages': messages_json,
         }
     return processor
 
