@@ -1,9 +1,8 @@
 {% extends "base.html" %}
+{% set page_url = SITE_URL + to_localized_path('/') %}
 
 {% block og_title %}{{ localized('site_name') }} - {{ localized('site_lead') }}{% endblock %}
 {% block og_description %}{{ localized('site_description') }}{% endblock %}
-{% block og_url %}{{ SITE_URL }}{{ to_localized_path('/') }}{% endblock %}
-{% block canonical %}{{ SITE_URL }}{{ to_localized_path('/') }}{% endblock %}
 {% block title %}{{ localized('site_name') }} - {{ localized('site_lead') }}{% endblock %}
 
 
