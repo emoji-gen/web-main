@@ -10,4 +10,8 @@
 {% block head %}
   {{ super() }}
   <meta name="description" content="{{ localized('site_description') }}">
+
+  <link rel="alternate" hreflang="ja" href="{{ SITE_URL }}{{ to_localized_path('/', 'ja') }}">
+  <link rel="alternate" hreflang="en" href="{{ SITE_URL }}{{ to_localized_path('/', 'en') }}">
+  <link rel="alternate" hreflang="ko" href="{{ SITE_URL }}{{ to_localized_path('/', 'ko') }}">
 {% endblock %}

@@ -5,3 +5,10 @@
 {% block og_url %}{{ SITE_URL }}{{ to_localized_path('/contact') }}{% endblock %}
 {% block canonical %}{{ SITE_URL }}{{ to_localized_path('/contact') }}{% endblock %}
 {% block title %}{{ localized('contact_title') }} - {{ localized('site_name') }}{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="alternate" hreflang="ja" href="{{ SITE_URL }}{{ to_localized_path('/contact', 'ja') }}">
+  <link rel="alternate" hreflang="en" href="{{ SITE_URL }}{{ to_localized_path('/contact', 'en') }}">
+  <link rel="alternate" hreflang="ko" href="{{ SITE_URL }}{{ to_localized_path('/contact', 'ko') }}">
+{% endblock %}
