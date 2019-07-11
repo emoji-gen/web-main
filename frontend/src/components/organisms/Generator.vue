@@ -392,7 +392,7 @@
     }),
 
     created() {
-      eventbus.on('EG_LOCALE_CHANGED', locale => {
+      eventbus.$on('EG_LOCALE_CHANGED', locale => {
         this.locale = locale
         this.fonts = FONTS[locale]
         this.fontKey = FONTS[locale][0].key

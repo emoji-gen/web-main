@@ -56,7 +56,7 @@
     }),
 
     created() {
-      eventbus.on('EG_LOCALE_CHANGED', locale => {
+      eventbus.$on('EG_LOCALE_CHANGED', locale => {
         this.recentlyLogs = RECENTLY_LOGS[locale]
       })
     },
