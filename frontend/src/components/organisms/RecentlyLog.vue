@@ -45,14 +45,21 @@
 <script>
   import 'flickity/css/flickity.css'
   import Flickity from 'flickity'
-  import { RECENTLY_LOGS } from '@/src/initial_state'
+
+  import eventbus from '@/src/eventbus'
+  import { LOCALE, RECENTLY_LOGS } from '@/src/initial_state'
 
   export default {
     data: () => ({
       flkty: null,
-      recentlyLogs: RECENTLY_LOGS,
+      recentlyLogs: RECENTLY_LOGS[LOCALE],
     }),
 
+    created() {
+      eventbus.on('EG_LOCALE_CHANGED', locale => {
+        this.recentlyLogs = RECENTLY_LOGS[locale]
+      })
+    },
     mounted() {
       this.$nextTick(() => {
         this.flkty = new Flickity(

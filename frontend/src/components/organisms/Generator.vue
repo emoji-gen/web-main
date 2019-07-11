@@ -344,9 +344,10 @@
 <script>
   import Chrome from 'vue-color/src/components/Chrome'
   import SweetScroll from 'sweet-scroll'
+
   import eventbus from '@/src/eventbus'
   import { FONTS, LOCALE } from '@/src/initial_state'
-  import { getLocale, toLocalizedPath } from '@/src/locales'
+  import { toLocalizedPath } from '@/src/locales'
 
   const DEFAULT_COLORS = {
     hex: '#EC71A1',
@@ -380,6 +381,7 @@
       publicFg: true,
 
       // Font
+      fonts: FONTS[LOCALE],
       fontKey: FONTS[LOCALE][0].key,
       locale: LOCALE,
 
@@ -388,12 +390,14 @@
       colors: DEFAULT_COLORS,
       backgroundColors: DEFAULT_BACKGROUND_COLORS,
     }),
-    computed: {
-      fonts() {
-        return FONTS[this.locale]
-      },
-    },
+
     created() {
+      eventbus.on('EG_LOCALE_CHANGED', locale => {
+        this.locale = locale
+        this.fonts = FONTS[locale]
+        this.fontKey = FONTS[locale][0].key
+      })
+
       this.text = this.$t('Generator.parameter_text_default_value')
     },
     methods: {

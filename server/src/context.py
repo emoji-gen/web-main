@@ -11,10 +11,7 @@ from locales import Locales
 from mysql import MySQL
 from web import controllers, htmlmin, jinja2
 
-
 from emoji.config import load_config
-from emoji.repos import setup_repos
-from emoji.services import setup_services
 
 
 class Context():
@@ -35,11 +32,6 @@ class Context():
 
         old_config = load_config()
         app['config'] = old_config
-
-        setup_repos(app)
-        setup_services(app)
-
-
 
         self._config = Config(is_dev=is_dev)
         self._mysql = MySQL(self._config.mysql_config)
