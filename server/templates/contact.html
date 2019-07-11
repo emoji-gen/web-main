@@ -2,6 +2,6 @@
 
 {% block og_title %}{{ localized('contact_title') }} - {{ localized('site_name') }}{% endblock %}
 {% block og_description %}{{ localized('site_description') }}{% endblock %}
-{% block og_url %}{{ SITE_URL }}/contact{% endblock %}
-{% block canonical %}{{ SITE_URL }}/contact{% endblock %}
+{% block og_url %}{{ SITE_URL }}{{ to_localized_path('/contact') }}{% endblock %}
+{% block canonical %}{{ SITE_URL }}{{ to_localized_path('/contact') }}{% endblock %}
 {% block title %}{{ localized('contact_title') }} - {{ localized('site_name') }}{% endblock %}

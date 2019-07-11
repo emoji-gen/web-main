@@ -87,6 +87,7 @@ def locales_processor(*, locales_config, locales):
     async def processor(request):
         return {
             'localized': _localized(request),
+            'to_localized_path': _to_localized_path(request),
             'messages': messages_json,
         }
     return processor
@@ -99,6 +100,14 @@ def _localized(request):
         return locales.get_message(key, locale)
     return do_localized
 
+def _to_localized_path(request):
+    def do_localized(path, locale=None):
+        if locale is None:
+            locale = get_locale(request)
+        if locale == 'ja':
+            return path
+        return '/' + locale + path
+    return do_localized
 
 # ---------------------------------------------------------
 # Fonts
