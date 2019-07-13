@@ -74,6 +74,21 @@ async def contact_zh_hans(request):
     return await _render(request, 'contact.html', locale='zh-Hans')
 
 
+# Views : zh-Hant
+#~~~~~~~~~~~~~~~~~~
+
+async def redirect_index_zh_hant(request):
+    return HTTPMovedPermanently('/zh-Hant/', headers={
+        'Cache-Control': 'public, immutable, max-age=31536000', # 1 year
+    })
+
+async def index_zh_hant(request):
+    return await _render(request, 'home.html', locale='zh-Hant')
+
+async def contact_zh_hant(request):
+    return await _render(request, 'contact.html', locale='zh-Hant')
+
+
 # Views : en
 #~~~~~~~~~~~~~~~~~~
 
@@ -97,6 +112,7 @@ async def _fetch_emoji_logs():
         'ja': await _fetch_emoji_logs_by_locale('ja'),
         'ko': await _fetch_emoji_logs_by_locale('ko'),
         'zh-Hans': await _fetch_emoji_logs_by_locale('zh-Hans'),
+        'zh-Hant': await _fetch_emoji_logs_by_locale('zh-Hant'),
         'en': await _fetch_emoji_logs_by_locale('en'),
     }
 

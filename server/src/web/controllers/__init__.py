@@ -26,6 +26,12 @@ def _setup_routes(app):
     app.router.add_get('/zh-Hans/result', views.index_zh_hans)
     app.router.add_get('/zh-Hans/contact', views.contact_zh_hans)
 
+    # Views : zh-Hant
+    app.router.add_get('/zh-Hant', views.redirect_index_zh_hant)
+    app.router.add_get('/zh-Hant/', views.index_zh_hant)
+    app.router.add_get('/zh-Hant/result', views.index_zh_hant)
+    app.router.add_get('/zh-Hant/contact', views.contact_zh_hant)
+
     # Views : ko
     app.router.add_get('/ko', views.redirect_index_ko)
     app.router.add_get('/ko/', views.index_ko)

@@ -5,6 +5,7 @@ import merge from 'lodash.merge'
 import ja from '@/locales/ja'
 import ko from '@/locales/ko'
 import zhHans from '@/locales/zh-Hans'
+import zhHant from '@/locales/zh-Hant'
 import en from '@/locales/en'
 
 import { EXTRA_MESSAGES } from '@/src/initial_state'
@@ -15,7 +16,7 @@ import { EXTRA_MESSAGES } from '@/src/initial_state'
 // --------------------------------------------------------
 
 export const DEFAULT_LOCALE = 'ja'
-export const LOCALES = ['ja', 'ko', 'zh-Hans', 'en']
+export const LOCALES = ['ja', 'ko', 'zh-Hans', 'zh-Hant', 'en']
 
 export const INITIAL_LOCALE = getLocale()
 
@@ -67,5 +68,6 @@ export const MESSAGES = {
   ja: merge(ja, EXTRA_MESSAGES.ja),
   ko: merge(ko, EXTRA_MESSAGES.ko),
   'zh-Hans': merge(zhHans, EXTRA_MESSAGES['zh-Hans']),
+  'zh-Hant': merge(zhHant, EXTRA_MESSAGES['zh-Hant']),
   en: merge(en, EXTRA_MESSAGES.en),
 }

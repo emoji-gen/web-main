@@ -37,7 +37,7 @@ Footer:
   copyright_holder: '表情符号发生器'
 
 Generator:
-  title: '输入您想要成为表情符号的文本。'
+  title: '输入您想要成为表情符号的文本！'
   generate_button: '生成♪'
   public_fg_label: '将表情符号添加到生成历史记录中'
   public_fg_description: '未选中时，表情符号不会保留在生成历史记录中。'

@@ -30,6 +30,11 @@ html {
        font-family: 'STHeiti', 'Microsoft YaHei', sans-serif;
     }
   }
+  &:lang(zh-Hant) {
+    body {
+       font-family: 'LiHei Pro', 'Microsoft JhengHei', sans-serif;
+    }
+  }
   &:lang(en) {
     body {
       font-family: 'Avenir', 'Arial', sans-serif;

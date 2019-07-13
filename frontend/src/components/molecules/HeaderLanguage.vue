@@ -86,6 +86,10 @@
       label: '简体中文',
     },
     {
+      key: 'zh-Hant',
+      label: '繁體中文',
+    },
+    {
       key: 'en',
       label: 'English',
     },
