@@ -302,6 +302,7 @@
          * Parameter : Font
          */
         &.font {
+          min-width: 250px;
           ul {
             margin: 0;
             padding: 0;
