@@ -8,19 +8,27 @@
     <loc>https://emoji-gen.ninja/contact</loc>
   </url>
 
-  <!-- English -->
-  <url>
-    <loc>https://emoji-gen.ninja/en/</loc>
-  </url>
-  <url>
-    <loc>https://emoji-gen.ninja/en/contact</loc>
-  </url>
-
   <!-- Korean -->
   <url>
     <loc>https://emoji-gen.ninja/ko/</loc>
   </url>
   <url>
     <loc>https://emoji-gen.ninja/ko/contact</loc>
+  </url>
+
+  <!-- Chinese (Simplified) -->
+  <url>
+    <loc>https://emoji-gen.ninja/zh-Hans/</loc>
+  </url>
+  <url>
+    <loc>https://emoji-gen.ninja/zh-Hans/contact</loc>
+  </url>
+
+  <!-- English -->
+  <url>
+    <loc>https://emoji-gen.ninja/en/</loc>
+  </url>
+  <url>
+    <loc>https://emoji-gen.ninja/en/contact</loc>
   </url>
 </urlset>
