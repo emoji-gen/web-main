@@ -77,12 +77,12 @@
       label: '日本語',
     },
     {
-      key: 'ko',
-      label: '한국어',
-    },
-    {
       key: 'en',
       label: 'English',
+    },
+    {
+      key: 'ko',
+      label: '한국어',
     },
   ]
 
