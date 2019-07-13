@@ -8,10 +8,26 @@ import ko from '@/locales/ko'
 
 import { EXTRA_MESSAGES } from '@/src/initial_state'
 
+
+// --------------------------------------------------------
+// Locale utilities
 // --------------------------------------------------------
 
 export const DEFAULT_LOCALE = 'ja'
 export const LOCALES = ['en', 'ja', 'ko']
+
+export const INITIAL_LOCALE = getLocale()
+
+export function detectLocale(localizedPath) {
+  for (const locale of LOCALES) {
+    if (locale !== DEFAULT_LOCALE) {
+      if (localizedPath.startsWith('/' + locale + '/')) {
+        return locale
+      }
+    }
+  }
+  return DEFAULT_LOCALE
+}
 
 export function getLocale() {
   const locale = document.documentElement.lang || DEFAULT_LOCALE
@@ -19,6 +35,10 @@ export function getLocale() {
     return locale
   }
   return DEFAULT_LOCALE
+}
+
+export function setLocale(locale) {
+  document.documentElement.lang = locale
 }
 
 export function toLocalizedPath(unlocalizedPath, locale) {
@@ -30,20 +50,17 @@ export function toLocalizedPath(unlocalizedPath, locale) {
 }
 
 export function toUnlocalizedPath(localizedPath) {
-  for (const locale of LOCALES) {
-    if (locale !== DEFAULT_LOCALE) {
-      if (localizedPath.startsWith('/' + locale + '/')) {
-        return localizedPath.substring(locale.length + 1)
-      }
-    }
+  const locale = detectLocale(localizedPath)
+  if (locale === DEFAULT_LOCALE) {
+    return localizedPath
   }
-  return localizedPath
+  return localizedPath.substring(locale.length + 1)
 }
 
-export function setLocale(locale) {
-  document.documentElement.lang = locale
-}
 
+// --------------------------------------------------------
+// Localized messages
+// --------------------------------------------------------
 
 export const MESSAGES = {
   en: merge(en, EXTRA_MESSAGES.en),

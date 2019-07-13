@@ -47,18 +47,18 @@
   import Flickity from 'flickity'
 
   import eventbus from '@/src/eventbus'
-  import { LOCALE, RECENTLY_LOGS } from '@/src/initial_state'
-  import { getLocale } from '@/src/locales'
+  import { RECENTLY_LOGS } from '@/src/initial_state'
+  import { INITIAL_LOCALE } from '@/src/locales'
 
   export default {
     data: () => ({
       flkty: null,
-      recentlyLogs: RECENTLY_LOGS[LOCALE],
+      recentlyLogs: RECENTLY_LOGS[INITIAL_LOCALE],
     }),
 
     created() {
-      eventbus.$on('EG_LOCALE_CHANGED', () => {
-        this.recentlyLogs = RECENTLY_LOGS[getLocale()]
+      eventbus.$on('EG_LOCALE_CHANGED', locale => {
+        this.recentlyLogs = RECENTLY_LOGS[locale]
         this.redraw()
       })
     },

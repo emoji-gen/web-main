@@ -39,9 +39,16 @@
   import log from 'loglevel'
   import VueMultiselect from 'vue-multiselect/src/Multiselect.vue'
 
-  import { setLocale, toLocalizedPath, toUnlocalizedPath } from '@/src/locales'
+  import {
+    getLocale,
+    setLocale,
+    toLocalizedPath,
+    toUnlocalizedPath,
+  } from '@/src/locales'
+
   import eventbus from '@/src/eventbus'
-  import { LOCALE } from '@/src/initial_state'
+
+  // ------------------------------------------------------
 
   const LANGUGAGES = [
     {
@@ -58,14 +65,23 @@
     },
   ]
 
+  const INITIAL_LOCALE = getLocale()
   const INITIAL_LANGUAGE =
-    LANGUGAGES.find(v => v.key === LOCALE) || LANGUGAGES[0]
+    LANGUGAGES.find(v => v.key === INITIAL_LOCALE) || LANGUGAGES[0]
+
+  // ------------------------------------------------------
 
   export default {
     data: () => ({
       selected: INITIAL_LANGUAGE,
       options: LANGUGAGES,
     }),
+
+    created() {
+      eventbus.$on('EG_LOCALE_CHANGED', locale => {
+        this.selected = LANGUGAGES.find(v => v.key === locale)
+      })
+    },
     methods: {
       changed() {
         if (!this.selected) {
@@ -74,10 +90,6 @@
         }
 
         const locale = this.selected.key
-        setLocale(locale)
-        this.$i18n.locale = locale
-        eventbus.$emit('EG_LOCALE_CHANGED', locale)
-
         const path = toLocalizedPath(toUnlocalizedPath(this.$route.path), locale)
         const { query } = this.$route
         this.$router.push({ path, query })

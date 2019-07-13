@@ -11,8 +11,7 @@ import 'normalize.css'
 import './style.scss'
 
 import { App } from '@/src/components'
-import { LOCALE } from '@/src/initial_state'
-import { MESSAGES } from '@/src/locales'
+import { INITIAL_LOCALE, MESSAGES } from '@/src/locales'
 import setupRouter from '@/src/router'
 
 
@@ -29,7 +28,7 @@ Vue.use(VueRouter)
 Vue.use(VueI18n)
 
 const i18n = new VueI18n({
-  locale: LOCALE,
+  locale: INITIAL_LOCALE,
   messages: MESSAGES,
 })
 
