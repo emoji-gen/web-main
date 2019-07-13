@@ -45,14 +45,23 @@
 <script>
   import 'flickity/css/flickity.css'
   import Flickity from 'flickity'
+
+  import eventbus from '@/src/eventbus'
   import { RECENTLY_LOGS } from '@/src/initial_state'
+  import { INITIAL_LOCALE } from '@/src/locales'
 
   export default {
     data: () => ({
       flkty: null,
-      recentlyLogs: RECENTLY_LOGS,
+      recentlyLogs: RECENTLY_LOGS[INITIAL_LOCALE],
     }),
 
+    created() {
+      eventbus.$on('EG_LOCALE_CHANGED', locale => {
+        this.recentlyLogs = RECENTLY_LOGS[locale]
+        this.redraw()
+      })
+    },
     mounted() {
       this.$nextTick(() => {
         this.flkty = new Flickity(
@@ -63,6 +72,14 @@
             wrapAround: true,
           })
 
+        this.redraw()
+      })
+    },
+
+    methods: {
+      redraw() {
+        this.flkty.remove(this.flkty.getCellElements())
+
         const baseNode = document.createElement('div')
         baseNode.className = 'carousel-cell'
 
@@ -72,7 +89,7 @@
           node.title = recentlyLog.text.replace(/\n/g, '')
           this.flkty.append(node)
         }
-      })
+      },
     },
   }
 </script>

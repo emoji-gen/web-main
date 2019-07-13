@@ -49,6 +49,7 @@ async def _execute(request, download_fg=False):
     disable_stretch = request.query.get('stretch', 'true').lower() == 'false'
     public_fg = request.query.get('public_fg', 'true').lower() == 'true'
 
+
     # TODO: Slack 通知
 
     # 絵文字を生成
@@ -81,6 +82,7 @@ async def _execute(request, download_fg=False):
             'align': align,
             'stretch': not disable_stretch,
             'public_fg': public_fg,
+            'locale': locale,
         })
 
     headers = {}

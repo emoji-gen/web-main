@@ -4,15 +4,16 @@ from datetime import datetime
 from context_holder import ContextHolder
 
 
-async def filter_recently():
+async def filter_recently(locale, *, max_rows=20):
     async with ContextHolder.context.mysql.acquire() as conn:
         async with conn.cursor() as cur:
             await cur.execute('''
                 SELECT *
                 FROM `emoji_log`
+                WHERE `locale` = %s
                 ORDER BY `generated_at` DESC
-                LIMIT 20
-            ''')
+                LIMIT %s
+            ''', (locale, max_rows))
             return [ _to_dict(v) for v in await cur.fetchall() ]
 
 
@@ -29,11 +30,13 @@ async def add(data):
                     `size_fixed`,
                     `align`,
                     `stretch`,
+                    `locale`,
                     `public_fg`,
                     `generated_at`,
                     `updated_at`,
                     `created_at`
                 ) VALUES (
+                    %s,
                     %s,
                     %s,
                     %s,
@@ -59,10 +62,11 @@ def _to_dict(tpl):
         'size_fixed': tpl[5] == 1,
         'align': tpl[6],
         'stretch': tpl[7] == 1,
-        'public_fg': tpl[8],
-        'generated_at': tpl[9],
-        'created_at': tpl[10],
-        'updated_at': tpl[11],
+        'locale': tpl[8],
+        'public_fg': tpl[9],
+        'generated_at': tpl[10],
+        'created_at': tpl[11],
+        'updated_at': tpl[12],
     }
 
 
@@ -75,6 +79,7 @@ def _to_tuple(dct):
         1 if dct['size_fixed'] else 0,
         dct['align'],
         1 if dct['stretch'] else 0,
+        dct['locale'],
         1 if dct['public_fg'] else 0,
         datetime.now(),
         datetime.now(),

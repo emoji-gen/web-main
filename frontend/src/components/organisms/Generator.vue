@@ -344,9 +344,10 @@
 <script>
   import Chrome from 'vue-color/src/components/Chrome'
   import SweetScroll from 'sweet-scroll'
+
   import eventbus from '@/src/eventbus'
-  import { FONTS, LOCALE } from '@/src/initial_state'
-  import { getLocale, toLocalizedPath } from '@/src/locales'
+  import { FONTS } from '@/src/initial_state'
+  import { INITIAL_LOCALE, getLocale, toLocalizedPath } from '@/src/locales'
 
   const DEFAULT_COLORS = {
     hex: '#EC71A1',
@@ -358,7 +359,6 @@
     },
     a: 1
   }
-
   const DEFAULT_BACKGROUND_COLORS = {
     hex: '#FFFFFF',
     rgba: {
@@ -380,20 +380,22 @@
       publicFg: true,
 
       // Font
-      fontKey: FONTS[LOCALE][0].key,
-      locale: LOCALE,
+      fonts: FONTS[INITIAL_LOCALE],
+      fontKey: FONTS[INITIAL_LOCALE][0].key,
 
       // Colors
       colorKind: 'foreground',
       colors: DEFAULT_COLORS,
       backgroundColors: DEFAULT_BACKGROUND_COLORS,
     }),
-    computed: {
-      fonts() {
-        return FONTS[this.locale]
-      },
-    },
+
     created() {
+      eventbus.$on('EG_LOCALE_CHANGED', locale => {
+        this.fonts = FONTS[locale]
+        this.fontKey = FONTS[locale][0].key
+        this.text = this.$t('Generator.parameter_text_default_value')
+      })
+
       this.text = this.$t('Generator.parameter_text_default_value')
     },
     methods: {
@@ -410,7 +412,7 @@
           align: this.align,
           stretch: !this.nonStretch,
           public_fg: this.publicFg,
-          locale: this.locale,
+          locale: getLocale(),
         }
 
         eventbus.$emit('EG_EMOJI_GENERATE', query)

@@ -7,7 +7,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const EventHooksPlugin = require('event-hooks-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 // Detect mode
@@ -116,20 +116,10 @@ module.exports = {
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-        uglifyOptions: {
-          compress: {
-            unsafe: true,
-            unsafe_comps: true,
-            unsafe_Function: true,
-            unsafe_math: true,
-            unsafe_proto: true,
-            unsafe_regexp: true,
-            unsafe_undefined: true,
-          },
-        },
+			new TerserPlugin(),
+      new OptimizeCSSAssetsPlugin({
+        parallel: true,
       }),
-      new OptimizeCSSAssetsPlugin(),
     ],
     noEmitOnErrors: true,
   },

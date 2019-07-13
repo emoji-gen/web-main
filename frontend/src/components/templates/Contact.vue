@@ -1,5 +1,6 @@
 <template>
   <div class="Contact">
+    <DocumentTitle :value="$t('Contact.title')" />
     <h2 v-t="'Contact.heading'"></h2>
     <div class="body">
       <p v-t="'Contact.github_issue_description'"></p>
@@ -85,8 +86,5 @@
 
 <script>
   export default {
-    mounted() {
-      document.title = this.$t('Contact.title')
-    },
   }
 </script>

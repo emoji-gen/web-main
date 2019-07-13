@@ -56,6 +56,7 @@ def config_processor(config):
             'SITE_URL': config['base_url'],
             'base_url': config['base_url'],
             'BASE_URL': config['base_url'],
+            'site_url': config['base_url'],
             'CSS_URL': config['assets'].get('css_url') if 'assets' in config else None,
             'JS_URL': config['assets'].get('js_url') if 'assets' in config else None,
         }
@@ -86,8 +87,9 @@ def locales_processor(*, locales_config, locales):
 
     async def processor(request):
         return {
-            'messages': messages_json,
             'localized': _localized(request),
+            'to_localized_path': _to_localized_path(request),
+            'messages': messages_json,
         }
     return processor
 
@@ -99,6 +101,14 @@ def _localized(request):
         return locales.get_message(key, locale)
     return do_localized
 
+def _to_localized_path(request):
+    def do_localized(path, locale=None):
+        if locale is None:
+            locale = get_locale(request)
+        if locale == 'ja':
+            return path
+        return '/' + locale + path
+    return do_localized
 
 # ---------------------------------------------------------
 # Fonts

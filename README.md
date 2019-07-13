@@ -4,6 +4,7 @@
 [![Requirements Status](https://requires.io/github/emoji-gen/web-main/requirements.svg?branch=master)](https://requires.io/github/emoji-gen/web-main/requirements/?branch=master)
 [![dependencies Status](https://david-dm.org/emoji-gen/web-main/status.svg?path=frontend)](https://david-dm.org/emoji-gen/web-main?path=frontend)
 [![devDependencies Status](https://david-dm.org/emoji-gen/web-main/dev-status.svg?path=frontend)](https://david-dm.org/emoji-gen/web-main?path=frontend&type=dev)
+[![Greenkeeper badge](https://badges.greenkeeper.io/emoji-gen/web-main.svg)](https://greenkeeper.io/)
 ![License](https://img.shields.io/github/license/emoji-gen/web-main.svg)
 [![Beerpay](https://beerpay.io/emoji-gen/web-main/badge.svg?style=flat)](https://beerpay.io/emoji-gen/web-main)
 

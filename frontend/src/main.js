@@ -10,9 +10,10 @@ import log from 'loglevel'
 import 'normalize.css'
 import './style.scss'
 
-import { App } from './components'
-import setupRouter from './router'
-import { messages, getLocale } from './locales'
+import { App } from '@/src/components'
+import { INITIAL_LOCALE, MESSAGES } from '@/src/locales'
+import setupRouter from '@/src/router'
+
 
 // -------------------------------------------------------------------
 
@@ -26,12 +27,12 @@ Vue.use(VuePtero, { target: document.body })
 Vue.use(VueRouter)
 Vue.use(VueI18n)
 
-// -------------------------------------------------------------------
-
 const i18n = new VueI18n({
-  locale: getLocale(),
-  messages,
+  locale: INITIAL_LOCALE,
+  messages: MESSAGES,
 })
+
+// -------------------------------------------------------------------
 
 export default new Vue({
   el: '.App',

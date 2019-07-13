@@ -1,5 +1,6 @@
 <template>
   <div class="Home">
+    <DocumentTitle :value="$t('Home.title')" />
     <Result />
     <Generator />
     <RecentlyLog />
@@ -15,8 +16,5 @@
 
 <script>
   export default {
-    mounted() {
-      document.title = this.$t('Home.title')
-    },
   }
 </script>
