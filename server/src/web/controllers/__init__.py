@@ -20,17 +20,23 @@ def _setup_routes(app):
     app.router.add_get('/result', views.index_ja)
     app.router.add_get('/contact', views.contact_ja)
 
-    # Views : en
-    app.router.add_get('/en', views.redirect_index_en)
-    app.router.add_get('/en/', views.index_en)
-    app.router.add_get('/en/result', views.index_en)
-    app.router.add_get('/en/contact', views.contact_en)
+    # Views : zh-Hans
+    app.router.add_get('/zh-Hans', views.redirect_index_zh_hans)
+    app.router.add_get('/zh-Hans/', views.index_zh_hans)
+    app.router.add_get('/zh-Hans/result', views.index_zh_hans)
+    app.router.add_get('/zh-Hans/contact', views.contact_zh_hans)
 
     # Views : ko
     app.router.add_get('/ko', views.redirect_index_ko)
     app.router.add_get('/ko/', views.index_ko)
     app.router.add_get('/ko/result', views.index_ko)
     app.router.add_get('/ko/contact', views.contact_ko)
+
+    # Views : en
+    app.router.add_get('/en', views.redirect_index_en)
+    app.router.add_get('/en/', views.index_en)
+    app.router.add_get('/en/result', views.index_en)
+    app.router.add_get('/en/contact', views.contact_en)
 
     app.router.add_get('/healthcheck', ok)
     app.router.add_get('/emoji', generate)

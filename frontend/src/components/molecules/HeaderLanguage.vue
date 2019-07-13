@@ -78,12 +78,16 @@
       label: '日本語',
     },
     {
-      key: 'en',
-      label: 'English',
-    },
-    {
       key: 'ko',
       label: '한국어',
+    },
+    {
+      key: 'zh-Hans',
+      label: '简体中文',
+    },
+    {
+      key: 'en',
+      label: 'English',
     },
   ]
 

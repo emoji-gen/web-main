@@ -44,21 +44,6 @@ async def contact_ja(request):
     return await _render(request, 'contact.html', locale='ja')
 
 
-# Views : en
-#~~~~~~~~~~~~~~~~~~
-
-async def redirect_index_en(request):
-    return HTTPMovedPermanently('/en/', headers={
-        'Cache-Control': 'public, immutable, max-age=31536000', # 1 year
-    })
-
-async def index_en(request):
-    return await _render(request, 'home.html', locale='en')
-
-async def contact_en(request):
-    return await _render(request, 'contact.html', locale='en')
-
-
 # Views : ko
 #~~~~~~~~~~~~~~~~~~
 
@@ -74,14 +59,45 @@ async def contact_ko(request):
     return await _render(request, 'contact.html', locale='ko')
 
 
+# Views : zh-Hans
+#~~~~~~~~~~~~~~~~~~
+
+async def redirect_index_zh_hans(request):
+    return HTTPMovedPermanently('/zh-Hans/', headers={
+        'Cache-Control': 'public, immutable, max-age=31536000', # 1 year
+    })
+
+async def index_zh_hans(request):
+    return await _render(request, 'home.html', locale='zh-Hans')
+
+async def contact_zh_hans(request):
+    return await _render(request, 'contact.html', locale='zh-Hans')
+
+
+# Views : en
+#~~~~~~~~~~~~~~~~~~
+
+async def redirect_index_en(request):
+    return HTTPMovedPermanently('/en/', headers={
+        'Cache-Control': 'public, immutable, max-age=31536000', # 1 year
+    })
+
+async def index_en(request):
+    return await _render(request, 'home.html', locale='en')
+
+async def contact_en(request):
+    return await _render(request, 'contact.html', locale='en')
+
+
 # DB
 #~~~~~~~~~~~~~~~~~~
 
 async def _fetch_emoji_logs():
     return {
-        'en': await _fetch_emoji_logs_by_locale('en'),
         'ja': await _fetch_emoji_logs_by_locale('ja'),
         'ko': await _fetch_emoji_logs_by_locale('ko'),
+        'zh-Hans': await _fetch_emoji_logs_by_locale('zh-Hans'),
+        'en': await _fetch_emoji_logs_by_locale('en'),
     }
 
 async def _fetch_emoji_logs_by_locale(locale):
