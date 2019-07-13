@@ -2,9 +2,10 @@
 
 import merge from 'lodash.merge'
 
-import en from '@/locales/en'
 import ja from '@/locales/ja'
 import ko from '@/locales/ko'
+import zhHans from '@/locales/zh-Hans'
+import en from '@/locales/en'
 
 import { EXTRA_MESSAGES } from '@/src/initial_state'
 
@@ -14,7 +15,7 @@ import { EXTRA_MESSAGES } from '@/src/initial_state'
 // --------------------------------------------------------
 
 export const DEFAULT_LOCALE = 'ja'
-export const LOCALES = ['en', 'ja', 'ko']
+export const LOCALES = ['ja', 'ko', 'zh-Hans', 'en']
 
 export const INITIAL_LOCALE = getLocale()
 
@@ -63,7 +64,8 @@ export function toUnlocalizedPath(localizedPath) {
 // --------------------------------------------------------
 
 export const MESSAGES = {
-  en: merge(en, EXTRA_MESSAGES.en),
   ja: merge(ja, EXTRA_MESSAGES.ja),
   ko: merge(ko, EXTRA_MESSAGES.ko),
+  'zh-Hans': merge(zhHans, EXTRA_MESSAGES['zh-Hans']),
+  en: merge(en, EXTRA_MESSAGES.en),
 }
