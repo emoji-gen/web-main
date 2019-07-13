@@ -1,5 +1,9 @@
 {% extends "base.html" %}
+{% set page_description = localized('site_description') %}
 {% set page_url = SITE_URL + to_localized_path('/') %}
+{% set page_url_en = site_url + to_localized_path('/', 'en') %}
+{% set page_url_ja = site_url + to_localized_path('/', 'ja') %}
+{% set page_url_ko = site_url + to_localized_path('/', 'ko') %}
 
 {% block og_title %}{{ localized('site_name') }} - {{ localized('site_lead') }}{% endblock %}
 {% block og_description %}{{ localized('site_description') }}{% endblock %}
@@ -8,9 +12,4 @@
 
 {% block head %}
   {{ super() }}
-  <meta name="description" content="{{ localized('site_description') }}">
-
-  <link rel="alternate" hreflang="ja" href="{{ SITE_URL }}{{ to_localized_path('/', 'ja') }}">
-  <link rel="alternate" hreflang="en" href="{{ SITE_URL }}{{ to_localized_path('/', 'en') }}">
-  <link rel="alternate" hreflang="ko" href="{{ SITE_URL }}{{ to_localized_path('/', 'ko') }}">
 {% endblock %}
