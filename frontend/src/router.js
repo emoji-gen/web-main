@@ -1,10 +1,9 @@
 'use strict'
 
-import log from 'loglevel'
 import VueRouter from 'vue-router'
 
 import eventbus from '@/src/eventbus'
-import { LOCALES, detectLocale, setLocale, toLocalizedPath } from '@/src/locales'
+import { LOCALES, detectLocale, toLocalizedPath } from '@/src/locales'
 import { Contact, Home } from './components'
 
 
