@@ -393,6 +393,7 @@
       eventbus.$on('EG_LOCALE_CHANGED', locale => {
         this.fonts = FONTS[locale]
         this.fontKey = FONTS[locale][0].key
+        this.text = this.$t('Generator.parameter_text_default_value')
       })
 
       this.text = this.$t('Generator.parameter_text_default_value')
