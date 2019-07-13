@@ -1,8 +1,8 @@
 ja:
   - typeface: 'ゴシック体'
     key: 'notosans-mono-bold'
-    name: 'Noto Sans Mono CJK Bold'
-    path: 'cjk/NotoSansMonoCJKjp-Bold.otf'
+    name: 'Noto Sans Mono CJK JP Bold'
+    path: 'ja/Noto_Sans_Mono_CJK_JP-Bold.otf'
   - typeface: '極太ゴシック体'
     key: 'mplus-1p-black'
     name: 'M+ 1p black'
@@ -26,8 +26,8 @@ ja:
 ko:
   - typeface: ''
     key: 'notosans-mono-bold'
-    name: '본고딕 Bold'
-    path: 'cjk/NotoSansMonoCJKjp-Bold.otf'
+    name: 'Noto Sans Mono CJK KR Bold'
+    path: 'ko/Noto_Sans_Mono_CJK_KR-Bold.otf'
   - typeface: ''
     key: 'nanum-square-round-eb'
     name: '나눔스퀘어라운드 Extra Bold'
@@ -47,8 +47,8 @@ ko:
 zh-Hans:
   - typeface: 'Sans-serif'
     key: 'notosans-mono-bold'
-    name: 'Noto Sans Mono CJK Bold'
-    path: 'cjk/NotoSansMonoCJKjp-Bold.otf'
+    name: 'Noto Sans Mono CJK SC Bold'
+    path: 'zh-Hans/Noto_Sans_Mono_CJK_SC-Bold.otf'
 zh-Hant:
   - typeface: ''
     key: 'notosans-mono-bold'
@@ -70,7 +70,7 @@ en:
   - typeface: 'Sans-serif'
     key: 'notosans-mono-bold'
     name: 'Noto Sans Mono CJK Bold'
-    path: 'cjk/NotoSansMonoCJKjp-Bold.otf'
+    path: 'ja/Noto_Sans_Mono_CJK_JP-Bold.otf'
   - typeface: '極太ゴシック体'
     key: 'mplus-1p-black'
     name: 'M+ 1p black'
