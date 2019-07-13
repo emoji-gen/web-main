@@ -56,6 +56,7 @@ def config_processor(config):
             'SITE_URL': config['base_url'],
             'base_url': config['base_url'],
             'BASE_URL': config['base_url'],
+            'site_url': config['base_url'],
             'CSS_URL': config['assets'].get('css_url') if 'assets' in config else None,
             'JS_URL': config['assets'].get('js_url') if 'assets' in config else None,
         }

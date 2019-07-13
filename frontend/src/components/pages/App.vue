@@ -24,12 +24,21 @@
 
 <script>
   import log from 'loglevel'
+
   import eventbus from '@/src/eventbus'
+  import { setLocale } from '@/src/locales'
+
 
   export default {
     created() {
       this.$ptero.on('CE_ATTACH', e => {
         log.debug('Attached by Chrome Extension', e.detail)
+      })
+
+      eventbus.$on('EG_LOCALE_CHANGE', locale => {
+        setLocale(locale)
+        this.$i18n.locale = locale
+        eventbus.$emit('EG_LOCALE_CHANGED', locale)
       })
     },
   }

@@ -22,15 +22,6 @@
         <link rel="stylesheet" href="/assets/style.css?_ts={{ TS }}">
       {% endif %}
 
-      {% filter squash %}
-        <script>
-          var FONTS = {{ fonts|safe }};
-          var LOCALE = '{{ locale }}';
-          var MESSAGES = {{ messages|safe }};
-          var RECENTLY_LOGS = {{ emoji_logs|safe }};
-        </script>
-      {% endfilter %}
-
       {# Meta / OGP #}
       <meta name="twitter:card" content="summary_large_image">
       <meta name="twitter:site" content="@emoji_gen">
@@ -39,16 +30,22 @@
       <meta property="og:description" content="{% block og_description %}{% endblock %}">
       <meta property="og:type" content="website">
       <meta property="og:site_name" content="{{ localized('site_name') }} - {{ localized('site_lead') }}">
-      <meta property="og:image" content="{{ BASE_URL }}/assets/img/ogp_summary.png">
+      <meta property="og:image" content="{{ site_url }}/assets/img/ogp_summary.png">
       <meta property="og:image:width" content="1200">
       <meta property="og:image:height" content="630">
       <meta property="og:url" content="{{ page_url }}">
       <meta property="og:title" content="{% block og_title %}{% endblock %}">
+
+      {% if page_description %}
+        <meta name="description" content="{{ page_description }}">
+      {% endif %}
+
       {% if DEBUG %}
         <meta name="robots" value="noindex">
       {% endif %}
 
-      <link rel="canonical" href="{{ page_url }}">
+      {% include 'includes/base_url.html' %}
+
       <link rel="icon" href="/assets/favicon_{{ locale }}.ico">
       <title>{% block title %}{% endblock %}</title>
     {% endblock %}
@@ -56,6 +53,14 @@
   <body data-app-id="j1g3xUDxVmwWCCKqibVQCZOHNpvnSMBY">
     {% block body %}
       <div class="v-cloak App"></div>
+
+      {% filter squash %}
+        <script>
+          var EXTRA_MESSAGES = {{ messages|safe }};
+          var FONTS = {{ fonts|safe }};
+          var RECENTLY_LOGS = {{ emoji_logs|safe }};
+        </script>
+      {% endfilter %}
 
       {% if JS_URL %}
         <script src="{{ JS_URL }}"></script>

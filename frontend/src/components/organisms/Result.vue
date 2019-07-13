@@ -321,7 +321,7 @@
       color: null,
       fontKey: null,
       text: null,
-      locale: null,
+      queryLocale: null,
 
       // Browser extension
       browser: detect(),
@@ -358,7 +358,7 @@
           return ''
         }
 
-        const font = FONTS[this.locale].find(v => v.key === this.fontKey)
+        const font = FONTS[this.queryLocale].find(v => v.key === this.fontKey)
         if (!font) {
           return ''
         }
@@ -389,6 +389,9 @@
       eventbus.$on('EG_EMOJI_GENERATE', query => {
         this._draw(query)
       })
+      eventbus.$on('EG_LOCALE_CHANGED', () => {
+        this.$forceUpdate()
+      })
 
       // Browser extension attached
       this.$ptero.on('CE_ATTACH', () => {
@@ -402,7 +405,7 @@
         this.text = query.text
         this.color = query.color
         this.fontKey = query.font
-        this.locale = query.locale
+        this.queryLocale = query.locale
         this.queryString = queryString.stringify(query)
         this.visibleResult = true
         this.visibleRegister = false
