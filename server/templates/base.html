@@ -56,9 +56,9 @@
 
       {% filter squash %}
         <script>
+          var EXTRA_MESSAGES = {{ messages|safe }};
           var FONTS = {{ fonts|safe }};
           var LOCALE = '{{ locale }}';
-          var MESSAGES = {{ messages|safe }};
           var RECENTLY_LOGS = {{ emoji_logs|safe }};
         </script>
       {% endfilter %}

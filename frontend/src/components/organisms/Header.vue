@@ -4,6 +4,9 @@
       <!-- Logo + Title -->
       <HeaderTitle />
 
+      <!-- Language -->
+      <HeaderLanguage />
+
       <!-- Buttons -->
       <div class="buttons">
         <!-- Buttons : Twitter -->

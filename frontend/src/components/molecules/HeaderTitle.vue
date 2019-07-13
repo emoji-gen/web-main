@@ -5,24 +5,6 @@
 </template>
 
 
-<script>
-  import eventbus from '@/src/eventbus'
-  import { toLocalizedPath } from '@/src/locales'
-
-  export default {
-    data: () => ({
-      homePath: toLocalizedPath('/'),
-    }),
-
-    created() {
-      eventbus.$on('EG_LOCALE_CHANGED', () => {
-        this.homePath = toLocalizedPath('/')
-      })
-    },
-  }
-</script>
-
-
 <style lang="scss" scoped>
   @import 'includes/_variables';
   @import 'includes/_mixins';
@@ -97,3 +79,22 @@
     }
   }
 </style>
+
+
+<script>
+  import eventbus from '@/src/eventbus'
+  import { toLocalizedPath } from '@/src/locales'
+
+  export default {
+    data: () => ({
+      homePath: toLocalizedPath('/'),
+    }),
+
+    created() {
+      eventbus.$on('EG_LOCALE_CHANGED', () => {
+        this.homePath = toLocalizedPath('/')
+      })
+    },
+  }
+</script>
+

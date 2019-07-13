@@ -48,6 +48,7 @@
 
   import eventbus from '@/src/eventbus'
   import { LOCALE, RECENTLY_LOGS } from '@/src/initial_state'
+  import { getLocale } from '@/src/locales'
 
   export default {
     data: () => ({
@@ -56,8 +57,9 @@
     }),
 
     created() {
-      eventbus.$on('EG_LOCALE_CHANGED', locale => {
-        this.recentlyLogs = RECENTLY_LOGS[locale]
+      eventbus.$on('EG_LOCALE_CHANGED', () => {
+        this.recentlyLogs = RECENTLY_LOGS[getLocale()]
+        this.redraw()
       })
     },
     mounted() {
@@ -70,6 +72,14 @@
             wrapAround: true,
           })
 
+        this.redraw()
+      })
+    },
+
+    methods: {
+      redraw() {
+        this.flkty.remove(this.flkty.getCellElements())
+
         const baseNode = document.createElement('div')
         baseNode.className = 'carousel-cell'
 
@@ -79,7 +89,7 @@
           node.title = recentlyLog.text.replace(/\n/g, '')
           this.flkty.append(node)
         }
-      })
+      },
     },
   }
 </script>

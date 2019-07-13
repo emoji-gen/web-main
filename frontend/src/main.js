@@ -12,8 +12,9 @@ import './style.scss'
 
 import { App } from '@/src/components'
 import { LOCALE } from '@/src/initial_state'
-import { messages } from '@/src/locales'
+import { MESSAGES } from '@/src/locales'
 import setupRouter from '@/src/router'
+
 
 // -------------------------------------------------------------------
 
@@ -29,7 +30,7 @@ Vue.use(VueI18n)
 
 const i18n = new VueI18n({
   locale: LOCALE,
-  messages,
+  messages: MESSAGES,
 })
 
 // -------------------------------------------------------------------

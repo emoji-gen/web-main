@@ -4,6 +4,7 @@ import Vue from 'vue'
 
 import ColorKind from './atomics/ColorKind'
 import HeaderTitle from './molecules/HeaderTitle'
+import HeaderLanguage from './molecules/HeaderLanguage'
 import Register from './molecules/Register'
 import Share from './molecules/Share'
 import Background from './organisms/Background'
@@ -18,6 +19,7 @@ import Home from './templates/Home'
 
 Vue.component('ColorKind', ColorKind)
 Vue.component('HeaderTitle', HeaderTitle)
+Vue.component('HeaderLanguage', HeaderLanguage)
 Vue.component('Register', Register)
 Vue.component('Share', Share)
 Vue.component('Background', Background)
@@ -33,6 +35,7 @@ Vue.component('Home', Home)
 export {
   ColorKind,
   HeaderTitle,
+  HeaderLanguage,
   Register,
   Share,
   Background,
