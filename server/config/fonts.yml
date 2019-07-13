@@ -49,6 +49,11 @@ zh-Hans:
     key: 'notosans-mono-bold'
     name: 'Noto Sans Mono CJK Bold'
     path: 'cjk/NotoSansMonoCJKjp-Bold.otf'
+zh-Hant:
+  - typeface: 'Sans-serif'
+    key: 'notosans-mono-bold'
+    name: 'Noto Sans Mono CJK Bold'
+    path: 'cjk/NotoSansMonoCJKjp-Bold.otf'
 en:
   - typeface: 'Sans-serif'
     key: 'notosans-mono-bold'

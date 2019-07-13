@@ -1,0 +1,71 @@
+ColorKind:
+  foreground_label: '前景'
+  background_label: '背景'
+
+Register:
+  inputs_team_label: '目標團隊'
+  inputs_team_placeholder: '請選擇一個團隊進行註冊'
+  inputs_name_label: '表情符號名稱'
+  inputs_name_placeholder: '請輸入表情符號的名稱'
+  inputs_team_no_options: '没有团队可供选择'
+  messages_validation_error_label: '沒有團隊可供選擇'
+  messages_validation_team_not_selected_message: '沒有選擇任何團隊。'
+  messages_validation_no_name_message: '尚未輸入表情符號名稱。'
+  messages_successful_label: '你已經註冊了表情符號！'
+  messages_successful_description: '您已成功註冊新表情符號。'
+  messages_failure_label: '無法註冊表情符號'
+  messages_failure_unknown_description: '發生了未知錯誤。'
+  register_button: '註冊♪'
+  help_about_teams: '使用瀏覽器登錄的Slack團隊將顯示在列表中。'
+  help_login_head: '如果您沒有看到要註冊的團隊，請'
+  help_login_link_label: '登錄'
+  help_login_tail: '該團隊'
+  install_label: '請安裝瀏覽器擴展程序'
+  install_description: '通過安裝瀏覽器擴展,<br> 您可以直接向Slack團隊註冊表情符號。'
+
+Share:
+  twitter_tweet: '我用表情符號生成器生成了表情符號♪'
+  twitter_hashtag: '#表情符號發生器'
+  twitter_description: '在Twitter上分享'
+  facebook_description: '在Facebook上分享'
+  line_description: '在LINE上分享'
+  line_message: '我用表情符號生成器生成了表情符號♪'
+
+Footer:
+  developer_blog_label: '技術博客'
+  contact_label: '聯繫'
+  copyright_holder: '表情符號發生器'
+
+Generator:
+  title: '輸入您想要成為表情符號的文本！'
+  generate_button: '生成♪'
+  public_fg_label: '將表情符號添加到生成歷史記錄中'
+  public_fg_description: '未選中時，表情符號不會保留在生成歷史記錄中。'
+  parameter_text_label: '文本'
+  parameter_text_default_value: "表情\n符號"
+  parameter_text_align_label: '文字對齊'
+  parameter_size_label: '尺寸調整'
+  parameter_size_fixed_label: '固定字體大小'
+  parameter_size_non_stretch_label: '不要自動伸展'
+  parameter_font_label: '字形'
+  parameter_color_label: '顏色'
+
+Header:
+  title: '表情符號發生器'
+
+RecentlyLog:
+  title: '最近生成的表情符號'
+
+Result:
+  title: '生成的表情符號'
+  preview_text_label: '文本'
+  preview_font_label: '字形'
+  preview_color_label: '顏色'
+  menus_download_label: '下載'
+  menus_register_label: '要註冊'
+  menus_share_label: '分享'
+
+Contact:
+  heading: '聯繫'
+  github_issue_description: '在GitHub上為請求和錯誤報告創建一個新問題。'
+  twitter_description: '如有其他疑問，請聯繫官方推特。'
