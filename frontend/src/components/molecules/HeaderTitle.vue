@@ -51,14 +51,6 @@
           background-position: 0px center;
           content: '';
         }
-        &:lang(en) {
-          &::before {
-            background-image: url($site-url + '/assets/img/logo_en-40x40@1x.png');
-            background-image: image-set(
-              $site-url + '/assets/img/logo_en-40x40@1x.png' 1x,
-              $site-url + '/assets/img/logo_en-40x40@2x.png' 2x);
-          }
-        }
         &:lang(ja) {
           &::before {
             background-image: url($site-url + '/assets/img/logo_ja-40x40@1x.png');
@@ -73,6 +65,22 @@
             background-image: image-set(
               $site-url + '/assets/img/logo_ko-40x40@1x.png' 1x,
               $site-url + '/assets/img/logo_ko-40x40@2x.png' 2x);
+          }
+        }
+        &:lang(zh-Hans) {
+          &::before {
+            background-image: url($site-url + '/assets/img/logo_zh-Hans-40x40@1x.png');
+            background-image: image-set(
+              $site-url + '/assets/img/logo_zh-Hans-40x40@1x.png' 1x,
+              $site-url + '/assets/img/logo_zh-Hans-40x40@2x.png' 2x);
+          }
+        }
+        &:lang(en) {
+          &::before {
+            background-image: url($site-url + '/assets/img/logo_en-40x40@1x.png');
+            background-image: image-set(
+              $site-url + '/assets/img/logo_en-40x40@1x.png' 1x,
+              $site-url + '/assets/img/logo_en-40x40@2x.png' 2x);
           }
         }
       }

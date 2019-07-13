@@ -15,11 +15,6 @@ html {
   /**
    * Font family
    */
-  &:lang(en) {
-    body {
-      font-family: 'Avenir', 'Arial', sans-serif;
-    }
-  }
   &:lang(ja) {
     body {
       font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
@@ -28,6 +23,16 @@ html {
   &:lang(ko) {
     body {
       font-family: 'AppleGothic', 'Malgun Gothic', sans-serif;
+    }
+  }
+  &:lang(zh-Hans) {
+    body {
+       font-family: 'STHeiti', 'Microsoft YaHei', sans-serif;
+    }
+  }
+  &:lang(en) {
+    body {
+      font-family: 'Avenir', 'Arial', sans-serif;
     }
   }
 }

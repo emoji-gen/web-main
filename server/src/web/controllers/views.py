@@ -94,9 +94,10 @@ async def contact_en(request):
 
 async def _fetch_emoji_logs():
     return {
-        'en': await _fetch_emoji_logs_by_locale('en'),
         'ja': await _fetch_emoji_logs_by_locale('ja'),
         'ko': await _fetch_emoji_logs_by_locale('ko'),
+        'zh-Hans': await _fetch_emoji_logs_by_locale('zh-Hans'),
+        'en': await _fetch_emoji_logs_by_locale('en'),
     }
 
 async def _fetch_emoji_logs_by_locale(locale):
