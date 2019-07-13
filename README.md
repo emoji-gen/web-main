@@ -5,7 +5,7 @@
 [![dependencies Status](https://david-dm.org/emoji-gen/web-main/status.svg?path=frontend)](https://david-dm.org/emoji-gen/web-main?path=frontend)
 [![devDependencies Status](https://david-dm.org/emoji-gen/web-main/dev-status.svg?path=frontend)](https://david-dm.org/emoji-gen/web-main?path=frontend&type=dev)
 ![License](https://img.shields.io/github/license/emoji-gen/web-main.svg)
-[![Beerpay](https://beerpay.io/emoji-gen/web-main/badge.svg?style=flat)](https://beerpay.io/emoji-gen/web-main)
+[![Beerpay](https://beerpay.io/emoji-gen/web-main/badge.svg?style=flat)](https://beerpay.io/emoji-gen/web-main) [![Greenkeeper badge](https://badges.greenkeeper.io/emoji-gen/web-main.svg)](https://greenkeeper.io/)
 
 :tada: Ultimate Emoji Generator
 
