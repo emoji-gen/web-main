@@ -33,6 +33,7 @@
     .multiselect {
       width: 180px;
       color: $color-gray;
+      cursor: pointer;
     }
     .multiselect__single,
     .multiselect__option,
