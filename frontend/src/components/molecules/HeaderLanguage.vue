@@ -21,15 +21,36 @@
   $_height: 74px;
 
   .HeaderLaungage {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0 20px 0 0;
+
+    /**
+     * VueMultiselect
+     */
     .multiselect {
       width: 180px;
       color: $color-gray;
     }
     .multiselect__single,
     .multiselect__option,
+    .multiselect__input,
+    .multiselect__tags,
     .multiselect__input {
       line-height: 1.55;
       font-size: $font-medium;
+      background: transparent;
+    }
+    .multiselect__option--selected {
+      background: #f3f3f3;
+    }
+    .multiselect__option--selected.multiselect__option--highlight {
+      background: #ff6a6a;
+    }
+    .multiselect__option--highlight {
+      background: #369a6e;
     }
   }
 </style>

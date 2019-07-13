@@ -389,6 +389,9 @@
       eventbus.$on('EG_EMOJI_GENERATE', query => {
         this._draw(query)
       })
+      eventbus.$on('EG_LOCALE_CHANGED', () => {
+        this.$forceUpdate()
+      })
 
       // Browser extension attached
       this.$ptero.on('CE_ATTACH', () => {

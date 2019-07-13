@@ -54,9 +54,7 @@
       /* Buttons */
       .buttons {
         display: flex;
-        flex: 1 1 auto;
         flex-direction: row;
-        justify-content: flex-end;
         align-items: center;
         margin: 0 20px 0 0;
 
