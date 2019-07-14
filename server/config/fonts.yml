@@ -75,6 +75,10 @@ zh-Hant:
     name: '瀨戶字體'
     path: 'ja/SetoFont.ttf'
 en:
+  - type: ''
+    key: 'roboto_bold'
+    name: 'Roboto Bold'
+    path: 'en/Roboto-Bold.ttf'
   - typeface: 'Sans-serif'
     key: 'notosans-mono-bold'
     name: 'Noto Sans Mono CJK Bold'
