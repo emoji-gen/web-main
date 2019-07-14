@@ -62,16 +62,7 @@
       </div>
 
       <div class="download">
-        <a href="https://chrome.google.com/webstore/detail/%E7%B5%B5%E6%96%87%E5%AD%97%E3%82%B8%E3%82%A7%E3%83%8D%E3%83%AC%E3%83%BC%E3%82%BF%E3%83%BC/ghbhakkknnmocmiilhneahbkiaegdnmf?hl=ja&amp;gl=JP"
-          target="_blank" rel="noopener"
-          v-if="browser.name == 'chrome'">
-          <img
-            src="/assets/img/chrome_web_store-248x75@1x.png"
-            srcset="/assets/img/chrome_web_store-248x75@1x.png 1x, /assets/img/chrome_web_store-248x75@2x.png 2x"
-            width="248" height="75"
-            alt="available in the chrome web store"
-            decoding="async" loading="lazy">
-        </a>
+        <ChromeBanner v-if="browser.name === 'chrome'"/>
         <a href="https://addons.mozilla.org/ja/firefox/addon/emoji-generator/"
           target="_blank" rel="noopener"
           v-if="browser.name == 'firefox'">

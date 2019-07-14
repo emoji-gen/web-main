@@ -2,6 +2,7 @@
 
 import Vue from 'vue'
 
+import ChromeBanner from './atomics/ChromeBanner'
 import ColorKind from './atomics/ColorKind'
 import DocumentTitle from './atomics/DocumentTitle'
 import HeaderTitle from './molecules/HeaderTitle'
@@ -18,6 +19,7 @@ import App from './pages/App'
 import Contact from './templates/Contact'
 import Home from './templates/Home'
 
+Vue.component('ChromeBanner', ChromeBanner)
 Vue.component('ColorKind', ColorKind)
 Vue.component('DocumentTitle', DocumentTitle)
 Vue.component('HeaderTitle', HeaderTitle)
