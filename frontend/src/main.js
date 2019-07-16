@@ -1,6 +1,7 @@
 'use strict'
 
 import Vue from 'vue'
+import VueAnalytics from 'vue-analytics'
 import VuePtero from 'vue-ptero'
 import VueRouter from 'vue-router'
 import VueI18n from 'vue-i18n'
@@ -17,11 +18,21 @@ import setupRouter from '@/src/router'
 
 // -------------------------------------------------------------------
 
+const router = setupRouter()
+
 if (DEBUG) {
   log.setLevel('trace')
 } else {
   log.setLevel('warn')
 }
+
+Vue.use(VueAnalytics, {
+  id: 'UA-82501423-1',
+  router,
+  autoTracking: {
+    pageviewOnLoad: false
+  },
+})
 
 Vue.use(VuePtero, { target: document.body })
 Vue.use(VueRouter)
@@ -41,7 +52,7 @@ export default new Vue({
   /**
    * vue-router
    */
-  router: setupRouter(),
+  router,
 
   /**
    * vue-i18n
