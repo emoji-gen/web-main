@@ -31,6 +31,7 @@ Vue.use(VueAnalytics, {
   router,
   autoTracking: {
     pageviewOnLoad: false,
+    transformQueryString: false,
   },
 })
 
