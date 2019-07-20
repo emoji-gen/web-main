@@ -15,7 +15,10 @@ jobs:
             echo "Node $(node -v)"
             echo "Yarn v$(yarn --version)"
       - restore_cache:
-          key: emoji-gen/web-main/{{ arch }}/{{ checksum "frontend/yarn.lock" }}/{{ checksum "server/requirements.txt" }}
+          keys:
+            - v1-{{ arch }}-{{ checksum "server/requirements.txt" }}-{{ checksum "frontend/yarn.lock" }}
+            - v1-{{ arch }}-{{ checksum "server/requirements.txt" }}
+            - v1-{{ arch }}
       - run:
           name: Install dependencies (Python)
           command: |
@@ -39,7 +42,7 @@ jobs:
               ./common/script/is-git-dirty.sh
             fi
       - save_cache:
-          key: emoji-gen/web-main/{{ arch }}/{{ checksum "frontend/yarn.lock" }}/{{ checksum "server/requirements.txt" }}
+          key: v1-{{ arch }}-{{ checksum "server/requirements.txt" }}-{{ checksum "frontend/yarn.lock" }}
           paths:
             - ~/workspace/frontend/node_modules
             - ~/.cache/yarn/
