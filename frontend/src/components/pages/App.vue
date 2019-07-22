@@ -1,5 +1,6 @@
 <template>
   <div class="App">
+    <Favicon />
     <Background/>
     <Header/>
     <div class="body">

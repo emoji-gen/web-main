@@ -5,6 +5,7 @@ import Vue from 'vue'
 import ChromeBanner from './atomics/ChromeBanner'
 import ColorKind from './atomics/ColorKind'
 import DocumentTitle from './atomics/DocumentTitle'
+import Favicon from './atomics/Favicon'
 import HeaderTitle from './molecules/HeaderTitle'
 import HeaderLanguage from './molecules/HeaderLanguage'
 import Register from './molecules/Register'
@@ -22,6 +23,7 @@ import Home from './templates/Home'
 Vue.component('ChromeBanner', ChromeBanner)
 Vue.component('ColorKind', ColorKind)
 Vue.component('DocumentTitle', DocumentTitle)
+Vue.component('Favicon', Favicon)
 Vue.component('HeaderTitle', HeaderTitle)
 Vue.component('HeaderLanguage', HeaderLanguage)
 Vue.component('Register', Register)
