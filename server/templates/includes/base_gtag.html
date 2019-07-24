@@ -1,7 +1,7 @@
 {# Google Analytics #}
 
 {% filter squash %}
-  {% if DEBUG %}
+  {% if DEBUG or not ga %}
     <script>
       function ga() {
         console.log('ga', Array.from(arguments))

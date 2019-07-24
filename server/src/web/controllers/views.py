@@ -19,11 +19,14 @@ async def _render(request, template, *, locale='ja'):
     set_locale(request, locale)
 
     emoji_logs = await _fetch_emoji_logs()
+    ga = request.query.get('ga', '1') != '0'
+
     response = aiohttp_jinja2.render_template(
         template,
         request, {
             'emoji_logs': json.dumps(emoji_logs, ensure_ascii=False, separators=(',',':')),
             'locale': locale,
+            'ga': ga,
         })
 
     if request.app.debug:
