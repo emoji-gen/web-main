@@ -3,7 +3,7 @@
     <transition name="expand">
       <div class="result-inner" v-show="visibleResult">
         <!-- Title -->
-        <h2 v-t="'Result.title'"></h2>
+        <h2>{{ $t('Result.title') }}</h2>
 
         <!-- Preview -->
         <div class="preview">
@@ -388,9 +388,6 @@
       // A new emoji generated
       eventbus.$on('EG_EMOJI_GENERATE', query => {
         this._draw(query)
-      })
-      eventbus.$on('EG_LOCALE_CHANGED', () => {
-        this.$forceUpdate()
       })
 
       // Browser extension attached
