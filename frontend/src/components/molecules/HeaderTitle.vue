@@ -1,6 +1,6 @@
 <template>
   <div class="HeaderTitle">
-    <h1><a :href="homePath" v-t="'Header.title'"></a></h1>
+    <h1><a :href="homePath">{{ $t('Header.title') }}</a></h1>
   </div>
 </template>
 

@@ -7,8 +7,7 @@
           value="foreground"
           id="ColorKind__kind--foreground"
           v-model="colorKind">
-        <label for="ColorKind__kind--foreground"
-          v-t="'ColorKind.foreground_label'" />
+        <label for="ColorKind__kind--foreground">{{ $t('ColorKind.foreground_label') }}</label>
       </li>
       <li>
         <input type="radio"
@@ -16,8 +15,7 @@
           value="background"
           id="ColorKind__kind--background"
           v-model="colorKind">
-        <label for="ColorKind__kind--background"
-          v-t="'ColorKind.background_label'" />
+        <label for="ColorKind__kind--background">{{ $t('ColorKind.background_label') }}</label>
       </li>
     </ul>
   </div>
