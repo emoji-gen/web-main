@@ -10,8 +10,7 @@
 
 :tada: Ultimate Emoji Generator
 
-<img src="capture.png" width="400">
-<br>
+<br><img src="pr/ss1.png" width="320" height="200" alt=""><br>
 
 ## Requirements
 
