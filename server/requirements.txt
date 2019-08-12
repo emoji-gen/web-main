@@ -8,7 +8,7 @@ cffi==1.12.3
 chardet==3.0.4
 cryptography==2.7
 emojilib==1.0.0
-funcy==1.12
+funcy==1.13
 htmlmin==0.1.12
 idna==2.8
 Jinja2==2.10.1
