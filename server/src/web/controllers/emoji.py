@@ -77,7 +77,7 @@ async def _execute(request, download_fg=False):
             'text': text,
             'color': color,
             'back_color': background_color,
-            'font': font_key,
+            'font': font['key'],
             'size_fixed': size_fixed,
             'align': align,
             'stretch': not disable_stretch,
