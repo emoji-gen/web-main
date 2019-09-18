@@ -46,7 +46,7 @@
     "node-sass": "^4.12.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
-    "sass-loader": "^7.0.3",
+    "sass-loader": "^8.0.0",
     "terser-webpack-plugin": "^2.0.0",
     "vue-loader": "^15.2.4",
     "vue-style-loader": "^4.1.0",

@@ -78,10 +78,12 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              data: `
+              prependData: `
                 $site-url: '${siteUrl}';
               `,
-              includePaths: [ join(__dirname, 'src') ],
+              sassOptions: {
+                includePaths: [ join(__dirname, 'src') ],
+              },
             },
           },
         ],
@@ -116,7 +118,9 @@ module.exports = {
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~
   optimization: {
     minimizer: [
-			new TerserPlugin(),
+			new TerserPlugin({
+        extractComments: false,
+      }),
       new OptimizeCSSAssetsPlugin({
         parallel: true,
       }),
