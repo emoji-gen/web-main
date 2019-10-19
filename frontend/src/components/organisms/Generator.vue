@@ -343,7 +343,7 @@
 
 
 <script>
-  import Chrome from 'vue-color/src/components/Chrome'
+  import Sketch from 'vue-color/src/components/Sketch'
   import SweetScroll from 'sweet-scroll'
 
   import eventbus from '@/src/eventbus'
@@ -437,7 +437,7 @@
     },
 
     components: {
-      ColorPicker: Chrome,
+      ColorPicker: Sketch,
     },
   }
 </script>
