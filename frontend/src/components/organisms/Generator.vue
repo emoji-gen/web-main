@@ -71,10 +71,11 @@
         <h3 v-t="'Generator.parameter_color_label'"></h3>
         <div class="pickers">
           <div class="picker-wrapper" v-show="colorKind == 'foreground'">
-            <ColorPicker v-model="colors" />
+            <ColorPicker v-model="colors" :preset-colors="presetColors" />
           </div>
           <div class="picker-wrapper" v-show="colorKind != 'foreground'">
-            <ColorPicker v-model="backgroundColors" />
+            <ColorPicker v-model="backgroundColors"
+              :preset-colors="backgroundPresetColors" />
           </div>
         </div>
         <ColorKind @change="colorKindChanged" />
@@ -84,7 +85,7 @@
 </template>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import 'includes/_variables';
   @import 'includes/_mixins';
 
@@ -291,9 +292,27 @@
         &.color {
           margin-right: 32px;
           .picker-wrapper {
-            > div {
+            .vc-sketch {
               @extend %_parameter;
+              width: 245px;
+              padding: 0;
               margin-bottom: 8px;
+              .vc-sketch-controls {
+                padding: 5px 10px 0;
+                .vc-sketch-color-wrap {
+                  border-radius: 12px;
+                  overflow: hidden;
+                  .vc-sketch-active-color {
+                    box-shadow: none;
+                  }
+                }
+              }
+              .vc-sketch-field {
+                padding: 0 10px;
+              }
+              .vc-sketch-presets {
+                margin: 0;
+              }
             }
           }
         }
@@ -343,7 +362,7 @@
 
 
 <script>
-  import Chrome from 'vue-color/src/components/Chrome'
+  import Sketch from 'vue-color/src/components/Sketch'
   import SweetScroll from 'sweet-scroll'
 
   import eventbus from '@/src/eventbus'
@@ -360,16 +379,35 @@
     },
     a: 1
   }
+
+  const DEFAULT_BACKGROUND_COLOR_HEX = '00000000'
   const DEFAULT_BACKGROUND_COLORS = {
-    hex: '#FFFFFF',
-    rgba: {
-      r: 255,
-      g: 255,
-      b: 255,
-      a: 0
-    },
+    r: 0,
+    g: 0,
+    b: 0,
     a: 0
   }
+
+  const PRESET_COLORS = [
+    '#3AB0C7', // light blue
+    '#38BA91', // light green
+    '#EC71A1', // light red
+    '#EAA822', // light yellow
+    '#1111FF', // blue
+    '#00BB00', // green
+    '#FF0000', // red
+    '#000000', // black
+    '#FFFFFF', // white
+  ]
+
+  const BACKGROUND_PRESET_COLORS = [
+    '#1111FF', // blue
+    '#00BB00', // green
+    '#FF0000', // red
+    '#000000', // black
+    '#FFFFFF', // white
+    'rgba(0, 0, 0, 0)', // transparent
+  ]
 
   export default {
     data: () => ({
@@ -388,6 +426,8 @@
       colorKind: 'foreground',
       colors: DEFAULT_COLORS,
       backgroundColors: DEFAULT_BACKGROUND_COLORS,
+      presetColors: PRESET_COLORS,
+      backgroundPresetColors: BACKGROUND_PRESET_COLORS,
     }),
 
     created() {
@@ -426,10 +466,13 @@
         scroller.toTop(0)
       },
       colorsToRgbaHex(colors) {
-        const rgb = colors.hex.replace(/#/, '')
-        const alphaInt = Math.floor(colors.a * 0xff) & 0xff
-        const alpha = ('0' + alphaInt.toString(16)).slice(-2).toUpperCase()
-        return rgb + alpha
+        if (colors.hex) {
+          const rgb = colors.hex.replace(/#/, '')
+          const alphaInt = Math.floor(colors.a * 0xff) & 0xff
+          const alpha = ('0' + alphaInt.toString(16)).slice(-2).toUpperCase()
+          return rgb + alpha
+        }
+        return DEFAULT_BACKGROUND_COLOR_HEX
       },
       colorKindChanged(value){
         this.colorKind = value
@@ -437,7 +480,7 @@
     },
 
     components: {
-      ColorPicker: Chrome,
+      ColorPicker: Sketch,
     },
   }
 </script>
