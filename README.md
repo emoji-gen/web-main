@@ -33,5 +33,9 @@
 
 - [cli](https://github.com/emoji-gen/cli) - Console application
 
+## External presentations
+- [How to develop a web service with asyncio and aiohttp](https://speakerdeck.com/pine/how-to-develop-a-web-service-with-asyncio-and-aiohttp)
+- [Introduction to the graphics library Skia written by C++](https://speakerdeck.com/pine/introduction-to-the-graphics-library-skia-written-by-c-plus-plus)
+
 ## License
 GPLv3 &copy; [Emoji Generator](https://emoji-gen.ninja)
