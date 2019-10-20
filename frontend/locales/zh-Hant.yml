@@ -24,12 +24,12 @@ Register:
   install_description: '通過安裝擴充功能,<br> 您可以直接添加表情符號到您的Slack團隊。'
 
 Share:
-  twitter_tweet: '我用表情符號生成器生成了表情符號♪'
+  twitter_tweet: '我用生表情符號定製器成了表情符號♪'
   twitter_hashtag: '#表情符號定製器'
   twitter_description: '在Twitter上分享'
   facebook_description: '在Facebook上分享'
   line_description: '在LINE上分享'
-  line_message: '我用表情符號生成器生成了表情符號♪'
+  line_message: '我用生表情符號定製器成了表情符號♪'
 
 Footer:
   developer_blog_label: '技術博客'

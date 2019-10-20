@@ -17,31 +17,31 @@ Register:
   messages_failure_unknown_description: '发生了未知错误。'
   register_button: '注册♪'
   help_about_teams: '使用浏览器登录的Slack团队将显示在列表中。'
-  help_login_head: '如果您没有看到要注册的团队，请'
+  help_login_head: '如果您没有看到添加的团队，请'
   help_login_link_label: '登录'
   help_login_tail: '该团队。'
-  install_label: '请安装浏览器扩展程序'
-  install_description: '通过安装浏览器扩展,<br> 您可以直接向Slack团队注册表情符号。'
+  install_label: '请安浏览器扩展程序'
+  install_description: '通过安装扩充功能,<br> 您可以直接添加表情符号到您的Slack团队。'
 
 Share:
-  twitter_tweet: '我用表情符号生成器生成了表情符号♪'
-  twitter_hashtag: '#表情符号发生器'
+  twitter_tweet: '我用表情符号定制器生成了表情符号♪'
+  twitter_hashtag: '#表情符号定制器'
   twitter_description: '在Twitter上分享'
   facebook_description: '在Facebook上分享'
   line_description: '在LINE上分享'
-  line_message: '我用表情符号生成器生成了表情符号♪'
+  line_message: '我用表情符号定制器生成了表情符号♪'
 
 Footer:
   developer_blog_label: '技术博客'
   contact_label: '联系'
-  copyright_holder: '表情符号发生器'
+  copyright_holder: '表情符号定制器'
 
 Generator:
-  title: '输入您想要成为表情符号的文本！'
+  title: '输入表情符号的文字'
   generate_button: '生成♪'
   public_fg_label: '将表情符号添加到生成历史记录中'
   public_fg_description: '未选中时，表情符号不会保留在生成历史记录中。'
-  parameter_text_label: '文本'
+  parameter_text_label: '文字'
   parameter_text_default_value: "表情\n符号"
   parameter_text_align_label: '文字对齐'
   parameter_size_label: '尺寸调整'
@@ -51,18 +51,18 @@ Generator:
   parameter_color_label: '颜色'
 
 Header:
-  title: '表情符号发生器'
+  title: '表情符号定制器'
 
 RecentlyLog:
-  title: '最近生成的表情符号'
+  title: '大家最近制造的表情符号'
 
 Result:
   title: '生成的表情符号'
-  preview_text_label: '文本'
+  preview_text_label: '文字'
   preview_font_label: '字形'
   preview_color_label: '颜色'
   menus_download_label: '下载'
-  menus_register_label: '要注册'
+  menus_register_label: '添加'
   menus_share_label: '分享'
 
 Contact:
