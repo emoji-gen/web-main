@@ -34,10 +34,12 @@
 - [cli](https://github.com/emoji-gen/cli) - Console application
 
 ## External presentations
-- [The only way to recover lost us vocabulary](https://speakerdeck.com/pine/shi-waretayu-hui-li-wohui-fu-saserutatutahitotufalsefang-fa) *(Japanese)*
-- [Emoji Generator meets Browser Extensions](https://speakerdeck.com/pine/emoji-generator-meets-browser-extensions) *(Japanese)*
-- [How to develop a web service with asyncio and aiohttp](https://speakerdeck.com/pine/how-to-develop-a-web-service-with-asyncio-and-aiohttp) *(English)*
-- [Introduction to the graphics library Skia written by C++](https://speakerdeck.com/pine/introduction-to-the-graphics-library-skia-written-by-c-plus-plus) *(English)*
+- Sep, 2016 [The only way to recover lost us vocabulary](https://speakerdeck.com/pine/shi-waretayu-hui-li-wohui-fu-saserutatutahitotufalsefang-fa) *(Japanese)*
+- Feb, 2017 [Emoji Generator meets Browser Extensions](https://speakerdeck.com/pine/emoji-generator-meets-browser-extensions) *(Japanese)*
+- Sep, 2018
+ [How to develop a web service with asyncio and aiohttp](https://speakerdeck.com/pine/how-to-develop-a-web-service-with-asyncio-and-aiohttp) *(English)*
+- Sep, 2019 [Introduction to the graphics library Skia written by C++](https://speakerdeck.com/pine/introduction-to-the-graphics-library-skia-written-by-c-plus-plus) *(English)*
+- Dec, 2019 [Internationalization of Emoji Generator](https://speakerdeck.com/pine/i18n-of-emoji-generator) *(English)*
 
 ## License
 GPLv3 &copy; [Emoji Generator](https://emoji-gen.ninja)
