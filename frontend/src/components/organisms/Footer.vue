@@ -3,12 +3,12 @@
     <footer>
       <!-- Menus-->
       <ul class="menus">
-        <li><a href="/blog/" target="_blank" v-t="'Footer.developer_blog_label'"></a></li>
+        <li><a href="https://blog.emoji-gen.ninja/" target="_blank" v-t="'Footer.developer_blog_label'"></a></li>
         <li><router-link :to="contactPath" @click.native="scroll" v-t="'Footer.contact_label'" /></li>
       </ul>
 
       <!-- Copyright -->
-      <p class="copyright">(C) 2016-2019 {{ $t('Footer.copyright_holder') }}</p>
+      <p class="copyright">(C) 2016-2020 {{ $t('Footer.copyright_holder') }}</p>
     </footer>
   </div>
 </template>
