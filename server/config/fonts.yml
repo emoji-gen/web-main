@@ -1,119 +1,119 @@
 ja:
-  - id: 0
+  - id: 1
     typeface: 'ゴシック体'
     key: 'notosans-mono-bold'
     name: 'Noto Sans Mono CJK JP Bold'
     path: 'ja/Noto_Sans_Mono_CJK_JP-Bold.otf'
-  - id: 1
+  - id: 2
     typeface: '極太ゴシック体'
     key: 'mplus-1p-black'
     name: 'M+ 1p black'
     path: 'ja/mplus-1p-black.ttf'
-  - id: 2
+  - id: 3
     type: '丸ゴシック体'
     key: 'rounded-x-mplus-1p-black'
     name: 'Rounded M+ 1p black'
     path: 'ja/rounded-x-mplus-1p-black.ttf'
-  - id: 3
+  - id: 4
     type: '明朝体'
     key: 'ipamjm'
     name: 'IPAmj明朝'
     path: 'ja/ipamjm.ttf'
-  - id: 4
+  - id: 5
     type: '毛筆'
     key: 'aoyagireisyoshimo'
     name: '青柳隷書しも'
     path: 'ja/aoyagireisyosimo_otf_2_01.otf'
-  - id: 5
+  - id: 6
     type: '英字'
     key: 'LinLibertine_RBah'
     name: 'LinLibertine Bold'
     path: 'en/LinLibertine_RBah.ttf'
 ko:
-  - id: 6
+  - id: 7
     typeface: ''
     key: 'notosans-mono-bold'
     name: 'Noto Sans Mono CJK KR Bold'
     path: 'ko/Noto_Sans_Mono_CJK_KR-Bold.otf'
-  - id: 7
+  - id: 8
     typeface: ''
     key: 'nanum-square-round-eb'
     name: '나눔스퀘어라운드 Extra Bold'
     path: 'ko/NanumSquareRoundOTFEB.otf'
-  - id: 8
+  - id: 9
     typeface: ''
     key: 'nanum-myeongjo-extra-bold'
     name: '나눔명조 Extra Bold'
     path: 'ko/NanumMyeongjoExtraBold.ttf'
-  - id: 9
+  - id: 10
     typeface: ''
     key: 'ebsjsk-bold'
     name: 'EBS 주시경체 Bold'
     path: 'ko/EBSJSK_Bold.otf'
-  - id: 10
+  - id: 11
     typeface: ''
     key: 'hogook-bold'
     name: '호국체 Bold'
     path: 'ko/HogookBold_OTF.otf'
 zh-Hans:
-  - id: 11
+  - id: 12
     typeface: ''
     key: 'notosans-mono-bold'
     name: 'Noto Sans Mono CJK SC Bold'
     path: 'zh-Hans/Noto_Sans_Mono_CJK_SC-Bold.otf'
-  - id: 12
+  - id: 13
     typeface: ''
     key: 'source_han_serif_sc'
     name: '思源宋体 Bold'
     path: 'zh-Hans/Source_Han_Serif_SC-Bold.otf'
-  - id: 13
+  - id: 14
     typeface: ''
     key: 'seto'
     name: '濑户字体'
     path: 'ja/SetoFont.ttf'
 zh-Hant:
-  - id: 14
+  - id: 15
     typeface: ''
     key: 'notosans-mono-bold'
     name: 'Noto Sans Mono CJK TC Bold'
     path: 'zh-Hant/Noto_Sans_Mono_CJK_TC-Bold.otf'
-  - id: 15
+  - id: 16
     typeface: ''
     key: 'gensenmarugothic_tw_ttf_bold'
     name: '源泉圓體 Bold'
     path: 'zh-Hant/GenSenMaruGothic_TW_TTF-Bold.ttf'
-  - id: 16
+  - id: 17
     typeface: ''
     key: 'source_han_serif_tc'
     name: '思源宋體 Bold'
     path: 'zh-Hant/Source_Han_Serif_TC-Bold.otf'
-  - id: 17
+  - id: 18
     typeface: ''
     key: 'seto'
     name: '瀨戶字體'
     path: 'ja/SetoFont.ttf'
 en:
-  - id: 18
+  - id: 19
     type: ''
     key: 'roboto_bold'
     name: 'Roboto Bold'
     path: 'en/Roboto-Bold.ttf'
-  - id: 19
+  - id: 20
     typeface: 'Sans-serif'
     key: 'notosans-mono-bold'
     name: 'Noto Sans Mono CJK Bold'
     path: 'ja/Noto_Sans_Mono_CJK_JP-Bold.otf'
-  - id: 20
+  - id: 21
     typeface: '極太ゴシック体'
     key: 'mplus-1p-black'
     name: 'M+ 1p black'
     path: 'ja/mplus-1p-black.ttf'
-  - id: 21
+  - id: 22
     type: '丸ゴシック体'
     key: 'rounded-x-mplus-1p-black'
     name: 'Rounded M+ 1p black'
     path: 'ja/rounded-x-mplus-1p-black.ttf'
-  - id: 22
+  - id: 23
     type: '英字'
     key: 'LinLibertine_RBah'
     name: 'LinLibertine Bold'
