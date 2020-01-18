@@ -3,6 +3,7 @@
 from pathlib import Path
 
 from web.controllers import static, redirect
+from web.controllers import emoji
 from web.controllers.emoji import download, generate
 from web.controllers.healthcheck import ok
 from web.controllers import views
@@ -44,8 +45,9 @@ def _setup_routes(app):
     app.router.add_get('/en/contact', views.contact_en)
 
     app.router.add_get('/healthcheck', ok)
-    app.router.add_get('/emoji', generate)
-    app.router.add_get('/emoji_download', download)
+    app.router.add_get('/emoji', emoji.generate)
+    app.router.add_get('/emoji_download', emoji.download)
+    app.router.add_get('/img', emoji.view)
     app.router.add_get('/blog', redirect.blog)
     app.router.add_get('/favicon.ico', static.favicon)
     app.router.add_get('/robots.txt', static.robots)
