@@ -6,7 +6,7 @@ attrs==19.3.0
 cffi==1.13.2
 chardet==3.0.4
 cryptography==2.8
-ecode==0.1.4
+ecode==0.1.5
 emojilib==1.0.0
 funcy==1.14
 htmlmin==0.1.12
