@@ -85,8 +85,10 @@
 
         for (const recentlyLog of this.recentlyLogs) {
           const node = baseNode.cloneNode(true)
-          node.style.backgroundImage = `url('${recentlyLog.url}')`
-          node.title = recentlyLog.text.replace(/\n/g, '')
+          const imageUrl = '/img?code=' + recentlyLog.code
+          node.style.backgroundImage = `url('${imageUrl}')`
+          // TODO
+          // node.title = recentlyLog.text.replace(/\n/g, '')
           this.flkty.append(node)
         }
       },

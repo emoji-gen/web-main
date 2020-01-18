@@ -1,6 +1,8 @@
 # -*- encoding: utf-8 -*-
 
 import emojilib
+from ecode import EcodeDecoder, EcodeFlag
+
 import re
 from aiohttp.web import Response, HTTPBadRequest
 from pathlib import Path
@@ -8,12 +10,70 @@ from pathlib import Path
 from context_holder import ContextHolder
 from repositories import emoji_log_repository
 
+
 async def generate(request):
     return await _execute(request)
 
 
 async def download(request):
     return await _execute(request, download_fg=True)
+
+
+async def view(request):
+    code = request.query.get('code')
+    dl = request.query.get('dl', None) == '1'
+    try:
+        ecode = EcodeDecoder().decode(code)
+    except Exception as e:
+        print(e)
+        return HTTPBadRequest()
+
+    # Locale
+    locales_config = ContextHolder.context.config.locales_config
+    locale = ecode.locale.code
+    if locale not in locales_config.locales:
+        return HTTPBadRequest()
+
+    # Fonts
+    fonts_config = ContextHolder.context.config.fonts_config
+    font_key = request.query.get('font')
+    fonts = fonts_config.by_locale(locale)
+    font = fonts[0]
+    if font_key:
+        font = next(filter(lambda f: f['id'] == ecode.font_id, fonts), None)
+        if font is None:
+            return HTTPBadRequest()
+    font_path = str(fonts_config.fonts_path.joinpath(font['path']))
+
+    try:
+        img_data = emojilib.generate(
+            text=ecode.text,
+            width=ecode.size.width,
+            height=ecode.size.height,
+            color='{:08X}'.format(ecode.foreground_color),
+            background_color='{:08X}'.format(ecode.background_color),
+            size_fixed=EcodeFlag.SIZE_FIXED in ecode.flags,
+            disable_stretch=EcodeFlag.STRETCH not in ecode.flags,
+            align=ecode.align.code,
+            typeface_file=font_path,
+            format=ecode.fmt.code
+        )
+    except Exception as e:
+        print(e)
+        return HTTPBadRequest()
+
+    headers = {}
+    headers['Cache-Control'] = 'public, max-age={}'.format(60 * 60 * 24) # 1 day
+    if dl:
+        filename = '{}.{}'.format(re.sub(r'\s','_', ecode.text), ecode.fmt.code)
+        desposition = 'attachment; filename=\"{}\"'.format(filename)
+        headers['Content-Disposition'] = desposition
+
+    return Response(
+        body=img_data,
+        headers=headers,
+        content_type='image/{}'.format(ecode.fmt.code)
+    )
 
 
 async def _execute(request, download_fg=False):
