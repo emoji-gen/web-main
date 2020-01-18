@@ -36,13 +36,10 @@ async def view(request):
 
     # Fonts
     fonts_config = ContextHolder.context.config.fonts_config
-    font_key = request.query.get('font')
     fonts = fonts_config.by_locale(locale)
-    font = fonts[0]
-    if font_key:
-        font = next(filter(lambda f: f['id'] == ecode.font_id, fonts), None)
-        if font is None:
-            return HTTPBadRequest()
+    font = next(filter(lambda f: f['id'] == ecode.font_id, fonts), None)
+    if font is None:
+        return HTTPBadRequest()
     font_path = str(fonts_config.fonts_path.joinpath(font['path']))
 
     try:
