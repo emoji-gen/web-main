@@ -8,7 +8,7 @@
     "test": "eslint src"
   },
   "dependencies": {
-    "detect-browser": "^4.5.1",
+    "detect-browser": "^5.0.0",
     "flickity": "^2.2.1",
     "lodash.merge": "^4.6.1",
     "loglevel": "^1.6.3",
