@@ -53,7 +53,7 @@
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.36.1",
     "webpack-cli": "^3.0.3",
-    "yaml-loader": "^0.5.0"
+    "yaml-loader": "^0.6.0"
   },
   "author": {
     "name": "Emoji Generator",
