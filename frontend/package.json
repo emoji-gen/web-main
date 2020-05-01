@@ -48,7 +48,7 @@
     "postcss-loader": "^3.0.0",
     "sass-loader": "^8.0.0",
     "terser-webpack-plugin": "^2.0.0",
-    "vue-loader": "^15.2.4",
+    "vue-loader": "^15.9.2",
     "vue-style-loader": "^4.1.0",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.36.1",
