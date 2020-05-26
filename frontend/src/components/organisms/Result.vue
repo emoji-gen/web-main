@@ -11,6 +11,9 @@
             <div class="image">
               <img :src="emojiUrl" alt="" v-if="emojiUrl">
             </div>
+            <div class="image dark">
+              <img :src="emojiUrl" alt="" v-if="emojiUrl">
+            </div>
             <div class="detail">
               <ul>
                 <li class="text">
@@ -126,6 +129,11 @@
           height: ($dimen-emoji-size + $_border-width * 2);
           border-radius: 5px;
           background-color: rgba(255, 255, 255, .38);
+
+          &.dark {
+            background-color: rgba(#1A1D20, .8);
+            margin-left: 12px;
+          }
 
           img {
             box-sizing: content-box;
