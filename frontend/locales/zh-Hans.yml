@@ -11,17 +11,17 @@ Register:
   messages_validation_error_label: '请检查您的输入'
   messages_validation_team_not_selected_message: '没有选择任何团队。'
   messages_validation_no_name_message: '尚未输入表情符号名称。'
-  messages_successful_label: '你已经注册了表情符号！'
-  messages_successful_description: '您已成功注册新表情符号。'
-  messages_failure_label: '无法注册表情符号'
+  messages_successful_label: '你已经添加了表情符号！'
+  messages_successful_description: '您已成功添加了新表情符号。'
+  messages_failure_label: '无法添加表情符号'
   messages_failure_unknown_description: '发生了未知错误。'
-  register_button: '注册♪'
+  register_button: '添加♪'
   help_about_teams: '使用浏览器登录的Slack团队将显示在列表中。'
-  help_login_head: '如果您没有看到添加的团队，请'
+  help_login_head: '如果您没有看到想添加的团队，请'
   help_login_link_label: '登录'
   help_login_tail: '该团队。'
-  install_label: '请安浏览器扩展程序'
-  install_description: '通过安装扩充功能,<br> 您可以直接添加表情符号到您的Slack团队。'
+  install_label: '请安装浏览器扩展程序'
+  install_description: '通过安装浏览器扩展程序,<br> 您可以直接添加表情符号到您的Slack团队。'
 
 Share:
   twitter_tweet: '我用表情符号定制器生成了表情符号♪'
@@ -46,20 +46,20 @@ Generator:
   parameter_text_align_label: '文字对齐'
   parameter_size_label: '尺寸调整'
   parameter_size_fixed_label: '固定字体大小'
-  parameter_size_non_stretch_label: '不要自动伸展'
-  parameter_font_label: '字形'
+  parameter_size_non_stretch_label: '限制自动拉伸'
+  parameter_font_label: '字体'
   parameter_color_label: '颜色'
 
 Header:
   title: '表情符号定制器'
 
 RecentlyLog:
-  title: '大家最近制造的表情符号'
+  title: '最近生成的表情符号'
 
 Result:
   title: '生成的表情符号'
   preview_text_label: '文字'
-  preview_font_label: '字形'
+  preview_font_label: '字体'
   preview_color_label: '颜色'
   menus_download_label: '下载'
   menus_register_label: '添加'
