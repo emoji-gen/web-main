@@ -10,7 +10,7 @@ async def filter_recently(locale, *, max_rows=20):
             await cur.execute('''
                 SELECT *
                 FROM `emoji_log`
-                WHERE `locale` = %s
+                WHERE `locale` = %s AND `public_fg` = 1
                 ORDER BY `generated_at` DESC
                 LIMIT %s
             ''', (locale, max_rows))
