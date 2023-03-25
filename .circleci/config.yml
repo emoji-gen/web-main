@@ -47,12 +47,6 @@ jobs:
             - ~/workspace/frontend/node_modules
             - ~/.cache/yarn/
             - ~/.cache/pip/
-      - deploy:
-          name: Deploy to Production
-          command: |
-            if [ "$CIRCLE_BRANCH" = "master" ]; then
-              curl -s -X POST "https://circleci.com/api/v1.1/project/github/pine/eg-fabric/tree/master?circle-token=$CIRCLE_TOKEN" > /dev/null
-            fi
       - run:
           name: Notify test failed
           command: |
