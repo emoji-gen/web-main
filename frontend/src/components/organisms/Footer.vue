@@ -8,7 +8,7 @@
       </ul>
 
       <!-- Copyright -->
-      <p class="copyright">(C) 2016-2022 {{ $t('Footer.copyright_holder') }}</p>
+      <p class="copyright">(C) 2016-2024 {{ $t('Footer.copyright_holder') }}</p>
     </footer>
   </div>
 </template>
