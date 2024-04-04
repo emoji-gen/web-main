@@ -78,6 +78,7 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
+              implementation: require('sass'),
               prependData: `
                 $site-url: '${siteUrl}';
               `,

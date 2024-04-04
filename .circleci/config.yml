@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/workspace
     docker:
-      - image: emojigen/node-py23:node12.9.0-py2.7.16-py3.7.4
+      - image: emojigen/node-py23:node14.21.3-py2.7.16-py3.7.4
     environment:
     steps:
       - checkout
