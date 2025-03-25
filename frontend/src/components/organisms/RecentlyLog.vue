@@ -87,6 +87,7 @@
           const node = baseNode.cloneNode(true)
           const imageUrl = '/img?code=' + recentlyLog.code
           node.style.backgroundImage = `url('${imageUrl}')`
+          node.addEventListener('click', () => window.open(imageUrl))
           // TODO
           // node.title = recentlyLog.text.replace(/\n/g, '')
           this.flkty.append(node)
