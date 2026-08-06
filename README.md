@@ -1,6 +1,5 @@
 ## Emoji Generator
 
-[![CircleCI](https://circleci.com/gh/emoji-gen/web-main/tree/master.svg?style=shield)](https://circleci.com/gh/emoji-gen/web-main/tree/master)
 ![License](https://img.shields.io/github/license/emoji-gen/web-main.svg)
 
 :tada: Ultimate Emoji Generator
