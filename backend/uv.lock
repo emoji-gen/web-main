@@ -60,6 +60,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "fastapi" },
     { name = "uvicorn", extra = ["standard"] },
+    { name = "wireup" },
 ]
 
 [package.dev-dependencies]
@@ -72,6 +73,7 @@ dev = [
 requires-dist = [
     { name = "fastapi", specifier = ">=0.115.0" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.30.0" },
+    { name = "wireup", specifier = ">=2.12.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -486,4 +488,16 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/f1/2c/9d9c1da5a7ea9af307b386d25f64d1dead4729644198d2b92e36db5dfd41/websockets-17.0.1-cp314-cp314t-win_amd64.whl", hash = "sha256:bb31f42ea095ea826463c770829aa188a86c9a5c976b1467cbbf583c811de833", size = 213094, upload-time = "2026-07-31T11:31:15.367Z" },
     { url = "https://files.pythonhosted.org/packages/5b/24/a585e7573e128070605d003b5544729bcd58d9756c7e99d550818ca4b916/websockets-17.0.1-cp314-cp314t-win_arm64.whl", hash = "sha256:dbfae8e75b342e31fc6fd1a8bbb393b7cbb91d6cfd581650300a94381e7b7e2b", size = 213009, upload-time = "2026-07-31T11:31:16.776Z" },
     { url = "https://files.pythonhosted.org/packages/09/ce/3929538b2b9918f5eee623fbf3346893973191f6df93f19bbda097bd7bb7/websockets-17.0.1-py3-none-any.whl", hash = "sha256:c6be9cba65c65cc76dfa3d4619e359ff02a4476c74e179b215236c11a0b32345", size = 206718, upload-time = "2026-07-31T11:31:26.037Z" },
+]
+
+[[package]]
+name = "wireup"
+version = "2.12.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/8b/13/45337aac6078b2e800e8ec26b845eb4c4a76eabc243658da89676da6af23/wireup-2.12.0.tar.gz", hash = "sha256:e21bf35356d5c670a66ab4e349fffdf58ce3e272dd233f6085885137315325e9", size = 8773922, upload-time = "2026-07-09T22:23:53.104Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2f/6b/330fda3bd0378b1e33738b30d47f25fafa9430ab4472ebb307a23f96d959/wireup-2.12.0-py3-none-any.whl", hash = "sha256:6d418626040e92dde7ecec0460d8712b97cf26466a24d962ed6b2e455739094b", size = 62187, upload-time = "2026-07-09T22:23:55.825Z" },
 ]
