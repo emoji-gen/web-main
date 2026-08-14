@@ -1,11 +1,13 @@
 import wireup
 import wireup.integration.fastapi
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
 from app import database, routers
 
 app = FastAPI()
 app.include_router(routers.router)
+app.mount("/static", StaticFiles(directory=routers.STATIC_DIR), name="static")
 
 #
 # DI
