@@ -1,7 +1,10 @@
+# Python
 .venv/
 __pycache__/
 *.pyc
 .pytest_cache/
 dist/
 *.egg-info/
+
+# PyCharm
 .idea/
