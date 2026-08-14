@@ -23,3 +23,11 @@ Static assets (e.g. `robots.txt`, and future files like images) live in
 
 When adding a new static asset that does not need a root-level URL (e.g. an
 image), just drop the file into `backend/static/` — no code changes needed.
+
+## Oracle NoSQL Database
+
+The app persists data in Oracle NoSQL Database via the `borneo` SDK
+(`app/database.py`), which exposes a `NoSQLHandle` as a `wireup` injectable.
+For local development, `docker compose up -d --wait` runs KVLite
+(`ghcr.io/oracle/nosql:latest-ce`) as a local emulator; see `README.md` for
+the full setup.
