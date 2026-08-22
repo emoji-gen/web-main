@@ -5,24 +5,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Static files
 
 Static assets (e.g. `robots.txt`, and future files like images) live in
-`backend/static/`.
-
-- `app/routers.py` defines `STATIC_DIR = Path(__file__).resolve().parent.parent / "static"`,
-  a constant pointing at `backend/static/`. `__file__` here is
-  `app/routers.py`, so it takes two `.parent` steps: one to reach `app/`,
-  and one more to reach `backend/` (the sibling of `static/`).
-- `app/__init__.py` mounts this directory at `/static` via
-  `fastapi.staticfiles.StaticFiles`, so any file placed in `backend/static/`
-  becomes available at `/static/<filename>` automatically — no route needs
-  to be added per file.
-- `robots.txt` is the one exception: crawlers expect it at the site root
-  (`/robots.txt`), not under `/static/`, so it additionally has a dedicated
-  route in `app/routers.py` that returns it via `FileResponse`. It remains
-  reachable at `/static/robots.txt` too (harmless duplicate), but `/robots.txt`
-  is the canonical URL.
-
-When adding a new static asset that does not need a root-level URL (e.g. an
-image), just drop the file into `backend/static/` — no code changes needed.
+`backend/static/` and are mounted at `/static` in `app/__init__.py` via
+`fastapi.staticfiles.StaticFiles`, so any file dropped in that directory is
+served automatically — no route needs to be added per file. `robots.txt` is
+the one exception: since crawlers expect it at the site root, it also has a
+dedicated route in `app/routers.py` serving it at `/robots.txt`.
 
 ## Oracle NoSQL Database
 
