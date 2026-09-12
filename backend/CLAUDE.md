@@ -2,6 +2,15 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this directory.
 
+## Commands
+
+```sh
+uv sync                                        # install dependencies
+docker compose up -d --wait                    # start local Oracle NoSQL (KVLite) emulator
+uv run uvicorn app:app --reload --loop uvloop  # run dev server (http://127.0.0.1:8000)
+uv run pytest                                  # run tests
+```
+
 ## Static files
 
 Static assets (e.g. `robots.txt`, and future files like images) live in
