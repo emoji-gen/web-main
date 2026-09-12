@@ -7,6 +7,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Communicate with the user in Japanese in chat.
 - Write commit messages, documentation, and source code comments in English.
 
+## Git
+
+- Never run `git push` unless the user explicitly asks for it.
+
 ## About
 
 Emoji Generator — custom emoji/stamp image generator service. Image rendering
