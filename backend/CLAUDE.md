@@ -5,10 +5,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```sh
-uv sync                                        # install dependencies
-docker compose up -d --wait                    # start local Oracle NoSQL (KVLite) emulator
-uv run uvicorn app:app --reload --loop uvloop  # run dev server (http://127.0.0.1:8000)
-uv run pytest                                  # run tests
+# install dependencies
+uv sync
+# run dev server (http://127.0.0.1:8000)
+uv run uvicorn app:app --reload --loop uvloop
+# run tests
+uv run pytest
 ```
 
 ## Static files
@@ -20,10 +22,8 @@ served automatically — no route needs to be added per file. `robots.txt` is
 the one exception: since crawlers expect it at the site root, it also has a
 dedicated route in `app/routers.py` serving it at `/robots.txt`.
 
-## Oracle NoSQL Database
+## Database
 
 The app persists data in Oracle NoSQL Database via the `borneo` SDK
-(`app/database.py`), which exposes a `NoSQLHandle` as a `wireup` injectable.
-For local development, `docker compose up -d --wait` runs KVLite
-(`ghcr.io/oracle/nosql:latest-ce`) as a local emulator; see `README.md` for
-the full setup.
+(`app/database.py`). See `docs/nosql.md` for concepts, local setup, and
+commands.
