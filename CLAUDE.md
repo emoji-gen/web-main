@@ -6,7 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - Communicate with the user in Japanese in chat.
 - Write commit messages, documentation, and source code comments in
-  English, and explain their content in Japanese in chat.
+  English, and explain their content in Japanese in chat. For commits,
+  give this explanation before committing.
 
 ## Git
 
