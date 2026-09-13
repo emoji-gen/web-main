@@ -70,9 +70,9 @@ The app connects via the `borneo` SDK (`app/database.py`), which exposes a
 
 ```sh
 # start
-docker compose up -d --wait
+make up
 # stop
-docker compose down
+make down
 # health check (store/shard/admin/replication-node status)
 docker exec -it emoji-generator-nosql java -jar lib/kvstore.jar ping -host kvlite -port 5000
 # interactive SQL shell (SELECT, CREATE TABLE, SHOW DDL, ...)

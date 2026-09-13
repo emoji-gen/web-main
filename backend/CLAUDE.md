@@ -7,10 +7,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```sh
 # install dependencies
 uv sync
+# start local Oracle NoSQL (KVLite)
+make up
 # run dev server (http://127.0.0.1:8000)
-uv run uvicorn app:app --reload --loop uvloop
+make dev
 # run tests
 uv run pytest
+# stop local Oracle NoSQL (KVLite)
+make down
 ```
 
 ## Static files

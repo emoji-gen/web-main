@@ -22,11 +22,16 @@ for concepts, local setup, and commands.
 
 ## Development
 
-Start the local NoSQL database (see [`docs/nosql.md`](docs/nosql.md)), then
-run the development server:
+Start the local NoSQL database (see [`docs/nosql.md`](docs/nosql.md)):
 
 ```sh
-$ uv run uvicorn app:app --reload --loop uvloop
+$ make up
+```
+
+Then run the development server:
+
+```sh
+$ make dev
 ```
 
 The API will be available at http://127.0.0.1:8000.
