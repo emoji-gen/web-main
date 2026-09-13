@@ -36,6 +36,12 @@ $ make dev
 
 The API will be available at http://127.0.0.1:8000.
 
+Stop the local NoSQL database when done:
+
+```sh
+$ make down
+```
+
 ## Testing
 
 ```sh
