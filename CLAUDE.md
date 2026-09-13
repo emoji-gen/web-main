@@ -2,6 +2,11 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## About
+
+Emoji Generator — custom emoji/stamp image generator service. Image rendering
+uses the Skia graphics library.
+
 ## Language
 
 - Communicate with the user in Japanese in chat.
@@ -12,11 +17,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Git
 
 - Never run `git push` unless the user explicitly asks for it.
-
-## About
-
-Emoji Generator — custom emoji/stamp image generator service. Image rendering
-uses the Skia graphics library.
 
 ## Structure
 
