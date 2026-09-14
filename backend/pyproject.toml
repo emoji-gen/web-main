@@ -1,0 +1,19 @@
+[project]
+name = "emoji-generator-backend"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "borneo>=5.4.3",
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "wireup>=2.12.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "httpx2>=0.1.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
